@@ -114,7 +114,6 @@ def p_proc(p):
             | empty'''
 def p_procA(p):
     '''procA : ID '(' proc1 ')' '{' proc3 proc4 '}' '''
-    print p
 
 def p_proc1(p):
     '''proc1 : datatype ID proc2
