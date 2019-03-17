@@ -200,7 +200,6 @@ def p_relop(p):
              | LEQ
              | GEQ'''
 
- def p_logop(p):
-     '''logop : OR
-              | AND'''
-              
+def p_logop(p):
+ '''logop : OR
+          | AND'''
