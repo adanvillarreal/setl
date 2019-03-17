@@ -97,7 +97,7 @@ def p_program(p):
     '''program : PROGRAM ID ';' program1'''
 
 def p_program1(p):
-    '''program1 : vars program2
+    '''program1 : var program1
                 | program2'''
 
 def p_program2(p):
@@ -114,7 +114,6 @@ def p_proc(p):
             | empty'''
 def p_procA(p):
     '''procA : ID '(' proc1 ')' '{' proc3 proc4 '}' '''
-    print p
 
 def p_proc1(p):
     '''proc1 : datatype ID proc2
@@ -133,16 +132,35 @@ def p_proc4(p):
              | empty'''
 
 def p_vars(p):
-    '''vars : empty
-            | datatype vars1 ';' vars2'''
+    '''vars : var vars
+            | var'''
 
-def p_vars1(p):
-    '''vars1 : ID ',' vars1
-             | ID'''
+def p_var(p):
+    '''var : datatype var1 '''
 
-def p_vars2(p):
-    '''vars2 : vars
-             | empty'''
+def p_var1(p):
+    '''var1 : ID ',' var1
+             | ID var2'''
+
+def p_var2(p):
+    '''var2 : ';' '''
+
+# def p_vars1(p):
+#     '''vars2 : empty
+#              | vars'''
+#
+#
+# def p_vars(p):
+#     '''vars : datatype vars1 ';' vars
+#             | datatype vars1 ';' '''
+#
+# def p_vars1(p):
+#     '''vars1 : ID ',' vars1
+#              | ID'''
+#
+# def p_vars2(p):
+#     '''vars2 : vars
+#              | empty'''
 
 def p_assignment(p):
     '''assignment : ID ASSIGNATOR expression'''
