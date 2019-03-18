@@ -5,7 +5,7 @@ set<int> allNumbersLessThan(int x) {
      set<int> numbers;
 
      i := 1;
-     while(i <= x) {
+     while(i <= (x - 4)) {
           numbers.insert(i);
           i := i + 1;
      }
@@ -26,6 +26,7 @@ main {
      read(limit);
 
      allNumbers := allNumbersLessThan(limit);
+     something(123, "a", allNumbers);
 
      print(true == false);
 
@@ -36,6 +37,20 @@ main {
           f1 := f2;
           f2 := f3;
           f3 := f1 + f2;
+     }
+     if(a()) {
+       if(3 < 4 && 5 > 9) {
+         p := 3;
+       } else {
+         print("nothing", 123);
+       }
+     } else {
+        if(3) {
+          x := 4;
+        }
+        else {
+          opsdf("asdasd", a(fa("asd", 123, 543) - b.size()));
+        }
      }
 
      allNumbers := allNumbers - fibonacciNumbers;

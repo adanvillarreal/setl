@@ -216,12 +216,12 @@ def p_function_call(p):
     '''function_call : ID '(' function_call1 ')' '''
 
 def p_function_call1(p):
-    '''function_call1 : function_call2
-                      | empty'''
+    '''function_call1 : empty
+                      | function_call2'''
 
 def p_function_call2(p):
     '''function_call2 : expression ',' function_call2
-                      | empty'''
+                      | expression'''
 
 def p_return(p):
     '''return : RETURN expression'''
