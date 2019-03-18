@@ -5,8 +5,8 @@ import sys
 tokens = [
     'CTE_FLOAT',
     'CTE_INT',
-    'CTE_STRING',
     'CTE_BOOL',
+    'CTE_STRING',
     'CTE_CHAR',
     'ID',
     'ASSIGNATOR',
@@ -15,8 +15,8 @@ tokens = [
     'EQ',
     'NOT_EQ',
     'AND',
+    'OPERATION',
     'OR',
-    'OPERATION'
 ]
 
 t_ASSIGNATOR =  r':='
@@ -46,7 +46,14 @@ reserved = {
   'set': 'SET',
   'string': 'STRING',
   'void': 'VOID',
-  'while': 'WHILE'
+  'while': 'WHILE',
+  'size': 'OPERATION',
+  'clear': 'OPERATION',
+  'insert': 'OPERATION',
+  'remove': 'OPERATION',
+  'find': 'OPERATION',
+  'true': 'CTE_BOOL',
+  'false': 'CTE_BOOL'
 }
 
 def t_ID(t):
@@ -72,7 +79,7 @@ def t_CTE_CHAR(t):
     return t
 
 def t_CTE_BOOL(t):
-    r'(true|false)'
+    r'("true"|"false")'
     return t
 
 def t_error(t):
@@ -118,10 +125,11 @@ def p_proc(p):
     '''proc : functype ID '(' proc1 ')' '{' proc3 proc4 '}' '''
 
 def p_proc1(p):
-    '''proc1 : datatype ID proc2'''
+    '''proc1 : datatype ID proc2
+             | empty'''
 
 def p_proc2(p):
-    '''proc2 : ',' proc1
+    '''proc2 : ',' datatype ID proc2
              | empty'''
 
 def p_proc3(p):
@@ -321,7 +329,12 @@ def p_empty(p):
     '''empty : '''
 
 def p_error( p ):
-    print("Syntax error in input!")
+    stack_state_str = ' '.join([symbol.type for symbol in parser.symstack][1:])
+
+    print('Syntax error in input! Parser State:{} {} . {}'
+      .format(parser.state,
+              stack_state_str,
+              p))
 
 
 #----------------------------
@@ -331,7 +344,7 @@ lexer = lex.lex()
 
 
 #Build the parser
-parser = yacc.yacc()
+parser = yacc.yacc(debug=True)
 
 f = open("test1.txt", "r")
 s = ""
@@ -343,7 +356,7 @@ print(s)
 res = parser.parse(s)
 print(res)
 
-'''
+
 lexer.input(s)
 while True:
     tok = lexer.token()
@@ -351,4 +364,3 @@ while True:
       break
     print(tok)
     print("~~~~~~~~~~~~~~")
-'''

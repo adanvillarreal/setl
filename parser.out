@@ -1,13 +1,9 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    PROGRAM
-
 Grammar
 
 Rule 0     S' -> program
-Rule 1     program -> POGRAM ID ; program1
+Rule 1     program -> PROGRAM ID ; program1
 Rule 2     program1 -> program2 program3 main
 Rule 3     program2 -> vars
 Rule 4     program2 -> empty
@@ -20,214 +16,3617 @@ Rule 10    vars2 -> vars
 Rule 11    vars2 -> empty
 Rule 12    proc -> functype ID ( proc1 ) { proc3 proc4 }
 Rule 13    proc1 -> datatype ID proc2
-Rule 14    proc2 -> , proc1
-Rule 15    proc2 -> empty
-Rule 16    proc3 -> vars
-Rule 17    proc3 -> empty
-Rule 18    proc4 -> statement proc4
-Rule 19    proc4 -> empty
-Rule 20    assignment -> ID ASSIGNATOR expression
-Rule 21    condition -> IF ( expression ) block condition1
-Rule 22    condition1 -> ELSE block
-Rule 23    condition1 -> empty
-Rule 24    input -> READ ( ID input1 )
-Rule 25    input1 -> , ID input1
-Rule 26    input1 -> empty
-Rule 27    output -> PRINT ( expression output1 )
-Rule 28    output1 -> , expression output1
-Rule 29    output1 -> empty
-Rule 30    function_call -> ID ( function_call1 )
-Rule 31    function_call1 -> function_call2
-Rule 32    function_call1 -> empty
-Rule 33    function_call2 -> expression , function_call2
-Rule 34    function_call2 -> empty
-Rule 35    return -> RETURN expression
-Rule 36    set_operation -> ID . OPERATION ( set_operation1 )
-Rule 37    set_operation1 -> expression
-Rule 38    set_operation1 -> empty
-Rule 39    statement -> statement1 ;
-Rule 40    statement -> statement2
-Rule 41    statement1 -> assignment
-Rule 42    statement1 -> input
-Rule 43    statement1 -> output
-Rule 44    statement1 -> set_operation
-Rule 45    statement1 -> map_definition
-Rule 46    statement1 -> return
-Rule 47    statement1 -> map_assignment
-Rule 48    statement1 -> map_operation
-Rule 49    statement2 -> condition
-Rule 50    statement2 -> while
-Rule 51    while -> WHILE ( expression ) block
-Rule 52    relop -> <
-Rule 53    relop -> >
-Rule 54    relop -> NOT_EQ
-Rule 55    relop -> EQ
-Rule 56    relop -> LEQ
-Rule 57    relop -> GEQ
-Rule 58    logop -> OR
-Rule 59    logop -> AND
-Rule 60    expression -> exp0 expression2
-Rule 61    expression2 -> logop exp0 expression2
-Rule 62    expression2 -> empty
-Rule 63    exp0 -> exp exp02
-Rule 64    exp02 -> relop exp02
-Rule 65    exp02 -> empty
-Rule 66    exp -> term exp2
-Rule 67    addsub -> +
-Rule 68    addsub -> -
-Rule 69    muldiv -> *
-Rule 70    muldiv -> /
-Rule 71    exp2 -> addsub term exp2
-Rule 72    exp2 -> empty
-Rule 73    term -> term_not factor term2
-Rule 74    term2 -> muldiv factor term2
-Rule 75    term2 -> empty
-Rule 76    term_not -> !
-Rule 77    term_not -> empty
-Rule 78    factor -> ( expression )
-Rule 79    factor -> factor2
-Rule 80    factor2 -> factor3 varcte
-Rule 81    factor3 -> addsub
-Rule 82    factor3 -> empty
-Rule 83    varcte -> ID
-Rule 84    varcte -> CTE_INT
-Rule 85    varcte -> CTE_FLOAT
-Rule 86    varcte -> CTE_BOOL
-Rule 87    varcte -> CTE_STRING
-Rule 88    varcte -> CTE_CHAR
-Rule 89    varcte -> function_call
-Rule 90    varcte -> map_access
-Rule 91    varcte -> map_operation
-Rule 92    varcte -> set_operation
-Rule 93    datatype -> INT
-Rule 94    datatype -> FLOAT
-Rule 95    datatype -> BOOL
-Rule 96    datatype -> STRING
-Rule 97    datatype -> CHAR
-Rule 98    datatype -> set_definition
-Rule 99    datatype -> map_definition
-Rule 100   set_definition -> SET < datatype >
-Rule 101   functype -> datatype
-Rule 102   functype -> VOID
-Rule 103   block -> { statement_aux }
-Rule 104   statement_aux -> statement statement_aux
-Rule 105   statement_aux -> empty
-Rule 106   main -> MAIN { vars_aux statement_aux }
-Rule 107   vars_aux -> vars
-Rule 108   vars_aux -> empty
-Rule 109   map_definition -> MAP < datatype , datatype >
-Rule 110   map_access -> ID ( exp )
-Rule 111   map_assignment -> map_access ASSIGNATOR exp
-Rule 112   map_operation -> ID . OPERATION ( )
-Rule 113   empty -> <empty>
+Rule 14    proc1 -> empty
+Rule 15    proc2 -> , datatype ID proc2
+Rule 16    proc2 -> empty
+Rule 17    proc3 -> vars
+Rule 18    proc3 -> empty
+Rule 19    proc4 -> statement proc4
+Rule 20    proc4 -> empty
+Rule 21    assignment -> ID ASSIGNATOR expression
+Rule 22    condition -> IF ( expression ) block condition1
+Rule 23    condition1 -> ELSE block
+Rule 24    condition1 -> empty
+Rule 25    input -> READ ( ID input1 )
+Rule 26    input1 -> , ID input1
+Rule 27    input1 -> empty
+Rule 28    output -> PRINT ( expression output1 )
+Rule 29    output1 -> , expression output1
+Rule 30    output1 -> empty
+Rule 31    function_call -> ID ( function_call1 )
+Rule 32    function_call1 -> function_call2
+Rule 33    function_call1 -> empty
+Rule 34    function_call2 -> expression , function_call2
+Rule 35    function_call2 -> empty
+Rule 36    return -> RETURN expression
+Rule 37    set_operation -> ID . OPERATION ( set_operation1 )
+Rule 38    set_operation1 -> expression
+Rule 39    set_operation1 -> empty
+Rule 40    statement -> statement1 ;
+Rule 41    statement -> statement2
+Rule 42    statement1 -> assignment
+Rule 43    statement1 -> input
+Rule 44    statement1 -> output
+Rule 45    statement1 -> set_operation
+Rule 46    statement1 -> map_definition
+Rule 47    statement1 -> return
+Rule 48    statement1 -> map_assignment
+Rule 49    statement1 -> map_operation
+Rule 50    statement2 -> condition
+Rule 51    statement2 -> while
+Rule 52    while -> WHILE ( expression ) block
+Rule 53    relop -> <
+Rule 54    relop -> >
+Rule 55    relop -> NOT_EQ
+Rule 56    relop -> EQ
+Rule 57    relop -> LEQ
+Rule 58    relop -> GEQ
+Rule 59    logop -> OR
+Rule 60    logop -> AND
+Rule 61    expression -> exp0 expression2
+Rule 62    expression2 -> logop exp0 expression2
+Rule 63    expression2 -> empty
+Rule 64    exp0 -> exp exp02
+Rule 65    exp02 -> relop exp02
+Rule 66    exp02 -> empty
+Rule 67    exp -> term exp2
+Rule 68    addsub -> +
+Rule 69    addsub -> -
+Rule 70    muldiv -> *
+Rule 71    muldiv -> /
+Rule 72    exp2 -> addsub term exp2
+Rule 73    exp2 -> empty
+Rule 74    term -> term_not factor term2
+Rule 75    term2 -> muldiv factor term2
+Rule 76    term2 -> empty
+Rule 77    term_not -> !
+Rule 78    term_not -> empty
+Rule 79    factor -> ( expression )
+Rule 80    factor -> factor2
+Rule 81    factor2 -> factor3 varcte
+Rule 82    factor3 -> addsub
+Rule 83    factor3 -> empty
+Rule 84    varcte -> ID
+Rule 85    varcte -> CTE_INT
+Rule 86    varcte -> CTE_FLOAT
+Rule 87    varcte -> CTE_BOOL
+Rule 88    varcte -> CTE_STRING
+Rule 89    varcte -> CTE_CHAR
+Rule 90    varcte -> function_call
+Rule 91    varcte -> map_access
+Rule 92    varcte -> map_operation
+Rule 93    varcte -> set_operation
+Rule 94    datatype -> INT
+Rule 95    datatype -> FLOAT
+Rule 96    datatype -> BOOL
+Rule 97    datatype -> STRING
+Rule 98    datatype -> CHAR
+Rule 99    datatype -> set_definition
+Rule 100   datatype -> map_definition
+Rule 101   set_definition -> SET < datatype >
+Rule 102   functype -> datatype
+Rule 103   functype -> VOID
+Rule 104   block -> { statement_aux }
+Rule 105   statement_aux -> statement statement_aux
+Rule 106   statement_aux -> empty
+Rule 107   main -> MAIN { vars_aux statement_aux }
+Rule 108   vars_aux -> vars
+Rule 109   vars_aux -> empty
+Rule 110   map_definition -> MAP < datatype , datatype >
+Rule 111   map_access -> ID ( exp )
+Rule 112   map_assignment -> map_access ASSIGNATOR exp
+Rule 113   map_operation -> ID . OPERATION ( )
+Rule 114   empty -> <empty>
 
 Terminals, with rules where they appear
 
-!                    : 76
-(                    : 12 21 24 27 30 36 51 78 110 112
-)                    : 12 21 24 27 30 36 51 78 110 112
-*                    : 69
-+                    : 67
-,                    : 8 14 25 28 33 109
--                    : 68
-.                    : 36 112
-/                    : 70
-;                    : 1 7 39
-<                    : 52 100 109
->                    : 53 100 109
-AND                  : 59
-ASSIGNATOR           : 20 111
-BOOL                 : 95
-CHAR                 : 97
-CTE_BOOL             : 86
-CTE_CHAR             : 88
-CTE_FLOAT            : 85
-CTE_INT              : 84
-CTE_STRING           : 87
-ELSE                 : 22
-EQ                   : 55
-FLOAT                : 94
-GEQ                  : 57
-ID                   : 1 8 9 12 13 20 24 25 30 36 83 110 112
-IF                   : 21
-INT                  : 93
-LEQ                  : 56
-MAIN                 : 106
-MAP                  : 109
-NOT_EQ               : 54
-OPERATION            : 36 112
-OR                   : 58
-PRINT                : 27
-PROGRAM              : 
-READ                 : 24
-RETURN               : 35
-SET                  : 100
-STRING               : 96
-VOID                 : 102
-WHILE                : 51
+!                    : 77
+(                    : 12 22 25 28 31 37 52 79 111 113
+)                    : 12 22 25 28 31 37 52 79 111 113
+*                    : 70
++                    : 68
+,                    : 8 15 26 29 34 110
+-                    : 69
+.                    : 37 113
+/                    : 71
+;                    : 1 7 40
+<                    : 53 101 110
+>                    : 54 101 110
+AND                  : 60
+ASSIGNATOR           : 21 112
+BOOL                 : 96
+CHAR                 : 98
+CTE_BOOL             : 87
+CTE_CHAR             : 89
+CTE_FLOAT            : 86
+CTE_INT              : 85
+CTE_STRING           : 88
+ELSE                 : 23
+EQ                   : 56
+FLOAT                : 95
+GEQ                  : 58
+ID                   : 1 8 9 12 13 15 21 25 26 31 37 84 111 113
+IF                   : 22
+INT                  : 94
+LEQ                  : 57
+MAIN                 : 107
+MAP                  : 110
+NOT_EQ               : 55
+OPERATION            : 37 113
+OR                   : 59
+PRINT                : 28
+PROGRAM              : 1
+READ                 : 25
+RETURN               : 36
+SET                  : 101
+STRING               : 97
+VOID                 : 103
+WHILE                : 52
 error                : 
-{                    : 12 103 106
-}                    : 12 103 106
+{                    : 12 104 107
+}                    : 12 104 107
 
 Nonterminals, with rules where they appear
 
-POGRAM               : 1
-addsub               : 71 81
-assignment           : 41
-block                : 21 22 51
-condition            : 49
-condition1           : 21
-datatype             : 7 13 100 101 109 109
-empty                : 4 6 11 15 17 19 23 26 29 32 34 38 62 65 72 75 77 82 105 108
-exp                  : 63 110 111
-exp0                 : 60 61
-exp02                : 63 64
-exp2                 : 66 71
-expression           : 20 21 27 28 33 35 37 51 78
-expression2          : 60 61
-factor               : 73 74
-factor2              : 79
-factor3              : 80
-function_call        : 89
-function_call1       : 30
-function_call2       : 31 33
+addsub               : 72 82
+assignment           : 42
+block                : 22 23 52
+condition            : 50
+condition1           : 22
+datatype             : 7 13 15 101 102 110 110
+empty                : 4 6 11 14 16 18 20 24 27 30 33 35 39 63 66 73 76 78 83 106 109
+exp                  : 64 111 112
+exp0                 : 61 62
+exp02                : 64 65
+exp2                 : 67 72
+expression           : 21 22 28 29 34 36 38 52 79
+expression2          : 61 62
+factor               : 74 75
+factor2              : 80
+factor3              : 81
+function_call        : 90
+function_call1       : 31
+function_call2       : 32 34
 functype             : 12
-input                : 42
-input1               : 24 25
-logop                : 61
+input                : 43
+input1               : 25 26
+logop                : 62
 main                 : 2
-map_access           : 90 111
-map_assignment       : 47
-map_definition       : 45 99
-map_operation        : 48 91
-muldiv               : 74
-output               : 43
-output1              : 27 28
+map_access           : 91 112
+map_assignment       : 48
+map_definition       : 46 100
+map_operation        : 49 92
+muldiv               : 75
+output               : 44
+output1              : 28 29
 proc                 : 5
-proc1                : 12 14
-proc2                : 13
+proc1                : 12
+proc2                : 13 15
 proc3                : 12
-proc4                : 12 18
+proc4                : 12 19
 program              : 0
 program1             : 1
 program2             : 2
 program3             : 2 5
-relop                : 64
-return               : 46
-set_definition       : 98
-set_operation        : 44 92
-set_operation1       : 36
-statement            : 18 104
-statement1           : 39
-statement2           : 40
-statement_aux        : 103 104 106
-term                 : 66 71
-term2                : 73 74
-term_not             : 73
-varcte               : 80
-vars                 : 3 10 16 107
+relop                : 65
+return               : 47
+set_definition       : 99
+set_operation        : 45 93
+set_operation1       : 37
+statement            : 19 105
+statement1           : 40
+statement2           : 41
+statement_aux        : 104 105 107
+term                 : 67 72
+term2                : 74 75
+term_not             : 74
+varcte               : 81
+vars                 : 3 10 17 108
 vars1                : 7 8
 vars2                : 7
-vars_aux             : 106
-while                : 50
+vars_aux             : 107
+while                : 51
 
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . PROGRAM ID ; program1
+
+    PROGRAM         shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> PROGRAM . ID ; program1
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) program -> PROGRAM ID . ; program1
+
+    ;               shift and go to state 4
+
+
+state 4
+
+    (1) program -> PROGRAM ID ; . program1
+    (2) program1 -> . program2 program3 main
+    (3) program2 -> . vars
+    (4) program2 -> . empty
+    (7) vars -> . datatype vars1 ; vars2
+    (114) empty -> .
+    (94) datatype -> . INT
+    (95) datatype -> . FLOAT
+    (96) datatype -> . BOOL
+    (97) datatype -> . STRING
+    (98) datatype -> . CHAR
+    (99) datatype -> . set_definition
+    (100) datatype -> . map_definition
+    (101) set_definition -> . SET < datatype >
+    (110) map_definition -> . MAP < datatype , datatype >
+
+  ! shift/reduce conflict for INT resolved as shift
+  ! shift/reduce conflict for FLOAT resolved as shift
+  ! shift/reduce conflict for BOOL resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
+  ! shift/reduce conflict for CHAR resolved as shift
+  ! shift/reduce conflict for SET resolved as shift
+  ! shift/reduce conflict for MAP resolved as shift
+    VOID            reduce using rule 114 (empty -> .)
+    MAIN            reduce using rule 114 (empty -> .)
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+    BOOL            shift and go to state 12
+    STRING          shift and go to state 13
+    CHAR            shift and go to state 14
+    SET             shift and go to state 17
+    MAP             shift and go to state 18
+
+  ! INT             [ reduce using rule 114 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 114 (empty -> .) ]
+  ! BOOL            [ reduce using rule 114 (empty -> .) ]
+  ! STRING          [ reduce using rule 114 (empty -> .) ]
+  ! CHAR            [ reduce using rule 114 (empty -> .) ]
+  ! SET             [ reduce using rule 114 (empty -> .) ]
+  ! MAP             [ reduce using rule 114 (empty -> .) ]
+
+    program1                       shift and go to state 5
+    program2                       shift and go to state 6
+    vars                           shift and go to state 7
+    empty                          shift and go to state 8
+    datatype                       shift and go to state 9
+    set_definition                 shift and go to state 15
+    map_definition                 shift and go to state 16
+
+state 5
+
+    (1) program -> PROGRAM ID ; program1 .
+
+    $end            reduce using rule 1 (program -> PROGRAM ID ; program1 .)
+
+
+state 6
+
+    (2) program1 -> program2 . program3 main
+    (5) program3 -> . proc program3
+    (6) program3 -> . empty
+    (12) proc -> . functype ID ( proc1 ) { proc3 proc4 }
+    (114) empty -> .
+    (102) functype -> . datatype
+    (103) functype -> . VOID
+    (94) datatype -> . INT
+    (95) datatype -> . FLOAT
+    (96) datatype -> . BOOL
+    (97) datatype -> . STRING
+    (98) datatype -> . CHAR
+    (99) datatype -> . set_definition
+    (100) datatype -> . map_definition
+    (101) set_definition -> . SET < datatype >
+    (110) map_definition -> . MAP < datatype , datatype >
+
+    MAIN            reduce using rule 114 (empty -> .)
+    VOID            shift and go to state 24
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+    BOOL            shift and go to state 12
+    STRING          shift and go to state 13
+    CHAR            shift and go to state 14
+    SET             shift and go to state 17
+    MAP             shift and go to state 18
+
+    program3                       shift and go to state 19
+    proc                           shift and go to state 20
+    empty                          shift and go to state 21
+    functype                       shift and go to state 22
+    datatype                       shift and go to state 23
+    set_definition                 shift and go to state 15
+    map_definition                 shift and go to state 16
+
+state 7
+
+    (3) program2 -> vars .
+
+    VOID            reduce using rule 3 (program2 -> vars .)
+    INT             reduce using rule 3 (program2 -> vars .)
+    FLOAT           reduce using rule 3 (program2 -> vars .)
+    BOOL            reduce using rule 3 (program2 -> vars .)
+    STRING          reduce using rule 3 (program2 -> vars .)
+    CHAR            reduce using rule 3 (program2 -> vars .)
+    SET             reduce using rule 3 (program2 -> vars .)
+    MAP             reduce using rule 3 (program2 -> vars .)
+    MAIN            reduce using rule 3 (program2 -> vars .)
+
+
+state 8
+
+    (4) program2 -> empty .
+
+    VOID            reduce using rule 4 (program2 -> empty .)
+    INT             reduce using rule 4 (program2 -> empty .)
+    FLOAT           reduce using rule 4 (program2 -> empty .)
+    BOOL            reduce using rule 4 (program2 -> empty .)
+    STRING          reduce using rule 4 (program2 -> empty .)
+    CHAR            reduce using rule 4 (program2 -> empty .)
+    SET             reduce using rule 4 (program2 -> empty .)
+    MAP             reduce using rule 4 (program2 -> empty .)
+    MAIN            reduce using rule 4 (program2 -> empty .)
+
+
+state 9
+
+    (7) vars -> datatype . vars1 ; vars2
+    (8) vars1 -> . ID , vars1
+    (9) vars1 -> . ID
+
+    ID              shift and go to state 26
+
+    vars1                          shift and go to state 25
+
+state 10
+
+    (94) datatype -> INT .
+
+    ID              reduce using rule 94 (datatype -> INT .)
+    >               reduce using rule 94 (datatype -> INT .)
+    ,               reduce using rule 94 (datatype -> INT .)
+
+
+state 11
+
+    (95) datatype -> FLOAT .
+
+    ID              reduce using rule 95 (datatype -> FLOAT .)
+    >               reduce using rule 95 (datatype -> FLOAT .)
+    ,               reduce using rule 95 (datatype -> FLOAT .)
+
+
+state 12
+
+    (96) datatype -> BOOL .
+
+    ID              reduce using rule 96 (datatype -> BOOL .)
+    >               reduce using rule 96 (datatype -> BOOL .)
+    ,               reduce using rule 96 (datatype -> BOOL .)
+
+
+state 13
+
+    (97) datatype -> STRING .
+
+    ID              reduce using rule 97 (datatype -> STRING .)
+    >               reduce using rule 97 (datatype -> STRING .)
+    ,               reduce using rule 97 (datatype -> STRING .)
+
+
+state 14
+
+    (98) datatype -> CHAR .
+
+    ID              reduce using rule 98 (datatype -> CHAR .)
+    >               reduce using rule 98 (datatype -> CHAR .)
+    ,               reduce using rule 98 (datatype -> CHAR .)
+
+
+state 15
+
+    (99) datatype -> set_definition .
+
+    ID              reduce using rule 99 (datatype -> set_definition .)
+    >               reduce using rule 99 (datatype -> set_definition .)
+    ,               reduce using rule 99 (datatype -> set_definition .)
+
+
+state 16
+
+    (100) datatype -> map_definition .
+
+    ID              reduce using rule 100 (datatype -> map_definition .)
+    >               reduce using rule 100 (datatype -> map_definition .)
+    ,               reduce using rule 100 (datatype -> map_definition .)
+
+
+state 17
+
+    (101) set_definition -> SET . < datatype >
+
+    <               shift and go to state 27
+
+
+state 18
+
+    (110) map_definition -> MAP . < datatype , datatype >
+
+    <               shift and go to state 28
+
+
+state 19
+
+    (2) program1 -> program2 program3 . main
+    (107) main -> . MAIN { vars_aux statement_aux }
+
+    MAIN            shift and go to state 30
+
+    main                           shift and go to state 29
+
+state 20
+
+    (5) program3 -> proc . program3
+    (5) program3 -> . proc program3
+    (6) program3 -> . empty
+    (12) proc -> . functype ID ( proc1 ) { proc3 proc4 }
+    (114) empty -> .
+    (102) functype -> . datatype
+    (103) functype -> . VOID
+    (94) datatype -> . INT
+    (95) datatype -> . FLOAT
+    (96) datatype -> . BOOL
+    (97) datatype -> . STRING
+    (98) datatype -> . CHAR
+    (99) datatype -> . set_definition
+    (100) datatype -> . map_definition
+    (101) set_definition -> . SET < datatype >
+    (110) map_definition -> . MAP < datatype , datatype >
+
+    MAIN            reduce using rule 114 (empty -> .)
+    VOID            shift and go to state 24
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+    BOOL            shift and go to state 12
+    STRING          shift and go to state 13
+    CHAR            shift and go to state 14
+    SET             shift and go to state 17
+    MAP             shift and go to state 18
+
+    proc                           shift and go to state 20
+    program3                       shift and go to state 31
+    empty                          shift and go to state 21
+    functype                       shift and go to state 22
+    datatype                       shift and go to state 23
+    set_definition                 shift and go to state 15
+    map_definition                 shift and go to state 16
+
+state 21
+
+    (6) program3 -> empty .
+
+    MAIN            reduce using rule 6 (program3 -> empty .)
+
+
+state 22
+
+    (12) proc -> functype . ID ( proc1 ) { proc3 proc4 }
+
+    ID              shift and go to state 32
+
+
+state 23
+
+    (102) functype -> datatype .
+
+    ID              reduce using rule 102 (functype -> datatype .)
+
+
+state 24
+
+    (103) functype -> VOID .
+
+    ID              reduce using rule 103 (functype -> VOID .)
+
+
+state 25
+
+    (7) vars -> datatype vars1 . ; vars2
+
+    ;               shift and go to state 33
+
+
+state 26
+
+    (8) vars1 -> ID . , vars1
+    (9) vars1 -> ID .
+
+    ,               shift and go to state 34
+    ;               reduce using rule 9 (vars1 -> ID .)
+
+
+state 27
+
+    (101) set_definition -> SET < . datatype >
+    (94) datatype -> . INT
+    (95) datatype -> . FLOAT
+    (96) datatype -> . BOOL
+    (97) datatype -> . STRING
+    (98) datatype -> . CHAR
+    (99) datatype -> . set_definition
+    (100) datatype -> . map_definition
+    (101) set_definition -> . SET < datatype >
+    (110) map_definition -> . MAP < datatype , datatype >
+
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+    BOOL            shift and go to state 12
+    STRING          shift and go to state 13
+    CHAR            shift and go to state 14
+    SET             shift and go to state 17
+    MAP             shift and go to state 18
+
+    datatype                       shift and go to state 35
+    set_definition                 shift and go to state 15
+    map_definition                 shift and go to state 16
+
+state 28
+
+    (110) map_definition -> MAP < . datatype , datatype >
+    (94) datatype -> . INT
+    (95) datatype -> . FLOAT
+    (96) datatype -> . BOOL
+    (97) datatype -> . STRING
+    (98) datatype -> . CHAR
+    (99) datatype -> . set_definition
+    (100) datatype -> . map_definition
+    (101) set_definition -> . SET < datatype >
+    (110) map_definition -> . MAP < datatype , datatype >
+
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+    BOOL            shift and go to state 12
+    STRING          shift and go to state 13
+    CHAR            shift and go to state 14
+    SET             shift and go to state 17
+    MAP             shift and go to state 18
+
+    datatype                       shift and go to state 36
+    set_definition                 shift and go to state 15
+    map_definition                 shift and go to state 16
+
+state 29
+
+    (2) program1 -> program2 program3 main .
+
+    $end            reduce using rule 2 (program1 -> program2 program3 main .)
+
+
+state 30
+
+    (107) main -> MAIN . { vars_aux statement_aux }
+
+    {               shift and go to state 37
+
+
+state 31
+
+    (5) program3 -> proc program3 .
+
+    MAIN            reduce using rule 5 (program3 -> proc program3 .)
+
+
+state 32
+
+    (12) proc -> functype ID . ( proc1 ) { proc3 proc4 }
+
+    (               shift and go to state 38
+
+
+state 33
+
+    (7) vars -> datatype vars1 ; . vars2
+    (10) vars2 -> . vars
+    (11) vars2 -> . empty
+    (7) vars -> . datatype vars1 ; vars2
+    (114) empty -> .
+    (94) datatype -> . INT
+    (95) datatype -> . FLOAT
+    (96) datatype -> . BOOL
+    (97) datatype -> . STRING
+    (98) datatype -> . CHAR
+    (99) datatype -> . set_definition
+    (100) datatype -> . map_definition
+    (101) set_definition -> . SET < datatype >
+    (110) map_definition -> . MAP < datatype , datatype >
+
+  ! shift/reduce conflict for INT resolved as shift
+  ! shift/reduce conflict for FLOAT resolved as shift
+  ! shift/reduce conflict for BOOL resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
+  ! shift/reduce conflict for CHAR resolved as shift
+  ! shift/reduce conflict for SET resolved as shift
+  ! shift/reduce conflict for MAP resolved as shift
+    VOID            reduce using rule 114 (empty -> .)
+    MAIN            reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    READ            reduce using rule 114 (empty -> .)
+    PRINT           reduce using rule 114 (empty -> .)
+    RETURN          reduce using rule 114 (empty -> .)
+    IF              reduce using rule 114 (empty -> .)
+    WHILE           reduce using rule 114 (empty -> .)
+    }               reduce using rule 114 (empty -> .)
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+    BOOL            shift and go to state 12
+    STRING          shift and go to state 13
+    CHAR            shift and go to state 14
+    SET             shift and go to state 17
+    MAP             shift and go to state 18
+
+  ! INT             [ reduce using rule 114 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 114 (empty -> .) ]
+  ! BOOL            [ reduce using rule 114 (empty -> .) ]
+  ! STRING          [ reduce using rule 114 (empty -> .) ]
+  ! CHAR            [ reduce using rule 114 (empty -> .) ]
+  ! SET             [ reduce using rule 114 (empty -> .) ]
+  ! MAP             [ reduce using rule 114 (empty -> .) ]
+
+    datatype                       shift and go to state 9
+    vars2                          shift and go to state 39
+    vars                           shift and go to state 40
+    empty                          shift and go to state 41
+    set_definition                 shift and go to state 15
+    map_definition                 shift and go to state 16
+
+state 34
+
+    (8) vars1 -> ID , . vars1
+    (8) vars1 -> . ID , vars1
+    (9) vars1 -> . ID
+
+    ID              shift and go to state 26
+
+    vars1                          shift and go to state 42
+
+state 35
+
+    (101) set_definition -> SET < datatype . >
+
+    >               shift and go to state 43
+
+
+state 36
+
+    (110) map_definition -> MAP < datatype . , datatype >
+
+    ,               shift and go to state 44
+
+
+state 37
+
+    (107) main -> MAIN { . vars_aux statement_aux }
+    (108) vars_aux -> . vars
+    (109) vars_aux -> . empty
+    (7) vars -> . datatype vars1 ; vars2
+    (114) empty -> .
+    (94) datatype -> . INT
+    (95) datatype -> . FLOAT
+    (96) datatype -> . BOOL
+    (97) datatype -> . STRING
+    (98) datatype -> . CHAR
+    (99) datatype -> . set_definition
+    (100) datatype -> . map_definition
+    (101) set_definition -> . SET < datatype >
+    (110) map_definition -> . MAP < datatype , datatype >
+
+  ! shift/reduce conflict for MAP resolved as shift
+    ID              reduce using rule 114 (empty -> .)
+    READ            reduce using rule 114 (empty -> .)
+    PRINT           reduce using rule 114 (empty -> .)
+    RETURN          reduce using rule 114 (empty -> .)
+    IF              reduce using rule 114 (empty -> .)
+    WHILE           reduce using rule 114 (empty -> .)
+    }               reduce using rule 114 (empty -> .)
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+    BOOL            shift and go to state 12
+    STRING          shift and go to state 13
+    CHAR            shift and go to state 14
+    SET             shift and go to state 17
+    MAP             shift and go to state 18
+
+  ! MAP             [ reduce using rule 114 (empty -> .) ]
+
+    vars_aux                       shift and go to state 45
+    vars                           shift and go to state 46
+    empty                          shift and go to state 47
+    datatype                       shift and go to state 9
+    set_definition                 shift and go to state 15
+    map_definition                 shift and go to state 16
+
+state 38
+
+    (12) proc -> functype ID ( . proc1 ) { proc3 proc4 }
+    (13) proc1 -> . datatype ID proc2
+    (14) proc1 -> . empty
+    (94) datatype -> . INT
+    (95) datatype -> . FLOAT
+    (96) datatype -> . BOOL
+    (97) datatype -> . STRING
+    (98) datatype -> . CHAR
+    (99) datatype -> . set_definition
+    (100) datatype -> . map_definition
+    (114) empty -> .
+    (101) set_definition -> . SET < datatype >
+    (110) map_definition -> . MAP < datatype , datatype >
+
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+    BOOL            shift and go to state 12
+    STRING          shift and go to state 13
+    CHAR            shift and go to state 14
+    )               reduce using rule 114 (empty -> .)
+    SET             shift and go to state 17
+    MAP             shift and go to state 18
+
+    proc1                          shift and go to state 48
+    datatype                       shift and go to state 49
+    empty                          shift and go to state 50
+    set_definition                 shift and go to state 15
+    map_definition                 shift and go to state 16
+
+state 39
+
+    (7) vars -> datatype vars1 ; vars2 .
+
+    VOID            reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    INT             reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    FLOAT           reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    BOOL            reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    STRING          reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    CHAR            reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    SET             reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    MAP             reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    MAIN            reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    ID              reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    READ            reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    PRINT           reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    RETURN          reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    IF              reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    WHILE           reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+    }               reduce using rule 7 (vars -> datatype vars1 ; vars2 .)
+
+
+state 40
+
+    (10) vars2 -> vars .
+
+    VOID            reduce using rule 10 (vars2 -> vars .)
+    INT             reduce using rule 10 (vars2 -> vars .)
+    FLOAT           reduce using rule 10 (vars2 -> vars .)
+    BOOL            reduce using rule 10 (vars2 -> vars .)
+    STRING          reduce using rule 10 (vars2 -> vars .)
+    CHAR            reduce using rule 10 (vars2 -> vars .)
+    SET             reduce using rule 10 (vars2 -> vars .)
+    MAP             reduce using rule 10 (vars2 -> vars .)
+    MAIN            reduce using rule 10 (vars2 -> vars .)
+    ID              reduce using rule 10 (vars2 -> vars .)
+    READ            reduce using rule 10 (vars2 -> vars .)
+    PRINT           reduce using rule 10 (vars2 -> vars .)
+    RETURN          reduce using rule 10 (vars2 -> vars .)
+    IF              reduce using rule 10 (vars2 -> vars .)
+    WHILE           reduce using rule 10 (vars2 -> vars .)
+    }               reduce using rule 10 (vars2 -> vars .)
+
+
+state 41
+
+    (11) vars2 -> empty .
+
+    VOID            reduce using rule 11 (vars2 -> empty .)
+    INT             reduce using rule 11 (vars2 -> empty .)
+    FLOAT           reduce using rule 11 (vars2 -> empty .)
+    BOOL            reduce using rule 11 (vars2 -> empty .)
+    STRING          reduce using rule 11 (vars2 -> empty .)
+    CHAR            reduce using rule 11 (vars2 -> empty .)
+    SET             reduce using rule 11 (vars2 -> empty .)
+    MAP             reduce using rule 11 (vars2 -> empty .)
+    MAIN            reduce using rule 11 (vars2 -> empty .)
+    ID              reduce using rule 11 (vars2 -> empty .)
+    READ            reduce using rule 11 (vars2 -> empty .)
+    PRINT           reduce using rule 11 (vars2 -> empty .)
+    RETURN          reduce using rule 11 (vars2 -> empty .)
+    IF              reduce using rule 11 (vars2 -> empty .)
+    WHILE           reduce using rule 11 (vars2 -> empty .)
+    }               reduce using rule 11 (vars2 -> empty .)
+
+
+state 42
+
+    (8) vars1 -> ID , vars1 .
+
+    ;               reduce using rule 8 (vars1 -> ID , vars1 .)
+
+
+state 43
+
+    (101) set_definition -> SET < datatype > .
+
+    ID              reduce using rule 101 (set_definition -> SET < datatype > .)
+    >               reduce using rule 101 (set_definition -> SET < datatype > .)
+    ,               reduce using rule 101 (set_definition -> SET < datatype > .)
+
+
+state 44
+
+    (110) map_definition -> MAP < datatype , . datatype >
+    (94) datatype -> . INT
+    (95) datatype -> . FLOAT
+    (96) datatype -> . BOOL
+    (97) datatype -> . STRING
+    (98) datatype -> . CHAR
+    (99) datatype -> . set_definition
+    (100) datatype -> . map_definition
+    (101) set_definition -> . SET < datatype >
+    (110) map_definition -> . MAP < datatype , datatype >
+
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+    BOOL            shift and go to state 12
+    STRING          shift and go to state 13
+    CHAR            shift and go to state 14
+    SET             shift and go to state 17
+    MAP             shift and go to state 18
+
+    datatype                       shift and go to state 51
+    set_definition                 shift and go to state 15
+    map_definition                 shift and go to state 16
+
+state 45
+
+    (107) main -> MAIN { vars_aux . statement_aux }
+    (105) statement_aux -> . statement statement_aux
+    (106) statement_aux -> . empty
+    (40) statement -> . statement1 ;
+    (41) statement -> . statement2
+    (114) empty -> .
+    (42) statement1 -> . assignment
+    (43) statement1 -> . input
+    (44) statement1 -> . output
+    (45) statement1 -> . set_operation
+    (46) statement1 -> . map_definition
+    (47) statement1 -> . return
+    (48) statement1 -> . map_assignment
+    (49) statement1 -> . map_operation
+    (50) statement2 -> . condition
+    (51) statement2 -> . while
+    (21) assignment -> . ID ASSIGNATOR expression
+    (25) input -> . READ ( ID input1 )
+    (28) output -> . PRINT ( expression output1 )
+    (37) set_operation -> . ID . OPERATION ( set_operation1 )
+    (110) map_definition -> . MAP < datatype , datatype >
+    (36) return -> . RETURN expression
+    (112) map_assignment -> . map_access ASSIGNATOR exp
+    (113) map_operation -> . ID . OPERATION ( )
+    (22) condition -> . IF ( expression ) block condition1
+    (52) while -> . WHILE ( expression ) block
+    (111) map_access -> . ID ( exp )
+
+    }               reduce using rule 114 (empty -> .)
+    ID              shift and go to state 67
+    READ            shift and go to state 68
+    PRINT           shift and go to state 69
+    MAP             shift and go to state 18
+    RETURN          shift and go to state 70
+    IF              shift and go to state 72
+    WHILE           shift and go to state 73
+
+    statement_aux                  shift and go to state 52
+    statement                      shift and go to state 53
+    empty                          shift and go to state 54
+    statement1                     shift and go to state 55
+    statement2                     shift and go to state 56
+    assignment                     shift and go to state 57
+    input                          shift and go to state 58
+    output                         shift and go to state 59
+    set_operation                  shift and go to state 60
+    map_definition                 shift and go to state 61
+    return                         shift and go to state 62
+    map_assignment                 shift and go to state 63
+    map_operation                  shift and go to state 64
+    condition                      shift and go to state 65
+    while                          shift and go to state 66
+    map_access                     shift and go to state 71
+
+state 46
+
+    (108) vars_aux -> vars .
+
+    ID              reduce using rule 108 (vars_aux -> vars .)
+    READ            reduce using rule 108 (vars_aux -> vars .)
+    PRINT           reduce using rule 108 (vars_aux -> vars .)
+    MAP             reduce using rule 108 (vars_aux -> vars .)
+    RETURN          reduce using rule 108 (vars_aux -> vars .)
+    IF              reduce using rule 108 (vars_aux -> vars .)
+    WHILE           reduce using rule 108 (vars_aux -> vars .)
+    }               reduce using rule 108 (vars_aux -> vars .)
+
+
+state 47
+
+    (109) vars_aux -> empty .
+
+    ID              reduce using rule 109 (vars_aux -> empty .)
+    READ            reduce using rule 109 (vars_aux -> empty .)
+    PRINT           reduce using rule 109 (vars_aux -> empty .)
+    MAP             reduce using rule 109 (vars_aux -> empty .)
+    RETURN          reduce using rule 109 (vars_aux -> empty .)
+    IF              reduce using rule 109 (vars_aux -> empty .)
+    WHILE           reduce using rule 109 (vars_aux -> empty .)
+    }               reduce using rule 109 (vars_aux -> empty .)
+
+
+state 48
+
+    (12) proc -> functype ID ( proc1 . ) { proc3 proc4 }
+
+    )               shift and go to state 74
+
+
+state 49
+
+    (13) proc1 -> datatype . ID proc2
+
+    ID              shift and go to state 75
+
+
+state 50
+
+    (14) proc1 -> empty .
+
+    )               reduce using rule 14 (proc1 -> empty .)
+
+
+state 51
+
+    (110) map_definition -> MAP < datatype , datatype . >
+
+    >               shift and go to state 76
+
+
+state 52
+
+    (107) main -> MAIN { vars_aux statement_aux . }
+
+    }               shift and go to state 77
+
+
+state 53
+
+    (105) statement_aux -> statement . statement_aux
+    (105) statement_aux -> . statement statement_aux
+    (106) statement_aux -> . empty
+    (40) statement -> . statement1 ;
+    (41) statement -> . statement2
+    (114) empty -> .
+    (42) statement1 -> . assignment
+    (43) statement1 -> . input
+    (44) statement1 -> . output
+    (45) statement1 -> . set_operation
+    (46) statement1 -> . map_definition
+    (47) statement1 -> . return
+    (48) statement1 -> . map_assignment
+    (49) statement1 -> . map_operation
+    (50) statement2 -> . condition
+    (51) statement2 -> . while
+    (21) assignment -> . ID ASSIGNATOR expression
+    (25) input -> . READ ( ID input1 )
+    (28) output -> . PRINT ( expression output1 )
+    (37) set_operation -> . ID . OPERATION ( set_operation1 )
+    (110) map_definition -> . MAP < datatype , datatype >
+    (36) return -> . RETURN expression
+    (112) map_assignment -> . map_access ASSIGNATOR exp
+    (113) map_operation -> . ID . OPERATION ( )
+    (22) condition -> . IF ( expression ) block condition1
+    (52) while -> . WHILE ( expression ) block
+    (111) map_access -> . ID ( exp )
+
+    }               reduce using rule 114 (empty -> .)
+    ID              shift and go to state 67
+    READ            shift and go to state 68
+    PRINT           shift and go to state 69
+    MAP             shift and go to state 18
+    RETURN          shift and go to state 70
+    IF              shift and go to state 72
+    WHILE           shift and go to state 73
+
+    statement                      shift and go to state 53
+    statement_aux                  shift and go to state 78
+    empty                          shift and go to state 54
+    statement1                     shift and go to state 55
+    statement2                     shift and go to state 56
+    assignment                     shift and go to state 57
+    input                          shift and go to state 58
+    output                         shift and go to state 59
+    set_operation                  shift and go to state 60
+    map_definition                 shift and go to state 61
+    return                         shift and go to state 62
+    map_assignment                 shift and go to state 63
+    map_operation                  shift and go to state 64
+    condition                      shift and go to state 65
+    while                          shift and go to state 66
+    map_access                     shift and go to state 71
+
+state 54
+
+    (106) statement_aux -> empty .
+
+    }               reduce using rule 106 (statement_aux -> empty .)
+
+
+state 55
+
+    (40) statement -> statement1 . ;
+
+    ;               shift and go to state 79
+
+
+state 56
+
+    (41) statement -> statement2 .
+
+    ID              reduce using rule 41 (statement -> statement2 .)
+    READ            reduce using rule 41 (statement -> statement2 .)
+    PRINT           reduce using rule 41 (statement -> statement2 .)
+    MAP             reduce using rule 41 (statement -> statement2 .)
+    RETURN          reduce using rule 41 (statement -> statement2 .)
+    IF              reduce using rule 41 (statement -> statement2 .)
+    WHILE           reduce using rule 41 (statement -> statement2 .)
+    }               reduce using rule 41 (statement -> statement2 .)
+
+
+state 57
+
+    (42) statement1 -> assignment .
+
+    ;               reduce using rule 42 (statement1 -> assignment .)
+
+
+state 58
+
+    (43) statement1 -> input .
+
+    ;               reduce using rule 43 (statement1 -> input .)
+
+
+state 59
+
+    (44) statement1 -> output .
+
+    ;               reduce using rule 44 (statement1 -> output .)
+
+
+state 60
+
+    (45) statement1 -> set_operation .
+
+    ;               reduce using rule 45 (statement1 -> set_operation .)
+
+
+state 61
+
+    (46) statement1 -> map_definition .
+
+    ;               reduce using rule 46 (statement1 -> map_definition .)
+
+
+state 62
+
+    (47) statement1 -> return .
+
+    ;               reduce using rule 47 (statement1 -> return .)
+
+
+state 63
+
+    (48) statement1 -> map_assignment .
+
+    ;               reduce using rule 48 (statement1 -> map_assignment .)
+
+
+state 64
+
+    (49) statement1 -> map_operation .
+
+    ;               reduce using rule 49 (statement1 -> map_operation .)
+
+
+state 65
+
+    (50) statement2 -> condition .
+
+    ID              reduce using rule 50 (statement2 -> condition .)
+    READ            reduce using rule 50 (statement2 -> condition .)
+    PRINT           reduce using rule 50 (statement2 -> condition .)
+    MAP             reduce using rule 50 (statement2 -> condition .)
+    RETURN          reduce using rule 50 (statement2 -> condition .)
+    IF              reduce using rule 50 (statement2 -> condition .)
+    WHILE           reduce using rule 50 (statement2 -> condition .)
+    }               reduce using rule 50 (statement2 -> condition .)
+
+
+state 66
+
+    (51) statement2 -> while .
+
+    ID              reduce using rule 51 (statement2 -> while .)
+    READ            reduce using rule 51 (statement2 -> while .)
+    PRINT           reduce using rule 51 (statement2 -> while .)
+    MAP             reduce using rule 51 (statement2 -> while .)
+    RETURN          reduce using rule 51 (statement2 -> while .)
+    IF              reduce using rule 51 (statement2 -> while .)
+    WHILE           reduce using rule 51 (statement2 -> while .)
+    }               reduce using rule 51 (statement2 -> while .)
+
+
+state 67
+
+    (21) assignment -> ID . ASSIGNATOR expression
+    (37) set_operation -> ID . . OPERATION ( set_operation1 )
+    (113) map_operation -> ID . . OPERATION ( )
+    (111) map_access -> ID . ( exp )
+
+    ASSIGNATOR      shift and go to state 80
+    .               shift and go to state 81
+    (               shift and go to state 82
+
+
+state 68
+
+    (25) input -> READ . ( ID input1 )
+
+    (               shift and go to state 83
+
+
+state 69
+
+    (28) output -> PRINT . ( expression output1 )
+
+    (               shift and go to state 84
+
+
+state 70
+
+    (36) return -> RETURN . expression
+    (61) expression -> . exp0 expression2
+    (64) exp0 -> . exp exp02
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+    (114) empty -> .
+
+    !               shift and go to state 90
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    expression                     shift and go to state 85
+    exp0                           shift and go to state 86
+    exp                            shift and go to state 87
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+    empty                          shift and go to state 91
+
+state 71
+
+    (112) map_assignment -> map_access . ASSIGNATOR exp
+
+    ASSIGNATOR      shift and go to state 92
+
+
+state 72
+
+    (22) condition -> IF . ( expression ) block condition1
+
+    (               shift and go to state 93
+
+
+state 73
+
+    (52) while -> WHILE . ( expression ) block
+
+    (               shift and go to state 94
+
+
+state 74
+
+    (12) proc -> functype ID ( proc1 ) . { proc3 proc4 }
+
+    {               shift and go to state 95
+
+
+state 75
+
+    (13) proc1 -> datatype ID . proc2
+    (15) proc2 -> . , datatype ID proc2
+    (16) proc2 -> . empty
+    (114) empty -> .
+
+    ,               shift and go to state 97
+    )               reduce using rule 114 (empty -> .)
+
+    proc2                          shift and go to state 96
+    empty                          shift and go to state 98
+
+state 76
+
+    (110) map_definition -> MAP < datatype , datatype > .
+
+    ID              reduce using rule 110 (map_definition -> MAP < datatype , datatype > .)
+    >               reduce using rule 110 (map_definition -> MAP < datatype , datatype > .)
+    ,               reduce using rule 110 (map_definition -> MAP < datatype , datatype > .)
+    ;               reduce using rule 110 (map_definition -> MAP < datatype , datatype > .)
+
+
+state 77
+
+    (107) main -> MAIN { vars_aux statement_aux } .
+
+    $end            reduce using rule 107 (main -> MAIN { vars_aux statement_aux } .)
+
+
+state 78
+
+    (105) statement_aux -> statement statement_aux .
+
+    }               reduce using rule 105 (statement_aux -> statement statement_aux .)
+
+
+state 79
+
+    (40) statement -> statement1 ; .
+
+    ID              reduce using rule 40 (statement -> statement1 ; .)
+    READ            reduce using rule 40 (statement -> statement1 ; .)
+    PRINT           reduce using rule 40 (statement -> statement1 ; .)
+    MAP             reduce using rule 40 (statement -> statement1 ; .)
+    RETURN          reduce using rule 40 (statement -> statement1 ; .)
+    IF              reduce using rule 40 (statement -> statement1 ; .)
+    WHILE           reduce using rule 40 (statement -> statement1 ; .)
+    }               reduce using rule 40 (statement -> statement1 ; .)
+
+
+state 80
+
+    (21) assignment -> ID ASSIGNATOR . expression
+    (61) expression -> . exp0 expression2
+    (64) exp0 -> . exp exp02
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+    (114) empty -> .
+
+    !               shift and go to state 90
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    expression                     shift and go to state 99
+    exp0                           shift and go to state 86
+    exp                            shift and go to state 87
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+    empty                          shift and go to state 91
+
+state 81
+
+    (37) set_operation -> ID . . OPERATION ( set_operation1 )
+    (113) map_operation -> ID . . OPERATION ( )
+
+    OPERATION       shift and go to state 100
+
+
+state 82
+
+    (111) map_access -> ID ( . exp )
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+    (114) empty -> .
+
+    !               shift and go to state 90
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    exp                            shift and go to state 101
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+    empty                          shift and go to state 91
+
+state 83
+
+    (25) input -> READ ( . ID input1 )
+
+    ID              shift and go to state 102
+
+
+state 84
+
+    (28) output -> PRINT ( . expression output1 )
+    (61) expression -> . exp0 expression2
+    (64) exp0 -> . exp exp02
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+    (114) empty -> .
+
+    !               shift and go to state 90
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    expression                     shift and go to state 103
+    exp0                           shift and go to state 86
+    exp                            shift and go to state 87
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+    empty                          shift and go to state 91
+
+state 85
+
+    (36) return -> RETURN expression .
+
+    ;               reduce using rule 36 (return -> RETURN expression .)
+
+
+state 86
+
+    (61) expression -> exp0 . expression2
+    (62) expression2 -> . logop exp0 expression2
+    (63) expression2 -> . empty
+    (59) logop -> . OR
+    (60) logop -> . AND
+    (114) empty -> .
+
+    OR              shift and go to state 107
+    AND             shift and go to state 108
+    ;               reduce using rule 114 (empty -> .)
+    ,               reduce using rule 114 (empty -> .)
+    )               reduce using rule 114 (empty -> .)
+
+    expression2                    shift and go to state 104
+    logop                          shift and go to state 105
+    empty                          shift and go to state 106
+
+state 87
+
+    (64) exp0 -> exp . exp02
+    (65) exp02 -> . relop exp02
+    (66) exp02 -> . empty
+    (53) relop -> . <
+    (54) relop -> . >
+    (55) relop -> . NOT_EQ
+    (56) relop -> . EQ
+    (57) relop -> . LEQ
+    (58) relop -> . GEQ
+    (114) empty -> .
+
+    <               shift and go to state 112
+    >               shift and go to state 113
+    NOT_EQ          shift and go to state 114
+    EQ              shift and go to state 115
+    LEQ             shift and go to state 116
+    GEQ             shift and go to state 117
+    OR              reduce using rule 114 (empty -> .)
+    AND             reduce using rule 114 (empty -> .)
+    ;               reduce using rule 114 (empty -> .)
+    ,               reduce using rule 114 (empty -> .)
+    )               reduce using rule 114 (empty -> .)
+
+    exp02                          shift and go to state 109
+    relop                          shift and go to state 110
+    empty                          shift and go to state 111
+
+state 88
+
+    (67) exp -> term . exp2
+    (72) exp2 -> . addsub term exp2
+    (73) exp2 -> . empty
+    (68) addsub -> . +
+    (69) addsub -> . -
+    (114) empty -> .
+
+    +               shift and go to state 121
+    -               shift and go to state 122
+    <               reduce using rule 114 (empty -> .)
+    >               reduce using rule 114 (empty -> .)
+    NOT_EQ          reduce using rule 114 (empty -> .)
+    EQ              reduce using rule 114 (empty -> .)
+    LEQ             reduce using rule 114 (empty -> .)
+    GEQ             reduce using rule 114 (empty -> .)
+    OR              reduce using rule 114 (empty -> .)
+    AND             reduce using rule 114 (empty -> .)
+    ;               reduce using rule 114 (empty -> .)
+    )               reduce using rule 114 (empty -> .)
+    ,               reduce using rule 114 (empty -> .)
+
+    exp2                           shift and go to state 118
+    addsub                         shift and go to state 119
+    empty                          shift and go to state 120
+
+state 89
+
+    (74) term -> term_not . factor term2
+    (79) factor -> . ( expression )
+    (80) factor -> . factor2
+    (81) factor2 -> . factor3 varcte
+    (82) factor3 -> . addsub
+    (83) factor3 -> . empty
+    (68) addsub -> . +
+    (69) addsub -> . -
+    (114) empty -> .
+
+    (               shift and go to state 124
+    +               shift and go to state 121
+    -               shift and go to state 122
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    factor                         shift and go to state 123
+    factor2                        shift and go to state 125
+    factor3                        shift and go to state 126
+    addsub                         shift and go to state 127
+    empty                          shift and go to state 128
+
+state 90
+
+    (77) term_not -> ! .
+
+    (               reduce using rule 77 (term_not -> ! .)
+    +               reduce using rule 77 (term_not -> ! .)
+    -               reduce using rule 77 (term_not -> ! .)
+    ID              reduce using rule 77 (term_not -> ! .)
+    CTE_INT         reduce using rule 77 (term_not -> ! .)
+    CTE_FLOAT       reduce using rule 77 (term_not -> ! .)
+    CTE_BOOL        reduce using rule 77 (term_not -> ! .)
+    CTE_STRING      reduce using rule 77 (term_not -> ! .)
+    CTE_CHAR        reduce using rule 77 (term_not -> ! .)
+
+
+state 91
+
+    (78) term_not -> empty .
+
+    (               reduce using rule 78 (term_not -> empty .)
+    +               reduce using rule 78 (term_not -> empty .)
+    -               reduce using rule 78 (term_not -> empty .)
+    ID              reduce using rule 78 (term_not -> empty .)
+    CTE_INT         reduce using rule 78 (term_not -> empty .)
+    CTE_FLOAT       reduce using rule 78 (term_not -> empty .)
+    CTE_BOOL        reduce using rule 78 (term_not -> empty .)
+    CTE_STRING      reduce using rule 78 (term_not -> empty .)
+    CTE_CHAR        reduce using rule 78 (term_not -> empty .)
+
+
+state 92
+
+    (112) map_assignment -> map_access ASSIGNATOR . exp
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+    (114) empty -> .
+
+    !               shift and go to state 90
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    exp                            shift and go to state 129
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+    empty                          shift and go to state 91
+
+state 93
+
+    (22) condition -> IF ( . expression ) block condition1
+    (61) expression -> . exp0 expression2
+    (64) exp0 -> . exp exp02
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+    (114) empty -> .
+
+    !               shift and go to state 90
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    expression                     shift and go to state 130
+    exp0                           shift and go to state 86
+    exp                            shift and go to state 87
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+    empty                          shift and go to state 91
+
+state 94
+
+    (52) while -> WHILE ( . expression ) block
+    (61) expression -> . exp0 expression2
+    (64) exp0 -> . exp exp02
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+    (114) empty -> .
+
+    !               shift and go to state 90
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    expression                     shift and go to state 131
+    exp0                           shift and go to state 86
+    exp                            shift and go to state 87
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+    empty                          shift and go to state 91
+
+state 95
+
+    (12) proc -> functype ID ( proc1 ) { . proc3 proc4 }
+    (17) proc3 -> . vars
+    (18) proc3 -> . empty
+    (7) vars -> . datatype vars1 ; vars2
+    (114) empty -> .
+    (94) datatype -> . INT
+    (95) datatype -> . FLOAT
+    (96) datatype -> . BOOL
+    (97) datatype -> . STRING
+    (98) datatype -> . CHAR
+    (99) datatype -> . set_definition
+    (100) datatype -> . map_definition
+    (101) set_definition -> . SET < datatype >
+    (110) map_definition -> . MAP < datatype , datatype >
+
+  ! shift/reduce conflict for MAP resolved as shift
+    ID              reduce using rule 114 (empty -> .)
+    READ            reduce using rule 114 (empty -> .)
+    PRINT           reduce using rule 114 (empty -> .)
+    RETURN          reduce using rule 114 (empty -> .)
+    IF              reduce using rule 114 (empty -> .)
+    WHILE           reduce using rule 114 (empty -> .)
+    }               reduce using rule 114 (empty -> .)
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+    BOOL            shift and go to state 12
+    STRING          shift and go to state 13
+    CHAR            shift and go to state 14
+    SET             shift and go to state 17
+    MAP             shift and go to state 18
+
+  ! MAP             [ reduce using rule 114 (empty -> .) ]
+
+    proc3                          shift and go to state 132
+    vars                           shift and go to state 133
+    empty                          shift and go to state 134
+    datatype                       shift and go to state 9
+    set_definition                 shift and go to state 15
+    map_definition                 shift and go to state 16
+
+state 96
+
+    (13) proc1 -> datatype ID proc2 .
+
+    )               reduce using rule 13 (proc1 -> datatype ID proc2 .)
+
+
+state 97
+
+    (15) proc2 -> , . datatype ID proc2
+    (94) datatype -> . INT
+    (95) datatype -> . FLOAT
+    (96) datatype -> . BOOL
+    (97) datatype -> . STRING
+    (98) datatype -> . CHAR
+    (99) datatype -> . set_definition
+    (100) datatype -> . map_definition
+    (101) set_definition -> . SET < datatype >
+    (110) map_definition -> . MAP < datatype , datatype >
+
+    INT             shift and go to state 10
+    FLOAT           shift and go to state 11
+    BOOL            shift and go to state 12
+    STRING          shift and go to state 13
+    CHAR            shift and go to state 14
+    SET             shift and go to state 17
+    MAP             shift and go to state 18
+
+    datatype                       shift and go to state 135
+    set_definition                 shift and go to state 15
+    map_definition                 shift and go to state 16
+
+state 98
+
+    (16) proc2 -> empty .
+
+    )               reduce using rule 16 (proc2 -> empty .)
+
+
+state 99
+
+    (21) assignment -> ID ASSIGNATOR expression .
+
+    ;               reduce using rule 21 (assignment -> ID ASSIGNATOR expression .)
+
+
+state 100
+
+    (37) set_operation -> ID . OPERATION . ( set_operation1 )
+    (113) map_operation -> ID . OPERATION . ( )
+
+    (               shift and go to state 136
+
+
+state 101
+
+    (111) map_access -> ID ( exp . )
+
+    )               shift and go to state 137
+
+
+state 102
+
+    (25) input -> READ ( ID . input1 )
+    (26) input1 -> . , ID input1
+    (27) input1 -> . empty
+    (114) empty -> .
+
+    ,               shift and go to state 139
+    )               reduce using rule 114 (empty -> .)
+
+    input1                         shift and go to state 138
+    empty                          shift and go to state 140
+
+state 103
+
+    (28) output -> PRINT ( expression . output1 )
+    (29) output1 -> . , expression output1
+    (30) output1 -> . empty
+    (114) empty -> .
+
+    ,               shift and go to state 142
+    )               reduce using rule 114 (empty -> .)
+
+    output1                        shift and go to state 141
+    empty                          shift and go to state 143
+
+state 104
+
+    (61) expression -> exp0 expression2 .
+
+    ;               reduce using rule 61 (expression -> exp0 expression2 .)
+    ,               reduce using rule 61 (expression -> exp0 expression2 .)
+    )               reduce using rule 61 (expression -> exp0 expression2 .)
+
+
+state 105
+
+    (62) expression2 -> logop . exp0 expression2
+    (64) exp0 -> . exp exp02
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+    (114) empty -> .
+
+    !               shift and go to state 90
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    exp0                           shift and go to state 144
+    exp                            shift and go to state 87
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+    empty                          shift and go to state 91
+
+state 106
+
+    (63) expression2 -> empty .
+
+    ;               reduce using rule 63 (expression2 -> empty .)
+    ,               reduce using rule 63 (expression2 -> empty .)
+    )               reduce using rule 63 (expression2 -> empty .)
+
+
+state 107
+
+    (59) logop -> OR .
+
+    !               reduce using rule 59 (logop -> OR .)
+    (               reduce using rule 59 (logop -> OR .)
+    +               reduce using rule 59 (logop -> OR .)
+    -               reduce using rule 59 (logop -> OR .)
+    ID              reduce using rule 59 (logop -> OR .)
+    CTE_INT         reduce using rule 59 (logop -> OR .)
+    CTE_FLOAT       reduce using rule 59 (logop -> OR .)
+    CTE_BOOL        reduce using rule 59 (logop -> OR .)
+    CTE_STRING      reduce using rule 59 (logop -> OR .)
+    CTE_CHAR        reduce using rule 59 (logop -> OR .)
+
+
+state 108
+
+    (60) logop -> AND .
+
+    !               reduce using rule 60 (logop -> AND .)
+    (               reduce using rule 60 (logop -> AND .)
+    +               reduce using rule 60 (logop -> AND .)
+    -               reduce using rule 60 (logop -> AND .)
+    ID              reduce using rule 60 (logop -> AND .)
+    CTE_INT         reduce using rule 60 (logop -> AND .)
+    CTE_FLOAT       reduce using rule 60 (logop -> AND .)
+    CTE_BOOL        reduce using rule 60 (logop -> AND .)
+    CTE_STRING      reduce using rule 60 (logop -> AND .)
+    CTE_CHAR        reduce using rule 60 (logop -> AND .)
+
+
+state 109
+
+    (64) exp0 -> exp exp02 .
+
+    OR              reduce using rule 64 (exp0 -> exp exp02 .)
+    AND             reduce using rule 64 (exp0 -> exp exp02 .)
+    ;               reduce using rule 64 (exp0 -> exp exp02 .)
+    ,               reduce using rule 64 (exp0 -> exp exp02 .)
+    )               reduce using rule 64 (exp0 -> exp exp02 .)
+
+
+state 110
+
+    (65) exp02 -> relop . exp02
+    (65) exp02 -> . relop exp02
+    (66) exp02 -> . empty
+    (53) relop -> . <
+    (54) relop -> . >
+    (55) relop -> . NOT_EQ
+    (56) relop -> . EQ
+    (57) relop -> . LEQ
+    (58) relop -> . GEQ
+    (114) empty -> .
+
+    <               shift and go to state 112
+    >               shift and go to state 113
+    NOT_EQ          shift and go to state 114
+    EQ              shift and go to state 115
+    LEQ             shift and go to state 116
+    GEQ             shift and go to state 117
+    OR              reduce using rule 114 (empty -> .)
+    AND             reduce using rule 114 (empty -> .)
+    ;               reduce using rule 114 (empty -> .)
+    ,               reduce using rule 114 (empty -> .)
+    )               reduce using rule 114 (empty -> .)
+
+    relop                          shift and go to state 110
+    exp02                          shift and go to state 145
+    empty                          shift and go to state 111
+
+state 111
+
+    (66) exp02 -> empty .
+
+    OR              reduce using rule 66 (exp02 -> empty .)
+    AND             reduce using rule 66 (exp02 -> empty .)
+    ;               reduce using rule 66 (exp02 -> empty .)
+    ,               reduce using rule 66 (exp02 -> empty .)
+    )               reduce using rule 66 (exp02 -> empty .)
+
+
+state 112
+
+    (53) relop -> < .
+
+    <               reduce using rule 53 (relop -> < .)
+    >               reduce using rule 53 (relop -> < .)
+    NOT_EQ          reduce using rule 53 (relop -> < .)
+    EQ              reduce using rule 53 (relop -> < .)
+    LEQ             reduce using rule 53 (relop -> < .)
+    GEQ             reduce using rule 53 (relop -> < .)
+    OR              reduce using rule 53 (relop -> < .)
+    AND             reduce using rule 53 (relop -> < .)
+    ;               reduce using rule 53 (relop -> < .)
+    ,               reduce using rule 53 (relop -> < .)
+    )               reduce using rule 53 (relop -> < .)
+
+
+state 113
+
+    (54) relop -> > .
+
+    <               reduce using rule 54 (relop -> > .)
+    >               reduce using rule 54 (relop -> > .)
+    NOT_EQ          reduce using rule 54 (relop -> > .)
+    EQ              reduce using rule 54 (relop -> > .)
+    LEQ             reduce using rule 54 (relop -> > .)
+    GEQ             reduce using rule 54 (relop -> > .)
+    OR              reduce using rule 54 (relop -> > .)
+    AND             reduce using rule 54 (relop -> > .)
+    ;               reduce using rule 54 (relop -> > .)
+    ,               reduce using rule 54 (relop -> > .)
+    )               reduce using rule 54 (relop -> > .)
+
+
+state 114
+
+    (55) relop -> NOT_EQ .
+
+    <               reduce using rule 55 (relop -> NOT_EQ .)
+    >               reduce using rule 55 (relop -> NOT_EQ .)
+    NOT_EQ          reduce using rule 55 (relop -> NOT_EQ .)
+    EQ              reduce using rule 55 (relop -> NOT_EQ .)
+    LEQ             reduce using rule 55 (relop -> NOT_EQ .)
+    GEQ             reduce using rule 55 (relop -> NOT_EQ .)
+    OR              reduce using rule 55 (relop -> NOT_EQ .)
+    AND             reduce using rule 55 (relop -> NOT_EQ .)
+    ;               reduce using rule 55 (relop -> NOT_EQ .)
+    ,               reduce using rule 55 (relop -> NOT_EQ .)
+    )               reduce using rule 55 (relop -> NOT_EQ .)
+
+
+state 115
+
+    (56) relop -> EQ .
+
+    <               reduce using rule 56 (relop -> EQ .)
+    >               reduce using rule 56 (relop -> EQ .)
+    NOT_EQ          reduce using rule 56 (relop -> EQ .)
+    EQ              reduce using rule 56 (relop -> EQ .)
+    LEQ             reduce using rule 56 (relop -> EQ .)
+    GEQ             reduce using rule 56 (relop -> EQ .)
+    OR              reduce using rule 56 (relop -> EQ .)
+    AND             reduce using rule 56 (relop -> EQ .)
+    ;               reduce using rule 56 (relop -> EQ .)
+    ,               reduce using rule 56 (relop -> EQ .)
+    )               reduce using rule 56 (relop -> EQ .)
+
+
+state 116
+
+    (57) relop -> LEQ .
+
+    <               reduce using rule 57 (relop -> LEQ .)
+    >               reduce using rule 57 (relop -> LEQ .)
+    NOT_EQ          reduce using rule 57 (relop -> LEQ .)
+    EQ              reduce using rule 57 (relop -> LEQ .)
+    LEQ             reduce using rule 57 (relop -> LEQ .)
+    GEQ             reduce using rule 57 (relop -> LEQ .)
+    OR              reduce using rule 57 (relop -> LEQ .)
+    AND             reduce using rule 57 (relop -> LEQ .)
+    ;               reduce using rule 57 (relop -> LEQ .)
+    ,               reduce using rule 57 (relop -> LEQ .)
+    )               reduce using rule 57 (relop -> LEQ .)
+
+
+state 117
+
+    (58) relop -> GEQ .
+
+    <               reduce using rule 58 (relop -> GEQ .)
+    >               reduce using rule 58 (relop -> GEQ .)
+    NOT_EQ          reduce using rule 58 (relop -> GEQ .)
+    EQ              reduce using rule 58 (relop -> GEQ .)
+    LEQ             reduce using rule 58 (relop -> GEQ .)
+    GEQ             reduce using rule 58 (relop -> GEQ .)
+    OR              reduce using rule 58 (relop -> GEQ .)
+    AND             reduce using rule 58 (relop -> GEQ .)
+    ;               reduce using rule 58 (relop -> GEQ .)
+    ,               reduce using rule 58 (relop -> GEQ .)
+    )               reduce using rule 58 (relop -> GEQ .)
+
+
+state 118
+
+    (67) exp -> term exp2 .
+
+    <               reduce using rule 67 (exp -> term exp2 .)
+    >               reduce using rule 67 (exp -> term exp2 .)
+    NOT_EQ          reduce using rule 67 (exp -> term exp2 .)
+    EQ              reduce using rule 67 (exp -> term exp2 .)
+    LEQ             reduce using rule 67 (exp -> term exp2 .)
+    GEQ             reduce using rule 67 (exp -> term exp2 .)
+    OR              reduce using rule 67 (exp -> term exp2 .)
+    AND             reduce using rule 67 (exp -> term exp2 .)
+    ;               reduce using rule 67 (exp -> term exp2 .)
+    )               reduce using rule 67 (exp -> term exp2 .)
+    ,               reduce using rule 67 (exp -> term exp2 .)
+
+
+state 119
+
+    (72) exp2 -> addsub . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+    (114) empty -> .
+
+    !               shift and go to state 90
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    term                           shift and go to state 146
+    term_not                       shift and go to state 89
+    empty                          shift and go to state 91
+
+state 120
+
+    (73) exp2 -> empty .
+
+    <               reduce using rule 73 (exp2 -> empty .)
+    >               reduce using rule 73 (exp2 -> empty .)
+    NOT_EQ          reduce using rule 73 (exp2 -> empty .)
+    EQ              reduce using rule 73 (exp2 -> empty .)
+    LEQ             reduce using rule 73 (exp2 -> empty .)
+    GEQ             reduce using rule 73 (exp2 -> empty .)
+    OR              reduce using rule 73 (exp2 -> empty .)
+    AND             reduce using rule 73 (exp2 -> empty .)
+    ;               reduce using rule 73 (exp2 -> empty .)
+    )               reduce using rule 73 (exp2 -> empty .)
+    ,               reduce using rule 73 (exp2 -> empty .)
+
+
+state 121
+
+    (68) addsub -> + .
+
+    !               reduce using rule 68 (addsub -> + .)
+    (               reduce using rule 68 (addsub -> + .)
+    +               reduce using rule 68 (addsub -> + .)
+    -               reduce using rule 68 (addsub -> + .)
+    ID              reduce using rule 68 (addsub -> + .)
+    CTE_INT         reduce using rule 68 (addsub -> + .)
+    CTE_FLOAT       reduce using rule 68 (addsub -> + .)
+    CTE_BOOL        reduce using rule 68 (addsub -> + .)
+    CTE_STRING      reduce using rule 68 (addsub -> + .)
+    CTE_CHAR        reduce using rule 68 (addsub -> + .)
+
+
+state 122
+
+    (69) addsub -> - .
+
+    !               reduce using rule 69 (addsub -> - .)
+    (               reduce using rule 69 (addsub -> - .)
+    +               reduce using rule 69 (addsub -> - .)
+    -               reduce using rule 69 (addsub -> - .)
+    ID              reduce using rule 69 (addsub -> - .)
+    CTE_INT         reduce using rule 69 (addsub -> - .)
+    CTE_FLOAT       reduce using rule 69 (addsub -> - .)
+    CTE_BOOL        reduce using rule 69 (addsub -> - .)
+    CTE_STRING      reduce using rule 69 (addsub -> - .)
+    CTE_CHAR        reduce using rule 69 (addsub -> - .)
+
+
+state 123
+
+    (74) term -> term_not factor . term2
+    (75) term2 -> . muldiv factor term2
+    (76) term2 -> . empty
+    (70) muldiv -> . *
+    (71) muldiv -> . /
+    (114) empty -> .
+
+    *               shift and go to state 150
+    /               shift and go to state 151
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    <               reduce using rule 114 (empty -> .)
+    >               reduce using rule 114 (empty -> .)
+    NOT_EQ          reduce using rule 114 (empty -> .)
+    EQ              reduce using rule 114 (empty -> .)
+    LEQ             reduce using rule 114 (empty -> .)
+    GEQ             reduce using rule 114 (empty -> .)
+    OR              reduce using rule 114 (empty -> .)
+    AND             reduce using rule 114 (empty -> .)
+    ;               reduce using rule 114 (empty -> .)
+    )               reduce using rule 114 (empty -> .)
+    ,               reduce using rule 114 (empty -> .)
+
+    term2                          shift and go to state 147
+    muldiv                         shift and go to state 148
+    empty                          shift and go to state 149
+
+state 124
+
+    (79) factor -> ( . expression )
+    (61) expression -> . exp0 expression2
+    (64) exp0 -> . exp exp02
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+    (114) empty -> .
+
+    !               shift and go to state 90
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    expression                     shift and go to state 152
+    exp0                           shift and go to state 86
+    exp                            shift and go to state 87
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+    empty                          shift and go to state 91
+
+state 125
+
+    (80) factor -> factor2 .
+
+    *               reduce using rule 80 (factor -> factor2 .)
+    /               reduce using rule 80 (factor -> factor2 .)
+    +               reduce using rule 80 (factor -> factor2 .)
+    -               reduce using rule 80 (factor -> factor2 .)
+    <               reduce using rule 80 (factor -> factor2 .)
+    >               reduce using rule 80 (factor -> factor2 .)
+    NOT_EQ          reduce using rule 80 (factor -> factor2 .)
+    EQ              reduce using rule 80 (factor -> factor2 .)
+    LEQ             reduce using rule 80 (factor -> factor2 .)
+    GEQ             reduce using rule 80 (factor -> factor2 .)
+    OR              reduce using rule 80 (factor -> factor2 .)
+    AND             reduce using rule 80 (factor -> factor2 .)
+    ;               reduce using rule 80 (factor -> factor2 .)
+    )               reduce using rule 80 (factor -> factor2 .)
+    ,               reduce using rule 80 (factor -> factor2 .)
+
+
+state 126
+
+    (81) factor2 -> factor3 . varcte
+    (84) varcte -> . ID
+    (85) varcte -> . CTE_INT
+    (86) varcte -> . CTE_FLOAT
+    (87) varcte -> . CTE_BOOL
+    (88) varcte -> . CTE_STRING
+    (89) varcte -> . CTE_CHAR
+    (90) varcte -> . function_call
+    (91) varcte -> . map_access
+    (92) varcte -> . map_operation
+    (93) varcte -> . set_operation
+    (31) function_call -> . ID ( function_call1 )
+    (111) map_access -> . ID ( exp )
+    (113) map_operation -> . ID . OPERATION ( )
+    (37) set_operation -> . ID . OPERATION ( set_operation1 )
+
+    ID              shift and go to state 154
+    CTE_INT         shift and go to state 155
+    CTE_FLOAT       shift and go to state 156
+    CTE_BOOL        shift and go to state 157
+    CTE_STRING      shift and go to state 158
+    CTE_CHAR        shift and go to state 159
+
+    varcte                         shift and go to state 153
+    function_call                  shift and go to state 160
+    map_access                     shift and go to state 161
+    map_operation                  shift and go to state 162
+    set_operation                  shift and go to state 163
+
+state 127
+
+    (82) factor3 -> addsub .
+
+    ID              reduce using rule 82 (factor3 -> addsub .)
+    CTE_INT         reduce using rule 82 (factor3 -> addsub .)
+    CTE_FLOAT       reduce using rule 82 (factor3 -> addsub .)
+    CTE_BOOL        reduce using rule 82 (factor3 -> addsub .)
+    CTE_STRING      reduce using rule 82 (factor3 -> addsub .)
+    CTE_CHAR        reduce using rule 82 (factor3 -> addsub .)
+
+
+state 128
+
+    (83) factor3 -> empty .
+
+    ID              reduce using rule 83 (factor3 -> empty .)
+    CTE_INT         reduce using rule 83 (factor3 -> empty .)
+    CTE_FLOAT       reduce using rule 83 (factor3 -> empty .)
+    CTE_BOOL        reduce using rule 83 (factor3 -> empty .)
+    CTE_STRING      reduce using rule 83 (factor3 -> empty .)
+    CTE_CHAR        reduce using rule 83 (factor3 -> empty .)
+
+
+state 129
+
+    (112) map_assignment -> map_access ASSIGNATOR exp .
+
+    ;               reduce using rule 112 (map_assignment -> map_access ASSIGNATOR exp .)
+
+
+state 130
+
+    (22) condition -> IF ( expression . ) block condition1
+
+    )               shift and go to state 164
+
+
+state 131
+
+    (52) while -> WHILE ( expression . ) block
+
+    )               shift and go to state 165
+
+
+state 132
+
+    (12) proc -> functype ID ( proc1 ) { proc3 . proc4 }
+    (19) proc4 -> . statement proc4
+    (20) proc4 -> . empty
+    (40) statement -> . statement1 ;
+    (41) statement -> . statement2
+    (114) empty -> .
+    (42) statement1 -> . assignment
+    (43) statement1 -> . input
+    (44) statement1 -> . output
+    (45) statement1 -> . set_operation
+    (46) statement1 -> . map_definition
+    (47) statement1 -> . return
+    (48) statement1 -> . map_assignment
+    (49) statement1 -> . map_operation
+    (50) statement2 -> . condition
+    (51) statement2 -> . while
+    (21) assignment -> . ID ASSIGNATOR expression
+    (25) input -> . READ ( ID input1 )
+    (28) output -> . PRINT ( expression output1 )
+    (37) set_operation -> . ID . OPERATION ( set_operation1 )
+    (110) map_definition -> . MAP < datatype , datatype >
+    (36) return -> . RETURN expression
+    (112) map_assignment -> . map_access ASSIGNATOR exp
+    (113) map_operation -> . ID . OPERATION ( )
+    (22) condition -> . IF ( expression ) block condition1
+    (52) while -> . WHILE ( expression ) block
+    (111) map_access -> . ID ( exp )
+
+    }               reduce using rule 114 (empty -> .)
+    ID              shift and go to state 67
+    READ            shift and go to state 68
+    PRINT           shift and go to state 69
+    MAP             shift and go to state 18
+    RETURN          shift and go to state 70
+    IF              shift and go to state 72
+    WHILE           shift and go to state 73
+
+    proc4                          shift and go to state 166
+    statement                      shift and go to state 167
+    empty                          shift and go to state 168
+    statement1                     shift and go to state 55
+    statement2                     shift and go to state 56
+    assignment                     shift and go to state 57
+    input                          shift and go to state 58
+    output                         shift and go to state 59
+    set_operation                  shift and go to state 60
+    map_definition                 shift and go to state 61
+    return                         shift and go to state 62
+    map_assignment                 shift and go to state 63
+    map_operation                  shift and go to state 64
+    condition                      shift and go to state 65
+    while                          shift and go to state 66
+    map_access                     shift and go to state 71
+
+state 133
+
+    (17) proc3 -> vars .
+
+    ID              reduce using rule 17 (proc3 -> vars .)
+    READ            reduce using rule 17 (proc3 -> vars .)
+    PRINT           reduce using rule 17 (proc3 -> vars .)
+    MAP             reduce using rule 17 (proc3 -> vars .)
+    RETURN          reduce using rule 17 (proc3 -> vars .)
+    IF              reduce using rule 17 (proc3 -> vars .)
+    WHILE           reduce using rule 17 (proc3 -> vars .)
+    }               reduce using rule 17 (proc3 -> vars .)
+
+
+state 134
+
+    (18) proc3 -> empty .
+
+    ID              reduce using rule 18 (proc3 -> empty .)
+    READ            reduce using rule 18 (proc3 -> empty .)
+    PRINT           reduce using rule 18 (proc3 -> empty .)
+    MAP             reduce using rule 18 (proc3 -> empty .)
+    RETURN          reduce using rule 18 (proc3 -> empty .)
+    IF              reduce using rule 18 (proc3 -> empty .)
+    WHILE           reduce using rule 18 (proc3 -> empty .)
+    }               reduce using rule 18 (proc3 -> empty .)
+
+
+state 135
+
+    (15) proc2 -> , datatype . ID proc2
+
+    ID              shift and go to state 169
+
+
+state 136
+
+    (37) set_operation -> ID . OPERATION ( . set_operation1 )
+    (113) map_operation -> ID . OPERATION ( . )
+    (38) set_operation1 -> . expression
+    (39) set_operation1 -> . empty
+    (61) expression -> . exp0 expression2
+    (114) empty -> .
+    (64) exp0 -> . exp exp02
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+
+  ! shift/reduce conflict for ) resolved as shift
+    )               shift and go to state 171
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+    !               shift and go to state 90
+
+  ! )               [ reduce using rule 114 (empty -> .) ]
+
+    set_operation1                 shift and go to state 170
+    expression                     shift and go to state 172
+    empty                          shift and go to state 173
+    exp0                           shift and go to state 86
+    exp                            shift and go to state 87
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+
+state 137
+
+    (111) map_access -> ID ( exp ) .
+
+    ASSIGNATOR      reduce using rule 111 (map_access -> ID ( exp ) .)
+    *               reduce using rule 111 (map_access -> ID ( exp ) .)
+    /               reduce using rule 111 (map_access -> ID ( exp ) .)
+    +               reduce using rule 111 (map_access -> ID ( exp ) .)
+    -               reduce using rule 111 (map_access -> ID ( exp ) .)
+    <               reduce using rule 111 (map_access -> ID ( exp ) .)
+    >               reduce using rule 111 (map_access -> ID ( exp ) .)
+    NOT_EQ          reduce using rule 111 (map_access -> ID ( exp ) .)
+    EQ              reduce using rule 111 (map_access -> ID ( exp ) .)
+    LEQ             reduce using rule 111 (map_access -> ID ( exp ) .)
+    GEQ             reduce using rule 111 (map_access -> ID ( exp ) .)
+    OR              reduce using rule 111 (map_access -> ID ( exp ) .)
+    AND             reduce using rule 111 (map_access -> ID ( exp ) .)
+    ;               reduce using rule 111 (map_access -> ID ( exp ) .)
+    )               reduce using rule 111 (map_access -> ID ( exp ) .)
+    ,               reduce using rule 111 (map_access -> ID ( exp ) .)
+
+
+state 138
+
+    (25) input -> READ ( ID input1 . )
+
+    )               shift and go to state 174
+
+
+state 139
+
+    (26) input1 -> , . ID input1
+
+    ID              shift and go to state 175
+
+
+state 140
+
+    (27) input1 -> empty .
+
+    )               reduce using rule 27 (input1 -> empty .)
+
+
+state 141
+
+    (28) output -> PRINT ( expression output1 . )
+
+    )               shift and go to state 176
+
+
+state 142
+
+    (29) output1 -> , . expression output1
+    (61) expression -> . exp0 expression2
+    (64) exp0 -> . exp exp02
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+    (114) empty -> .
+
+    !               shift and go to state 90
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    expression                     shift and go to state 177
+    exp0                           shift and go to state 86
+    exp                            shift and go to state 87
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+    empty                          shift and go to state 91
+
+state 143
+
+    (30) output1 -> empty .
+
+    )               reduce using rule 30 (output1 -> empty .)
+
+
+state 144
+
+    (62) expression2 -> logop exp0 . expression2
+    (62) expression2 -> . logop exp0 expression2
+    (63) expression2 -> . empty
+    (59) logop -> . OR
+    (60) logop -> . AND
+    (114) empty -> .
+
+    OR              shift and go to state 107
+    AND             shift and go to state 108
+    ;               reduce using rule 114 (empty -> .)
+    ,               reduce using rule 114 (empty -> .)
+    )               reduce using rule 114 (empty -> .)
+
+    logop                          shift and go to state 105
+    expression2                    shift and go to state 178
+    empty                          shift and go to state 106
+
+state 145
+
+    (65) exp02 -> relop exp02 .
+
+    OR              reduce using rule 65 (exp02 -> relop exp02 .)
+    AND             reduce using rule 65 (exp02 -> relop exp02 .)
+    ;               reduce using rule 65 (exp02 -> relop exp02 .)
+    ,               reduce using rule 65 (exp02 -> relop exp02 .)
+    )               reduce using rule 65 (exp02 -> relop exp02 .)
+
+
+state 146
+
+    (72) exp2 -> addsub term . exp2
+    (72) exp2 -> . addsub term exp2
+    (73) exp2 -> . empty
+    (68) addsub -> . +
+    (69) addsub -> . -
+    (114) empty -> .
+
+    +               shift and go to state 121
+    -               shift and go to state 122
+    <               reduce using rule 114 (empty -> .)
+    >               reduce using rule 114 (empty -> .)
+    NOT_EQ          reduce using rule 114 (empty -> .)
+    EQ              reduce using rule 114 (empty -> .)
+    LEQ             reduce using rule 114 (empty -> .)
+    GEQ             reduce using rule 114 (empty -> .)
+    OR              reduce using rule 114 (empty -> .)
+    AND             reduce using rule 114 (empty -> .)
+    ;               reduce using rule 114 (empty -> .)
+    )               reduce using rule 114 (empty -> .)
+    ,               reduce using rule 114 (empty -> .)
+
+    addsub                         shift and go to state 119
+    exp2                           shift and go to state 179
+    empty                          shift and go to state 120
+
+state 147
+
+    (74) term -> term_not factor term2 .
+
+    +               reduce using rule 74 (term -> term_not factor term2 .)
+    -               reduce using rule 74 (term -> term_not factor term2 .)
+    <               reduce using rule 74 (term -> term_not factor term2 .)
+    >               reduce using rule 74 (term -> term_not factor term2 .)
+    NOT_EQ          reduce using rule 74 (term -> term_not factor term2 .)
+    EQ              reduce using rule 74 (term -> term_not factor term2 .)
+    LEQ             reduce using rule 74 (term -> term_not factor term2 .)
+    GEQ             reduce using rule 74 (term -> term_not factor term2 .)
+    OR              reduce using rule 74 (term -> term_not factor term2 .)
+    AND             reduce using rule 74 (term -> term_not factor term2 .)
+    ;               reduce using rule 74 (term -> term_not factor term2 .)
+    )               reduce using rule 74 (term -> term_not factor term2 .)
+    ,               reduce using rule 74 (term -> term_not factor term2 .)
+
+
+state 148
+
+    (75) term2 -> muldiv . factor term2
+    (79) factor -> . ( expression )
+    (80) factor -> . factor2
+    (81) factor2 -> . factor3 varcte
+    (82) factor3 -> . addsub
+    (83) factor3 -> . empty
+    (68) addsub -> . +
+    (69) addsub -> . -
+    (114) empty -> .
+
+    (               shift and go to state 124
+    +               shift and go to state 121
+    -               shift and go to state 122
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+
+    factor                         shift and go to state 180
+    factor2                        shift and go to state 125
+    factor3                        shift and go to state 126
+    addsub                         shift and go to state 127
+    empty                          shift and go to state 128
+
+state 149
+
+    (76) term2 -> empty .
+
+    +               reduce using rule 76 (term2 -> empty .)
+    -               reduce using rule 76 (term2 -> empty .)
+    <               reduce using rule 76 (term2 -> empty .)
+    >               reduce using rule 76 (term2 -> empty .)
+    NOT_EQ          reduce using rule 76 (term2 -> empty .)
+    EQ              reduce using rule 76 (term2 -> empty .)
+    LEQ             reduce using rule 76 (term2 -> empty .)
+    GEQ             reduce using rule 76 (term2 -> empty .)
+    OR              reduce using rule 76 (term2 -> empty .)
+    AND             reduce using rule 76 (term2 -> empty .)
+    ;               reduce using rule 76 (term2 -> empty .)
+    )               reduce using rule 76 (term2 -> empty .)
+    ,               reduce using rule 76 (term2 -> empty .)
+
+
+state 150
+
+    (70) muldiv -> * .
+
+    (               reduce using rule 70 (muldiv -> * .)
+    +               reduce using rule 70 (muldiv -> * .)
+    -               reduce using rule 70 (muldiv -> * .)
+    ID              reduce using rule 70 (muldiv -> * .)
+    CTE_INT         reduce using rule 70 (muldiv -> * .)
+    CTE_FLOAT       reduce using rule 70 (muldiv -> * .)
+    CTE_BOOL        reduce using rule 70 (muldiv -> * .)
+    CTE_STRING      reduce using rule 70 (muldiv -> * .)
+    CTE_CHAR        reduce using rule 70 (muldiv -> * .)
+
+
+state 151
+
+    (71) muldiv -> / .
+
+    (               reduce using rule 71 (muldiv -> / .)
+    +               reduce using rule 71 (muldiv -> / .)
+    -               reduce using rule 71 (muldiv -> / .)
+    ID              reduce using rule 71 (muldiv -> / .)
+    CTE_INT         reduce using rule 71 (muldiv -> / .)
+    CTE_FLOAT       reduce using rule 71 (muldiv -> / .)
+    CTE_BOOL        reduce using rule 71 (muldiv -> / .)
+    CTE_STRING      reduce using rule 71 (muldiv -> / .)
+    CTE_CHAR        reduce using rule 71 (muldiv -> / .)
+
+
+state 152
+
+    (79) factor -> ( expression . )
+
+    )               shift and go to state 181
+
+
+state 153
+
+    (81) factor2 -> factor3 varcte .
+
+    *               reduce using rule 81 (factor2 -> factor3 varcte .)
+    /               reduce using rule 81 (factor2 -> factor3 varcte .)
+    +               reduce using rule 81 (factor2 -> factor3 varcte .)
+    -               reduce using rule 81 (factor2 -> factor3 varcte .)
+    <               reduce using rule 81 (factor2 -> factor3 varcte .)
+    >               reduce using rule 81 (factor2 -> factor3 varcte .)
+    NOT_EQ          reduce using rule 81 (factor2 -> factor3 varcte .)
+    EQ              reduce using rule 81 (factor2 -> factor3 varcte .)
+    LEQ             reduce using rule 81 (factor2 -> factor3 varcte .)
+    GEQ             reduce using rule 81 (factor2 -> factor3 varcte .)
+    OR              reduce using rule 81 (factor2 -> factor3 varcte .)
+    AND             reduce using rule 81 (factor2 -> factor3 varcte .)
+    ;               reduce using rule 81 (factor2 -> factor3 varcte .)
+    )               reduce using rule 81 (factor2 -> factor3 varcte .)
+    ,               reduce using rule 81 (factor2 -> factor3 varcte .)
+
+
+state 154
+
+    (84) varcte -> ID .
+    (31) function_call -> ID . ( function_call1 )
+    (111) map_access -> ID . ( exp )
+    (113) map_operation -> ID . . OPERATION ( )
+    (37) set_operation -> ID . . OPERATION ( set_operation1 )
+
+    *               reduce using rule 84 (varcte -> ID .)
+    /               reduce using rule 84 (varcte -> ID .)
+    +               reduce using rule 84 (varcte -> ID .)
+    -               reduce using rule 84 (varcte -> ID .)
+    <               reduce using rule 84 (varcte -> ID .)
+    >               reduce using rule 84 (varcte -> ID .)
+    NOT_EQ          reduce using rule 84 (varcte -> ID .)
+    EQ              reduce using rule 84 (varcte -> ID .)
+    LEQ             reduce using rule 84 (varcte -> ID .)
+    GEQ             reduce using rule 84 (varcte -> ID .)
+    OR              reduce using rule 84 (varcte -> ID .)
+    AND             reduce using rule 84 (varcte -> ID .)
+    ;               reduce using rule 84 (varcte -> ID .)
+    )               reduce using rule 84 (varcte -> ID .)
+    ,               reduce using rule 84 (varcte -> ID .)
+    (               shift and go to state 182
+    .               shift and go to state 183
+
+
+state 155
+
+    (85) varcte -> CTE_INT .
+
+    *               reduce using rule 85 (varcte -> CTE_INT .)
+    /               reduce using rule 85 (varcte -> CTE_INT .)
+    +               reduce using rule 85 (varcte -> CTE_INT .)
+    -               reduce using rule 85 (varcte -> CTE_INT .)
+    <               reduce using rule 85 (varcte -> CTE_INT .)
+    >               reduce using rule 85 (varcte -> CTE_INT .)
+    NOT_EQ          reduce using rule 85 (varcte -> CTE_INT .)
+    EQ              reduce using rule 85 (varcte -> CTE_INT .)
+    LEQ             reduce using rule 85 (varcte -> CTE_INT .)
+    GEQ             reduce using rule 85 (varcte -> CTE_INT .)
+    OR              reduce using rule 85 (varcte -> CTE_INT .)
+    AND             reduce using rule 85 (varcte -> CTE_INT .)
+    ;               reduce using rule 85 (varcte -> CTE_INT .)
+    )               reduce using rule 85 (varcte -> CTE_INT .)
+    ,               reduce using rule 85 (varcte -> CTE_INT .)
+
+
+state 156
+
+    (86) varcte -> CTE_FLOAT .
+
+    *               reduce using rule 86 (varcte -> CTE_FLOAT .)
+    /               reduce using rule 86 (varcte -> CTE_FLOAT .)
+    +               reduce using rule 86 (varcte -> CTE_FLOAT .)
+    -               reduce using rule 86 (varcte -> CTE_FLOAT .)
+    <               reduce using rule 86 (varcte -> CTE_FLOAT .)
+    >               reduce using rule 86 (varcte -> CTE_FLOAT .)
+    NOT_EQ          reduce using rule 86 (varcte -> CTE_FLOAT .)
+    EQ              reduce using rule 86 (varcte -> CTE_FLOAT .)
+    LEQ             reduce using rule 86 (varcte -> CTE_FLOAT .)
+    GEQ             reduce using rule 86 (varcte -> CTE_FLOAT .)
+    OR              reduce using rule 86 (varcte -> CTE_FLOAT .)
+    AND             reduce using rule 86 (varcte -> CTE_FLOAT .)
+    ;               reduce using rule 86 (varcte -> CTE_FLOAT .)
+    )               reduce using rule 86 (varcte -> CTE_FLOAT .)
+    ,               reduce using rule 86 (varcte -> CTE_FLOAT .)
+
+
+state 157
+
+    (87) varcte -> CTE_BOOL .
+
+    *               reduce using rule 87 (varcte -> CTE_BOOL .)
+    /               reduce using rule 87 (varcte -> CTE_BOOL .)
+    +               reduce using rule 87 (varcte -> CTE_BOOL .)
+    -               reduce using rule 87 (varcte -> CTE_BOOL .)
+    <               reduce using rule 87 (varcte -> CTE_BOOL .)
+    >               reduce using rule 87 (varcte -> CTE_BOOL .)
+    NOT_EQ          reduce using rule 87 (varcte -> CTE_BOOL .)
+    EQ              reduce using rule 87 (varcte -> CTE_BOOL .)
+    LEQ             reduce using rule 87 (varcte -> CTE_BOOL .)
+    GEQ             reduce using rule 87 (varcte -> CTE_BOOL .)
+    OR              reduce using rule 87 (varcte -> CTE_BOOL .)
+    AND             reduce using rule 87 (varcte -> CTE_BOOL .)
+    ;               reduce using rule 87 (varcte -> CTE_BOOL .)
+    )               reduce using rule 87 (varcte -> CTE_BOOL .)
+    ,               reduce using rule 87 (varcte -> CTE_BOOL .)
+
+
+state 158
+
+    (88) varcte -> CTE_STRING .
+
+    *               reduce using rule 88 (varcte -> CTE_STRING .)
+    /               reduce using rule 88 (varcte -> CTE_STRING .)
+    +               reduce using rule 88 (varcte -> CTE_STRING .)
+    -               reduce using rule 88 (varcte -> CTE_STRING .)
+    <               reduce using rule 88 (varcte -> CTE_STRING .)
+    >               reduce using rule 88 (varcte -> CTE_STRING .)
+    NOT_EQ          reduce using rule 88 (varcte -> CTE_STRING .)
+    EQ              reduce using rule 88 (varcte -> CTE_STRING .)
+    LEQ             reduce using rule 88 (varcte -> CTE_STRING .)
+    GEQ             reduce using rule 88 (varcte -> CTE_STRING .)
+    OR              reduce using rule 88 (varcte -> CTE_STRING .)
+    AND             reduce using rule 88 (varcte -> CTE_STRING .)
+    ;               reduce using rule 88 (varcte -> CTE_STRING .)
+    )               reduce using rule 88 (varcte -> CTE_STRING .)
+    ,               reduce using rule 88 (varcte -> CTE_STRING .)
+
+
+state 159
+
+    (89) varcte -> CTE_CHAR .
+
+    *               reduce using rule 89 (varcte -> CTE_CHAR .)
+    /               reduce using rule 89 (varcte -> CTE_CHAR .)
+    +               reduce using rule 89 (varcte -> CTE_CHAR .)
+    -               reduce using rule 89 (varcte -> CTE_CHAR .)
+    <               reduce using rule 89 (varcte -> CTE_CHAR .)
+    >               reduce using rule 89 (varcte -> CTE_CHAR .)
+    NOT_EQ          reduce using rule 89 (varcte -> CTE_CHAR .)
+    EQ              reduce using rule 89 (varcte -> CTE_CHAR .)
+    LEQ             reduce using rule 89 (varcte -> CTE_CHAR .)
+    GEQ             reduce using rule 89 (varcte -> CTE_CHAR .)
+    OR              reduce using rule 89 (varcte -> CTE_CHAR .)
+    AND             reduce using rule 89 (varcte -> CTE_CHAR .)
+    ;               reduce using rule 89 (varcte -> CTE_CHAR .)
+    )               reduce using rule 89 (varcte -> CTE_CHAR .)
+    ,               reduce using rule 89 (varcte -> CTE_CHAR .)
+
+
+state 160
+
+    (90) varcte -> function_call .
+
+    *               reduce using rule 90 (varcte -> function_call .)
+    /               reduce using rule 90 (varcte -> function_call .)
+    +               reduce using rule 90 (varcte -> function_call .)
+    -               reduce using rule 90 (varcte -> function_call .)
+    <               reduce using rule 90 (varcte -> function_call .)
+    >               reduce using rule 90 (varcte -> function_call .)
+    NOT_EQ          reduce using rule 90 (varcte -> function_call .)
+    EQ              reduce using rule 90 (varcte -> function_call .)
+    LEQ             reduce using rule 90 (varcte -> function_call .)
+    GEQ             reduce using rule 90 (varcte -> function_call .)
+    OR              reduce using rule 90 (varcte -> function_call .)
+    AND             reduce using rule 90 (varcte -> function_call .)
+    ;               reduce using rule 90 (varcte -> function_call .)
+    )               reduce using rule 90 (varcte -> function_call .)
+    ,               reduce using rule 90 (varcte -> function_call .)
+
+
+state 161
+
+    (91) varcte -> map_access .
+
+    *               reduce using rule 91 (varcte -> map_access .)
+    /               reduce using rule 91 (varcte -> map_access .)
+    +               reduce using rule 91 (varcte -> map_access .)
+    -               reduce using rule 91 (varcte -> map_access .)
+    <               reduce using rule 91 (varcte -> map_access .)
+    >               reduce using rule 91 (varcte -> map_access .)
+    NOT_EQ          reduce using rule 91 (varcte -> map_access .)
+    EQ              reduce using rule 91 (varcte -> map_access .)
+    LEQ             reduce using rule 91 (varcte -> map_access .)
+    GEQ             reduce using rule 91 (varcte -> map_access .)
+    OR              reduce using rule 91 (varcte -> map_access .)
+    AND             reduce using rule 91 (varcte -> map_access .)
+    ;               reduce using rule 91 (varcte -> map_access .)
+    )               reduce using rule 91 (varcte -> map_access .)
+    ,               reduce using rule 91 (varcte -> map_access .)
+
+
+state 162
+
+    (92) varcte -> map_operation .
+
+    *               reduce using rule 92 (varcte -> map_operation .)
+    /               reduce using rule 92 (varcte -> map_operation .)
+    +               reduce using rule 92 (varcte -> map_operation .)
+    -               reduce using rule 92 (varcte -> map_operation .)
+    <               reduce using rule 92 (varcte -> map_operation .)
+    >               reduce using rule 92 (varcte -> map_operation .)
+    NOT_EQ          reduce using rule 92 (varcte -> map_operation .)
+    EQ              reduce using rule 92 (varcte -> map_operation .)
+    LEQ             reduce using rule 92 (varcte -> map_operation .)
+    GEQ             reduce using rule 92 (varcte -> map_operation .)
+    OR              reduce using rule 92 (varcte -> map_operation .)
+    AND             reduce using rule 92 (varcte -> map_operation .)
+    ;               reduce using rule 92 (varcte -> map_operation .)
+    )               reduce using rule 92 (varcte -> map_operation .)
+    ,               reduce using rule 92 (varcte -> map_operation .)
+
+
+state 163
+
+    (93) varcte -> set_operation .
+
+    *               reduce using rule 93 (varcte -> set_operation .)
+    /               reduce using rule 93 (varcte -> set_operation .)
+    +               reduce using rule 93 (varcte -> set_operation .)
+    -               reduce using rule 93 (varcte -> set_operation .)
+    <               reduce using rule 93 (varcte -> set_operation .)
+    >               reduce using rule 93 (varcte -> set_operation .)
+    NOT_EQ          reduce using rule 93 (varcte -> set_operation .)
+    EQ              reduce using rule 93 (varcte -> set_operation .)
+    LEQ             reduce using rule 93 (varcte -> set_operation .)
+    GEQ             reduce using rule 93 (varcte -> set_operation .)
+    OR              reduce using rule 93 (varcte -> set_operation .)
+    AND             reduce using rule 93 (varcte -> set_operation .)
+    ;               reduce using rule 93 (varcte -> set_operation .)
+    )               reduce using rule 93 (varcte -> set_operation .)
+    ,               reduce using rule 93 (varcte -> set_operation .)
+
+
+state 164
+
+    (22) condition -> IF ( expression ) . block condition1
+    (104) block -> . { statement_aux }
+
+    {               shift and go to state 185
+
+    block                          shift and go to state 184
+
+state 165
+
+    (52) while -> WHILE ( expression ) . block
+    (104) block -> . { statement_aux }
+
+    {               shift and go to state 185
+
+    block                          shift and go to state 186
+
+state 166
+
+    (12) proc -> functype ID ( proc1 ) { proc3 proc4 . }
+
+    }               shift and go to state 187
+
+
+state 167
+
+    (19) proc4 -> statement . proc4
+    (19) proc4 -> . statement proc4
+    (20) proc4 -> . empty
+    (40) statement -> . statement1 ;
+    (41) statement -> . statement2
+    (114) empty -> .
+    (42) statement1 -> . assignment
+    (43) statement1 -> . input
+    (44) statement1 -> . output
+    (45) statement1 -> . set_operation
+    (46) statement1 -> . map_definition
+    (47) statement1 -> . return
+    (48) statement1 -> . map_assignment
+    (49) statement1 -> . map_operation
+    (50) statement2 -> . condition
+    (51) statement2 -> . while
+    (21) assignment -> . ID ASSIGNATOR expression
+    (25) input -> . READ ( ID input1 )
+    (28) output -> . PRINT ( expression output1 )
+    (37) set_operation -> . ID . OPERATION ( set_operation1 )
+    (110) map_definition -> . MAP < datatype , datatype >
+    (36) return -> . RETURN expression
+    (112) map_assignment -> . map_access ASSIGNATOR exp
+    (113) map_operation -> . ID . OPERATION ( )
+    (22) condition -> . IF ( expression ) block condition1
+    (52) while -> . WHILE ( expression ) block
+    (111) map_access -> . ID ( exp )
+
+    }               reduce using rule 114 (empty -> .)
+    ID              shift and go to state 67
+    READ            shift and go to state 68
+    PRINT           shift and go to state 69
+    MAP             shift and go to state 18
+    RETURN          shift and go to state 70
+    IF              shift and go to state 72
+    WHILE           shift and go to state 73
+
+    statement                      shift and go to state 167
+    proc4                          shift and go to state 188
+    empty                          shift and go to state 168
+    statement1                     shift and go to state 55
+    statement2                     shift and go to state 56
+    assignment                     shift and go to state 57
+    input                          shift and go to state 58
+    output                         shift and go to state 59
+    set_operation                  shift and go to state 60
+    map_definition                 shift and go to state 61
+    return                         shift and go to state 62
+    map_assignment                 shift and go to state 63
+    map_operation                  shift and go to state 64
+    condition                      shift and go to state 65
+    while                          shift and go to state 66
+    map_access                     shift and go to state 71
+
+state 168
+
+    (20) proc4 -> empty .
+
+    }               reduce using rule 20 (proc4 -> empty .)
+
+
+state 169
+
+    (15) proc2 -> , datatype ID . proc2
+    (15) proc2 -> . , datatype ID proc2
+    (16) proc2 -> . empty
+    (114) empty -> .
+
+    ,               shift and go to state 97
+    )               reduce using rule 114 (empty -> .)
+
+    proc2                          shift and go to state 189
+    empty                          shift and go to state 98
+
+state 170
+
+    (37) set_operation -> ID . OPERATION ( set_operation1 . )
+
+    )               shift and go to state 190
+
+
+state 171
+
+    (113) map_operation -> ID . OPERATION ( ) .
+
+    ;               reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    *               reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    /               reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    +               reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    -               reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    <               reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    >               reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    NOT_EQ          reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    EQ              reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    LEQ             reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    GEQ             reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    OR              reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    AND             reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    )               reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+    ,               reduce using rule 113 (map_operation -> ID . OPERATION ( ) .)
+
+
+state 172
+
+    (38) set_operation1 -> expression .
+
+    )               reduce using rule 38 (set_operation1 -> expression .)
+
+
+state 173
+
+    (39) set_operation1 -> empty .
+    (78) term_not -> empty .
+
+    )               reduce using rule 39 (set_operation1 -> empty .)
+    (               reduce using rule 78 (term_not -> empty .)
+    +               reduce using rule 78 (term_not -> empty .)
+    -               reduce using rule 78 (term_not -> empty .)
+    ID              reduce using rule 78 (term_not -> empty .)
+    CTE_INT         reduce using rule 78 (term_not -> empty .)
+    CTE_FLOAT       reduce using rule 78 (term_not -> empty .)
+    CTE_BOOL        reduce using rule 78 (term_not -> empty .)
+    CTE_STRING      reduce using rule 78 (term_not -> empty .)
+    CTE_CHAR        reduce using rule 78 (term_not -> empty .)
+
+
+state 174
+
+    (25) input -> READ ( ID input1 ) .
+
+    ;               reduce using rule 25 (input -> READ ( ID input1 ) .)
+
+
+state 175
+
+    (26) input1 -> , ID . input1
+    (26) input1 -> . , ID input1
+    (27) input1 -> . empty
+    (114) empty -> .
+
+    ,               shift and go to state 139
+    )               reduce using rule 114 (empty -> .)
+
+    input1                         shift and go to state 191
+    empty                          shift and go to state 140
+
+state 176
+
+    (28) output -> PRINT ( expression output1 ) .
+
+    ;               reduce using rule 28 (output -> PRINT ( expression output1 ) .)
+
+
+state 177
+
+    (29) output1 -> , expression . output1
+    (29) output1 -> . , expression output1
+    (30) output1 -> . empty
+    (114) empty -> .
+
+    ,               shift and go to state 142
+    )               reduce using rule 114 (empty -> .)
+
+    output1                        shift and go to state 192
+    empty                          shift and go to state 143
+
+state 178
+
+    (62) expression2 -> logop exp0 expression2 .
+
+    ;               reduce using rule 62 (expression2 -> logop exp0 expression2 .)
+    ,               reduce using rule 62 (expression2 -> logop exp0 expression2 .)
+    )               reduce using rule 62 (expression2 -> logop exp0 expression2 .)
+
+
+state 179
+
+    (72) exp2 -> addsub term exp2 .
+
+    <               reduce using rule 72 (exp2 -> addsub term exp2 .)
+    >               reduce using rule 72 (exp2 -> addsub term exp2 .)
+    NOT_EQ          reduce using rule 72 (exp2 -> addsub term exp2 .)
+    EQ              reduce using rule 72 (exp2 -> addsub term exp2 .)
+    LEQ             reduce using rule 72 (exp2 -> addsub term exp2 .)
+    GEQ             reduce using rule 72 (exp2 -> addsub term exp2 .)
+    OR              reduce using rule 72 (exp2 -> addsub term exp2 .)
+    AND             reduce using rule 72 (exp2 -> addsub term exp2 .)
+    ;               reduce using rule 72 (exp2 -> addsub term exp2 .)
+    )               reduce using rule 72 (exp2 -> addsub term exp2 .)
+    ,               reduce using rule 72 (exp2 -> addsub term exp2 .)
+
+
+state 180
+
+    (75) term2 -> muldiv factor . term2
+    (75) term2 -> . muldiv factor term2
+    (76) term2 -> . empty
+    (70) muldiv -> . *
+    (71) muldiv -> . /
+    (114) empty -> .
+
+    *               shift and go to state 150
+    /               shift and go to state 151
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    <               reduce using rule 114 (empty -> .)
+    >               reduce using rule 114 (empty -> .)
+    NOT_EQ          reduce using rule 114 (empty -> .)
+    EQ              reduce using rule 114 (empty -> .)
+    LEQ             reduce using rule 114 (empty -> .)
+    GEQ             reduce using rule 114 (empty -> .)
+    OR              reduce using rule 114 (empty -> .)
+    AND             reduce using rule 114 (empty -> .)
+    ;               reduce using rule 114 (empty -> .)
+    )               reduce using rule 114 (empty -> .)
+    ,               reduce using rule 114 (empty -> .)
+
+    muldiv                         shift and go to state 148
+    term2                          shift and go to state 193
+    empty                          shift and go to state 149
+
+state 181
+
+    (79) factor -> ( expression ) .
+
+    *               reduce using rule 79 (factor -> ( expression ) .)
+    /               reduce using rule 79 (factor -> ( expression ) .)
+    +               reduce using rule 79 (factor -> ( expression ) .)
+    -               reduce using rule 79 (factor -> ( expression ) .)
+    <               reduce using rule 79 (factor -> ( expression ) .)
+    >               reduce using rule 79 (factor -> ( expression ) .)
+    NOT_EQ          reduce using rule 79 (factor -> ( expression ) .)
+    EQ              reduce using rule 79 (factor -> ( expression ) .)
+    LEQ             reduce using rule 79 (factor -> ( expression ) .)
+    GEQ             reduce using rule 79 (factor -> ( expression ) .)
+    OR              reduce using rule 79 (factor -> ( expression ) .)
+    AND             reduce using rule 79 (factor -> ( expression ) .)
+    ;               reduce using rule 79 (factor -> ( expression ) .)
+    )               reduce using rule 79 (factor -> ( expression ) .)
+    ,               reduce using rule 79 (factor -> ( expression ) .)
+
+
+state 182
+
+    (31) function_call -> ID ( . function_call1 )
+    (111) map_access -> ID ( . exp )
+    (32) function_call1 -> . function_call2
+    (33) function_call1 -> . empty
+    (67) exp -> . term exp2
+    (34) function_call2 -> . expression , function_call2
+    (35) function_call2 -> . empty
+    (114) empty -> .
+    (74) term -> . term_not factor term2
+    (61) expression -> . exp0 expression2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+    (64) exp0 -> . exp exp02
+
+    )               reduce using rule 114 (empty -> .)
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+    !               shift and go to state 90
+
+    function_call1                 shift and go to state 194
+    exp                            shift and go to state 195
+    function_call2                 shift and go to state 196
+    empty                          shift and go to state 197
+    term                           shift and go to state 88
+    expression                     shift and go to state 198
+    term_not                       shift and go to state 89
+    exp0                           shift and go to state 86
+
+state 183
+
+    (113) map_operation -> ID . . OPERATION ( )
+    (37) set_operation -> ID . . OPERATION ( set_operation1 )
+
+    OPERATION       shift and go to state 199
+
+
+state 184
+
+    (22) condition -> IF ( expression ) block . condition1
+    (23) condition1 -> . ELSE block
+    (24) condition1 -> . empty
+    (114) empty -> .
+
+    ELSE            shift and go to state 201
+    ID              reduce using rule 114 (empty -> .)
+    READ            reduce using rule 114 (empty -> .)
+    PRINT           reduce using rule 114 (empty -> .)
+    MAP             reduce using rule 114 (empty -> .)
+    RETURN          reduce using rule 114 (empty -> .)
+    IF              reduce using rule 114 (empty -> .)
+    WHILE           reduce using rule 114 (empty -> .)
+    }               reduce using rule 114 (empty -> .)
+
+    condition1                     shift and go to state 200
+    empty                          shift and go to state 202
+
+state 185
+
+    (104) block -> { . statement_aux }
+    (105) statement_aux -> . statement statement_aux
+    (106) statement_aux -> . empty
+    (40) statement -> . statement1 ;
+    (41) statement -> . statement2
+    (114) empty -> .
+    (42) statement1 -> . assignment
+    (43) statement1 -> . input
+    (44) statement1 -> . output
+    (45) statement1 -> . set_operation
+    (46) statement1 -> . map_definition
+    (47) statement1 -> . return
+    (48) statement1 -> . map_assignment
+    (49) statement1 -> . map_operation
+    (50) statement2 -> . condition
+    (51) statement2 -> . while
+    (21) assignment -> . ID ASSIGNATOR expression
+    (25) input -> . READ ( ID input1 )
+    (28) output -> . PRINT ( expression output1 )
+    (37) set_operation -> . ID . OPERATION ( set_operation1 )
+    (110) map_definition -> . MAP < datatype , datatype >
+    (36) return -> . RETURN expression
+    (112) map_assignment -> . map_access ASSIGNATOR exp
+    (113) map_operation -> . ID . OPERATION ( )
+    (22) condition -> . IF ( expression ) block condition1
+    (52) while -> . WHILE ( expression ) block
+    (111) map_access -> . ID ( exp )
+
+    }               reduce using rule 114 (empty -> .)
+    ID              shift and go to state 67
+    READ            shift and go to state 68
+    PRINT           shift and go to state 69
+    MAP             shift and go to state 18
+    RETURN          shift and go to state 70
+    IF              shift and go to state 72
+    WHILE           shift and go to state 73
+
+    statement_aux                  shift and go to state 203
+    statement                      shift and go to state 53
+    empty                          shift and go to state 54
+    statement1                     shift and go to state 55
+    statement2                     shift and go to state 56
+    assignment                     shift and go to state 57
+    input                          shift and go to state 58
+    output                         shift and go to state 59
+    set_operation                  shift and go to state 60
+    map_definition                 shift and go to state 61
+    return                         shift and go to state 62
+    map_assignment                 shift and go to state 63
+    map_operation                  shift and go to state 64
+    condition                      shift and go to state 65
+    while                          shift and go to state 66
+    map_access                     shift and go to state 71
+
+state 186
+
+    (52) while -> WHILE ( expression ) block .
+
+    ID              reduce using rule 52 (while -> WHILE ( expression ) block .)
+    READ            reduce using rule 52 (while -> WHILE ( expression ) block .)
+    PRINT           reduce using rule 52 (while -> WHILE ( expression ) block .)
+    MAP             reduce using rule 52 (while -> WHILE ( expression ) block .)
+    RETURN          reduce using rule 52 (while -> WHILE ( expression ) block .)
+    IF              reduce using rule 52 (while -> WHILE ( expression ) block .)
+    WHILE           reduce using rule 52 (while -> WHILE ( expression ) block .)
+    }               reduce using rule 52 (while -> WHILE ( expression ) block .)
+
+
+state 187
+
+    (12) proc -> functype ID ( proc1 ) { proc3 proc4 } .
+
+    VOID            reduce using rule 12 (proc -> functype ID ( proc1 ) { proc3 proc4 } .)
+    INT             reduce using rule 12 (proc -> functype ID ( proc1 ) { proc3 proc4 } .)
+    FLOAT           reduce using rule 12 (proc -> functype ID ( proc1 ) { proc3 proc4 } .)
+    BOOL            reduce using rule 12 (proc -> functype ID ( proc1 ) { proc3 proc4 } .)
+    STRING          reduce using rule 12 (proc -> functype ID ( proc1 ) { proc3 proc4 } .)
+    CHAR            reduce using rule 12 (proc -> functype ID ( proc1 ) { proc3 proc4 } .)
+    SET             reduce using rule 12 (proc -> functype ID ( proc1 ) { proc3 proc4 } .)
+    MAP             reduce using rule 12 (proc -> functype ID ( proc1 ) { proc3 proc4 } .)
+    MAIN            reduce using rule 12 (proc -> functype ID ( proc1 ) { proc3 proc4 } .)
+
+
+state 188
+
+    (19) proc4 -> statement proc4 .
+
+    }               reduce using rule 19 (proc4 -> statement proc4 .)
+
+
+state 189
+
+    (15) proc2 -> , datatype ID proc2 .
+
+    )               reduce using rule 15 (proc2 -> , datatype ID proc2 .)
+
+
+state 190
+
+    (37) set_operation -> ID . OPERATION ( set_operation1 ) .
+
+    ;               reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    *               reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    /               reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    +               reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    -               reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    <               reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    >               reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    NOT_EQ          reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    EQ              reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    LEQ             reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    GEQ             reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    OR              reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    AND             reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    )               reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+    ,               reduce using rule 37 (set_operation -> ID . OPERATION ( set_operation1 ) .)
+
+
+state 191
+
+    (26) input1 -> , ID input1 .
+
+    )               reduce using rule 26 (input1 -> , ID input1 .)
+
+
+state 192
+
+    (29) output1 -> , expression output1 .
+
+    )               reduce using rule 29 (output1 -> , expression output1 .)
+
+
+state 193
+
+    (75) term2 -> muldiv factor term2 .
+
+    +               reduce using rule 75 (term2 -> muldiv factor term2 .)
+    -               reduce using rule 75 (term2 -> muldiv factor term2 .)
+    <               reduce using rule 75 (term2 -> muldiv factor term2 .)
+    >               reduce using rule 75 (term2 -> muldiv factor term2 .)
+    NOT_EQ          reduce using rule 75 (term2 -> muldiv factor term2 .)
+    EQ              reduce using rule 75 (term2 -> muldiv factor term2 .)
+    LEQ             reduce using rule 75 (term2 -> muldiv factor term2 .)
+    GEQ             reduce using rule 75 (term2 -> muldiv factor term2 .)
+    OR              reduce using rule 75 (term2 -> muldiv factor term2 .)
+    AND             reduce using rule 75 (term2 -> muldiv factor term2 .)
+    ;               reduce using rule 75 (term2 -> muldiv factor term2 .)
+    )               reduce using rule 75 (term2 -> muldiv factor term2 .)
+    ,               reduce using rule 75 (term2 -> muldiv factor term2 .)
+
+
+state 194
+
+    (31) function_call -> ID ( function_call1 . )
+
+    )               shift and go to state 204
+
+
+state 195
+
+    (111) map_access -> ID ( exp . )
+    (64) exp0 -> exp . exp02
+    (65) exp02 -> . relop exp02
+    (66) exp02 -> . empty
+    (53) relop -> . <
+    (54) relop -> . >
+    (55) relop -> . NOT_EQ
+    (56) relop -> . EQ
+    (57) relop -> . LEQ
+    (58) relop -> . GEQ
+    (114) empty -> .
+
+    )               shift and go to state 137
+    <               shift and go to state 112
+    >               shift and go to state 113
+    NOT_EQ          shift and go to state 114
+    EQ              shift and go to state 115
+    LEQ             shift and go to state 116
+    GEQ             shift and go to state 117
+    OR              reduce using rule 114 (empty -> .)
+    AND             reduce using rule 114 (empty -> .)
+    ,               reduce using rule 114 (empty -> .)
+
+    exp02                          shift and go to state 109
+    relop                          shift and go to state 110
+    empty                          shift and go to state 111
+
+state 196
+
+    (32) function_call1 -> function_call2 .
+
+    )               reduce using rule 32 (function_call1 -> function_call2 .)
+
+
+state 197
+
+    (33) function_call1 -> empty .
+    (35) function_call2 -> empty .
+    (78) term_not -> empty .
+
+  ! reduce/reduce conflict for ) resolved using rule 33 (function_call1 -> empty .)
+    )               reduce using rule 33 (function_call1 -> empty .)
+    (               reduce using rule 78 (term_not -> empty .)
+    +               reduce using rule 78 (term_not -> empty .)
+    -               reduce using rule 78 (term_not -> empty .)
+    ID              reduce using rule 78 (term_not -> empty .)
+    CTE_INT         reduce using rule 78 (term_not -> empty .)
+    CTE_FLOAT       reduce using rule 78 (term_not -> empty .)
+    CTE_BOOL        reduce using rule 78 (term_not -> empty .)
+    CTE_STRING      reduce using rule 78 (term_not -> empty .)
+    CTE_CHAR        reduce using rule 78 (term_not -> empty .)
+
+  ! )               [ reduce using rule 35 (function_call2 -> empty .) ]
+
+
+state 198
+
+    (34) function_call2 -> expression . , function_call2
+
+    ,               shift and go to state 205
+
+
+state 199
+
+    (113) map_operation -> ID . OPERATION . ( )
+    (37) set_operation -> ID . OPERATION . ( set_operation1 )
+
+    (               shift and go to state 206
+
+
+state 200
+
+    (22) condition -> IF ( expression ) block condition1 .
+
+    ID              reduce using rule 22 (condition -> IF ( expression ) block condition1 .)
+    READ            reduce using rule 22 (condition -> IF ( expression ) block condition1 .)
+    PRINT           reduce using rule 22 (condition -> IF ( expression ) block condition1 .)
+    MAP             reduce using rule 22 (condition -> IF ( expression ) block condition1 .)
+    RETURN          reduce using rule 22 (condition -> IF ( expression ) block condition1 .)
+    IF              reduce using rule 22 (condition -> IF ( expression ) block condition1 .)
+    WHILE           reduce using rule 22 (condition -> IF ( expression ) block condition1 .)
+    }               reduce using rule 22 (condition -> IF ( expression ) block condition1 .)
+
+
+state 201
+
+    (23) condition1 -> ELSE . block
+    (104) block -> . { statement_aux }
+
+    {               shift and go to state 185
+
+    block                          shift and go to state 207
+
+state 202
+
+    (24) condition1 -> empty .
+
+    ID              reduce using rule 24 (condition1 -> empty .)
+    READ            reduce using rule 24 (condition1 -> empty .)
+    PRINT           reduce using rule 24 (condition1 -> empty .)
+    MAP             reduce using rule 24 (condition1 -> empty .)
+    RETURN          reduce using rule 24 (condition1 -> empty .)
+    IF              reduce using rule 24 (condition1 -> empty .)
+    WHILE           reduce using rule 24 (condition1 -> empty .)
+    }               reduce using rule 24 (condition1 -> empty .)
+
+
+state 203
+
+    (104) block -> { statement_aux . }
+
+    }               shift and go to state 208
+
+
+state 204
+
+    (31) function_call -> ID ( function_call1 ) .
+
+    *               reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    /               reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    +               reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    -               reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    <               reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    >               reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    NOT_EQ          reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    EQ              reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    LEQ             reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    GEQ             reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    OR              reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    AND             reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    ;               reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    )               reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+    ,               reduce using rule 31 (function_call -> ID ( function_call1 ) .)
+
+
+state 205
+
+    (34) function_call2 -> expression , . function_call2
+    (34) function_call2 -> . expression , function_call2
+    (35) function_call2 -> . empty
+    (61) expression -> . exp0 expression2
+    (114) empty -> .
+    (64) exp0 -> . exp exp02
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+
+    )               reduce using rule 114 (empty -> .)
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+    !               shift and go to state 90
+
+    expression                     shift and go to state 198
+    function_call2                 shift and go to state 209
+    empty                          shift and go to state 210
+    exp0                           shift and go to state 86
+    exp                            shift and go to state 87
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+
+state 206
+
+    (113) map_operation -> ID . OPERATION ( . )
+    (37) set_operation -> ID . OPERATION ( . set_operation1 )
+    (38) set_operation1 -> . expression
+    (39) set_operation1 -> . empty
+    (61) expression -> . exp0 expression2
+    (114) empty -> .
+    (64) exp0 -> . exp exp02
+    (67) exp -> . term exp2
+    (74) term -> . term_not factor term2
+    (77) term_not -> . !
+    (78) term_not -> . empty
+
+  ! shift/reduce conflict for ) resolved as shift
+    )               shift and go to state 171
+    (               reduce using rule 114 (empty -> .)
+    +               reduce using rule 114 (empty -> .)
+    -               reduce using rule 114 (empty -> .)
+    ID              reduce using rule 114 (empty -> .)
+    CTE_INT         reduce using rule 114 (empty -> .)
+    CTE_FLOAT       reduce using rule 114 (empty -> .)
+    CTE_BOOL        reduce using rule 114 (empty -> .)
+    CTE_STRING      reduce using rule 114 (empty -> .)
+    CTE_CHAR        reduce using rule 114 (empty -> .)
+    !               shift and go to state 90
+
+  ! )               [ reduce using rule 114 (empty -> .) ]
+
+    set_operation1                 shift and go to state 170
+    expression                     shift and go to state 172
+    empty                          shift and go to state 173
+    exp0                           shift and go to state 86
+    exp                            shift and go to state 87
+    term                           shift and go to state 88
+    term_not                       shift and go to state 89
+
+state 207
+
+    (23) condition1 -> ELSE block .
+
+    ID              reduce using rule 23 (condition1 -> ELSE block .)
+    READ            reduce using rule 23 (condition1 -> ELSE block .)
+    PRINT           reduce using rule 23 (condition1 -> ELSE block .)
+    MAP             reduce using rule 23 (condition1 -> ELSE block .)
+    RETURN          reduce using rule 23 (condition1 -> ELSE block .)
+    IF              reduce using rule 23 (condition1 -> ELSE block .)
+    WHILE           reduce using rule 23 (condition1 -> ELSE block .)
+    }               reduce using rule 23 (condition1 -> ELSE block .)
+
+
+state 208
+
+    (104) block -> { statement_aux } .
+
+    ELSE            reduce using rule 104 (block -> { statement_aux } .)
+    ID              reduce using rule 104 (block -> { statement_aux } .)
+    READ            reduce using rule 104 (block -> { statement_aux } .)
+    PRINT           reduce using rule 104 (block -> { statement_aux } .)
+    MAP             reduce using rule 104 (block -> { statement_aux } .)
+    RETURN          reduce using rule 104 (block -> { statement_aux } .)
+    IF              reduce using rule 104 (block -> { statement_aux } .)
+    WHILE           reduce using rule 104 (block -> { statement_aux } .)
+    }               reduce using rule 104 (block -> { statement_aux } .)
+
+
+state 209
+
+    (34) function_call2 -> expression , function_call2 .
+
+    )               reduce using rule 34 (function_call2 -> expression , function_call2 .)
+
+
+state 210
+
+    (35) function_call2 -> empty .
+    (78) term_not -> empty .
+
+    )               reduce using rule 35 (function_call2 -> empty .)
+    (               reduce using rule 78 (term_not -> empty .)
+    +               reduce using rule 78 (term_not -> empty .)
+    -               reduce using rule 78 (term_not -> empty .)
+    ID              reduce using rule 78 (term_not -> empty .)
+    CTE_INT         reduce using rule 78 (term_not -> empty .)
+    CTE_FLOAT       reduce using rule 78 (term_not -> empty .)
+    CTE_BOOL        reduce using rule 78 (term_not -> empty .)
+    CTE_STRING      reduce using rule 78 (term_not -> empty .)
+    CTE_CHAR        reduce using rule 78 (term_not -> empty .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for INT in state 4 resolved as shift
+WARNING: shift/reduce conflict for FLOAT in state 4 resolved as shift
+WARNING: shift/reduce conflict for BOOL in state 4 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 4 resolved as shift
+WARNING: shift/reduce conflict for CHAR in state 4 resolved as shift
+WARNING: shift/reduce conflict for SET in state 4 resolved as shift
+WARNING: shift/reduce conflict for MAP in state 4 resolved as shift
+WARNING: shift/reduce conflict for INT in state 33 resolved as shift
+WARNING: shift/reduce conflict for FLOAT in state 33 resolved as shift
+WARNING: shift/reduce conflict for BOOL in state 33 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 33 resolved as shift
+WARNING: shift/reduce conflict for CHAR in state 33 resolved as shift
+WARNING: shift/reduce conflict for SET in state 33 resolved as shift
+WARNING: shift/reduce conflict for MAP in state 33 resolved as shift
+WARNING: shift/reduce conflict for MAP in state 37 resolved as shift
+WARNING: shift/reduce conflict for MAP in state 95 resolved as shift
+WARNING: shift/reduce conflict for ) in state 136 resolved as shift
+WARNING: shift/reduce conflict for ) in state 206 resolved as shift
+WARNING: reduce/reduce conflict in state 197 resolved using rule (function_call1 -> empty)
+WARNING: rejected rule (function_call2 -> empty) in state 197

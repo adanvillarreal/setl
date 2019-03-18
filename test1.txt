@@ -1,11 +1,16 @@
 program aPlusB;
 
-int sum(){
+map<int,int> M;
+set<bool> S;
+
+void func(){
 
 }
 
 main {
+
      int a, b;
+     M.size(true&&false);
      read(a,b);
      print(a+b);
 }
