@@ -1,0 +1,244 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    CLEAR
+    FIND
+    INSERT
+    REMOVE
+    SIZE
+    VAR
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> PROGRAM ID ; program1
+Rule 2     program1 -> program2 program3 main
+Rule 3     program2 -> vars
+Rule 4     program2 -> empty
+Rule 5     program3 -> proc program3
+Rule 6     program3 -> empty
+Rule 7     vars -> datatype vars1 ; vars2
+Rule 8     vars1 -> ID , vars1
+Rule 9     vars1 -> ID
+Rule 10    vars2 -> vars
+Rule 11    vars2 -> empty
+Rule 12    proc -> functype ID ( proc1 ) { proc3 proc4 }
+Rule 13    proc1 -> datatype ID proc2
+Rule 14    proc2 -> , proc1
+Rule 15    proc2 -> empty
+Rule 16    proc3 -> vars
+Rule 17    proc3 -> empty
+Rule 18    proc4 -> statement proc4
+Rule 19    proc4 -> empty
+Rule 20    assignment -> ID ASSIGNATOR expression
+Rule 21    condition -> IF ( expression ) block condition1
+Rule 22    condition1 -> ELSE block
+Rule 23    condition1 -> empty
+Rule 24    input -> READ ( ID input1 )
+Rule 25    input1 -> , ID input1
+Rule 26    input1 -> empty
+Rule 27    output -> PRINT ( expression output1 )
+Rule 28    output1 -> , expression output1
+Rule 29    output1 -> empty
+Rule 30    function_call -> ID ( function_call1 )
+Rule 31    function_call1 -> function_call2
+Rule 32    function_call1 -> empty
+Rule 33    function_call2 -> expression , function_call2
+Rule 34    function_call2 -> empty
+Rule 35    return -> RETURN expression
+Rule 36    set_operation -> ID . OPERATION ( set_operation1 )
+Rule 37    set_operation1 -> expression
+Rule 38    set_operation1 -> empty
+Rule 39    statement -> statement1 ;
+Rule 40    statement -> statement2
+Rule 41    statement1 -> assignment
+Rule 42    statement1 -> input
+Rule 43    statement1 -> output
+Rule 44    statement1 -> set_operation
+Rule 45    statement1 -> map_definition
+Rule 46    statement1 -> map_assignment
+Rule 47    statement1 -> map_operation
+Rule 48    statement2 -> condition
+Rule 49    statement2 -> while
+Rule 50    while -> WHILE ( expression ) block
+Rule 51    relop -> <
+Rule 52    relop -> >
+Rule 53    relop -> NOT_EQ
+Rule 54    relop -> EQ
+Rule 55    relop -> LEQ
+Rule 56    relop -> GEQ
+Rule 57    logop -> OR
+Rule 58    logop -> AND
+Rule 59    expression -> exp0 expression2
+Rule 60    expression2 -> LOGOP exp0 expression2
+Rule 61    expression2 -> empty
+Rule 62    exp0 -> exp exp02
+Rule 63    exp02 -> RELOP exp02
+Rule 64    exp02 -> empty
+Rule 65    exp -> term exp2
+Rule 66    addsub -> +
+Rule 67    addsub -> -
+Rule 68    muldiv -> *
+Rule 69    muldiv -> /
+Rule 70    exp2 -> addsub term exp2
+Rule 71    exp2 -> empty
+Rule 72    term -> term_not factor term2
+Rule 73    term2 -> muldiv factor term2
+Rule 74    term2 -> empty
+Rule 75    term_not -> !
+Rule 76    term_not -> empty
+Rule 77    factor -> ( expression )
+Rule 78    factor -> factor2
+Rule 79    factor2 -> factor3 varcte
+Rule 80    factor3 -> addsub
+Rule 81    factor3 -> empty
+Rule 82    varcte -> ID
+Rule 83    varcte -> CTE_INT
+Rule 84    varcte -> CTE_FLOAT
+Rule 85    varcte -> CTE_BOOL
+Rule 86    varcte -> CTE_STRING
+Rule 87    varcte -> CTE_CHAR
+Rule 88    varcte -> function_call
+Rule 89    varcte -> map_access
+Rule 90    varcte -> map_operation
+Rule 91    varcte -> set_operation
+Rule 92    datatype -> INT
+Rule 93    datatype -> FLOAT
+Rule 94    datatype -> BOOL
+Rule 95    datatype -> STRING
+Rule 96    datatype -> CHAR
+Rule 97    datatype -> set_definition
+Rule 98    datatype -> map_definition
+Rule 99    set_definition -> SET < datatype >
+Rule 100   functype -> datatype
+Rule 101   functype -> VOID
+Rule 102   block -> { statement_aux }
+Rule 103   statement_aux -> statement statement_aux
+Rule 104   statement_aux -> empty
+Rule 105   main -> MAIN { vars_aux statement_aux }
+Rule 106   vars_aux -> vars
+Rule 107   vars_aux -> empty
+Rule 108   map_definition -> MAP < datatype , datatype >
+Rule 109   map_access -> ID ( exp )
+Rule 110   map_assignment -> map_access ASSIGNATOR exp
+Rule 111   map_operation -> ID . OPERATION ( )
+Rule 112   empty -> <empty>
+
+Terminals, with rules where they appear
+
+!                    : 75
+(                    : 12 21 24 27 30 36 50 77 109 111
+)                    : 12 21 24 27 30 36 50 77 109 111
+*                    : 68
++                    : 66
+,                    : 8 14 25 28 33 108
+-                    : 67
+.                    : 36 111
+/                    : 69
+;                    : 1 7 39
+<                    : 51 99 108
+>                    : 52 99 108
+AND                  : 58
+ASSIGNATOR           : 20 110
+BOOL                 : 94
+CHAR                 : 96
+CLEAR                : 
+CTE_BOOL             : 85
+CTE_CHAR             : 87
+CTE_FLOAT            : 84
+CTE_INT              : 83
+CTE_STRING           : 86
+ELSE                 : 22
+EQ                   : 54
+FIND                 : 
+FLOAT                : 93
+GEQ                  : 56
+ID                   : 1 8 9 12 13 20 24 25 30 36 82 109 111
+IF                   : 21
+INSERT               : 
+INT                  : 92
+LEQ                  : 55
+MAIN                 : 105
+MAP                  : 108
+NOT_EQ               : 53
+OPERATION            : 36 111
+OR                   : 57
+PRINT                : 27
+PROGRAM              : 1
+READ                 : 24
+REMOVE               : 
+RETURN               : 35
+SET                  : 99
+SIZE                 : 
+STRING               : 95
+VAR                  : 
+VOID                 : 101
+WHILE                : 50
+error                : 
+{                    : 12 102 105
+}                    : 12 102 105
+
+Nonterminals, with rules where they appear
+
+LOGOP                : 60
+RELOP                : 63
+addsub               : 70 80
+assignment           : 41
+block                : 21 22 50
+condition            : 48
+condition1           : 21
+datatype             : 7 13 99 100 108 108
+empty                : 4 6 11 15 17 19 23 26 29 32 34 38 61 64 71 74 76 81 104 107
+exp                  : 62 109 110
+exp0                 : 59 60
+exp02                : 62 63
+exp2                 : 65 70
+expression           : 20 21 27 28 33 35 37 50 77
+expression2          : 59 60
+factor               : 72 73
+factor2              : 78
+factor3              : 79
+function_call        : 88
+function_call1       : 30
+function_call2       : 31 33
+functype             : 12
+input                : 42
+input1               : 24 25
+logop                : 
+main                 : 2
+map_access           : 89 110
+map_assignment       : 46
+map_definition       : 45 98
+map_operation        : 47 90
+muldiv               : 73
+output               : 43
+output1              : 27 28
+proc                 : 5
+proc1                : 12 14
+proc2                : 13
+proc3                : 12
+proc4                : 12 18
+program              : 0
+program1             : 1
+program2             : 2
+program3             : 2 5
+relop                : 
+return               : 
+set_definition       : 97
+set_operation        : 44 91
+set_operation1       : 36
+statement            : 18 103
+statement1           : 39
+statement2           : 40
+statement_aux        : 102 103 105
+term                 : 65 70
+term2                : 72 73
+term_not             : 72
+varcte               : 79
+vars                 : 3 10 16 106
+vars1                : 7 8
+vars2                : 7
+vars_aux             : 105
+while                : 49
+

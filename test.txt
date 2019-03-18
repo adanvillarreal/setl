@@ -1,0 +1,14 @@
+program aPlusB;
+
+int sum(int a, int b){
+     int res;
+
+     res := a + b;
+     return res;
+}
+
+main {
+     int a, b;
+     read(a, b);
+     print(sum(a, b));
+}

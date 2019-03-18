@@ -110,29 +110,34 @@ def p_program3(p):
                 | empty'''
 
 def p_vars(p):
-    '''vars : dataype vars1 ';' vars2'''
+    '''vars : datatype vars1 ';' vars2'''
 
 def p_vars1(p):
-    '''vars1 : ID ',' vars1 | ID'''
+    '''vars1 : ID ',' vars1
+             | ID'''
 
 def p_vars2(p):
-    '''vars2 : vars | empty'''
+    '''vars2 : vars
+             | empty'''
 
 
 def p_proc(p):
-    '''proc : functype ID '(' proc1 ')' '{' proc3 proc4 '}'''
+    '''proc : functype ID '(' proc1 ')' '{' proc3 proc4 '}' '''
 
 def p_proc1(p):
     '''proc1 : datatype ID proc2'''
 
 def p_proc2(p):
-    '''proc2 : ',' proc1 | empty'''
+    '''proc2 : ',' proc1
+             | empty'''
 
 def p_proc3(p):
-    '''proc3 : vars | empty'''
+    '''proc3 : vars
+             | empty'''
 
 def p_proc4(p):
-    '''proc4 : statement proc4 | empty'''
+    '''proc4 : statement proc4
+             | empty'''
 
 def p_assignment(p):
     '''assignment : ID ASSIGNATOR expression'''
@@ -141,46 +146,53 @@ def p_condition(p):
     '''condition : IF '(' expression ')' block condition1'''
 
 def p_condition1(p):
-    '''condition1 : ELSE block | empty'''
+    '''condition1 : ELSE block
+                  | empty'''
 
 def p_input(p):
     '''input : READ '(' ID input1 ')' '''
 
 def p_input1(p):
-    '''input1 : ',' ID input1 | empty'''
+    '''input1 : ',' ID input1
+              | empty'''
 
 def p_output(p):
     '''output : PRINT '(' expression output1 ')' '''
 
 def p_output1(p):
-    '''output1 : ',' expression output1 | empty'''
+    '''output1 : ',' expression output1
+               | empty'''
 
 def p_function_call(p):
     '''function_call : ID '(' function_call1 ')' '''
 
 def p_function_call1(p):
-    '''function_call1 : function_call2 | empty'''
+    '''function_call1 : function_call2
+                      | empty'''
 
 def p_function_call2(p):
-    '''function_call2 : expression ',' function_call2 | empty'''
+    '''function_call2 : expression ',' function_call2
+                      | empty'''
 
 def p_return(p):
     '''return : RETURN expression'''
 
-def p_set_operations(p):
-    '''set_operations : ID '.' OPERATION '(' set_operations1 ')' '''
+def p_set_operation(p):
+    '''set_operation : ID '.' OPERATION '(' set_operation1 ')' '''
 
-def p_set_operations1(p):
-    '''set_operations1 : expression | empty'''
+def p_set_operation1(p):
+    '''set_operation1 : expression
+                       | empty'''
 
 def p_statement(p):
-    '''statement : statement1 ';' | statement2 '''
+    '''statement : statement1 ';'
+                 | statement2 '''
 
 def p_statement1(p):
     '''statement1 : assignment
                   | input
                   | output
-                  | set_operations
+                  | set_operation
                   | map_definition
                   | map_assignment
                   | map_operation''' #aqui no falta set_asisignemtn?
@@ -207,7 +219,7 @@ def p_logop(p):
 ######## Segunda Parte
 
 def p_expression(p):
-  '''expression: exp0 expression2'''
+  '''expression : exp0 expression2'''
 
 def p_expression2(p):
   '''expression2 : LOGOP exp0 expression2
@@ -266,11 +278,11 @@ def p_varcte(p):
             | CTE_CHAR
             | function_call
             | map_access
-            | map_operations
-            | set_operations'''
+            | map_operation
+            | set_operation'''
 
-def p_data_type(p):
-  '''data_type : INT
+def p_datatype(p):
+  '''datatype : INT
                | FLOAT
                | BOOL
                | STRING
@@ -279,10 +291,10 @@ def p_data_type(p):
                | map_definition'''
 
 def p_set_definition(p):
-  '''set_definition : SET '<' data_type '>' '''
+  '''set_definition : SET '<' datatype '>' '''
 
-def p_func_type(p):
-  '''func_type : data_type
+def p_functype(p):
+  '''functype : datatype
                | VOID'''
 
 def p_block(p):
@@ -293,14 +305,14 @@ def p_statement_aux(p):
                    | empty'''
 
 def p_main(p):
-  '''MAN '{' vars_aux statement_aux '}' '''
+  '''main : MAIN '{' vars_aux statement_aux '}' '''
 
 def p_vars_aux(p):
   '''vars_aux : vars
               | empty'''
 
 def p_map_definition(p):
-  '''map_definition : MAP '<' data_type ',' data_type '>' '''
+  '''map_definition : MAP '<' datatype ',' datatype '>' '''
 
 def p_map_access(p):
   '''map_access : ID '(' exp ')' '''
@@ -308,5 +320,40 @@ def p_map_access(p):
 def p_map_assignment(p):
   '''map_assignment : map_access ASSIGNATOR exp'''
 
-def p_map_operations(p):
-  '''map_operations : ID '.' OPERATION '(' ')' '''
+def p_map_operation(p):
+  '''map_operation : ID '.' OPERATION '(' ')' '''
+
+def p_empty(p):
+    '''empty : '''
+
+def p_error( p ):
+    print("Syntax error in input!")
+
+
+#----------------------------
+
+#Build the lexer
+lexer = lex.lex()
+
+
+#Build the parser
+parser = yacc.yacc()
+
+
+f = open("test.txt", "r")
+s = ""
+
+for x in f:
+  s = s + x
+
+print(s)
+res = parser.parse(s)
+print(res)
+
+#lexer.input(s)
+#while True:
+#tok = lexer.token()
+#if not tok:
+  #break
+#print(tok)
+#print("~~~~~~~~~~~~~~")
