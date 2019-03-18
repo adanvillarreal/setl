@@ -1,16 +1,44 @@
-program aPlusB;
+program fibonacci;
 
-map<int,int> M;
-set<bool> S;
+set<int> allNumbersLessThan(int x) {
+     int i;
+     set<int> numbers;
 
-void func(){
-
+     i := 1;
+     while(i <= x) {
+          numbers.insert(i);
+          i := i + 1;
+     }
+     return numbers;
 }
 
-main {
 
-     int a, b;
-     M.size(true&&false);
-     read(a,b);
-     print(a+b);
+main {
+     int f1, f2, f3;
+     int limit;
+     int cont;
+     set<int> fibonacciNumbers;
+     set<int> allNumbers;
+
+     f1 := 0;
+     f2 := 1;
+     f3 := f1 + f2;
+     read(limit);
+
+     allNumbers := allNumbersLessThan(limit);
+
+     print(true == false);
+
+     while(f3 <= limit) {
+          fibonacciNumbers.insert(f3);
+          print(f3);
+          print("");
+          f1 := f2;
+          f2 := f3;
+          f3 := f1 + f2;
+     }
+
+     allNumbers := allNumbers - fibonacciNumbers;
+     print(allNumbers);
+
 }

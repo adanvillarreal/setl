@@ -1,6 +1,7 @@
 import ply.lex as lex
 import ply.yacc as yacc
 import sys
+import logging
 
 tokens = [
     'CTE_FLOAT',
@@ -47,13 +48,13 @@ reserved = {
   'string': 'STRING',
   'void': 'VOID',
   'while': 'WHILE',
-  'size': 'OPERATION',
-  'clear': 'OPERATION',
-  'insert': 'OPERATION',
-  'remove': 'OPERATION',
-  'find': 'OPERATION',
-  'true': 'CTE_BOOL',
-  'false': 'CTE_BOOL'
+  'size' : 'OPERATION',
+  'clear' : 'OPERATION',
+  'insert' : 'OPERATION',
+  'remove' : 'OPERATION',
+  'find' : 'OPERATION',
+  'true' : 'CTE_BOOL',
+  'false' : 'CTE_BOOL'
 }
 
 def t_ID(t):
@@ -90,8 +91,6 @@ t_ignore = ' \t\n'
 
 tokens = tokens + list(reserved.values())
 
-lex.lex()
-
 # parser
 
 start = "program"
@@ -100,29 +99,23 @@ def p_program(p):
     '''program : PROGRAM ID ';' program1'''
 
 def p_program1(p):
-    '''program1 : program2 program3 main'''
+    '''program1 : var program1
+                | program2'''
 
 def p_program2(p):
-    '''program2 : vars
-                | empty'''
+    '''program2 : procs main
+                | main'''
 
-def p_program3(p):
-    '''program3 : proc program3
-                | empty'''
-
-def p_vars(p):
-    '''vars : datatype vars1 ';' vars2'''
-
-def p_vars1(p):
-    '''vars1 : ID ',' vars1
-             | ID'''
-
-def p_vars2(p):
-    '''vars2 : vars
-             | empty'''
+def p_procs(p):
+    '''procs : proc
+             | proc procs'''
 
 def p_proc(p):
-    '''proc : functype ID '(' proc1 ')' '{' proc3 proc4 '}' '''
+    '''proc : datatype procA
+            | VOID procA
+            | empty'''
+def p_procA(p):
+    '''procA : ID '(' proc1 ')' '{' proc3 '}' '''
 
 def p_proc1(p):
     '''proc1 : datatype ID proc2
@@ -133,12 +126,67 @@ def p_proc2(p):
              | empty'''
 
 def p_proc3(p):
-    '''proc3 : vars
-             | empty'''
+    '''proc3 : var proc3
+             | proc4'''
 
 def p_proc4(p):
     '''proc4 : statement proc4
              | empty'''
+
+#
+# def p_proc(p):
+#     '''proc : datatype procA
+#             | VOID procA
+#             | empty'''
+# def p_procA(p):
+#     '''procA : ID '(' proc1 ')' '{' proc3 proc4 '}' '''
+#
+# def p_proc1(p):
+#     '''proc1 : datatype ID proc2
+#              | empty'''
+#
+# def p_proc2(p):
+#     '''proc2 : ',' datatype ID proc2
+#              | empty'''
+#
+# def p_proc3(p):
+#     '''proc3 : vars
+#              | empty'''
+#
+# def p_proc4(p):
+#     '''proc4 : statement proc4
+#              | empty'''
+
+def p_vars(p):
+    '''vars : var vars
+            | var'''
+
+def p_var(p):
+    '''var : datatype var1 '''
+
+def p_var1(p):
+    '''var1 : ID ',' var1
+             | ID var2'''
+
+def p_var2(p):
+    '''var2 : ';' '''
+
+# def p_vars1(p):
+#     '''vars2 : empty
+#              | vars'''
+#
+#
+# def p_vars(p):
+#     '''vars : datatype vars1 ';' vars
+#             | datatype vars1 ';' '''
+#
+# def p_vars1(p):
+#     '''vars1 : ID ',' vars1
+#              | ID'''
+#
+# def p_vars2(p):
+#     '''vars2 : vars
+#              | empty'''
 
 def p_assignment(p):
     '''assignment : ID ASSIGNATOR expression'''
@@ -197,7 +245,8 @@ def p_statement1(p):
                   | map_definition
                   | return
                   | map_assignment
-                  | map_operation''' #aqui no falta set_asisignemtn?
+                  | map_operation
+                  | function_call''' #aqui no falta set_asisignemtn?
 
 def p_statement2(p):
     '''statement2 : condition
@@ -231,7 +280,7 @@ def p_exp0(p):
   '''exp0 : exp exp02'''
 
 def p_exp02(p):
-  '''exp02 : relop exp02
+  '''exp02 : relop exp0
            | empty'''
 
 def p_exp(p):
@@ -283,6 +332,10 @@ def p_varcte(p):
             | map_operation
             | set_operation '''
 
+def p_functype(p):
+  '''functype : datatype
+               | VOID'''
+
 def p_datatype(p):
   '''datatype : INT
                | FLOAT
@@ -294,10 +347,6 @@ def p_datatype(p):
 
 def p_set_definition(p):
   '''set_definition : SET '<' datatype '>' '''
-
-def p_functype(p):
-  '''functype : datatype
-               | VOID'''
 
 def p_block(p):
   '''block : '{' statement_aux '}' '''
@@ -326,7 +375,7 @@ def p_map_operation(p):
   '''map_operation : ID '.' OPERATION '(' ')' '''
 
 def p_empty(p):
-    '''empty : '''
+    '''empty :'''
 
 def p_error( p ):
     stack_state_str = ' '.join([symbol.type for symbol in parser.symstack][1:])
@@ -342,9 +391,15 @@ def p_error( p ):
 #Build the lexer
 lexer = lex.lex()
 
-
 #Build the parser
-parser = yacc.yacc(debug=True)
+logging.basicConfig(
+    level = logging.DEBUG,
+    filename = "parselog.txt",
+    filemode = "w",
+    format = "%(filename)10s:%(lineno)4d:%(message)s"
+)
+log = logging.getLogger()
+parser = yacc.yacc()
 
 f = open("test1.txt", "r")
 s = ""
@@ -353,10 +408,8 @@ for x in f:
   s = s + x
 
 print(s)
-res = parser.parse(s)
+res = parser.parse(s, debug=log)
 print(res)
-
-
 lexer.input(s)
 while True:
     tok = lexer.token()
