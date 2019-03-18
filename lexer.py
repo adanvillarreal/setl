@@ -203,3 +203,110 @@ def p_relop(p):
 def p_logop(p):
  '''logop : OR
           | AND'''
+
+######## Segunda Parte
+
+def p_expression(p):
+  '''expression: exp0 expression2'''
+
+def p_expression2(p):
+  '''expression2 : LOGOP exp0 expression2
+                 | empty'''
+
+def p_exp0(p):
+  '''exp0 : exp exp02'''
+
+def p_exp02(p):
+  '''exp02 : RELOP exp02
+           | empty'''
+
+def p_exp(p):
+  '''exp : term exp2'''
+
+def p_addsub(p):
+  '''addsub : '+'
+            | '-' '''
+
+def p_muldiv(p):
+  '''muldiv : '*'
+            | '/' '''
+
+def p_exp2(p):
+  '''exp2 : addsub term exp2
+          | empty'''
+
+def p_term(p):
+  '''term : term_not factor term2'''
+
+def p_term2(p):
+  '''term2 : muldiv factor term2
+           | empty'''
+
+def p_term_not(p):
+  '''term_not : '!'
+              | empty'''
+
+def p_factor(p):
+  '''factor : '(' expression ')'
+            | factor2'''
+
+def p_factor2(p):
+  '''factor2 : factor3 varcte'''
+
+def p_factor3(p):
+  '''factor3 : addsub
+             | empty'''
+
+def p_varcte(p):
+  '''varcte : ID
+            | CTE_INT
+            | CTE_FLOAT
+            | CTE_BOOL
+            | CTE_STRING
+            | CTE_CHAR
+            | function_call
+            | map_access
+            | map_operations
+            | set_operations'''
+
+def p_data_type(p):
+  '''data_type : INT
+               | FLOAT
+               | BOOL
+               | STRING
+               | CHAR
+               | set_definition
+               | map_definition'''
+
+def p_set_definition(p):
+  '''set_definition : SET '<' data_type '>' '''
+
+def p_func_type(p):
+  '''func_type : data_type
+               | VOID'''
+
+def p_block(p):
+  '''block : '{' statement_aux '}' '''
+
+def p_statement_aux(p):
+  '''statement_aux : statement statement_aux
+                   | empty'''
+
+def p_main(p):
+  '''MAN '{' vars_aux statement_aux '}' '''
+
+def p_vars_aux(p):
+  '''vars_aux : vars
+              | empty'''
+
+def p_map_definition(p):
+  '''map_definition : MAP '<' data_type ',' data_type '>' '''
+
+def p_map_access(p):
+  '''map_access : ID '(' exp ')' '''
+
+def p_map_assignment(p):
+  '''map_assignment : map_access ASSIGNATOR exp'''
+
+def p_map_operations(p):
+  '''map_operations : ID '.' OPERATION '(' ')' '''
