@@ -113,7 +113,7 @@ def p_proc(p):
             | VOID procA
             | empty'''
 def p_procA(p):
-    '''procA : ID '(' proc1 ')' '{' proc3 proc4 '}' '''
+    '''procA : ID '(' proc1 ')' '{' proc3 '}' '''
 
 def p_proc1(p):
     '''proc1 : datatype ID proc2
@@ -124,12 +124,36 @@ def p_proc2(p):
              | empty'''
 
 def p_proc3(p):
-    '''proc3 : vars
-             | empty'''
+    '''proc3 : var proc3
+             | proc4'''
 
 def p_proc4(p):
     '''proc4 : statement proc4
              | empty'''
+
+#
+# def p_proc(p):
+#     '''proc : datatype procA
+#             | VOID procA
+#             | empty'''
+# def p_procA(p):
+#     '''procA : ID '(' proc1 ')' '{' proc3 proc4 '}' '''
+#
+# def p_proc1(p):
+#     '''proc1 : datatype ID proc2
+#              | empty'''
+#
+# def p_proc2(p):
+#     '''proc2 : ',' datatype ID proc2
+#              | empty'''
+#
+# def p_proc3(p):
+#     '''proc3 : vars
+#              | empty'''
+#
+# def p_proc4(p):
+#     '''proc4 : statement proc4
+#              | empty'''
 
 def p_vars(p):
     '''vars : var vars
@@ -219,7 +243,8 @@ def p_statement1(p):
                   | map_definition
                   | return
                   | map_assignment
-                  | map_operation''' #aqui no falta set_asisignemtn?
+                  | map_operation
+                  | function_call''' #aqui no falta set_asisignemtn?
 
 def p_statement2(p):
     '''statement2 : condition
