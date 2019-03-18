@@ -1,5 +1,11 @@
 program aPlusB;
 
+int sum(){
+
+}
+
 main {
      int a, b;
+     read(a,b);
+     print(a+b);
 }

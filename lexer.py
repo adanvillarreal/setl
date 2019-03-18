@@ -333,7 +333,7 @@ lexer = lex.lex()
 #Build the parser
 parser = yacc.yacc()
 
-f = open("test.txt", "r")
+f = open("test1.txt", "r")
 s = ""
 
 for x in f:
