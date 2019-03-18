@@ -33,24 +33,18 @@ literals = ['+', '-', '*', '/', '(', ')', '{', '}','.', ',', ':', ';', '=', '>',
 reserved = {
   'bool': 'BOOL',
   'char': 'CHAR',
-  'clear': 'CLEAR',
   'else' : 'ELSE',
-  'find': 'FIND',
   'float': 'FLOAT',
   'if' : 'IF',
-  'insert': 'INSERT',
   'int': 'INT',
   'main': 'MAIN',
   'map': 'MAP',
   'print': 'PRINT',
   'program' : 'PROGRAM',
   'read' : 'READ',
-  'remove': 'REMOVE',
   'return': 'RETURN',
   'set': 'SET',
-  'size': 'SIZE',
   'string': 'STRING',
-  'var': 'VAR',
   'void': 'VOID',
   'while': 'WHILE'
 }
@@ -119,7 +113,6 @@ def p_vars1(p):
 def p_vars2(p):
     '''vars2 : vars
              | empty'''
-
 
 def p_proc(p):
     '''proc : functype ID '(' proc1 ')' '{' proc3 proc4 '}' '''
@@ -194,6 +187,7 @@ def p_statement1(p):
                   | output
                   | set_operation
                   | map_definition
+                  | return
                   | map_assignment
                   | map_operation''' #aqui no falta set_asisignemtn?
 
@@ -222,14 +216,14 @@ def p_expression(p):
   '''expression : exp0 expression2'''
 
 def p_expression2(p):
-  '''expression2 : LOGOP exp0 expression2
+  '''expression2 : logop exp0 expression2
                  | empty'''
 
 def p_exp0(p):
   '''exp0 : exp exp02'''
 
 def p_exp02(p):
-  '''exp02 : RELOP exp02
+  '''exp02 : relop exp02
            | empty'''
 
 def p_exp(p):
@@ -279,7 +273,7 @@ def p_varcte(p):
             | function_call
             | map_access
             | map_operation
-            | set_operation'''
+            | set_operation '''
 
 def p_datatype(p):
   '''datatype : INT
@@ -339,7 +333,6 @@ lexer = lex.lex()
 #Build the parser
 parser = yacc.yacc()
 
-
 f = open("test.txt", "r")
 s = ""
 
@@ -350,10 +343,12 @@ print(s)
 res = parser.parse(s)
 print(res)
 
-#lexer.input(s)
-#while True:
-#tok = lexer.token()
-#if not tok:
-  #break
-#print(tok)
-#print("~~~~~~~~~~~~~~")
+'''
+lexer.input(s)
+while True:
+    tok = lexer.token()
+    if not tok:
+      break
+    print(tok)
+    print("~~~~~~~~~~~~~~")
+'''

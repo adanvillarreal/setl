@@ -1,0 +1,5 @@
+program aPlusB;
+
+main {
+     int a, b;
+}
