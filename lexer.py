@@ -1,7 +1,30 @@
 import ply.lex as lex
 import ply.yacc as yacc
 import sys
+from collections import namedtuple
 import logging
+
+class SymbolTable:
+    def __init__(self):
+        self.table = {}
+
+    def exists(self, name):
+        return name in self.table
+
+    def insert(self, name, symbol_type, data_type):
+        if self.exists(name):
+            return False
+        else
+            self.table[name] = namedtuple(name, symbol_type, data_type)
+            return True
+
+    def find(self, name):
+        if self.exists(name):
+            return self.table[name]
+        else
+            return None
+
+
 
 tokens = [
     'CTE_FLOAT',
@@ -103,7 +126,7 @@ def p_program1(p):
                 | program2'''
 
 def p_program2(p):
-    '''program2 : procs main
+    '''program2 : proc program2
                 | main'''
 
 def p_procs(p):
