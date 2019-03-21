@@ -3,28 +3,13 @@ import ply.yacc as yacc
 import sys
 from collections import namedtuple
 import logging
+from symbol_table import SymbolTable
+import config
 
-class SymbolTable:
-    def __init__(self):
-        self.table = {}
-
-    def exists(self, name):
-        return name in self.table
-
-    def insert(self, name, symbol_type, data_type):
-        if self.exists(name):
-            return False
-        else
-            self.table[name] = namedtuple(name, symbol_type, data_type)
-            return True
-
-    def find(self, name):
-        if self.exists(name):
-            return self.table[name]
-        else
-            return None
-
-
+global_vars_table = SymbolTable()
+local_vars_table = SymbolTable()
+procs_table = SymbolTable()
+config.current_datatype = 1
 
 tokens = [
     'CTE_FLOAT',
@@ -121,9 +106,11 @@ start = "program"
 def p_program(p):
     '''program : PROGRAM ID ';' program1'''
 
+
 def p_program1(p):
     '''program1 : var program1
                 | program2'''
+    print p[1]
 
 def p_program2(p):
     '''program2 : proc program2
@@ -183,13 +170,19 @@ def p_proc4(p):
 def p_vars(p):
     '''vars : var vars
             | var'''
+    print p[1]
 
 def p_var(p):
     '''var : datatype var1 '''
+    p[0] = p[1] + " " + str(p[2])
 
 def p_var1(p):
     '''var1 : ID ',' var1
              | ID var2'''
+    if p[2] == ',':
+        p[0] = p[1] + " " + p[3]
+    else:
+        p[0] = p[1]
 
 def p_var2(p):
     '''var2 : ';' '''
@@ -367,9 +360,11 @@ def p_datatype(p):
                | CHAR
                | set_definition
                | map_definition'''
+  p[0] = p[1]
 
 def p_set_definition(p):
   '''set_definition : SET '<' datatype '>' '''
+  p[0] = p[1] + p[2] + p[3] + p[4]
 
 def p_block(p):
   '''block : '{' statement_aux '}' '''
@@ -387,6 +382,7 @@ def p_vars_aux(p):
 
 def p_map_definition(p):
   '''map_definition : MAP '<' datatype ',' datatype '>' '''
+  p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6]
 
 def p_map_access(p):
   '''map_access : ID '(' exp ')' '''
