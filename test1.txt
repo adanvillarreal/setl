@@ -1,11 +1,21 @@
 program fibonacci;
+int varA, varB;
+float b;
 
+int f(int x, string a) {
+  int b;
+  return b;
+}
 set<int> allNumbersLessThan(int x) {
      int i;
      set<int> numbers;
+     map<int, int> d;
 
      i := 1;
-     while(i <= (x - 4)) {
+     d.size();
+     d.clear();
+     d(1) := i;
+     while(i <= (d - 4)) {
           numbers.insert(i);
           i := i + 1;
      }
@@ -17,16 +27,22 @@ main {
      int f1, f2, f3;
      int limit;
      int cont;
+     float p, x;
      set<int> fibonacciNumbers;
      set<int> allNumbers;
+     map<int, string> a;
+
 
      f1 := 0;
      f2 := 1;
      f3 := f1 + f2;
      read(limit);
+     a(3) := 3 * allNumbers.size();
+     print(a(3));
+
 
      allNumbers := allNumbersLessThan(limit);
-     something(123, "a", allNumbers);
+     something(123, "a", allNumbers, b.size());
 
      print(true == false);
 
@@ -46,7 +62,7 @@ main {
        }
      } else {
         if(3) {
-          x := 4;
+          b := 4;
         }
         else {
           opsdf("asdasd", a(fa("asd", 123, 543) - b.size()));
