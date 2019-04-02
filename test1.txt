@@ -42,7 +42,7 @@ main {
 
 
      allNumbers := allNumbersLessThan(limit);
-     something(123, "a", allNumbers, b.size());
+     f(123, "a", allNumbers, b.size());
 
      print(true == false);
 
@@ -54,7 +54,7 @@ main {
           f2 := f3;
           f3 := f1 + f2;
      }
-     if(a()) {
+     if(f()) {
        if(3 < 4 && 5 > 9) {
          p := 3;
        } else {
@@ -65,7 +65,7 @@ main {
           b := 4;
         }
         else {
-          opsdf("asdasd", a(fa("asd", 123, 543) - b.size()));
+          f("asdasd", f(f("asd", 123, 543) - b.size()));
         }
      }
 
