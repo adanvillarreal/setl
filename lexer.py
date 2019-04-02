@@ -332,14 +332,7 @@ def p_term_not(p):
 
 def p_factor(p):
   '''factor : '(' expression ')'
-            | factor2'''
-
-def p_factor2(p):
-  '''factor2 : factor3 varcte'''
-
-def p_factor3(p):
-  '''factor3 : addsub
-             | empty'''
+            | varcte'''
 
 def p_varcte(p):
   '''varcte : ID
