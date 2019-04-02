@@ -6,7 +6,7 @@ class SemanticCube:
 
     def init_names(self):
         self.datatypes = { "INT" : 0, "FLOAT": 1, "CHAR": 2,
-        "BOOL": 3, "STRING": 4, "SET": 5,"MAP": 6, "VOID": 7, "UNARY": 8 }
+        "BOOL": 3, "STRING": 4, "SET": 5, "MAP": 6, "NONE" : 7}
 
         self.operators = { "+" : 0, "-" : 1, "*" : 2, "/" : 3, "&&" : 4,
         "||" : 5, ">" : 6, ">=" : 7, "<" : 8, "<=" : 9, "==" : 10,
@@ -29,8 +29,6 @@ class SemanticCube:
         key_string = self.datatypes["STRING"]
         key_set = self.datatypes["SET"]
         key_map = self.datatypes["MAP"]
-        key_void = self.datatypes["VOID"]
-        key_unary = self.datatypes["UNARY"]
 
         key_add = self.operators["+"]
         key_sub = self.operators["-"]
@@ -50,48 +48,34 @@ class SemanticCube:
         # {"+" , "-", "*", "/", ">", ">=", "<=", "==", "!="}
 
         # Int versus everyone
-        self.cube[key_int][key_int] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!=", "&&", "||"}
-        self.cube[key_int][key_float] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!="}
-        self.cube[key_int][key_char] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!=", "&&", "||"}
-        self.cube[key_int][key_bool] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!=", "&&", "||"}
-
+        self.cube[key_int][key_int] = {"+": "INT" , "-": "INT", "*": "INT",
+                                    "/": "INT", ">": "BOOL", ">=": "BOOL",
+                                    "<": "BOOL", "<=": "BOOL", "==": "BOOL",
+                                    "!=": "BOOL"}
+        self.cube[key_int][key_float] = {"+": "FLOAT" , "-": "FLOAT", "*": "FLOAT",
+                                        "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
+                                        "<": "BOOL", "<=": "BOOL", "==": "BOOL",
+                                        "!=": "BOOL"}
         #Float versus everyone
-        self.cube[key_float][key_int] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!="}
-        self.cube[key_float][key_float] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!="}
-        self.cube[key_float][key_char] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!="}
-        self.cube[key_float][key_bool] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!="}
-
+        self.cube[key_float][key_int] = {"+": "FLOAT" , "-": "FLOAT", "*": "FLOAT",
+                                        "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
+                                        "<": "BOOL", "<=": "BOOL", "==": "BOOL",
+                                        "!=": "BOOL"}
+        self.cube[key_float][key_float] = {"+": "FLOAT" , "-": "FLOAT", "*": "FLOAT",
+                                        "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
+                                        "<": "BOOL", "<=": "BOOL", "==": "BOOL",
+                                        "!=": "BOOL"}
         # Char versus everyone
-        self.cube[key_char][key_int] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!=", "&&", "||"}
-        self.cube[key_char][key_float] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!=", "&&", "||"}
-        self.cube[key_char][key_char] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!=", "&&", "||"}
-        self.cube[key_char][key_bool] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!=", "&&", "||"}
-
+        self.cube[key_char][key_char] = {">": "BOOL", ">=": "BOOL", "<": "BOOL",
+                                        "<=": "BOOL", "==": "BOOL","!=": "BOOL"}
         # Bool versus everyone
-        self.cube[key_bool][key_int] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!=", "&&", "||"}
-        self.cube[key_bool][key_float] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!=", "&&", "||"}
-        self.cube[key_bool][key_char] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!=", "&&", "||"}
-        self.cube[key_bool][key_bool] = {"+" , "-", "*", "/", ">", ">=", "<",
-            "<=", "==", "!=", "&&", "||"}
-
-        # String versys everyone
-        self.cube[key_string][key_string] = {"+", ">", ">=", "<",
-            "<=", "==", "!="}
+        self.cube[key_bool][key_bool] = {"==": "BOOL", "!=": "BOOL",
+                                        "&&": "BOOL", "||": "BOOL"}
+        # String versus everyone
+        self.cube[key_string][key_string] = {"+": "STRING", ">": "BOOL",
+                                            ">=": "BOOL", "<": "BOOL",
+                                            "<=": "BOOL", "==": "BOOL",
+                                            "!=": "BOOL"}
 
 
     def __init__(self):
@@ -104,16 +88,15 @@ class SemanticCube:
         key_param2 = self.datatypes[datatype2]
 
         if operator in self.cube[key_param1][key_param2]:
-            print("Yes")
-            return True
+            return self.cube[key_param1][key_param2][operator]
         else:
-            print ("No")
             return False
 
-#x = SemanticCube()
+x = SemanticCube()
 #print (x.cube)
 #query = {TRUE,FALSE}
-#query = x.accepts("INT","STRING","+") # este da NO
+query = x.accepts("BOOL","BOOL","==") # este da NO
+print(query)
 #query = x.accepts("BOOL","BOOL","!=") # este da SI
 
 

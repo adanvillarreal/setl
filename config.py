@@ -1,4 +1,10 @@
 from symbol_table import SymbolTable, ProcTable
+class Quadruple:
+    def __init__(self, action, first, second, result):
+        self.action = action
+        self.first = first
+        self.second = second
+        self.result = result
 
 class Semantics:
     def __init__(self):
