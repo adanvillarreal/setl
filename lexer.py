@@ -4,13 +4,15 @@ import sys
 from collections import namedtuple
 import logging
 from symbol_table import SymbolTable
-from config import Semantics
+from semantic_cube import SemanticCube
+import config
 
 global_vars_table = SymbolTable()
 local_vars_table = SymbolTable()
 procs_table = SymbolTable()
-current_table = global_vars_table
-semantic_tool = Semantics()
+semantic_cube = SemanticCube()
+config.current_datatype = 1
+
 tokens = [
     'CTE_FLOAT',
     'CTE_INT',
@@ -110,6 +112,7 @@ def p_program(p):
 def p_program1(p):
     '''program1 : var program1
                 | program2'''
+    print (p[1])
 
 def p_program2(p):
     '''program2 : proc program2
@@ -137,7 +140,7 @@ def p_proca1(p):
 def p_procA(p):
     '''procA : proc1 ')' '{' proc3 '}' '''
 
-def p_proc1(p): # cleans previous local vars table
+def p_proc1(p):
     '''proc1 : datatype ID proc2
              | empty'''
 
@@ -153,23 +156,43 @@ def p_proc4(p):
     '''proc4 : statement proc4
              | empty'''
 
+#
+# def p_proc(p):
+#     '''proc : datatype procA
+#             | VOID procA
+#             | empty'''
+# def p_procA(p):
+#     '''procA : ID '(' proc1 ')' '{' proc3 proc4 '}' '''
+#
+# def p_proc1(p):
+#     '''proc1 : datatype ID proc2
+#              | empty'''
+#
+# def p_proc2(p):
+#     '''proc2 : ',' datatype ID proc2
+#              | empty'''
+#
+# def p_proc3(p):
+#     '''proc3 : vars
+#              | empty'''
+#
+# def p_proc4(p):
+#     '''proc4 : statement proc4
+#              | empty'''
+
 def p_vars(p):
     '''vars : var vars
             | var'''
+    print (p[1])
 
 def p_var(p):
     '''var : datatype var1 '''
     p[0] = p[1] + " " + str(p[2])
-    for i in p[2].split():
-        if not semantic_tool.insert_var(i, p[1], None): #adds new variable to table
-            print "Variable " + i + " already declared"
-            raise SyntaxError
-        else:
-            print "Added " + str(i) + p[1]
 
 def p_var1(p):
     '''var1 : ID ',' var1
              | ID var2'''
+
     if p[2] == ',':
         p[0] = p[1] + " " + p[3]
     else:
@@ -204,7 +227,6 @@ def p_assignment(p):
     else:
         search_result = search_result._replace(value=p[3])
         semantic_tool.insert_var(search_result[0], search_result[1], search_result[2])
-
 
 def p_condition(p):
     '''condition : IF '(' expression ')' block condition1'''
@@ -288,10 +310,10 @@ def p_logop(p):
 ######## Segunda Parte
 
 def p_expression(p):
-  '''expression : exp0 expression2'''
+  '''expression : exp0 expression1'''
 
-def p_expression2(p):
-  '''expression2 : logop exp0 expression2
+def p_expression1(p):
+  '''expression1 : logop exp0 expression1
                  | empty'''
 
 def p_exp0(p):
@@ -340,21 +362,15 @@ def p_factor3(p):
 
 def p_varcte(p):
   '''varcte : ID
-            | varcte1'''
-  if p[1] != None and semantic_tool.find_var(p[1]) == None: #checks variable is declared
-      print "Undeclared variable " + p[1]
-      raise SyntaxError
-
-def p_varcte1(p):
-    '''varcte1 : CTE_INT
-               | CTE_FLOAT
-               | CTE_BOOL
-               | CTE_STRING
-               | CTE_CHAR
-               | function_call
-               | map_access
-               | map_operation
-               | set_operation'''
+            | CTE_INT
+            | CTE_FLOAT
+            | CTE_BOOL
+            | CTE_STRING
+            | CTE_CHAR
+            | function_call
+            | map_access
+            | map_operation
+            | set_operation '''
 
 def p_functype(p):
   '''functype : datatype
@@ -437,10 +453,13 @@ for x in f:
 print(s)
 res = parser.parse(s, debug=log)
 print(res)
-# lexer.input(s)
-# while True:
-#     tok = lexer.token()
-#     if not tok:
-#       break
-#     print(tok)
-#     print("~~~~~~~~~~~~~~")
+lexer.input(s)
+while True:
+    tok = lexer.token()
+    if not tok:
+      break
+    print(tok)
+    print("~~~~~~~~~~~~~~")
+print("Semantic Cube")
+print(semantic_cube.accepts("INT","STRING","+"))
+print(semantic_cube.accepts("BOOL","BOOL","!="))
