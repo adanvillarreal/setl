@@ -1,0 +1,75 @@
+program fibonacci;
+int varA, varB;
+float b;
+
+int f(int x, string a) {
+  int b;
+  return b;
+}
+set<int> allNumbersLessThan(int x) {
+     int i;
+     set<int> numbers;
+     map<int, int> d;
+
+     i := 1;
+     d.size();
+     d.clear();
+     d(1) := i;
+     while(i <= (d - 4)) {
+          numbers.insert(i);
+          i := i + 1;
+     }
+     return numbers;
+}
+
+
+main {
+     int f1, f2, f3;
+     int limit;
+     int cont;
+     float p, x;
+     set<int> fibonacciNumbers;
+     set<int> allNumbers;
+     map<int, string> a;
+
+
+     f1 := 0;
+     f2 := 1;
+     f3 := f1 + f2;
+     read(limit);
+     a(3) := 3 * allNumbers.size();
+     print(a(3));
+
+
+     allNumbers := allNumbersLessThan(limit);
+     something(123, "a", allNumbers, b.size());
+
+     print(true == false);
+
+     while(f3 <= limit) {
+          fibonacciNumbers.insert(f3);
+          print(f3);
+          print("");
+          f1 := f2;
+          f2 := f3;
+          f3 := f1 + f2;
+     }
+     if(a()) {
+       if(3 < 4 && 5 > 9) {
+         p := 3;
+       } else {
+         print("nothing", 123);
+       }
+     } else {
+        if(3) {
+          b := 4;
+        }
+        else {
+          opsdf("asdasd", a(fa("asd", 123, 543) - b.size()));
+        }
+     }
+
+     allNumbers := allNumbers - fibonacciNumbers;
+     print(allNumbers);
+
+}
