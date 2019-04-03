@@ -123,11 +123,22 @@ def p_procs(p):
              | proc procs'''
 
 def p_proc(p):
-    '''proc : datatype procA
+    '''proc : proca1 procA
             | VOID procA
             | empty'''
+    print ":function" + p[1]
+
+
+def p_proca1(p):
+    '''proca1 :  datatype ID '(' '''
+    if not semantic_tool.new_proc(p[2], p[1]):
+        print "Function " + p[2] + " already declared"
+        raise SyntaxError
+
+    p[0] = p[1] + p[2]
+
 def p_procA(p):
-    '''procA : ID '(' proc1 ')' '{' proc3 '}' '''
+    '''procA : proc1 ')' '{' proc3 '}' '''
 
 def p_proc1(p):
     '''proc1 : datatype ID proc2
@@ -209,6 +220,13 @@ def p_var2(p):
 
 def p_assignment(p):
     '''assignment : ID ASSIGNATOR expression'''
+    search_result = semantic_tool.find_var(p[1])
+    if search_result == None: # checks if var has been declared
+        print "Undeclared variable " + p[1]
+        raise SyntaxError
+    else:
+        search_result = search_result._replace(value=p[3])
+        semantic_tool.insert_var(search_result[0], search_result[1], search_result[2])
 
 def p_condition(p):
     '''condition : IF '(' expression ')' block condition1'''
@@ -233,6 +251,9 @@ def p_output1(p):
 
 def p_function_call(p):
     '''function_call : ID '(' function_call1 ')' '''
+    if semantic_tool.find_proc(p[1]) == None:
+        print "Undeclared function " + p[1]
+        raise SyntaxError
 
 def p_function_call1(p):
     '''function_call1 : empty
