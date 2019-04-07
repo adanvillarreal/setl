@@ -5,7 +5,7 @@ from collections import namedtuple
 import logging
 from symbol_table import SymbolTable
 from semantic_cube import SemanticCube
-from config import Semantics
+from config import *
 
 global_vars_table = SymbolTable()
 local_vars_table = SymbolTable()
@@ -13,6 +13,12 @@ procs_table = SymbolTable()
 semantic_cube = SemanticCube()
 current_table = global_vars_table
 semantic_tool = Semantics()
+
+#Expression-quads
+operator_stack = Stack()
+operand_stack = Stack()
+type_stack = Stack()
+quadruples_list = QuadrupleList()
 
 tokens = [
     'CTE_FLOAT',
@@ -76,23 +82,32 @@ def t_ID(t):
 
 def t_CTE_FLOAT(t):
     r'\d+\.\d+'
+    operand_stack.push(t.value)
+    type_stack.push("FLOAT")
     return t
 
 def t_CTE_INT(t):
     r'\d+'
+    operand_stack.push(t.value)
+    type_stack.push("INT")
     return t
 
 def t_CTE_STRING(t):
     r'\"[a-zA-Z0-9]*\"'
+    operand_stack.push(t.value)
+    type_stack.push("STRING")
     return t
 
 def t_CTE_CHAR(t):
     r'\'[a-zA-Z0-9]\''
+    operand_stack.push(t.value)
+    type_stack.push("CHAR")
     return t
 
-def t_CTE_BOOL(t):
-    r'("true"|"false")'
-    return t
+# def t_CTE_BOOL(t):
+#     r'("true"|"false")'
+#     print("")
+#     return t
 
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
@@ -164,7 +179,7 @@ def p_var(p):
     '''var : datatype var1 '''
     p[0] = p[1] + " " + str(p[2])
     for i in p[2].split():
-        if not semantic_tool.insert_var(i, p[1], None): #adds new variable to table
+        if not semantic_tool.insert_var(i, p[1].upper(), None): #adds new variable to table
             print "Variable " + i + " already declared"
             raise SyntaxError
         else:
@@ -283,26 +298,81 @@ def p_relop(p):
              | EQ
              | LEQ
              | GEQ'''
+    operator_stack.push(p[1])
 
 def p_logop(p):
- '''logop : OR
-          | AND'''
+  '''logop : OR
+           | AND'''
+  print(p[1])
+  print("HHHHHHHHHHHHH")
+  operator_stack.push(p[1])
+
 
 ######## Segunda Parte
+
+def quad_process_unary(operator_list):
+    operator = operator_stack.top()
+    if not operator in operator_list:
+        return
+
+    operator_stack.pop()
+    right_operand = operand_stack.pop()
+    right_type = type_stack.pop()
+    result_type = semantic_cube.accepts(right_type, None, operator)
+    if result_type == False:
+        print("Incompatible type " + right_type + " " + operator)
+        raise SyntaxError
+    else:
+        result = quadruples_list.next_temp()
+        quadruple = Quadruple(operator, right_operand, None, result)
+        quadruples_list.add(quadruple)
+        operand_stack.push(result)
+        type_stack.push(result_type)
+
+def quad_process(operator_list):
+    operator = operator_stack.top()
+    if not operator in operator_list:
+        print("sale")
+        print(operator)
+        print(operator_list)
+        return
+
+    operator_stack.pop()
+    right_operand = operand_stack.pop()
+    right_type = type_stack.pop()
+    left_operand = operand_stack.pop()
+    left_type = type_stack.pop()
+    result_type = semantic_cube.accepts(right_type, left_type, operator)
+    if result_type == False:
+        print("Incompatible type " + right_type + " " + operator + " " + left_type)
+        raise SyntaxError
+    else:
+        result = quadruples_list.next_temp()
+        quadruple = Quadruple(operator, left_operand, right_operand, result)
+        quadruples_list.add(quadruple)
+        operand_stack.push(result)
+        type_stack.push(result_type)
+
 
 def p_expression(p):
   '''expression : exp0 expression2'''
 
 def p_expression2(p):
-  '''expression2 : logop exp0 expression2
+  '''expression2 : logop exp0 n_quad_logop expression2
                  | empty'''
+
+def p_n_quad_logop(p):
+    '''n_quad_logop : '''
+    quad_process( ['&&', '||'] )
 
 def p_exp0(p):
   '''exp0 : exp exp02'''
 
 def p_exp02(p):
-  '''exp02 : relop exp0
+  '''exp02 : relop exp
            | empty'''
+  if(len(p) == 3):
+      quad_process( ['<', '>', ">=",  '<=', '==', '!=' ] )
 
 def p_exp(p):
   '''exp : term exp2'''
@@ -310,36 +380,75 @@ def p_exp(p):
 def p_addsub(p):
   '''addsub : '+'
             | '-' '''
+  operator_stack.push(p[1])
 
 def p_muldiv(p):
   '''muldiv : '*'
             | '/' '''
+  print("MULDIV" + p[1])
+  operator_stack.push(p[1])
 
 def p_exp2(p):
-  '''exp2 : addsub term exp2
+  '''exp2 : addsub term n_quad_addsub exp2
           | empty'''
 
 def p_term(p):
-  '''term : term_not factor term2'''
+  '''term : term_not factor n_quad_muldiv term2'''
+
+def p_n_quad_muldiv(p):
+  '''n_quad_muldiv : '''
+  quad_process( ['*','/'] )
+
+def p_n_quad_addsub(p):
+  '''n_quad_addsub : '''
+  quad_process( ['+','-'] )
 
 def p_term2(p):
-  '''term2 : muldiv factor term2
-           | empty'''
+  '''term2 : muldiv factor n_quad_muldiv term2
+           | n_quad_not'''
+
+def p_n_quad_not(p):
+    '''n_quad_not : '''
+    if operator_stack.top() != None:
+        quad_process_unary(["!"])
+
 
 def p_term_not(p):
   '''term_not : '!'
               | empty'''
+  if(p[1] == '!'):
+      operator_stack.push('!')
 
 def p_factor(p):
-  '''factor : '(' expression ')'
+  '''factor : '(' n_push_false_bottom expression ')' n_pop_false_bottom
             | varcte'''
 
+def p_n_push_false_bottom(p):
+    '''n_push_false_bottom : '''
+    operator_stack.push('(')
+
+def p_n_pop_false_bottom(p):
+    '''n_pop_false_bottom : '''
+    operator_stack.pop() #pending
+
 def p_varcte(p):
-  '''varcte : ID
+  '''varcte : ID n_push_operand
             | varcte1'''
-  if p[1] != None and semantic_tool.find_var(p[1]) == None: #checks variable is declared
-      print "Undeclared variable " + p[1]
-      raise SyntaxError
+  print("LEnGTH " + str(len(p)))
+  if len(p) == 3:
+      var = semantic_tool.find_var(p[1])
+      if var == None: #checks variable is declared
+        print "Undeclared variable " + p[1]
+        raise SyntaxError
+      else:
+        operand_stack.push(var.value)
+        type_stack.push(var.data_type)
+  if p[1] != None:
+      p[0] = p[1]
+
+
+def p_n_push_operand(p):
+    '''n_push_operand : '''
 
 def p_varcte1(p):
     '''varcte1 : CTE_INT
@@ -351,6 +460,11 @@ def p_varcte1(p):
                | map_access
                | map_operation
                | set_operation'''
+    #ultimos 4 pendientes
+    if p[1] in ["true", "false"]:
+        operand_stack.push(p[1])
+        type_stack.push("BOOL")
+
 
 def p_functype(p):
   '''functype : datatype
@@ -378,7 +492,13 @@ def p_statement_aux(p):
                    | empty'''
 
 def p_main(p):
-  '''main : MAIN '{' vars_aux statement_aux '}' '''
+  '''main : MAIN n_clear_scope '{' vars_aux statement_aux '}' '''
+
+def p_n_clear_scope(p):
+  ''' n_clear_scope : '''
+  if not semantic_tool.new_proc("MAIN", None):
+      print "Function " + "MAIN" + " already declared"
+      raise SyntaxError
 
 def p_vars_aux(p):
   '''vars_aux : vars
@@ -424,7 +544,7 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("test1.txt", "r")
+f = open("test.txt", "r")
 s = ""
 
 for x in f:
@@ -436,3 +556,6 @@ print(res)
 print("Semantic Cube")
 print(semantic_cube.accepts("INT","STRING","+"))
 print(semantic_cube.accepts("BOOL","BOOL","!="))
+operand_stack.print_stack()
+
+quadruples_list.print_quads()

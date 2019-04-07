@@ -6,6 +6,74 @@ class Quadruple:
         self.second = second
         self.result = result
 
+    def print_quad(self):
+        print(str(self.action) + "~" + str(self.first) + "~" + str(self.second) + "~" + str(self.result))
+
+class QuadrupleList:
+    def __init__(self):
+        self.list = []
+        self.temp_counter = 0
+
+    def next_temp(self):
+        self.temp_counter = self.temp_counter + 1
+        return 't' + str(self.temp_counter)
+
+    def add(self, quadruple):
+        print("ASDASDASD")
+        quadruple.print_quad()
+        self.list.append(quadruple)
+
+    def print_quads(self):
+        for x in self.list:
+            x.print_quad()
+
+# A simple class stack that only allows pop and push operations
+class Stack:
+
+    def __init__(self):
+        self.stack = []
+
+    def top(self):
+        if len(self.stack) < 1:
+            return None
+        return self.stack[-1]
+
+
+    def pop(self):
+        if len(self.stack) < 1:
+            print("EMPTY STACK")
+            return None
+        print("POPING " + str(self.stack[-1]))
+        return self.stack.pop()
+
+    def push(self, item):
+        print("PUSHinG " + str(item))
+        self.stack.append(item)
+
+    def size(self):
+        return len(self.stack)
+
+    def print_stack(self):
+        print(self.stack)
+
+
+# And a queue that only has enqueue and dequeue operations
+class Queue:
+
+    def __init__(self):
+        self.queue = []
+
+    def enqueue(self, item):
+        self.queue.append(item)
+
+    def dequeue(self):
+        if len(self.queue) < 1:
+            return None
+        return self.queue.pop(0)
+
+    def size(self):
+        return len(self.queue)
+
 class Semantics:
     def __init__(self):
         self.global_vars = SymbolTable()

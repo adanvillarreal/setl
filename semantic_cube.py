@@ -29,6 +29,7 @@ class SemanticCube:
         key_string = self.datatypes["STRING"]
         key_set = self.datatypes["SET"]
         key_map = self.datatypes["MAP"]
+        key_none = self.datatypes["NONE"]
 
         key_add = self.operators["+"]
         key_sub = self.operators["-"]
@@ -71,6 +72,9 @@ class SemanticCube:
         # Bool versus everyone
         self.cube[key_bool][key_bool] = {"==": "BOOL", "!=": "BOOL",
                                         "&&": "BOOL", "||": "BOOL"}
+
+        self.cube[key_bool][key_none] = {"!"}
+
         # String versus everyone
         self.cube[key_string][key_string] = {"+": "STRING", ">": "BOOL",
                                             ">=": "BOOL", "<": "BOOL",
@@ -84,8 +88,13 @@ class SemanticCube:
         self.fill_cube()
 
     def accepts(self, datatype1, datatype2, operator):
+
+        print(str(datatype1) + "" + str(datatype2) + "***" + str(operator))
+
         key_param1 = self.datatypes[datatype1]
         key_param2 = self.datatypes[datatype2]
+
+
 
         if operator in self.cube[key_param1][key_param2]:
             return self.cube[key_param1][key_param2][operator]
