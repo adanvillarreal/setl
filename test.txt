@@ -1,13 +1,13 @@
 program aPlusB;
 
-int a, b;
+int aa1a1a1a1a1a1a1a, a, b;
 
 bool t, y;
 
 int sum(){
      int res;
-     res := a == b;
      a := 5 * 4 + 1 + 2 * 3;
+     a := res + a;
      b := a + 1;
      res := a + b;
      return res;

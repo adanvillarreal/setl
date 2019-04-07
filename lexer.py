@@ -214,14 +214,26 @@ def p_var2(p):
 #              | empty'''
 
 def p_assignment(p):
-    '''assignment : ID ASSIGNATOR expression'''
+    '''assignment : assignment2 ASSIGNATOR n_quad_assign expression'''
+    print("assigned thingsksdjflaksdjflaksdjfsaldfjk")
+    quad_process_assign(["="])
+
+def p_assignment2(p):
+    '''assignment2 : ID'''
     search_result = semantic_tool.find_var(p[1])
     if search_result == None: # checks if var has been declared
         print "Undeclared variable " + p[1]
         raise SyntaxError
     else:
-        search_result = search_result._replace(value=p[3])
-        semantic_tool.insert_var(search_result[0], search_result[1], search_result[2])
+        # search_result = search_result._replace(value=p[3])
+        # semantic_tool.insert_var(search_result[0], search_result[1], search_result[2])
+        operand_stack.push(search_result.name)
+        type_stack.push(search_result.data_type)
+
+def p_n_quad_assign(p):
+    '''n_quad_assign : '''
+    operator_stack.push('=')
+
 
 
 def p_condition(p):
@@ -353,6 +365,29 @@ def quad_process(operator_list):
         operand_stack.push(result)
         type_stack.push(result_type)
 
+def quad_process_assign(operator_list):
+    operator = operator_stack.top()
+    if not operator in operator_list:
+        print("sale")
+        print(operator)
+        print(operator_list)
+        return
+
+    operator_stack.pop()
+    right_operand = operand_stack.pop()
+    right_type = type_stack.pop()
+    left_operand = operand_stack.pop()
+    left_type = type_stack.pop()
+    result_type = semantic_cube.accepts(right_type, left_type, operator)
+    if result_type == False:
+        print("Incompatible type " + right_type + " " + operator + " " + left_type)
+        raise SyntaxError
+    else:
+        quadruple = Quadruple(operator, right_operand, None, left_operand)
+        quadruples_list.add(quadruple)
+        #operand_stack.push(result)
+        #type_stack.push(result_type)
+
 
 def p_expression(p):
   '''expression : exp0 expression2'''
@@ -432,9 +467,9 @@ def p_n_pop_false_bottom(p):
     operator_stack.pop() #pending
 
 def p_varcte(p):
-  '''varcte : ID n_push_operand
+  '''varcte : ID empty
             | varcte1'''
-  print("LEnGTH " + str(len(p)))
+  print("LEnGTH " + str(len(p)) + " " + str(p[1]))
   if len(p) == 3:
       var = semantic_tool.find_var(p[1])
       if var == None: #checks variable is declared
@@ -445,10 +480,6 @@ def p_varcte(p):
         type_stack.push(var.data_type)
   if p[1] != None:
       p[0] = p[1]
-
-
-def p_n_push_operand(p):
-    '''n_push_operand : '''
 
 def p_varcte1(p):
     '''varcte1 : CTE_INT

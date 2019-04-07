@@ -1,7 +1,7 @@
 
 class SemanticCube:
 
-    num_operators = 12 # sin contar unarios
+    num_operators = 14 # sin contar unarios
     num_datatypes = 8 # int float bool char string set map
 
     def init_names(self):
@@ -10,7 +10,7 @@ class SemanticCube:
 
         self.operators = { "+" : 0, "-" : 1, "*" : 2, "/" : 3, "&&" : 4,
         "||" : 5, ">" : 6, ">=" : 7, "<" : 8, "<=" : 9, "==" : 10,
-        "!=" : 11, "!" : 12 }
+        "!=" : 11, "!" : 12, "=" : 13}
 
     def init_cube(self):
         self.cube = []
@@ -44,6 +44,7 @@ class SemanticCube:
         key_log_and = self.operators["&&"]
         key_log_or = self.operators["||"]
         key_not = self.operators["!"]
+        key_assign = self.operators["="]
 
         # Most repeated group
         # {"+" , "-", "*", "/", ">", ">=", "<=", "==", "!="}
@@ -52,7 +53,7 @@ class SemanticCube:
         self.cube[key_int][key_int] = {"+": "INT" , "-": "INT", "*": "INT",
                                     "/": "INT", ">": "BOOL", ">=": "BOOL",
                                     "<": "BOOL", "<=": "BOOL", "==": "BOOL",
-                                    "!=": "BOOL"}
+                                    "!=": "BOOL", "=": "INT"}
         self.cube[key_int][key_float] = {"+": "FLOAT" , "-": "FLOAT", "*": "FLOAT",
                                         "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
                                         "<": "BOOL", "<=": "BOOL", "==": "BOOL",
@@ -65,13 +66,14 @@ class SemanticCube:
         self.cube[key_float][key_float] = {"+": "FLOAT" , "-": "FLOAT", "*": "FLOAT",
                                         "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
                                         "<": "BOOL", "<=": "BOOL", "==": "BOOL",
-                                        "!=": "BOOL"}
+                                        "!=": "BOOL", "=": "FLOAT"}
         # Char versus everyone
         self.cube[key_char][key_char] = {">": "BOOL", ">=": "BOOL", "<": "BOOL",
-                                        "<=": "BOOL", "==": "BOOL","!=": "BOOL"}
+                                        "<=": "BOOL", "==": "BOOL","!=": "BOOL",
+                                        "=": "CHAR"}
         # Bool versus everyone
         self.cube[key_bool][key_bool] = {"==": "BOOL", "!=": "BOOL",
-                                        "&&": "BOOL", "||": "BOOL"}
+                                        "&&": "BOOL", "||": "BOOL", "=": "BOOL"}
 
         self.cube[key_bool][key_none] = {"!"}
 
@@ -79,7 +81,7 @@ class SemanticCube:
         self.cube[key_string][key_string] = {"+": "STRING", ">": "BOOL",
                                             ">=": "BOOL", "<": "BOOL",
                                             "<=": "BOOL", "==": "BOOL",
-                                            "!=": "BOOL"}
+                                            "!=": "BOOL", "=": "STRING"}
 
 
     def __init__(self):
