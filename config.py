@@ -19,7 +19,7 @@ class QuadrupleList:
         return 't' + str(self.temp_counter)
 
     def add(self, quadruple):
-        print("ASDASDASD")
+        #print("ASDASDASD")
         quadruple.print_quad()
         self.list.append(quadruple)
 
@@ -47,8 +47,9 @@ class Stack:
         return self.stack.pop()
 
     def push(self, item):
-        print("PUSHinG " + str(item))
+        print("PUSHING " + str(item))
         self.stack.append(item)
+        print(self.stack)
 
     def size(self):
         return len(self.stack)

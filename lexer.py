@@ -20,6 +20,10 @@ operand_stack = Stack()
 type_stack = Stack()
 quadruples_list = QuadrupleList()
 
+#non-linear-quads
+jump_stack = Stack()
+
+
 tokens = [
     'CTE_FLOAT',
     'CTE_INT',
@@ -215,7 +219,7 @@ def p_var2(p):
 
 def p_assignment(p):
     '''assignment : assignment2 ASSIGNATOR n_quad_assign expression'''
-    print("assigned thingsksdjflaksdjflaksdjfsaldfjk")
+    print("assignation for " + str(p[1]))
     quad_process_assign(["="])
 
 def p_assignment2(p):
@@ -225,16 +229,27 @@ def p_assignment2(p):
         print "Undeclared variable " + p[1]
         raise SyntaxError
     else:
-        # search_result = search_result._replace(value=p[3])
-        # semantic_tool.insert_var(search_result[0], search_result[1], search_result[2])
         operand_stack.push(search_result.name)
         type_stack.push(search_result.data_type)
+        p[0] = p[1]
+        return p[0]
 
 def p_n_quad_assign(p):
     '''n_quad_assign : '''
     operator_stack.push('=')
 
+#paso 1 del if-else, 2 del while
+def exp_eval():
+    exp_type = type_stack.pop()
+    if(exp_type != 'BOOL'):
+        print "Type mismatch"
+        raise SyntaxError
+    else:
+        result = operand_stack.pop()
 
+        #tener cuidado con cambiar el orden
+        gen_quad('GOTOF', result, None, 'TO BE DEFINED')
+        jump_stack.push( len(quadruples_list.list) - 1 )
 
 def p_condition(p):
     '''condition : IF '(' expression ')' block condition1'''
@@ -242,6 +257,32 @@ def p_condition(p):
 def p_condition1(p):
     '''condition1 : ELSE block
                   | empty'''
+
+def p_while(p):
+    '''while : WHILE n_while_1 '(' expression ')' n_while_2 block n_while_3'''
+
+def p_n_while_1(p):
+    '''n_while_1 : '''
+    jump_stack.push( len(quadruples_list.list) );
+
+def p_n_while_2(p):
+    '''n_while_2 : '''
+    exp_eval()
+
+def p_n_while_3(p):
+    '''n_while_3 : '''
+    end = jump_stack.pop()
+    returns = jump_stack.pop()
+    print("RRRRRRRRRRRRRRRR")
+    print(end)
+    print(returns)
+    gen_quad('GOTO', None, None, returns)
+    print("se llenara el " + str(end) )
+
+    # revisar si esto esta bien
+    # quadruples_list.list [ len(quadruples_list.list) ]
+    # es la posicion que sigue (esta vacia)
+    fill_quad(end, len(quadruples_list.list))
 
 def p_input(p):
     '''input : READ '(' ID input1 ')' '''
@@ -300,9 +341,6 @@ def p_statement2(p):
     '''statement2 : condition
                   | while'''
 
-def p_while(p):
-    '''while : WHILE '(' expression ')' block'''
-
 def p_relop(p):
     '''relop : '<'
              | '>'
@@ -315,12 +353,25 @@ def p_relop(p):
 def p_logop(p):
   '''logop : OR
            | AND'''
+  print("LOGOP read")
   print(p[1])
-  print("HHHHHHHHHHHHH")
   operator_stack.push(p[1])
 
 
 ######## Segunda Parte
+
+def gen_quad(first, second, third, fourth):
+    quadruple = Quadruple(first, second, third, fourth)
+    quadruples_list.add(quadruple)
+
+#receives index of quad and 4th argument of quadruple
+def fill_quad(position, value):
+    print("PPPPPPPPPPPPP")
+    print(position)
+    print(value)
+    quadruples_list.list[position].result = value
+    quadruples_list.list[position].print_quad()
+
 
 def quad_process_unary(operator_list):
     operator = operator_stack.top()
@@ -336,15 +387,14 @@ def quad_process_unary(operator_list):
         raise SyntaxError
     else:
         result = quadruples_list.next_temp()
-        quadruple = Quadruple(operator, right_operand, None, result)
-        quadruples_list.add(quadruple)
+        gen_quad(operator, right_operand, None, result)
         operand_stack.push(result)
         type_stack.push(result_type)
 
 def quad_process(operator_list):
     operator = operator_stack.top()
     if not operator in operator_list:
-        print("sale")
+        print("Operator IN list")
         print(operator)
         print(operator_list)
         return
@@ -360,8 +410,7 @@ def quad_process(operator_list):
         raise SyntaxError
     else:
         result = quadruples_list.next_temp()
-        quadruple = Quadruple(operator, left_operand, right_operand, result)
-        quadruples_list.add(quadruple)
+        gen_quad(operator, left_operand, right_operand, result)
         operand_stack.push(result)
         type_stack.push(result_type)
 
@@ -383,11 +432,7 @@ def quad_process_assign(operator_list):
         print("Incompatible type " + right_type + " " + operator + " " + left_type)
         raise SyntaxError
     else:
-        quadruple = Quadruple(operator, right_operand, None, left_operand)
-        quadruples_list.add(quadruple)
-        #operand_stack.push(result)
-        #type_stack.push(result_type)
-
+        gen_quad(operator, right_operand, None, left_operand)
 
 def p_expression(p):
   '''expression : exp0 expression2'''
@@ -420,7 +465,6 @@ def p_addsub(p):
 def p_muldiv(p):
   '''muldiv : '*'
             | '/' '''
-  print("MULDIV" + p[1])
   operator_stack.push(p[1])
 
 def p_exp2(p):
@@ -584,9 +628,13 @@ for x in f:
 print(s)
 res = parser.parse(s, debug=log)
 print(res)
-print("Semantic Cube")
-print(semantic_cube.accepts("INT","STRING","+"))
-print(semantic_cube.accepts("BOOL","BOOL","!="))
-operand_stack.print_stack()
 
+print("Operand stack")
+operand_stack.print_stack()
+print("Type stack")
+type_stack.print_stack()
+print("Quadruples list")
 quadruples_list.print_quads()
+
+print("Jump Stack")
+jump_stack.print_stack()

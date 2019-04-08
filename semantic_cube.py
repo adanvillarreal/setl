@@ -106,8 +106,8 @@ class SemanticCube:
 x = SemanticCube()
 #print (x.cube)
 #query = {TRUE,FALSE}
-query = x.accepts("BOOL","BOOL","==") # este da NO
-print(query)
+#query = x.accepts("BOOL","BOOL","==") # este da NO
+#print(query)
 #query = x.accepts("BOOL","BOOL","!=") # este da SI
 
 
