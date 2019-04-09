@@ -160,12 +160,20 @@ def p_procA(p):
     '''procA : proc1 ')' '{' proc3 '}' '''
 
 def p_proc1(p): # cleans previous local vars table
-    '''proc1 : datatype ID proc2
+    '''proc1 : n_push_variable proc2
              | empty'''
 
 def p_proc2(p):
-    '''proc2 : ',' datatype ID proc2
+    '''proc2 : ',' n_push_variable proc2
              | empty'''
+
+def p_n_push_variable(p):
+    '''n_push_variable :  datatype ID'''
+    if not semantic_tool.insert_var(p[2], p[1].upper(), None): #adds new variable to table
+        print "Variable " + p[2] + " already declared"
+        raise SyntaxError
+    else:
+        print "Added " + str(p[2]) + str(p[1])
 
 def p_proc3(p):
     '''proc3 : var proc3
