@@ -252,11 +252,24 @@ def exp_eval():
         jump_stack.push( len(quadruples_list.list) - 1 )
 
 def p_condition(p):
-    '''condition : IF '(' expression ')' block condition1'''
+    '''condition : IF '(' expression n_while_2 ')' block condition1'''
 
 def p_condition1(p):
-    '''condition1 : ELSE block
-                  | empty'''
+    '''condition1 : ELSE n_if_2 block n_if_3
+                  | n_if_3'''
+
+def p_n_if_2(p):
+    '''n_if_2 : '''
+    goto_f = jump_stack.pop()
+    fill_quad(goto_f, len(quadruples_list.list))
+
+    gen_quad('GOTO', None, None, 'TO BE DEFINED')
+    jump_stack.push(len(quadruples_list.list) - 1)
+
+def p_n_if_3(p):
+    '''n_if_3 : '''
+    goto_f = jump_stack.pop()
+    fill_quad(goto_f, len(quadruples_list.list))
 
 def p_while(p):
     '''while : WHILE n_while_1 '(' expression ')' n_while_2 block n_while_3'''

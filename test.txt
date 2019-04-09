@@ -17,6 +17,16 @@ main {
      int a, y;
      read(a, b);
 
+     if(a + b > y) {
+      a := 5;
+     } else {
+      a := 10;
+     }
+
+     if(a > b) {
+      a := 999;
+     }
+
      while( a != b && 3 > 5){
       while(true){
 
