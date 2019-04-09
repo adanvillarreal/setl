@@ -4,7 +4,7 @@ int aa1a1a1a1a1a1a1a, a, b;
 
 bool t, y;
 
-int sum(){
+int sum(int x, int y){
      int res;
      a := 5 * 4 + 1 + 2 * 3;
      a := res + a;
@@ -16,11 +16,11 @@ int sum(){
 main {
      int a, y;
      read(a, b);
-
      if(a + b > y) {
       a := 5;
      } else {
       a := 10;
+      print(5*4+3/(2+1), 8*8*9);
      }
 
      if(a > b) {

@@ -306,18 +306,27 @@ def p_n_while_3(p):
     fill_quad(end, len(quadruples_list.list))
 
 def p_input(p):
-    '''input : READ '(' ID input1 ')' '''
+    '''input : READ '(' n_process_read input1 ')' '''
 
 def p_input1(p):
-    '''input1 : ',' ID input1
+    '''input1 : ',' n_process_read input1
               | empty'''
 
+def p_n_process_read(p):
+    '''n_process_read : ID'''
+
+
 def p_output(p):
-    '''output : PRINT '(' expression output1 ')' '''
+    '''output : PRINT '(' n_output_quad output1 ')' '''
 
 def p_output1(p):
-    '''output1 : ',' expression output1
+    '''output1 : ',' n_output_quad output1
                | empty'''
+
+def p_n_output_quad(p):
+    '''n_output_quad : expression'''
+    gen_quad('PRINT', quadruples_list.current_temp(), None, None)
+
 
 def p_function_call(p):
     '''function_call : ID '(' function_call1 ')' '''
