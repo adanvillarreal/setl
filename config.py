@@ -18,6 +18,9 @@ class QuadrupleList:
         self.temp_counter = self.temp_counter + 1
         return 't' + str(self.temp_counter)
 
+    def current_temp(self):
+        return 't' + str(self.temp_counter)
+
     def add(self, quadruple):
         #print("ASDASDASD")
         quadruple.print_quad()
