@@ -160,12 +160,20 @@ def p_procA(p):
     '''procA : proc1 ')' '{' proc3 '}' '''
 
 def p_proc1(p): # cleans previous local vars table
-    '''proc1 : datatype ID proc2
+    '''proc1 : n_push_variable proc2
              | empty'''
 
 def p_proc2(p):
-    '''proc2 : ',' datatype ID proc2
+    '''proc2 : ',' n_push_variable proc2
              | empty'''
+
+def p_n_push_variable(p):
+    '''n_push_variable :  datatype ID'''
+    if not semantic_tool.insert_var(p[2], p[1].upper(), None): #adds new variable to table
+        print "Variable " + p[2] + " already declared"
+        raise SyntaxError
+    else:
+        print "Added " + str(p[2]) + str(p[1])
 
 def p_proc3(p):
     '''proc3 : var proc3
@@ -252,11 +260,24 @@ def exp_eval():
         jump_stack.push( len(quadruples_list.list) - 1 )
 
 def p_condition(p):
-    '''condition : IF '(' expression ')' block condition1'''
+    '''condition : IF '(' expression n_while_2 ')' block condition1'''
 
 def p_condition1(p):
-    '''condition1 : ELSE block
-                  | empty'''
+    '''condition1 : ELSE n_if_2 block n_if_3
+                  | n_if_3'''
+
+def p_n_if_2(p):
+    '''n_if_2 : '''
+    goto_f = jump_stack.pop()
+    fill_quad(goto_f, len(quadruples_list.list))
+
+    gen_quad('GOTO', None, None, 'TO BE DEFINED')
+    jump_stack.push(len(quadruples_list.list) - 1)
+
+def p_n_if_3(p):
+    '''n_if_3 : '''
+    goto_f = jump_stack.pop()
+    fill_quad(goto_f, len(quadruples_list.list))
 
 def p_while(p):
     '''while : WHILE n_while_1 '(' expression ')' n_while_2 block n_while_3'''
@@ -285,18 +306,27 @@ def p_n_while_3(p):
     fill_quad(end, len(quadruples_list.list))
 
 def p_input(p):
-    '''input : READ '(' ID input1 ')' '''
+    '''input : READ '(' n_process_read input1 ')' '''
 
 def p_input1(p):
-    '''input1 : ',' ID input1
+    '''input1 : ',' n_process_read input1
               | empty'''
 
+def p_n_process_read(p):
+    '''n_process_read : ID'''
+
+
 def p_output(p):
-    '''output : PRINT '(' expression output1 ')' '''
+    '''output : PRINT '(' n_output_quad output1 ')' '''
 
 def p_output1(p):
-    '''output1 : ',' expression output1
+    '''output1 : ',' n_output_quad output1
                | empty'''
+
+def p_n_output_quad(p):
+    '''n_output_quad : expression'''
+    gen_quad('PRINT', quadruples_list.current_temp(), None, None)
+
 
 def p_function_call(p):
     '''function_call : ID '(' function_call1 ')' '''
