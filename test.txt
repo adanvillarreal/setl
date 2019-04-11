@@ -1,14 +1,27 @@
 program aPlusB;
 
-int sum(int a, int b){
-     int res;
+int aa1a1a1a1a1a1a1a, a, b;
 
+bool t, y;
+
+int sum(){
+     int res;
+     a := 5 * 4 + 1 + 2 * 3;
+     a := res + a;
+     b := a + 1;
      res := a + b;
      return res;
 }
 
 main {
-     int a, b;
+     int a, y;
      read(a, b);
+
+     while( a != b && 3 > 5){
+      while(true){
+
+      }
+     }
+     a := 1;
      print(sum(a, b));
 }
