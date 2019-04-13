@@ -143,12 +143,17 @@ def p_procs(p):
 
 def p_proc(p):
     '''proc : proca1 procA
-            | VOID procA
+            | VOID proca2 procA
             | empty'''
     print ":function" + p[1]
 
+def p_proca2(p): #void function
+    '''proca2 : ID '(' '''
+    if not semantic_tool.new_proc(p[1], None):
+        print "Function " + p[1] + " already declared"
+        raise SyntaxError
 
-def p_proca1(p):
+def p_proca1(p): #non void function
     '''proca1 :  datatype ID '(' '''
     if not semantic_tool.new_proc(p[2], p[1]):
         print "Function " + p[2] + " already declared"
@@ -173,11 +178,17 @@ def p_n_push_variable(p):
         print "Variable " + p[2] + " already declared"
         raise SyntaxError
     else:
+        if not semantic_tool.add_proc_param(p[1].upper()):
+            raise SyntaxError
         print "Added " + str(p[2]) + str(p[1])
 
 def p_proc3(p):
     '''proc3 : var proc3
-             | proc4'''
+             | n_quad_counter proc4'''
+
+def p_n_quad_counter(p):
+    '''n_quad_counter : '''
+    semantic_tool.add_quad_counter(quadruples_list.current_quad_number())
 
 def p_proc4(p):
     '''proc4 : statement proc4

@@ -21,6 +21,9 @@ class QuadrupleList:
     def current_temp(self):
         return 't' + str(self.temp_counter)
 
+    def current_quad_number(self):
+        return len(self.list)
+
     def add(self, quadruple):
         #print("ASDASDASD")
         quadruple.print_quad()
@@ -87,6 +90,7 @@ class Semantics:
         self.last_proc_name = ""
         self.current_proc = ""
 
+
     def change_scope(self):
         self.global_scope = False
         self.local_vars = SymbolTable()
@@ -106,21 +110,38 @@ class Semantics:
             else:
                 return False
 
-    def update_proc_var_table(self, name, table):
-        proc = self.functions.find(name)
+    def update_proc_var_table(self, table):
+        proc = self.functions.find(self.current_proc)
         if proc != None:
             self.functions.insert(proc[0], proc[1], table)
             return True
         else:
             return False
 
+    def add_proc_param(self, param):
+        proc = self.functions.find(self.current_proc)
+        proc[3].append(param)
+        new_list = proc[3]
+        if proc != None:
+            self.functions.update(proc[0], proc._replace(params = new_list))
+            return True
+        else:
+            return False
+
+    def add_quad_counter(self, quad):
+        proc = self.functions.find(self.current_proc)
+        if proc != None:
+            self.functions.update(proc[0], proc._replace(quadruple = quad))
+            return True
+        else:
+            return False
 
     def new_proc(self, name, returntype):
         self.global_scope = False
         if self.functions.find(name) != None:
             return False
 
-        self.functions.insert(name, returntype, SymbolTable())
+        self.functions.insert(name, returntype, SymbolTable(), list(), None)
         self.current_proc = name
         self.local_vars = SymbolTable()
         return True
