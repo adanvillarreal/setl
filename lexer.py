@@ -163,6 +163,8 @@ def p_proca1(p): #non void function
 
 def p_procA(p):
     '''procA : proc1 ')' '{' proc3 '}' '''
+    gen_quad('ENDPROC', None, None, None)
+
 
 def p_proc1(p): # cleans previous local vars table
     '''proc1 : n_push_variable proc2
@@ -193,6 +195,7 @@ def p_n_quad_counter(p):
 def p_proc4(p):
     '''proc4 : statement proc4
              | empty'''
+
 
 def p_vars(p):
     '''vars : var vars
