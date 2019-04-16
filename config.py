@@ -89,6 +89,8 @@ class Semantics:
         self.functions = ProcTable()
         self.last_proc_name = ""
         self.current_proc = ""
+        self.param_counter = 0
+        self.called_function = ""
 
 
     def change_scope(self):
@@ -145,6 +147,18 @@ class Semantics:
         self.current_proc = name
         self.local_vars = SymbolTable()
         return True
+
+    def verify_param(self, func_name, param_number, current_type):
+        proc = self.functions.find(func_name)
+        if (len(proc.params) > param_number):
+            print str(proc.params) + " " + current_type
+            return proc.params[param_number] == current_type
+        else:
+            return None
+
+    def verify_all_params_sent(self, func_name, counter):
+        proc = self.functions.find(func_name)
+        return len(proc.params) == counter + 1
 
     def find_var(self, name):
         proc = self.functions.find(self.current_proc)

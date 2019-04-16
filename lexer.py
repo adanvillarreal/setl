@@ -343,18 +343,48 @@ def p_n_output_quad(p):
 
 
 def p_function_call(p):
-    '''function_call : ID '(' function_call1 ')' '''
+    '''function_call : n_era_size function_call1 ')' '''
+    proc_quad = semantic_tool.find_proc(semantic_tool.function_called).quadruple
+    gen_quad('GOSUB', semantic_tool.function_called, proc_quad, None)
+
+
+def p_n_era_size(p):
+    '''n_era_size : ID '(' '''
     if semantic_tool.find_proc(p[1]) == None:
         print "Undeclared function " + p[1]
         raise SyntaxError
+    gen_quad('ERA', p[1], None, None)
+    semantic_tool.function_called = p[1]
+    semantic_tool.param_counter = 0
 
 def p_function_call1(p):
     '''function_call1 : empty
                       | function_call2'''
 
 def p_function_call2(p):
-    '''function_call2 : expression ',' function_call2
-                      | expression'''
+    '''function_call2 : n_verify_argument ',' n_add_one_to_counter function_call2
+                      | n_verify_argument'''
+    if not semantic_tool.verify_all_params_sent(semantic_tool.function_called, semantic_tool.param_counter):
+        print "Missing arguments for " + semantic_tool.function_called
+        raise SyntaxError
+
+def p_n_add_one_to_counter(p):
+    '''n_add_one_to_counter : '''
+    semantic_tool.param_counter = semantic_tool.param_counter + 1
+
+def p_n_verify_argument(p):
+    '''n_verify_argument : expression'''
+    operand = operand_stack.pop()
+    operand_type = type_stack.pop()
+    result = semantic_tool.verify_param(semantic_tool.function_called, semantic_tool.param_counter, operand_type)
+    if result == None:
+        print "*************&&&" + str(semantic_tool.param_counter)
+        print "Wrong number of arguments for " + semantic_tool.function_called
+        raise SyntaxError
+    if not result:
+        print "Parameter type mismatch for " + semantic_tool.function_called
+        raise SyntaxError
+    gen_quad("PARAMETER", operand, semantic_tool.param_counter, None)
 
 def p_return(p):
     '''return : RETURN expression'''

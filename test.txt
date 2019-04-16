@@ -26,6 +26,7 @@ main {
       a := 10;
       print(5*4+3/(2+1), 8*8*9);
      }
+     minus(4, 3);
 
      if(a > b) {
       a := 999;
@@ -37,5 +38,5 @@ main {
       }
      }
      a := 1;
-     print(sum(a, b));
+     print(sum(3*4, 2));
 }
