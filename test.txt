@@ -13,6 +13,10 @@ int sum(int x, int y){
      return res;
 }
 
+void minus(int a, int b) {
+  int x;
+  x := 4 * 5;
+}
 main {
      int a, y;
      read(a, b);
