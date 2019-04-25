@@ -48,9 +48,9 @@ t_EQ = r'=='
 t_NOT_EQ = r'!='
 t_AND = r'&&'
 t_OR = r'\|\|'
-t_OPERATION = r'(size|clear|insert|remove|find)'
+t_OPERATION = r'(size|clear|insert|remove|find|domain|range)'
 
-literals = ['+', '-', '*', '/', '(', ')', '{', '}','.', ',', ':', ';', '=', '>', '<', '!']
+literals = ['+', '-', '*', '/', '(', ')', '[', ']', '{', '}','.', ',', ':', ';', '=', '>', '<', '!']
 
 reserved = {
   'bool': 'BOOL',
@@ -282,10 +282,10 @@ def p_condition1(p):
 
 def p_n_if_2(p):
     '''n_if_2 : '''
+    gen_quad('GOTO', None, None, 'TO BE DEFINED')
     goto_f = jump_stack.pop()
     fill_quad(goto_f, len(quadruples_list.list))
 
-    gen_quad('GOTO', None, None, 'TO BE DEFINED')
     jump_stack.push(len(quadruples_list.list) - 1)
 
 def p_n_if_3(p):
@@ -392,6 +392,7 @@ def p_return(p):
 def p_set_operation(p):
     '''set_operation : ID '.' OPERATION '(' set_operation1 ')' '''
 
+
 def p_set_operation1(p):
     '''set_operation1 : expression
                        | empty'''
@@ -409,7 +410,7 @@ def p_statement1(p):
                   | return
                   | map_assignment
                   | map_operation
-                  | function_call''' #aqui no falta set_asisignemtn?
+                  | function_call'''
 
 def p_statement2(p):
     '''statement2 : condition
@@ -658,7 +659,7 @@ def p_map_definition(p):
   p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6]
 
 def p_map_access(p):
-  '''map_access : ID '(' exp ')' '''
+  '''map_access : ID '[' exp ']' '''
 
 def p_map_assignment(p):
   '''map_assignment : map_access ASSIGNATOR exp'''

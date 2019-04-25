@@ -1,42 +1,30 @@
 program aPlusB;
 
-int aa1a1a1a1a1a1a1a, a, b;
+int a,b;
+float f;
 
-bool t, y;
-
-int sum(int x, int y){
-     int res;
-     a := 5 * 4 + 1 + 2 * 3;
-     a := res + a;
-     b := a + 1;
-     res := a + b;
-     return res;
+void uno(int a){
+  a := a + b * a;
+  print(a, b, a + b);
 }
 
-void minus(int a, int b) {
-  int x;
-  x := 4 * 5;
+void dos(int a, int b, float g){
+  int i;
+  i := b;
+  while(i > 0){
+    a := a + b * i + b;
+    uno(i*2);
+    print(a);
+    i := i - 1;
+  }
 }
+
 main {
-     int a, y;
-     read(a, b);
-     if(a + b > y) {
-      a := 5;
-     } else {
-      a := 10;
-      print(5*4+3/(2+1), 8*8*9);
-     }
-     minus(4, 3);
+     a := 3;
+     b := a + 1;
 
-     if(a > b) {
-      a := 999;
-     }
-
-     while( a != b && 3 > 5){
-      while(true){
-
-      }
-     }
-     a := 1;
-     print(sum(3*4, 2));
+     print(a, b);
+     f := 3.14;
+     dos(a + b * 2, f * 3);
+     print(a, b, f * 2 + 1);
 }
