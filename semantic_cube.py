@@ -1,8 +1,8 @@
 
 class SemanticCube:
 
-    num_operators = 14 # sin contar unarios
-    num_datatypes = 8 # int float bool char string set map
+    num_operators = 23
+    num_datatypes = 8
 
     def init_names(self):
         self.datatypes = { "INT" : 0, "FLOAT": 1, "CHAR": 2,
@@ -10,7 +10,9 @@ class SemanticCube:
 
         self.operators = { "+" : 0, "-" : 1, "*" : 2, "/" : 3, "&&" : 4,
         "||" : 5, ">" : 6, ">=" : 7, "<" : 8, "<=" : 9, "==" : 10,
-        "!=" : 11, "!" : 12, "=" : 13}
+        "!=" : 11, "!" : 12, "=" : 13, "PRINT": 14, "READ": 15, "DOMAIN": 16,
+        "RANGE": 17, "SIZE": 18, "CLEAR": 19, "INSERT": 20, "REMOVE": 21,
+        "FIND": 22 }
 
     def init_cube(self):
         self.cube = []
@@ -46,6 +48,16 @@ class SemanticCube:
         key_not = self.operators["!"]
         key_assign = self.operators["="]
 
+        key_print = self.operators["PRINT"]
+        key_read = self.operators["READ"]
+        key_domain = self.operators["DOMAIN"]
+        key_range = self.operators["RANGE"]
+        key_size = self.operators["SIZE"]
+        key_clear = self.operators["CLEAR"]
+        key_insert = self.operators["INSERT"]
+        key_remove = self.operators["REMOVE"]
+        key_find = self.operators["FIND"]
+
         # Most repeated group
         # {"+" , "-", "*", "/", ">", ">=", "<=", "==", "!="}
 
@@ -58,6 +70,7 @@ class SemanticCube:
                                         "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
                                         "<": "BOOL", "<=": "BOOL", "==": "BOOL",
                                         "!=": "BOOL"}
+
         #Float versus everyone
         self.cube[key_float][key_int] = {"+": "FLOAT" , "-": "FLOAT", "*": "FLOAT",
                                         "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
@@ -75,13 +88,38 @@ class SemanticCube:
         self.cube[key_bool][key_bool] = {"==": "BOOL", "!=": "BOOL",
                                         "&&": "BOOL", "||": "BOOL", "=": "BOOL"}
 
-        self.cube[key_bool][key_none] = {"!"}
+        self.cube[key_bool][key_none] = {"!": "BOOL"}
 
         # String versus everyone
         self.cube[key_string][key_string] = {"+": "STRING", ">": "BOOL",
                                             ">=": "BOOL", "<": "BOOL",
                                             "<=": "BOOL", "==": "BOOL",
                                             "!=": "BOOL", "=": "STRING"}
+
+        #Set versus everyone
+        self.cube[key_set][key_set] = {"+": "SET", "-": "SET", "*": "SET",
+                                       "=": "SET", "==": "BOOL"}
+
+        self.cube[key_set][key_none] = {"SIZE": "INT", "CLEAR": "NONE"}
+
+        self.cube[key_set][key_int] = {"INSERT": "INT", "REMOVE": "NONE",
+                                       "FIND": "BOOL"}
+        self.cube[key_set][key_float] = {"INSERT": "FLOAT", "REMOVE": "NONE",
+                                         "FIND": "BOOL"}
+        self.cube[key_set][key_char] = {"INSERT": "CHAR", "REMOVE": "NONE",
+                                        "FIND": "BOOL"}
+        self.cube[key_set][key_string] = {"INSERT": "STRING", "REMOVE": "NONE",
+                                         "FIND": "BOOL"}
+        self.cube[key_set][key_bool] = {"INSERT": "BOOL", "REMOVE": "NONE",
+                                        "FIND": "BOOL"}
+
+        #Map PENDIENTE
+        self.cube[key_map][key_map] = {"=" : "MAP", "==": "MAP"}
+
+        #Read
+        
+        #Print
+
 
 
     def __init__(self):
