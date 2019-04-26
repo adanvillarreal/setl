@@ -339,7 +339,9 @@ def p_output1(p):
 
 def p_n_output_quad(p):
     '''n_output_quad : expression'''
-    gen_quad('PRINT', quadruples_list.current_temp(), None, None)
+    operand = operand_stack.pop()
+    operand_type = type_stack.pop()
+    gen_quad('PRINT', operand, None, None)
 
 
 def p_function_call(p):
