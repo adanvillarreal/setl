@@ -108,11 +108,6 @@ def t_CTE_CHAR(t):
     type_stack.push("CHAR")
     return t
 
-# def t_CTE_BOOL(t):
-#     r'("true"|"false")'
-#     print("")
-#     return t
-
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
@@ -136,10 +131,6 @@ def p_program1(p):
 def p_program2(p):
     '''program2 : proc program2
                 | main'''
-
-def p_procs(p):
-    '''procs : proc
-             | proc procs'''
 
 def p_proc(p):
     '''proc : proca1 procA
@@ -222,22 +213,6 @@ def p_var1(p):
 def p_var2(p):
     '''var2 : ';' '''
 
-# def p_vars1(p):
-#     '''vars2 : empty
-#              | vars'''
-#
-#
-# def p_vars(p):
-#     '''vars : datatype vars1 ';' vars
-#             | datatype vars1 ';' '''
-#
-# def p_vars1(p):
-#     '''vars1 : ID ',' vars1
-#              | ID'''
-#
-# def p_vars2(p):
-#     '''vars2 : vars
-#              | empty'''
 
 def p_assignment(p):
     '''assignment : assignment2 ASSIGNATOR n_quad_assign expression'''
@@ -339,7 +314,9 @@ def p_output1(p):
 
 def p_n_output_quad(p):
     '''n_output_quad : expression'''
-    gen_quad('PRINT', quadruples_list.current_temp(), None, None)
+    operand = operand_stack.pop()
+    operand_type = type_stack.pop()
+    gen_quad('PRINT', operand, None, None)
 
 
 def p_function_call(p):
