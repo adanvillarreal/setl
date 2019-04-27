@@ -84,8 +84,9 @@ class MemoryManager:
     def __init__(self):
         self.memories = {'local':Memory(0, 1000), 'global': Memory(5000, 1000), 'temporary':Memory(10000, 1000), 'constant': Memory(15000, 1000)}
 
-    def reset_local_memory(self):
+    def reset_memory(self):
         self.memories['local'] = Memory(0, 1000)
+        self.memories['temporary'] = Memory(0, 1000)
 
 class Semantics:
     def __init__(self):
@@ -161,7 +162,7 @@ class Semantics:
 
     def new_proc(self, name, returntype):
         self.global_scope = False
-        self.memory_manager.reset_local_memory()
+        self.memory_manager.reset_memory()
         if self.functions.find(name) != None:
             return False
 

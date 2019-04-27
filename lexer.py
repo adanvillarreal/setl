@@ -455,6 +455,7 @@ def quad_process_unary(operator_list):
         raise SyntaxError
     else:
         result = quadruples_list.next_temp()
+        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result)
         gen_quad(operator, right_operand, None, result)
         operand_stack.push(result)
         type_stack.push(result_type)
@@ -478,6 +479,7 @@ def quad_process(operator_list):
         raise SyntaxError
     else:
         result = quadruples_list.next_temp()
+        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result)
         gen_quad(operator, left_operand, right_operand, result)
         operand_stack.push(result)
         type_stack.push(result_type)
