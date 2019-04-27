@@ -91,10 +91,13 @@ class Semantics:
         self.current_proc = ""
         self.param_counter = 0
         self.called_function = ""
+        self.proc_has_return = False
+        self.has_return = False
 
 
     def change_scope(self):
         self.global_scope = False
+        self.has_return = False
         self.local_vars = SymbolTable()
         print "AAAAAAAAA"
         return self.global_scope
@@ -172,6 +175,20 @@ class Semantics:
                 return global_table_search
         else:
             return local_table_search
+
+    def check_return_type(self, return_type):
+        print "CHECK RETURN TYPE"
+        print return_type
+        og_return_type =  self.functions.find(self.current_proc).return_type
+        print og_return_type
+        return og_return_type == None or return_type == og_return_type
+
+    def set_has_return(self, has_return):
+        print has_return
+        self.has_return = has_return
+
+    def get_has_return(self):
+        return self.has_return
 
     def find_proc(self, name):
         return self.functions.find(name)

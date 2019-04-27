@@ -133,10 +133,17 @@ def p_program2(p):
                 | main'''
 
 def p_proc(p):
-    '''proc : proca1 procA
+    '''proc : proca1 procA n_check_has_return
             | VOID proca2 procA
             | empty'''
     print ":function" + p[1]
+
+def p_n_check_has_return(p):
+    '''n_check_has_return : '''
+    print "CHECK HAS RETURN RULE *********************************************"
+    if not semantic_tool.get_has_return():
+        print "No return statement in non-void function"
+        raise SyntaxError
 
 def p_proca2(p): #void function
     '''proca2 : ID '(' '''
@@ -146,7 +153,7 @@ def p_proca2(p): #void function
 
 def p_proca1(p): #non void function
     '''proca1 :  datatype ID '(' '''
-    if not semantic_tool.new_proc(p[2], p[1]):
+    if not semantic_tool.new_proc(p[2], str(p[1]).upper()):
         print "Function " + p[2] + " already declared"
         raise SyntaxError
 
@@ -365,6 +372,11 @@ def p_n_verify_argument(p):
 
 def p_return(p):
     '''return : RETURN expression'''
+    if(not semantic_tool.check_return_type(type_stack.top())):
+        print "Wrong return type."
+        raise SyntaxError
+    else:
+        semantic_tool.set_has_return(True)
 
 def p_set_operation(p):
     '''set_operation : ID '.' OPERATION '(' set_operation1 ')' '''
