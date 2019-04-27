@@ -1,33 +1,24 @@
 program aPlusB;
 
-int a,b;
-float f;
+int i, j;
 
-void uno(int op){
-  a := a + b * a;
-  print(a, b, a + b);
-}
-void ppp(int x, int y){
-
-}
-
-void dos(int a, int b, float g){
+void uno(int a){
   int i;
-  i := b;
-  while(i > 0){
-    a := a + b * i + b;
-    uno(i*2);
-    print(a);
-    i := i - 1;
+  i := a * 2;
+  if (i < a + 4) {
+    uno(a + 1);
   }
+  print(i);
+}
+
+int dos(int b){
+  b := b*i + j;
+  return b*2;
 }
 
 main {
-     a := 3;
-     b := a + 1;
-     print(3, 4, 5, 6, 7, 8 * 3);
-     f := 3.14;
-     dos(2, 3, 2.5*3);
-     f := 2.3;
-     print(a, b, f * 2 + 1);
+  i := 2;
+  j := i * 2 - 1;
+  uno(j);
+  print(i + dos(i + j));
 }

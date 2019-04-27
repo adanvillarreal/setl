@@ -70,7 +70,7 @@ class Memory:
         self.maps = {'BOOL': {}, 'FLOAT': {}, 'INT': {}, 'CHAR': {}, 'STRING':{}}
 
     def next_address(self, data_type):
-        print "NEXT ADDRESS LENGTH OF MAP", self.maps[data_type]
+        print "NEXT ADDRESS LENGTH OF MAP",  data_type, self.maps[data_type]
         return self.init_address[data_type]+ len(self.maps[data_type])
 
     def assign(self, data_type, value):
@@ -86,7 +86,10 @@ class MemoryManager:
 
     def reset_memory(self):
         self.memories['local'] = Memory(0, 1000)
-        self.memories['temporary'] = Memory(0, 1000)
+        self.memories['temporary'] = Memory(10000, 1000)
+
+    def find_constant(self, value, datatype):
+        return self.memories['constant'].maps[datatype][value]
 
 class Semantics:
     def __init__(self):
