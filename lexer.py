@@ -86,24 +86,28 @@ def t_ID(t):
 
 def t_CTE_FLOAT(t):
     r'\d+\.\d+'
+    semantic_tool.insert_to_constants(t.value, 'FLOAT')
     operand_stack.push(t.value)
     type_stack.push("FLOAT")
     return t
 
 def t_CTE_INT(t):
     r'\d+'
+    semantic_tool.insert_to_constants(t.value, 'INT')
     operand_stack.push(t.value)
     type_stack.push("INT")
     return t
 
 def t_CTE_STRING(t):
     r'\"[a-zA-Z0-9]*\"'
+    semantic_tool.insert_to_constants(t.value, 'STRING')
     operand_stack.push(t.value)
     type_stack.push("STRING")
     return t
 
 def t_CTE_CHAR(t):
     r'\'[a-zA-Z0-9]\''
+    semantic_tool.insert_to_constants(t.value, 'CHAR')
     operand_stack.push(t.value)
     type_stack.push("CHAR")
     return t
@@ -601,6 +605,7 @@ def p_varcte1(p):
                | set_operation'''
     #ultimos 4 pendientes
     if p[1] in ["true", "false"]:
+        semantic_tool.insert_to_constants(p[1], 'BOOL')
         operand_stack.push(p[1])
         type_stack.push("BOOL")
 

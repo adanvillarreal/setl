@@ -3,7 +3,7 @@ program aPlusB;
 int a,b;
 float f;
 
-void uno(int a){
+void uno(int op){
   a := a + b * a;
   print(a, b, a + b);
 }
