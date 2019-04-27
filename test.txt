@@ -7,6 +7,9 @@ void uno(int op){
   a := a + b * a;
   print(a, b, a + b);
 }
+void ppp(int x, int y){
+
+}
 
 void dos(int a, int b, float g){
   int i;

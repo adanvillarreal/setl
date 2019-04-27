@@ -35,7 +35,6 @@ class QuadrupleList:
 
 # A simple class stack that only allows pop and push operations
 class Stack:
-
     def __init__(self):
         self.stack = []
 
@@ -85,6 +84,9 @@ class MemoryManager:
     def __init__(self):
         self.memories = {'local':Memory(0, 1000), 'global': Memory(5000, 1000), 'temporary':Memory(10000, 1000), 'constant': Memory(15000, 1000)}
 
+    def reset_local_memory(self):
+        self.memories['local'] = Memory(0, 1000)
+
 class Semantics:
     def __init__(self):
         self.global_vars = SymbolTable()
@@ -98,14 +100,6 @@ class Semantics:
         self.proc_has_return = False
         self.has_return = False
         self.memory_manager = MemoryManager()
-
-
-    def change_scope(self):
-        self.global_scope = False
-        self.has_return = False
-        self.local_vars = SymbolTable()
-        print "AAAAAAAAA"
-        return self.global_scope
 
     def insert_var(self, name, datatype, value):
         if self.global_scope:
@@ -167,6 +161,7 @@ class Semantics:
 
     def new_proc(self, name, returntype):
         self.global_scope = False
+        self.memory_manager.reset_local_memory()
         if self.functions.find(name) != None:
             return False
 
