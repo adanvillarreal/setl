@@ -376,11 +376,13 @@ def p_n_verify_argument(p):
 
 def p_return(p):
     '''return : RETURN expression'''
-    if(not semantic_tool.check_return_type(type_stack.top())):
+    if(not semantic_tool.check_return_type(type_stack.top())): #este no funciona con top, no se porque.
         print "Wrong return type."
         raise SyntaxError
     else:
         semantic_tool.set_has_return(True)
+        gen_quad("RETURN", operand_stack.top(), None, None )
+
 
 def p_set_operation(p):
     '''set_operation : ID '.' OPERATION '(' set_operation1 ')' '''

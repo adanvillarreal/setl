@@ -74,6 +74,8 @@ class Memory:
         return self.init_address[data_type]+ len(self.maps[data_type])
 
     def assign(self, data_type, value):
+        if value in self.maps[data_type]:
+            return self.maps[data_type][value]
         if len(self.maps[data_type]) == self.delta:
             return None
         next_address = self.next_address(data_type)
