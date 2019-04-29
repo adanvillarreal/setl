@@ -93,6 +93,9 @@ class MemoryManager:
     def find_constant(self, value, datatype):
         return self.memories['constant'].maps[datatype][value]
 
+    def find_global(self, value, datatype):
+        return self.memories['global'].maps[datatype][value]
+
 class Semantics:
     def __init__(self):
         self.global_vars = SymbolTable()
@@ -114,7 +117,7 @@ class Semantics:
             if current_address is None:
                 print "ADDRESS NOT AVAILABLE"
                 return SyntaxError
-            print("^^^^^^^^^^^^^^^ASSIGNING MEMORY")
+            print("^^^^^^^^^^^^^^^GLOBAL MEMORY")
             print name, datatype, value, current_address
 
             return table.insert(name, datatype, value, current_address)
@@ -166,6 +169,9 @@ class Semantics:
             return False
 
     def new_proc(self, name, returntype):
+        if not returntype is None:
+            self.global_scope = True
+            self.insert_var(name, returntype, None)
         self.global_scope = False
         self.memory_manager.reset_memory()
         if self.functions.find(name) != None:

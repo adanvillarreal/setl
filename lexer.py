@@ -148,6 +148,12 @@ def p_n_check_has_return(p):
     if not semantic_tool.get_has_return():
         print "No return statement in non-void function"
         raise SyntaxError
+    operand = operand_stack.top()
+    result_type = type_stack.top()
+    result = quadruples_list.next_temp()
+    glob_addr = semantic_tool.memory_manager.find_global(semantic_tool.current_proc, result_type)
+    #gen_quad('===', operand, None, glob_addr) esta es la parte donde se guarda el valor de retorno en la var global,
+    # no se si se genera un cuadruplo para esto o se hace en la maquina virtual cuando ve el return.
 
 def p_proca2(p): #void function
     '''proca2 : ID '(' '''
@@ -332,10 +338,15 @@ def p_n_output_quad(p):
 
 def p_function_call(p):
     '''function_call : n_era_size function_call1 ')' '''
-    proc_quad = semantic_tool.find_proc(semantic_tool.function_called).quadruple
+    function_called = semantic_tool.find_proc(semantic_tool.function_called)
+    proc_quad = function_called.quadruple
     gen_quad('GOSUB', semantic_tool.function_called, proc_quad, None)
-
-
+    if not function_called.return_type is None:
+        result = quadruples_list.next_temp()
+        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(function_called.return_type, result)
+        gen_quad('=', semantic_tool.memory_manager.find_global(function_called.name, function_called.return_type), None, temp_addr)
+        operand_stack.push(temp_addr)
+        type_stack.push(function_called.return_type)
 def p_n_era_size(p):
     '''n_era_size : ID '(' '''
     if semantic_tool.find_proc(p[1]) == None:
