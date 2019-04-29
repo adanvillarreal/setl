@@ -3,16 +3,16 @@ from collections import namedtuple
 class SymbolTable:
     def __init__(self):
         self.table = {}
-        self.table_entry = namedtuple('table_entry', ['name', 'data_type', 'value'])
+        self.table_entry = namedtuple('table_entry', ['name', 'data_type', 'value', 'address'])
 
     def exists(self, name):
         return name in self.table
 
-    def insert(self, name, data_type, value):
+    def insert(self, name, data_type, value, address):
         if self.exists(name):
             return False
         else:
-            self.table[name] = self.table_entry(name, data_type, value)
+            self.table[name] = self.table_entry(name, data_type, value, address)
             return True
 
     def find(self, name):
@@ -20,6 +20,8 @@ class SymbolTable:
             return self.table[name]
         else:
             return None
+    def print_table(self):
+        print(self.table)
 
 class ProcTable:
     def __init__(self):

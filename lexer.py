@@ -86,25 +86,29 @@ def t_ID(t):
 
 def t_CTE_FLOAT(t):
     r'\d+\.\d+'
-    operand_stack.push(t.value)
+    semantic_tool.insert_to_constants(t.value, 'FLOAT')
+    operand_stack.push(semantic_tool.memory_manager.find_constant(t.value, 'FLOAT'))
     type_stack.push("FLOAT")
     return t
 
 def t_CTE_INT(t):
     r'\d+'
-    operand_stack.push(t.value)
+    semantic_tool.insert_to_constants(t.value, 'INT')
+    operand_stack.push(semantic_tool.memory_manager.find_constant(t.value, 'INT'))
     type_stack.push("INT")
     return t
 
 def t_CTE_STRING(t):
     r'\"[a-zA-Z0-9]*\"'
-    operand_stack.push(t.value)
+    semantic_tool.insert_to_constants(t.value, 'STRING')
+    operand_stack.push(semantic_tool.memory_manager.find_constant(t.value, 'STRING'))
     type_stack.push("STRING")
     return t
 
 def t_CTE_CHAR(t):
     r'\'[a-zA-Z0-9]\''
-    operand_stack.push(t.value)
+    semantic_tool.insert_to_constants(t.value, 'CHAR')
+    operand_stack.push(semantic_tool.memory_manager.find_constant(t.value, 'CHAR'))
     type_stack.push("CHAR")
     return t
 
@@ -233,7 +237,7 @@ def p_assignment2(p):
         print "Undeclared variable " + p[1]
         raise SyntaxError
     else:
-        operand_stack.push(search_result.name)
+        operand_stack.push(search_result.address)
         type_stack.push(search_result.data_type)
         p[0] = p[1]
         return p[0]
@@ -372,11 +376,13 @@ def p_n_verify_argument(p):
 
 def p_return(p):
     '''return : RETURN expression'''
-    if(not semantic_tool.check_return_type(type_stack.top())):
+    if(not semantic_tool.check_return_type(type_stack.top())): #este no funciona con top, no se porque.
         print "Wrong return type."
         raise SyntaxError
     else:
         semantic_tool.set_has_return(True)
+        gen_quad("RETURN", operand_stack.top(), None, None )
+
 
 def p_set_operation(p):
     '''set_operation : ID '.' OPERATION '(' set_operation1 ')' '''
@@ -451,8 +457,9 @@ def quad_process_unary(operator_list):
         raise SyntaxError
     else:
         result = quadruples_list.next_temp()
-        gen_quad(operator, right_operand, None, result)
-        operand_stack.push(result)
+        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result)
+        gen_quad(operator, right_operand, None, temp_addr)
+        operand_stack.push(temp_addr)
         type_stack.push(result_type)
 
 def quad_process(operator_list):
@@ -474,8 +481,9 @@ def quad_process(operator_list):
         raise SyntaxError
     else:
         result = quadruples_list.next_temp()
-        gen_quad(operator, left_operand, right_operand, result)
-        operand_stack.push(result)
+        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result)
+        gen_quad(operator, left_operand, right_operand, temp_addr)
+        operand_stack.push(temp_addr)
         type_stack.push(result_type)
 
 def quad_process_assign(operator_list):
@@ -584,7 +592,8 @@ def p_varcte(p):
         print "Undeclared variable " + p[1]
         raise SyntaxError
       else:
-        operand_stack.push(var.value)
+        print "puttingaskdnfasjdkfwiaeunf ", var
+        operand_stack.push(var.address)
         type_stack.push(var.data_type)
   if p[1] != None:
       p[0] = p[1]
@@ -601,7 +610,8 @@ def p_varcte1(p):
                | set_operation'''
     #ultimos 4 pendientes
     if p[1] in ["true", "false"]:
-        operand_stack.push(p[1])
+        semantic_tool.insert_to_constants(p[1], 'BOOL')
+        operand_stack.push(semantic_tool.memory_manager.find_constant(p[1], 'BOOL'))
         type_stack.push("BOOL")
 
 

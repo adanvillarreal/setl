@@ -35,7 +35,6 @@ class QuadrupleList:
 
 # A simple class stack that only allows pop and push operations
 class Stack:
-
     def __init__(self):
         self.stack = []
 
@@ -63,23 +62,36 @@ class Stack:
     def print_stack(self):
         print(self.stack)
 
+class Memory:
+    def __init__(self, init_value, delta):
+        self.delta = delta
+        self.int_addr = init_value
+        self.init_address = {'BOOL': init_value, 'FLOAT': init_value+ delta, 'INT': init_value+delta*2, 'CHAR':init_value+delta*3, 'STRING':init_value+delta*4}
+        self.maps = {'BOOL': {}, 'FLOAT': {}, 'INT': {}, 'CHAR': {}, 'STRING':{}}
 
-# And a queue that only has enqueue and dequeue operations
-class Queue:
+    def next_address(self, data_type):
+        print "NEXT ADDRESS LENGTH OF MAP",  data_type, self.maps[data_type]
+        return self.init_address[data_type]+ len(self.maps[data_type])
 
-    def __init__(self):
-        self.queue = []
-
-    def enqueue(self, item):
-        self.queue.append(item)
-
-    def dequeue(self):
-        if len(self.queue) < 1:
+    def assign(self, data_type, value):
+        if value in self.maps[data_type]:
+            return self.maps[data_type][value]
+        if len(self.maps[data_type]) == self.delta:
             return None
-        return self.queue.pop(0)
+        next_address = self.next_address(data_type)
+        self.maps[data_type][value] = next_address
+        return next_address
 
-    def size(self):
-        return len(self.queue)
+class MemoryManager:
+    def __init__(self):
+        self.memories = {'local':Memory(0, 1000), 'global': Memory(5000, 1000), 'temporary':Memory(10000, 1000), 'constant': Memory(15000, 1000)}
+
+    def reset_memory(self):
+        self.memories['local'] = Memory(0, 1000)
+        self.memories['temporary'] = Memory(10000, 1000)
+
+    def find_constant(self, value, datatype):
+        return self.memories['constant'].maps[datatype][value]
 
 class Semantics:
     def __init__(self):
@@ -93,27 +105,39 @@ class Semantics:
         self.called_function = ""
         self.proc_has_return = False
         self.has_return = False
-
-
-    def change_scope(self):
-        self.global_scope = False
-        self.has_return = False
-        self.local_vars = SymbolTable()
-        print "AAAAAAAAA"
-        return self.global_scope
+        self.memory_manager = MemoryManager()
 
     def insert_var(self, name, datatype, value):
         if self.global_scope:
             table = self.global_vars
-            return table.insert(name, datatype, value)
+            current_address = self.memory_manager.memories['global'].assign(datatype, name)
+            if current_address is None:
+                print "ADDRESS NOT AVAILABLE"
+                return SyntaxError
+            print("^^^^^^^^^^^^^^^ASSIGNING MEMORY")
+            print name, datatype, value, current_address
+
+            return table.insert(name, datatype, value, current_address)
         else:
             proc = self.functions.find(self.current_proc)
             table = proc[2]
-            if table.insert(name, datatype, value):
+            current_address = self.memory_manager.memories['local'].assign(datatype, name)
+            if current_address is None:
+                print "ADDRESS NOT AVAILABLE"
+                return SyntaxError
+            print("^^^^^^^^^^^^^ASSIGNING MEMORY")
+            print name, datatype, value, current_address
+            if table.insert(name, datatype, value, current_address):
                 proc = proc._replace(vars_table=table)
                 return True
             else:
                 return False
+
+    def insert_to_constants(self, value, datatype):
+        current_address = self.memory_manager.memories['constant'].assign(datatype, value)
+        if current_address is None:
+            raise SyntaxError
+
 
     def update_proc_var_table(self, table):
         proc = self.functions.find(self.current_proc)
@@ -143,6 +167,7 @@ class Semantics:
 
     def new_proc(self, name, returntype):
         self.global_scope = False
+        self.memory_manager.reset_memory()
         if self.functions.find(name) != None:
             return False
 
