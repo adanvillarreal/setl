@@ -125,8 +125,12 @@ tokens = tokens + list(reserved.values())
 start = "program"
 
 def p_program(p):
-    '''program : PROGRAM ID ';' program1'''
+    '''program : PROGRAM ID ';' n_main_quad program1'''
+    gen_quad('END', None, None, None)
 
+def p_n_main_quad(p):
+    '''n_main_quad : '''
+    gen_quad('GOTO', None, None, None)
 
 def p_program1(p):
     '''program1 : var program1
@@ -198,7 +202,6 @@ def p_proc4(p):
     '''proc4 : statement proc4
              | empty'''
 
-
 def p_vars(p):
     '''vars : var vars
             | var'''
@@ -223,7 +226,6 @@ def p_var1(p):
 
 def p_var2(p):
     '''var2 : ';' '''
-
 
 def p_assignment(p):
     '''assignment : assignment2 ASSIGNATOR n_quad_assign expression'''
@@ -314,7 +316,6 @@ def p_input1(p):
 
 def p_n_process_read(p):
     '''n_process_read : ID'''
-
 
 def p_output(p):
     '''output : PRINT '(' n_output_quad output1 ')' '''
@@ -641,7 +642,11 @@ def p_statement_aux(p):
                    | empty'''
 
 def p_main(p):
-  '''main : MAIN n_clear_scope '{' vars_aux statement_aux '}' '''
+  '''main : MAIN n_clear_scope n_main_quad2 '{' vars_aux statement_aux '}' '''
+
+def p_n_main_quad2(p):
+    '''n_main_quad2 : '''
+    fill_quad(0, len(quadruples_list.list))
 
 def p_n_clear_scope(p):
   ''' n_clear_scope : '''
