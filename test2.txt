@@ -1,0 +1,13 @@
+program aPlusB;
+
+int i;
+
+main {
+  int j;
+  print(8);
+  print(1*2);
+  i := 2 * 3;
+  j := i * 2 - 1;
+  print(j);
+  print(i + j);
+}

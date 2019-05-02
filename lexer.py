@@ -6,7 +6,7 @@ import logging
 from symbol_table import SymbolTable
 from semantic_cube import SemanticCube
 from config import *
-
+from vm import *
 global_vars_table = SymbolTable()
 local_vars_table = SymbolTable()
 procs_table = SymbolTable()
@@ -709,7 +709,7 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("test.txt", "r")
+f = open("test2.txt", "r")
 s = ""
 
 for x in f:
@@ -728,3 +728,6 @@ quadruples_list.print_quads()
 
 print("Jump Stack")
 jump_stack.print_stack()
+
+vm = VM(semantic_tool.functions, semantic_tool.global_vars, semantic_tool.memory_manager.memories['constant'].maps, quadruples_list, [5000, 10000, 15000, 20000], 1000)
+vm.process_quad(0)

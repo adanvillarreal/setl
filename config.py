@@ -33,6 +33,10 @@ class QuadrupleList:
         for x in self.list:
             x.print_quad()
 
+    def get(self, index):
+        return self.list[index]
+
+
 # A simple class stack that only allows pop and push operations
 class Stack:
     def __init__(self):
