@@ -712,7 +712,7 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("test2.txt", "r")
+f = open("test.txt", "r")
 s = ""
 
 for x in f:
@@ -732,5 +732,5 @@ quadruples_list.print_quads()
 print("Jump Stack")
 jump_stack.print_stack()
 
-vm = VM(semantic_tool.functions, semantic_tool.memory_manager.memories['constant'].maps, semantic_tool.memory_manager.get_memory_size('global'), quadruples_list, [5000, 10000, 15000, 20000], 1000)
+vm = VM(semantic_tool.functions, semantic_tool.memory_manager.memories['constant'].maps, semantic_tool.memory_manager.get_memory_size('global'), quadruples_list, [5000, 10000, 15000, 20000], 1000, semantic_tool.global_vars)
 vm.process_quad(0)

@@ -1,6 +1,6 @@
 from config import *
 from symbol_table import *
-
+import copy
 class VMMemory:
     def __init__(self, virtual_memory_ranges, delta, global_sizes, local_sizes, temp_sizes, constants):
         for k, v in global_sizes.items():
@@ -25,6 +25,22 @@ class VMMemory:
             for k, v in inv_map.items():
                 self.append(k, v)
 
+    def push_new_level(self, memory_size):
+        local_sizes = memory_size['local'].copy()
+        for k, v in local_sizes.items():
+            local_sizes[k] = [0]*v
+
+        temp_sizes = memory_size['temporary'].copy()
+        for k, v in temp_sizes.items():
+            temp_sizes[k] = [0]*v
+
+        self.memories['local'].push(local_sizes)
+        self.memories['temporary'].push(temp_sizes)
+
+    def pop_level(self):
+        self.memories['local'].pop()
+        self.memories['temporary'].pop()
+
     def translate(self, address):
         idx = 0
         config_memories = ['local', 'global', 'temporary', 'constant']
@@ -36,6 +52,15 @@ class VMMemory:
                 return [config_memories[idx], config[address/self.delta], address % self.delta]
             idx = idx + 1
         return None
+
+    def assign_parameters(self, params):
+        offset = {'BOOL':0, 'FLOAT': 0, 'INT': 0, 'CHAR': 0, 'STRING': 0}
+        for param in params:
+            translation = self.translate(param[1])
+            print "ASSIGNING PARAM", param, translation
+            self.memories['local'].top()[translation[1]][offset[translation[1]]] = param[0]
+            offset[translation[1]] = offset[translation[1]] + 1
+
 
     def append(self, address, value):
         translation = self.translate(address)
@@ -79,17 +104,22 @@ class VMMemory:
                 return self.memories[translation[0]][translation[1]][translation[2]]
 
 class VM:
-    def __init__(self, functions, constants, global_vars_mem, quadruples, vm_ranges, delta):
+    def __init__(self, functions, constants, global_vars_mem, quadruples, vm_ranges, delta, global_vars):
         self.functions_table = functions
         main_memory_info = functions.find('MAIN').memory_size
         self.quadruples = quadruples
         print main_memory_info
         self.memory = VMMemory(vm_ranges, delta, global_vars_mem, main_memory_info['local'], main_memory_info['temporary'], constants)
+        self.params_stack = Stack()
+        self.pointer_stack = Stack()
+        self.params_list = []
+        self.return_addr_stack = Stack()
+        self.global_vars = global_vars
 
     def process_quad(self, pointer):
         while(True):
             action = self.quadruples.get(pointer).action
-            #print action
+            print action
             left = self.quadruples.get(pointer).first
             right = self.quadruples.get(pointer).second
             quad_result = self.quadruples.get(pointer).result
@@ -125,15 +155,41 @@ class VM:
                 else:
                     pointer = pointer + 1
             elif action == 'GOSUB':
-                pointer = right
+                new_pointer = int(right)
+                checkpoint_pointer = pointer + 1
+                self.pointer_stack.push(checkpoint_pointer)
+                print "^^^^^^^^^^^^^GOSUB ", new_pointer, checkpoint_pointer
+                print self.functions_table.find(left).memory_size
+                self.memory.push_new_level(copy.copy(self.functions_table.find(left).memory_size))
+                self.memory.assign_parameters(self.params_stack.top())
+                pointer = new_pointer
             elif action == 'ERA':
-                a = 1
-            elif action == 'PARAM':
-                a = 1
+                function = self.global_vars.find(left)
+                print function
+                if function is None:
+                    print "PUSHING -1 because of void"
+                    self.return_addr_stack.push(-1) #function is void
+                else:
+                    self.return_addr_stack.push(function.address)
+                self.params_stack.push([])
+                pointer = pointer + 1
+            elif action == 'PARAMETER':
+                self.params_stack.top().append([self.memory.retrieve(left), left])
+                print "PARAMS", self.params_stack.top()
+                pointer = pointer + 1
             elif action == 'RETURN':
-                a = 1
+                print "RETURN"
+                return_addr = self.return_addr_stack.pop()
+                if return_addr != -1:
+                    print "RETURN STUFF", return_addr, self.memory.retrieve(left)
+                    self.memory.assign(return_addr, self.memory.retrieve(left))
+                self.params_stack.pop()
+                pointer = self.pointer_stack.pop()
+                self.memory.pop_level()
             elif action == 'ENDPROC':
-                a = 1
+                self.params_stack.pop()
+                pointer = self.pointer_stack.pop()
+                self.memory.pop_level()
             elif action == '>':
                 result = self.memory.retrieve(left) > self.memory.retrieve(right)
                 self.memory.assign(quad_result, result)
@@ -142,15 +198,16 @@ class VM:
                 result = self.memory.retrieve(left) < self.memory.retrieve(right)
                 self.memory.assign(quad_result, result)
                 pointer = pointer + 1
-            elif action == 'GEQ':
+            elif action == '>=':
                 result = self.memory.retrieve(left) >= self.memory.retrieve(right)
                 self.memory.assign(quad_result, result)
                 pointer = pointer + 1
-            elif action == 'LEQ':
+            elif action == '<=':
                 result = self.memory.retrieve(left) <= self.memory.retrieve(right)
-                self.memory.assign(quad_result, result)
+                print "RESULT ", result
+                self.memory.assign(quad_result, str(result).lower())
                 pointer = pointer + 1
-            elif action == 'EQ':
+            elif action == '==':
                 result = self.memory.retrieve(left) == self.memory.retrieve(right)
                 self.memory.assign(quad_result, result)
                 pointer = pointer + 1

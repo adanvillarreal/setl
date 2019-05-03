@@ -30,8 +30,10 @@ class QuadrupleList:
         self.list.append(quadruple)
 
     def print_quads(self):
+        idx = 0
         for x in self.list:
-            x.print_quad()
+            print idx, x.print_quad()
+            idx = idx + 1
 
     def get(self, index):
         return self.list[index]
@@ -56,7 +58,7 @@ class Stack:
         return self.stack.pop()
 
     def push(self, item):
-        print("PUSHING " + str(item))
+    #    print("PUSHING " + str(item))
         self.stack.append(item)
         print(self.stack)
 
