@@ -176,6 +176,7 @@ def p_proca1(p): #non void function
 def p_procA(p):
     '''procA : proc1 ')' '{' proc3 '}' '''
     gen_quad('ENDPROC', None, None, None)
+    semantic_tool.save_used_memory()
 
 
 def p_proc1(p): # cleans previous local vars table
@@ -654,6 +655,8 @@ def p_statement_aux(p):
 
 def p_main(p):
   '''main : MAIN n_clear_scope n_main_quad2 '{' vars_aux statement_aux '}' '''
+  gen_quad('END', None, None, None)
+  semantic_tool.save_used_memory()
 
 def p_n_main_quad2(p):
     '''n_main_quad2 : '''
@@ -729,5 +732,5 @@ quadruples_list.print_quads()
 print("Jump Stack")
 jump_stack.print_stack()
 
-vm = VM(semantic_tool.functions, semantic_tool.global_vars, semantic_tool.memory_manager.memories['constant'].maps, quadruples_list, [5000, 10000, 15000, 20000], 1000)
+vm = VM(semantic_tool.functions, semantic_tool.memory_manager.memories['constant'].maps, semantic_tool.memory_manager.get_memory_size('global'), quadruples_list, [5000, 10000, 15000, 20000], 1000)
 vm.process_quad(0)

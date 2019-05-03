@@ -26,23 +26,23 @@ class SymbolTable:
 class ProcTable:
     def __init__(self):
         self.table = {}
-        self.table_entry = namedtuple('table_entry', ['name', 'return_type', 'vars_table', 'params', 'quadruple'])
+        self.table_entry = namedtuple('table_entry', ['name', 'return_type', 'vars_table', 'params', 'quadruple', 'memory_size'])
 
     def exists(self, name):
         return name in self.table
 
     def update(self, name, entry):
         self.table[name] = entry
-        print "UPDATETETETETETETETETE"
+    #    print "UPDATETETETETETETETETE"
         print self.table[name]
 
-    def insert(self, name, returntype, varstable, params, quad):
+    def insert(self, name, returntype, varstable, params, quad, memory_size):
         if self.exists(name):
             return False
         else:
-            self.table[name] = self.table_entry(name, returntype, varstable, params, quad)
-            print("TABLE INSERT)))()()()()()()")
-            print(self.table[name])
+            self.table[name] = self.table_entry(name, returntype, varstable, params, quad, memory_size)
+    #        print("TABLE INSERT)))()()()()()()")
+        #    print(self.table[name])
             return True
 
     def find(self, name):

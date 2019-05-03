@@ -86,6 +86,11 @@ class Memory:
         self.maps[data_type][value] = next_address
         return next_address
 
+    def memory_length(self):
+        mem_map = {}
+        for data_type in ['BOOL', 'FLOAT', 'INT', 'CHAR', 'STRING']:
+            mem_map[data_type] = len(self.maps[data_type])
+        return mem_map
 class MemoryManager:
     def __init__(self):
         self.memories = {'local':Memory(0, 1000), 'global': Memory(5000, 1000), 'temporary':Memory(10000, 1000), 'constant': Memory(15000, 1000)}
@@ -93,6 +98,9 @@ class MemoryManager:
     def reset_memory(self):
         self.memories['local'] = Memory(0, 1000)
         self.memories['temporary'] = Memory(10000, 1000)
+
+    def get_memory_size(self, memory_type):
+        return self.memories[memory_type].memory_length()
 
     def find_constant(self, value, datatype):
         return self.memories['constant'].maps[datatype][value]
@@ -172,16 +180,25 @@ class Semantics:
         else:
             return False
 
+    def save_used_memory(self):
+        old_proc = self.functions.find(self.current_proc)
+        memory_size_map = {'local':self.memory_manager.get_memory_size('local'), 'temporary': self.memory_manager.get_memory_size('temporary')}
+        print "SAVE USED MEMORY", memory_size_map
+        self.functions.update(old_proc[0], old_proc._replace(memory_size = memory_size_map))
+        print self.functions.find(old_proc[0])
+
     def new_proc(self, name, returntype):
         if not returntype is None:
             self.global_scope = True
             self.insert_var(name, returntype, None)
+
         self.global_scope = False
+
         self.memory_manager.reset_memory()
         if self.functions.find(name) != None:
             return False
 
-        self.functions.insert(name, returntype, SymbolTable(), list(), None)
+        self.functions.insert(name, returntype, SymbolTable(), list(), None, 0)
         self.current_proc = name
         self.local_vars = SymbolTable()
         return True
