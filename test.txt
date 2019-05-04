@@ -23,10 +23,14 @@ int fibonacci(int a){
 }
 
 main {
+  int x;
+  x := 0;
   i := 2;
   j := i * 2 - 1;
   uno(j);
   print(dos(j+1 + dos(1)));
-  print("Fibonacci");
-  print(fibonacci(10), 10);
+  while(x < 10) {
+    print(fibonacci(x));
+    x := x + 1;
+  }
 }
