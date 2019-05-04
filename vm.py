@@ -192,15 +192,15 @@ class VM:
                 self.memory.pop_level()
             elif action == '>':
                 result = self.memory.retrieve(left) > self.memory.retrieve(right)
-                self.memory.assign(quad_result, result)
+                self.memory.assign(quad_result,  str(result).lower())
                 pointer = pointer + 1
             elif action == '<':
                 result = self.memory.retrieve(left) < self.memory.retrieve(right)
-                self.memory.assign(quad_result, result)
+                self.memory.assign(quad_result,  str(result).lower())
                 pointer = pointer + 1
             elif action == '>=':
                 result = self.memory.retrieve(left) >= self.memory.retrieve(right)
-                self.memory.assign(quad_result, result)
+                self.memory.assign(quad_result,  str(result).lower())
                 pointer = pointer + 1
             elif action == '<=':
                 result = self.memory.retrieve(left) <= self.memory.retrieve(right)
@@ -209,15 +209,15 @@ class VM:
                 pointer = pointer + 1
             elif action == '==':
                 result = self.memory.retrieve(left) == self.memory.retrieve(right)
-                self.memory.assign(quad_result, result)
+                self.memory.assign(quad_result,  str(result).lower())
                 pointer = pointer + 1
             elif action == 'AND':
                 result = self.memory.retrieve(left) == true and self.memory.retrieve(right) == true
-                self.memory.assign(quad_result, result)
+                self.memory.assign(quad_result,  str(result).lower())
                 pointer = pointer + 1
             elif action == 'OR':
                 result = self.memory.retrieve(left) == true or self.memory.retrieve(right) == true
-                self.memory.assign(quad_result, result)
+                self.memory.assign(quad_result,  str(result).lower())
                 pointer = pointer + 1
             elif action == 'END':
                 return
