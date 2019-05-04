@@ -130,7 +130,7 @@ class Semantics:
             current_address = self.memory_manager.memories['global'].assign(datatype, name)
             if current_address is None:
                 print "ADDRESS NOT AVAILABLE"
-                return SyntaxError
+                raise SyntaxError
             print("^^^^^^^^^^^^^^^GLOBAL MEMORY")
             print name, datatype, value, current_address
 
@@ -141,7 +141,7 @@ class Semantics:
             current_address = self.memory_manager.memories['local'].assign(datatype, name)
             if current_address is None:
                 print "ADDRESS NOT AVAILABLE"
-                return SyntaxError
+                raise SyntaxError
             print("^^^^^^^^^^^^^ASSIGNING MEMORY")
             print name, datatype, value, current_address
             if table.insert(name, datatype, value, current_address):
