@@ -94,10 +94,8 @@ class Memory:
         return next_address
 
     def memory_length(self):
-        mem_map = {}
-        for data_type in ['BOOL', 'FLOAT', 'INT', 'CHAR', 'STRING']:
-            mem_map[data_type] = len(self.maps[data_type])
-        return mem_map
+        return self.size_occupied
+
 class MemoryManager:
     def __init__(self):
         self.memories = {'local':Memory(0, 1000), 'global': Memory(5000, 1000), 'temporary':Memory(10000, 1000), 'constant': Memory(15000, 1000)}
