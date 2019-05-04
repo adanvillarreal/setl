@@ -109,7 +109,7 @@ class SemanticCube:
                                          "FIND": "BOOL"}
         self.cube[key_set][key_bool] = {"INSERT": "NONE", "REMOVE": "NONE",
                                         "FIND": "BOOL"}
-        self.cube[key_set][key_none] = {"SIZE": "NONE", "CLEAR": "NONE"}
+        self.cube[key_set][key_none] = {"SIZE": "INT", "CLEAR": "NONE"}
 
         #Map PENDIENTE
         self.cube[key_map][key_map] = {"=" : "MAP", "==": "MAP"}

@@ -525,6 +525,7 @@ def quad_process_container_without_arg(operator_list, datatype):
     result_type = semantic_cube.accepts(right_type, None, operator)
 
     print "eeeeeentraaa a without argument", result_type
+    print "db ", result_type, right_operand, right_type
     if result_type == False:
         print("Incompatible type " + right_type + " " + operator)
         raise ValueError
@@ -566,7 +567,7 @@ def quad_process_container_with_arg(operator_list, datatype):
             print result_type + "***"
             result = quadruples_list.next_temp()
             temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, 1)
-            gen_quad(operator, right_operand, None, temp_addr)
+            gen_quad(operator, left_operand, right_operand, temp_addr)
             operand_stack.push(temp_addr)
             type_stack.push(result_type)
         else: #aqui cae Insert y Remove
@@ -806,29 +807,26 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("test2.txt", "r")
+f = open("test.txt", "r")
 s = ""
 
 for x in f:
   s = s + x
 
 print(s)
-try:
-    res = parser.parse(s, debug=log)
-    print(res)
-    print("END RES")
+res = parser.parse(s, debug=log)
+print(res)
+print("END RES")
 
-    print("Operand stack")
-    operand_stack.print_stack()
-    print("Type stack")
-    type_stack.print_stack()
-    print("Quadruples list")
-    quadruples_list.print_quads()
+print("Operand stack")
+operand_stack.print_stack()
+print("Type stack")
+type_stack.print_stack()
+print("Quadruples list")
+quadruples_list.print_quads()
 
-    print("Jump Stack")
-    jump_stack.print_stack()
+print("Jump Stack")
+jump_stack.print_stack()
 
-    vm = VM(semantic_tool.functions, semantic_tool.memory_manager.memories['constant'].maps, semantic_tool.memory_manager.get_memory_size('global'), quadruples_list, [5000, 10000, 15000, 20000], 1000, semantic_tool.global_vars)
-    vm.process_quad(0)
-except:
-    print("Something went wrong :(")
+vm = VM(semantic_tool.functions, semantic_tool.memory_manager.memories['constant'].maps, semantic_tool.memory_manager.get_memory_size('global'), quadruples_list, [5000, 10000, 15000, 20000], 1000, semantic_tool.global_vars)
+vm.process_quad(0)
