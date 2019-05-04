@@ -37,7 +37,8 @@ tokens = [
     'EQ',
     'NOT_EQ',
     'AND',
-    'OPERATION',
+    'OP',
+    'OP_ARGS',
     'OR',
 ]
 
@@ -48,7 +49,9 @@ t_EQ = r'=='
 t_NOT_EQ = r'!='
 t_AND = r'&&'
 t_OR = r'\|\|'
-t_OPERATION = r'(size|clear|insert|remove|find|domain|range)'
+#t_OPERATION = r'(size|clear|insert|remove|find|domain|range)'
+t_OP_ARGS = r'(insert|remove|find)'
+t_OP = r'(size|clear|domain|range)'
 
 literals = ['+', '-', '*', '/', '(', ')', '[', ']', '{', '}','.', ',', ':', ';', '=', '>', '<', '!']
 
@@ -69,11 +72,13 @@ reserved = {
   'string': 'STRING',
   'void': 'VOID',
   'while': 'WHILE',
-  'size' : 'OPERATION',
-  'clear' : 'OPERATION',
-  'insert' : 'OPERATION',
-  'remove' : 'OPERATION',
-  'find' : 'OPERATION',
+  'size' : 'OP',
+  'clear' : 'OP',
+  'insert' : 'OP_ARGS',
+  'remove' : 'OP_ARGS',
+  'find' : 'OP_ARGS',
+  'domain': 'OP',
+  'range': 'OP',
   'true' : 'CTE_BOOL',
   'false' : 'CTE_BOOL'
 }
@@ -126,7 +131,6 @@ start = "program"
 
 def p_program(p):
     '''program : PROGRAM ID ';' n_main_quad program1'''
-    gen_quad('END', None, None, None)
 
 def p_n_main_quad(p):
     '''n_main_quad : '''
@@ -221,7 +225,7 @@ def p_var(p):
             print "Variable " + i + " already declared"
             raise ValueError
         else:
-            print "Added " + str(i) + p[1]
+            print "Lexer: Added " + str(i) + " " + p[1]
 
 def p_var1(p):
     '''var1 : ID ',' var1
@@ -345,7 +349,7 @@ def p_function_call(p):
     gen_quad('GOSUB', semantic_tool.function_called, proc_quad, None)
     if not function_called.return_type is None:
         result = quadruples_list.next_temp()
-        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(function_called.return_type, result)
+        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(function_called.return_type, result, 1)
         gen_quad('=', semantic_tool.memory_manager.find_global(function_called.name, function_called.return_type), None, temp_addr)
         operand_stack.push(temp_addr)
         type_stack.push(function_called.return_type)
@@ -396,14 +400,49 @@ def p_return(p):
         semantic_tool.set_has_return(True)
         gen_quad("RETURN", operand_stack.top(), None, None )
 
+def p_container_operation_arg(p):
+    '''container_operation : ID '.' OP_ARGS '(' expression ')' '''
+    print("CONTAINER OPERATION WITH ARGUMENT ", p[3])
 
-def p_set_operation(p):
-    '''set_operation : ID '.' OPERATION '(' set_operation1 ')' '''
+    var = semantic_tool.find_var(p[1])
+    if var == None: #checks variable is declared
+      print "Undeclared variable " + p[1]
+      raise ValueError
+    elif '<' not in var.data_type:
+      print "Var is not of type map or set"
+      raise ValueError
+    else:
+      datatype = var.data_type
+      operation = str(p[3]).upper()
+      print "Operacion ", operation,  " en la variable ", var, " de tipo " , datatype
+
+      operand_stack.push(var.address)
+      operator_stack.push(operation) # push SIZE, DOMAIN or RANGE
+      type_stack.push(datatype[0:3]) #set<xxx> map<xxx>
+      quad_process_container_with_arg(['INSERT', 'FIND', 'REMOVE'], datatype)
 
 
-def p_set_operation1(p):
-    '''set_operation1 : expression
-                       | empty'''
+def p_container_operation(p):
+    '''container_operation : ID '.' OP '('  ')' '''
+    print("CONTAINER OPERATION WITHOUT ARGUMENT ", p[3])
+
+    var = semantic_tool.find_var(p[1])
+    print var.data_type
+    if var == None: #checks variable is declared
+      print "Undeclared variable " + p[1]
+      raise ValueError
+    elif '<' not in var.data_type:
+      print "Var is not of type map or set"
+      raise ValueError
+    else:
+      datatype = var.data_type
+      operation = str(p[3]).upper()
+      print "Operacion ", operation,  " en la variable ", var, " de tipo " , datatype
+
+      operand_stack.push(var.address)
+      operator_stack.push(operation) # push SIZE, DOMAIN or RANGE
+      type_stack.push(datatype[0:3]) #set<xxx> map<xxx>
+      quad_process_container_without_arg(['SIZE', 'CLEAR', 'DOMAIN', 'RANGE'], datatype)
 
 def p_statement(p):
     '''statement : statement1 ';'
@@ -413,11 +452,10 @@ def p_statement1(p):
     '''statement1 : assignment
                   | input
                   | output
-                  | set_operation
+                  | container_operation
                   | map_definition
                   | return
                   | map_assignment
-                  | map_operation
                   | function_call'''
 
 def p_statement2(p):
@@ -465,15 +503,74 @@ def quad_process_unary(operator_list):
     right_operand = operand_stack.pop()
     right_type = type_stack.pop()
     result_type = semantic_cube.accepts(right_type, None, operator)
+    print "eeeeeentraaa ", result_type
     if result_type == False:
         print("Incompatible type " + right_type + " " + operator)
         raise ValueError
     else:
         result = quadruples_list.next_temp()
-        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result)
+        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, 1)
         gen_quad(operator, right_operand, None, temp_addr)
         operand_stack.push(temp_addr)
         type_stack.push(result_type)
+
+def quad_process_container_without_arg(operator_list, datatype):
+    operator = operator_stack.top()
+    if not operator in operator_list:
+        return
+
+    operator_stack.pop()
+    right_operand = operand_stack.pop() #set, map
+    right_type = type_stack.pop()
+    result_type = semantic_cube.accepts(right_type, None, operator)
+
+    print "eeeeeentraaa a without argument", result_type
+    if result_type == False:
+        print("Incompatible type " + right_type + " " + operator)
+        raise ValueError
+    else:
+        if result_type != "NONE": # aqui cae Size, Domain, Range
+            print result_type + "***"
+            result = quadruples_list.next_temp()
+            temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, 1)
+            gen_quad(operator, right_operand, None, temp_addr)
+            operand_stack.push(temp_addr)
+            type_stack.push(result_type)
+        else: # aqui cae Clear
+            gen_quad(operator, right_operand, None, None)
+
+def quad_process_container_with_arg(operator_list, datatype):
+    operator = operator_stack.top()
+    if not operator in operator_list:
+        return
+
+    operator_stack.pop()
+    left_operand = operand_stack.pop() #set, map
+    left_type = type_stack.pop()
+    right_operand = operand_stack.pop() # operation argument
+    right_type = type_stack.pop()
+    result_type = semantic_cube.accepts(left_type, right_type, operator)
+
+    if datatype.startswith('SET'):
+        if datatype[4: -1] != right_type:
+            print "Invalid argument type in set operation"
+            print right_type + " argument in " + datatype[4: -1] + " container"
+            raise ValueError
+
+    print "eeeeeentraaa a with argument", result_type
+    if result_type == False:
+        print("Incompatible type " + left_type + " " + right_type + " " + operator)
+        raise ValueError
+    else:
+        if result_type != "NONE": #aqui cae Find
+            print result_type + "***"
+            result = quadruples_list.next_temp()
+            temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, 1)
+            gen_quad(operator, right_operand, None, temp_addr)
+            operand_stack.push(temp_addr)
+            type_stack.push(result_type)
+        else: #aqui cae Insert y Remove
+            gen_quad(operator, left_operand, right_operand, None)
 
 def quad_process(operator_list):
     operator = operator_stack.top()
@@ -494,7 +591,7 @@ def quad_process(operator_list):
         raise ValueError
     else:
         result = quadruples_list.next_temp()
-        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result)
+        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, 1)
         gen_quad(operator, left_operand, right_operand, temp_addr)
         operand_stack.push(temp_addr)
         type_stack.push(result_type)
@@ -619,8 +716,7 @@ def p_varcte1(p):
                | CTE_CHAR
                | function_call
                | map_access
-               | map_operation
-               | set_operation'''
+               | container_operation'''
     #ultimos 4 pendientes
     if p[1] in ["true", "false"]:
         semantic_tool.insert_to_constants(p[1], 'BOOL')
@@ -681,9 +777,6 @@ def p_map_access(p):
 
 def p_map_assignment(p):
   '''map_assignment : map_access ASSIGNATOR exp'''
-
-def p_map_operation(p):
-  '''map_operation : ID '.' OPERATION '(' ')' '''
 
 def p_empty(p):
     '''empty :'''
