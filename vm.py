@@ -61,7 +61,6 @@ class VMMemory:
             self.memories['local'].top()[translation[1]][offset[translation[1]]] = param[0]
             offset[translation[1]] = offset[translation[1]] + 1
 
-
     def append(self, address, value):
         translation = self.translate(address)
         print 'assigning ', translation, address, value
@@ -81,6 +80,60 @@ class VMMemory:
             self.memories[translation[0]].top()[translation[1]][translation[2]] = value
         else:
             self.memories[translation[0]][translation[1]][translation[2]] = value
+
+
+    def first_available_addr(self, address):
+        mem_base_addr = {'local':0, 'global':5000, 'temporary': 10000, 'constant': 15000}
+        data_type_base_addr = {'BOOL': 0, 'FLOAT': 1000, 'INT': 2000, 'CHAR': 3000, 'STRING': 4000}
+        chunk_size = 10
+        translation = self.translate(address)
+        idx = translation[2]
+        memory = []
+        if (translation[0] == 'local' or translation[0] == 'temporary'):
+            memory = self.memories[translation[0]].top()[translation[1]]
+        else:
+            memory = self.memories[translation[0]][translation[1]]
+        counter = 0
+        first_addr = idx
+        while(True):
+            if counter % 9 == 0:
+                if memory[idx + counter] is None:
+                    memory[idx + counter] = len(memory)
+                    idx = len(memory)
+                    counter = 0
+                    memory = memory + [None] * 10
+                else:
+                    idx = memory[idx + counter]
+                    counter = 0
+            else:
+                if memory[idx + counter] is None:
+                    first_addr = idx + counter
+                    return[translation[0], translation[1], first_addr]
+            counter = counter + 1
+
+    def find_value_in_addr(self, value, address):
+        translation = self.translate(address)
+        idx = translation[2]
+        memory = []
+        if (translation[0] == 'local' or translation[0] == 'temporary'):
+            memory = self.memories[translation[0]].top()[translation[1]]
+        else:
+            memory = self.memories[translation[0]][translation[1]]
+        counter = 0
+        while(idx + counter < len(memory)):
+            if counter % 9 == 0:
+                if memory[idx + counter] is None:
+                    return False
+                else:
+                    idx = memory[idx + counter]
+                    counter = 0
+            elif (memory[idx+counter] == value):
+                return [translation[0], translation[1], idx+counter]
+
+        return False
+
+
+
 
     def retrieve(self, address):
         translation = self.translate(address)
