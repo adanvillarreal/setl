@@ -12,6 +12,7 @@ class SymbolTable:
         if self.exists(name):
             return False
         else:
+            print "Symbol Table: Insert ", data_type , " in symbol table in address ", address
             self.table[name] = self.table_entry(name, data_type, value, address)
             return True
 
@@ -41,7 +42,7 @@ class ProcTable:
             return False
         else:
             self.table[name] = self.table_entry(name, returntype, varstable, params, quad)
-            print("TABLE INSERT)))()()()()()()")
+            print("TABLE INSERT ", name, returntype)
             print(self.table[name])
             return True
 

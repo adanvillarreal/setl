@@ -99,27 +99,20 @@ class SemanticCube:
         #Set versus everyone
         self.cube[key_set][key_set] = {"+": "SET", "-": "SET", "*": "SET",
                                        "=": "SET", "==": "BOOL"}
-
-        self.cube[key_set][key_none] = {"SIZE": "INT", "CLEAR": "NONE"}
-
-        self.cube[key_set][key_int] = {"INSERT": "INT", "REMOVE": "NONE",
+        self.cube[key_set][key_int] = {"INSERT": "NONE", "REMOVE": "NONE",
                                        "FIND": "BOOL"}
-        self.cube[key_set][key_float] = {"INSERT": "FLOAT", "REMOVE": "NONE",
+        self.cube[key_set][key_float] = {"INSERT": "NONE", "REMOVE": "NONE",
                                          "FIND": "BOOL"}
-        self.cube[key_set][key_char] = {"INSERT": "CHAR", "REMOVE": "NONE",
+        self.cube[key_set][key_char] = {"INSERT": "NONE", "REMOVE": "NONE",
                                         "FIND": "BOOL"}
-        self.cube[key_set][key_string] = {"INSERT": "STRING", "REMOVE": "NONE",
+        self.cube[key_set][key_string] = {"INSERT": "NONE", "REMOVE": "NONE",
                                          "FIND": "BOOL"}
-        self.cube[key_set][key_bool] = {"INSERT": "BOOL", "REMOVE": "NONE",
+        self.cube[key_set][key_bool] = {"INSERT": "NONE", "REMOVE": "NONE",
                                         "FIND": "BOOL"}
+        self.cube[key_set][key_none] = {"SIZE": "NONE", "CLEAR": "NONE"}
 
         #Map PENDIENTE
         self.cube[key_map][key_map] = {"=" : "MAP", "==": "MAP"}
-
-        #Read
-        
-        #Print
-
 
 
     def __init__(self):
@@ -128,13 +121,13 @@ class SemanticCube:
         self.fill_cube()
 
     def accepts(self, datatype1, datatype2, operator):
+        datatype1 = str(datatype1).upper()
+        datatype2 = str(datatype2).upper()
 
-        print(str(datatype1) + "" + str(datatype2) + "***" + str(operator))
+        print(str(datatype1) + " " + str(datatype2) + "***" + str(operator))
 
         key_param1 = self.datatypes[datatype1]
         key_param2 = self.datatypes[datatype2]
-
-
 
         if operator in self.cube[key_param1][key_param2]:
             return self.cube[key_param1][key_param2][operator]
@@ -147,43 +140,3 @@ x = SemanticCube()
 #query = x.accepts("BOOL","BOOL","==") # este da NO
 #print(query)
 #query = x.accepts("BOOL","BOOL","!=") # este da SI
-
-
-
-'''
-    def sum(p1, p2):
-        return p1 + p2
-
-    def sub(p1, p2):
-        return p1 - p2
-
-    def mult(p1, p2):
-        return p1 * p2
-
-    def div(p1, p2):
-        return p1 / p2
-
-    def gt(p1, p2):
-        return p1 > p2
-
-    def gqt(p1, p2):
-        return p1 >= p2
-
-    def lt(p1, p2):
-        return p1 < p2
-
-    def lqt(p1, p2):
-        return p1 <= p2
-
-    def equals(p1, p2):
-        return p1 == p2
-
-    def diff(p1, p2):
-        return p1 != p2
-
-    def log_and(p1, p2):
-        return p1 and p2
-
-    def log_or(p1, p2):
-        return p1 or p2
-'''

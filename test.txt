@@ -1,24 +1,17 @@
 program aPlusB;
 
-int i, j;
-
-void uno(int a){
-  int i;
-  i := a * 2;
-  if (i < a + 4) {
-    uno(a + 1);
-  }
-  print(i);
-}
-
-int dos(int b){
-  b := b*i + j;
-  return b*2;
-}
+set<int> S;
 
 main {
-  i := 2;
-  j := i * 2 - 1;
-  uno(j);
-  print(i + dos(i + j));
+
+  S.insert(1);
+  S.insert(2);
+  S.remove(1);
+  S.clear();
+  if(S.find(1)){
+    print(S.size());
+  }
+  S.find(3);
+  S.clear();
+
 }
