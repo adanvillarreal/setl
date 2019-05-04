@@ -72,27 +72,30 @@ class Memory:
     def __init__(self, init_value, delta):
         self.delta = delta
         self.int_addr = init_value
-        self.init_address = {'BOOL': init_value, 'FLOAT': init_value+ delta, 'INT': init_value+delta*2, 'CHAR':init_value+delta*3, 'STRING':init_value+delta*4}
+        self.init_address = {'BOOL': init_value, 'FLOAT': init_value+delta, 'INT': init_value+delta*2, 'CHAR':init_value+delta*3, 'STRING':init_value+delta*4}
+        self.size_occupied = {'BOOL': 0, 'FLOAT': 0, 'INT': 0, 'CHAR': 0, 'STRING': 0}
         self.maps = {'BOOL': {}, 'FLOAT': {}, 'INT': {}, 'CHAR': {}, 'STRING':{}}
 
     def next_address(self, data_type):
         print "NEXT ADDRESS LENGTH OF MAP",  data_type, self.maps[data_type]
-        return self.init_address[data_type]+ len(self.maps[data_type])
+        #return self.init_address[data_type] + len(self.maps[data_type])
+        return self.init_address[data_type] + self.size_occupied[data_type]
 
-    def assign(self, data_type, value):
+    def assign(self, data_type, value, size_needed):
+        print data_type
         if value in self.maps[data_type]:
             return self.maps[data_type][value]
-        if len(self.maps[data_type]) == self.delta:
+        if len(self.maps[data_type]) + size_needed > self.delta:
             return None
         next_address = self.next_address(data_type)
+        self.size_occupied[data_type] += size_needed
+        print "Size occupied ", self.size_occupied[data_type]
         self.maps[data_type][value] = next_address
         return next_address
 
     def memory_length(self):
-        mem_map = {}
-        for data_type in ['BOOL', 'FLOAT', 'INT', 'CHAR', 'STRING']:
-            mem_map[data_type] = len(self.maps[data_type])
-        return mem_map
+        return self.size_occupied
+
 class MemoryManager:
     def __init__(self):
         self.memories = {'local':Memory(0, 1000), 'global': Memory(5000, 1000), 'temporary':Memory(10000, 1000), 'constant': Memory(15000, 1000)}
@@ -125,33 +128,49 @@ class Semantics:
         self.memory_manager = MemoryManager()
 
     def insert_var(self, name, datatype, value):
+
+        size_needed = 1
+        original_datatype = datatype
+
+        if datatype.startswith('SET'):
+            is_set = True
+            datatype = datatype[4: -1]
+            size_needed = 10
+            print "Incoming Set of datatype", datatype
+
+        if datatype.startswith('MAP'):
+            is_set = True
+            datatype = datatype[4: -1]
+            size_needed = 10
+            print "Incoming Map"
+
         if self.global_scope:
             table = self.global_vars
-            current_address = self.memory_manager.memories['global'].assign(datatype, name)
+            current_address = self.memory_manager.memories['global'].assign(datatype, name, size_needed)
             if current_address is None:
                 print "ADDRESS NOT AVAILABLE"
                 raise SyntaxError
             print("^^^^^^^^^^^^^^^GLOBAL MEMORY")
-            print name, datatype, value, current_address
+            print "Semantics: ", name, datatype, value, current_address
 
-            return table.insert(name, datatype, value, current_address)
+            return table.insert(name, original_datatype, value, current_address)
         else:
             proc = self.functions.find(self.current_proc)
             table = proc[2]
-            current_address = self.memory_manager.memories['local'].assign(datatype, name)
+            current_address = self.memory_manager.memories['local'].assign(datatype, name, size_needed)
             if current_address is None:
                 print "ADDRESS NOT AVAILABLE"
                 raise SyntaxError
             print("^^^^^^^^^^^^^ASSIGNING MEMORY")
             print name, datatype, value, current_address
-            if table.insert(name, datatype, value, current_address):
+            if table.insert(name, original_datatype, value, current_address):
                 proc = proc._replace(vars_table=table)
                 return True
             else:
                 return False
 
     def insert_to_constants(self, value, datatype):
-        current_address = self.memory_manager.memories['constant'].assign(datatype, value)
+        current_address = self.memory_manager.memories['constant'].assign(datatype, value, 1)
         if current_address is None:
             raise SyntaxError
 
