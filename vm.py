@@ -196,6 +196,30 @@ class VMMemory:
             counter = counter + 1
         return None
 
+    def remove_list(self, address):
+        translation = self.translate(address)
+        idx = translation[2]
+        memory = []
+        if (translation[0] == 'local' or translation[0] == 'temporary'):
+            memory = self.memories[translation[0]].top()[translation[1]]
+        else:
+            memory = self.memories[translation[0]][translation[1]]
+        counter = 0
+        while(idx + counter < len(memory)):
+            print idx, counter
+            if counter != 0 and counter % 9 == 0:
+                if memory[idx + counter] is None:
+                    return
+                else:
+                    old_idx = idx
+                    idx = memory[idx + counter]
+                    memory[old_idx + counter] = None
+                    counter = 0
+            else:
+                memory[idx + counter] = None
+                counter = counter + 1
+        return
+
     def retrieve(self, address):
         translation = self.translate(address)
         #print 'retrieving', translation, address
@@ -361,6 +385,9 @@ class VM:
                     self.memory.assign(quad_result, 'false')
                 else:
                     self.memory.assign(quad_result,'true')
+                pointer = pointer + 1
+            elif action == 'CLEAR':
+                self.memory.remove_list(left)
                 pointer = pointer + 1
             elif action == 'SIZE':
                 result = self.memory.size_in_addr(left)
