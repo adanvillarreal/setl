@@ -40,6 +40,8 @@ tokens = [
     'OP',
     'OP_ARGS',
     'OR',
+    'SET_MATH_ADDSUB',
+    'SET_MATH_MULDIV'
 ]
 
 t_ASSIGNATOR =  r':='
@@ -49,9 +51,11 @@ t_EQ = r'=='
 t_NOT_EQ = r'!='
 t_AND = r'&&'
 t_OR = r'\|\|'
-#t_OPERATION = r'(size|clear|insert|remove|find|domain|range)'
 t_OP_ARGS = r'(insert|remove|find)'
 t_OP = r'(size|clear|domain|range)'
+t_SET_MATH_ADDSUB = r'(\.\+|\.\-)'
+t_SET_MATH_MULDIV = r'(\.\*)'
+
 
 literals = ['+', '-', '*', '/', '(', ')', '[', ']', '{', '}','.', ',', ':', ';', '=', '>', '<', '!']
 
@@ -339,8 +343,9 @@ def p_n_output_quad(p):
     '''n_output_quad : expression'''
     operand = operand_stack.pop()
     operand_type = type_stack.pop()
-    gen_quad('PRINT', operand, None, None)
-
+    if operand_type.startswith('SET'):
+        operand_type = 'SET'
+    gen_quad('PRINT', operand, operand_type, None)
 
 def p_function_call(p):
     '''function_call : n_era_size function_call1 ')' '''
@@ -353,6 +358,7 @@ def p_function_call(p):
         gen_quad('=', semantic_tool.memory_manager.find_global(function_called.name, function_called.return_type), None, temp_addr)
         operand_stack.push(temp_addr)
         type_stack.push(function_called.return_type)
+
 def p_n_era_size(p):
     '''n_era_size : ID '(' '''
     if semantic_tool.find_proc(p[1]) == None:
@@ -421,7 +427,6 @@ def p_container_operation_arg(p):
       type_stack.push(datatype[0:3]) #set<xxx> map<xxx>
       quad_process_container_with_arg(['INSERT', 'FIND', 'REMOVE'], datatype)
 
-
 def p_container_operation(p):
     '''container_operation : ID '.' OP '('  ')' '''
     print("CONTAINER OPERATION WITHOUT ARGUMENT ", p[3])
@@ -478,7 +483,6 @@ def p_logop(p):
   print(p[1])
   operator_stack.push(p[1])
 
-
 ######## Segunda Parte
 
 def gen_quad(first, second, third, fourth):
@@ -492,7 +496,6 @@ def fill_quad(position, value):
     print(value)
     quadruples_list.list[position].result = value
     quadruples_list.list[position].print_quad()
-
 
 def quad_process_unary(operator_list):
     operator = operator_stack.top()
@@ -567,7 +570,7 @@ def quad_process_container_with_arg(operator_list, datatype):
             print result_type + "***"
             result = quadruples_list.next_temp()
             temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, 1)
-            gen_quad(operator, left_operand, right_operand, temp_addr)
+            gen_quad(operator, right_operand, left_operand, temp_addr)
             operand_stack.push(temp_addr)
             type_stack.push(result_type)
         else: #aqui cae Insert y Remove
@@ -575,8 +578,9 @@ def quad_process_container_with_arg(operator_list, datatype):
 
 def quad_process(operator_list):
     operator = operator_stack.top()
+    print operator , "quad process********************************************************"
     if not operator in operator_list:
-        print("Operator IN list")
+        print("Operator NOT IN list")
         print(operator)
         print(operator_list)
         return
@@ -586,16 +590,39 @@ def quad_process(operator_list):
     right_type = type_stack.pop()
     left_operand = operand_stack.pop()
     left_type = type_stack.pop()
+
+    original_right_type = right_type
+    original_left_type = left_type
+
+    if right_type.startswith('SET'):
+        right_type = 'SET'
+
+    if left_type.startswith('SET'):
+        left_type = 'SET'
+
     result_type = semantic_cube.accepts(right_type, left_type, operator)
+
+    original_result_type = result_type
+
+    if result_type == 'SET':
+        result_type = original_left_type[4:-1]
+        print result_type, "AAA"
+
     if result_type == False:
         print("Incompatible type " + right_type + " " + operator + " " + left_type)
         raise ValueError
+    elif original_left_type != original_right_type:
+        print("Incompatible type " + original_left_type + " " + operator + " " + original_right_type)
+        raise ValueError
     else:
         result = quadruples_list.next_temp()
-        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, 1)
+        size_needed = 1
+        if original_result_type == 'SET':
+            size_needed = 10
+        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, size_needed)
         gen_quad(operator, left_operand, right_operand, temp_addr)
         operand_stack.push(temp_addr)
-        type_stack.push(result_type)
+        type_stack.push(original_left_type)
 
 def quad_process_assign(operator_list):
     operator = operator_stack.top()
@@ -610,12 +637,25 @@ def quad_process_assign(operator_list):
     right_type = type_stack.pop()
     left_operand = operand_stack.pop()
     left_type = type_stack.pop()
+
+    original_right_type = right_type
+    original_left_type = left_type
+
+    if right_type.startswith('SET'):
+        right_type = 'SET'
+
+    if left_type.startswith('SET'):
+        left_type = 'SET'
+
     result_type = semantic_cube.accepts(right_type, left_type, operator)
     if result_type == False:
         print("Incompatible type " + right_type + " " + operator + " " + left_type)
         raise ValueError
+    elif original_left_type != original_right_type:
+        print("Incompatible type " + original_left_type + " " + operator + " " + original_right_type)
+        raise ValueError
     else:
-        gen_quad(operator, right_operand, None, left_operand)
+        gen_quad(operator, right_operand, left_type, left_operand)
 
 def p_expression(p):
   '''expression : exp0 expression2'''
@@ -642,12 +682,14 @@ def p_exp(p):
 
 def p_addsub(p):
   '''addsub : '+'
-            | '-' '''
+            | '-'
+            | SET_MATH_ADDSUB '''
   operator_stack.push(p[1])
 
 def p_muldiv(p):
   '''muldiv : '*'
-            | '/' '''
+            | '/'
+            | SET_MATH_MULDIV'''
   operator_stack.push(p[1])
 
 def p_exp2(p):
@@ -659,11 +701,11 @@ def p_term(p):
 
 def p_n_quad_muldiv(p):
   '''n_quad_muldiv : '''
-  quad_process( ['*','/'] )
+  quad_process( ['*','/', '.*'] )
 
 def p_n_quad_addsub(p):
   '''n_quad_addsub : '''
-  quad_process( ['+','-'] )
+  quad_process( ['+','-', '.+', '.-'] )
 
 def p_term2(p):
   '''term2 : muldiv factor n_quad_muldiv term2
@@ -673,7 +715,6 @@ def p_n_quad_not(p):
     '''n_quad_not : '''
     if operator_stack.top() != None:
         quad_process_unary(["!"])
-
 
 def p_term_not(p):
   '''term_not : '!'
