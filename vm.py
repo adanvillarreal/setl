@@ -131,6 +131,27 @@ class VMMemory:
 
         return None
 
+    def check_repeated(self, address, value):
+        translation = self.translate(address)
+        idx = translation[2]
+        memory = []
+        if (translation[0] == 'local' or translation[0] == 'temporary'):
+            memory = self.memories[translation[0]].top()[translation[1]]
+        else:
+            memory = self.memories[translation[0]][translation[1]]
+        counter = 0
+        while(idx + counter < len(memory)):
+            if counter != 0 and counter % 9 == 0:
+                if memory[idx + counter] is None:
+                    return True
+                else:
+                    idx = memory[idx + counter]
+                    counter = 0
+            if memory[idx + counter] == value:
+                return False
+            counter = counter + 1
+        return True
+
     def size_in_addr(self, address):
         translation = self.translate(address)
         idx = translation[2]
@@ -173,11 +194,7 @@ class VMMemory:
             elif (memory[idx+counter] == value):
                 return [translation[0], translation[1], idx+counter]
             counter = counter + 1
-
         return None
-
-
-
 
     def retrieve(self, address):
         translation = self.translate(address)
@@ -325,11 +342,12 @@ class VM:
             elif action == 'READ':
                 a = 1
             elif action == 'INSERT':
-                first_addr = self.memory.first_available_addr(left)
-                if first_addr is None:
-                    print "OUT OF MEMORY"
-                    raise ValueError
-                result = self.memory.assign_explicit(first_addr, self.memory.retrieve(right))
+                if self.memory.find_value_in_addr(self.memory.retrieve(right), left) is None:
+                    first_addr = self.memory.first_available_addr(left)
+                    if first_addr is None:
+                        print "OUT OF MEMORY"
+                        raise ValueError
+                    result = self.memory.assign_explicit(first_addr, self.memory.retrieve(right))
                 pointer = pointer + 1
             elif action == 'REMOVE':
                 addr = self.memory.find_value_in_addr(self.memory.retrieve(right), left)
