@@ -1,7 +1,7 @@
 
 class SemanticCube:
 
-    num_operators = 23
+    num_operators = 26
     num_datatypes = 8
 
     def init_names(self):
@@ -10,9 +10,9 @@ class SemanticCube:
 
         self.operators = { "+" : 0, "-" : 1, "*" : 2, "/" : 3, "&&" : 4,
         "||" : 5, ">" : 6, ">=" : 7, "<" : 8, "<=" : 9, "==" : 10,
-        "!=" : 11, "!" : 12, "=" : 13, "PRINT": 14, "READ": 15, "DOMAIN": 16,
-        "RANGE": 17, "SIZE": 18, "CLEAR": 19, "INSERT": 20, "REMOVE": 21,
-        "FIND": 22 }
+        "!=" : 11, "!" : 12, "=" : 13, "PRINT" : 14, "READ" : 15, "DOMAIN" : 16,
+        "RANGE" : 17, "SIZE" : 18, "CLEAR" : 19, "INSERT" : 20, "REMOVE" : 21,
+        "FIND" : 22, ".+" : 23, ".*" : 24, ".-" : 25 }
 
     def init_cube(self):
         self.cube = []
@@ -58,8 +58,9 @@ class SemanticCube:
         key_remove = self.operators["REMOVE"]
         key_find = self.operators["FIND"]
 
-        # Most repeated group
-        # {"+" , "-", "*", "/", ">", ">=", "<=", "==", "!="}
+        key_set_union = self.operators[".+"]
+        key_set_difference = self.operators[".-"]
+        key_set_intersection = self.operators[".*"]
 
         # Int versus everyone
         self.cube[key_int][key_int] = {"+": "INT" , "-": "INT", "*": "INT",
@@ -97,7 +98,7 @@ class SemanticCube:
                                             "!=": "BOOL", "=": "STRING"}
 
         #Set versus everyone
-        self.cube[key_set][key_set] = {"+": "SET", "-": "SET", "*": "SET",
+        self.cube[key_set][key_set] = {".+": "SET", ".-": "SET", ".*": "SET",
                                        "=": "SET", "==": "BOOL"}
         self.cube[key_set][key_int] = {"INSERT": "NONE", "REMOVE": "NONE",
                                        "FIND": "BOOL"}
@@ -109,7 +110,7 @@ class SemanticCube:
                                          "FIND": "BOOL"}
         self.cube[key_set][key_bool] = {"INSERT": "NONE", "REMOVE": "NONE",
                                         "FIND": "BOOL"}
-        self.cube[key_set][key_none] = {"SIZE": "NONE", "CLEAR": "NONE"}
+        self.cube[key_set][key_none] = {"SIZE": "INT", "CLEAR": "NONE"}
 
         #Map PENDIENTE
         self.cube[key_map][key_map] = {"=" : "MAP", "==": "MAP"}

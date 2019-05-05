@@ -1,17 +1,12 @@
 program aPlusB;
 
-set<int> S;
+set<int> a, c;
+set<int> b, d;
 
 main {
 
-  S.insert(1);
-  S.insert(2);
-  S.remove(1);
-  S.clear();
-  if(S.find(1)){
-    print(S.size());
-  }
-  S.find(3);
-  S.clear();
+  a := b;
+
+  print(a);
 
 }
