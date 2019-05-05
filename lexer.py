@@ -528,6 +528,7 @@ def quad_process_container_without_arg(operator_list, datatype):
     result_type = semantic_cube.accepts(right_type, None, operator)
 
     print "eeeeeentraaa a without argument", result_type
+    print "db ", result_type, right_operand, right_type
     if result_type == False:
         print("Incompatible type " + right_type + " " + operator)
         raise ValueError
@@ -602,9 +603,12 @@ def quad_process(operator_list):
     result_type = semantic_cube.accepts(right_type, left_type, operator)
 
     original_result_type = result_type
+    new_result_type = original_result_type
+    print "OG RESULT TYPE", original_result_type
 
     if result_type == 'SET':
         result_type = original_left_type[4:-1]
+        new_result_type = original_left_type
         print result_type, "AAA"
 
     if result_type == False:
@@ -621,7 +625,7 @@ def quad_process(operator_list):
         temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, size_needed)
         gen_quad(operator, left_operand, right_operand, temp_addr)
         operand_stack.push(temp_addr)
-        type_stack.push(original_left_type)
+        type_stack.push(new_result_type)
 
 def quad_process_assign(operator_list):
     operator = operator_stack.top()
@@ -824,7 +828,7 @@ def p_empty(p):
 
 def p_error( p ):
     stack_state_str = ' '.join([symbol.type for symbol in parser.symstack][1:])
-
+    print "Invalid syntax in ", p
     print('Syntax error in input! Parser State:{} {} . {}'
       .format(parser.state,
               stack_state_str,
@@ -847,29 +851,26 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("test2.txt", "r")
+f = open("sets_as_params.txt", "r")
 s = ""
 
 for x in f:
   s = s + x
 
 print(s)
-try:
-    res = parser.parse(s, debug=log)
-    print(res)
-    print("END RES")
+res = parser.parse(s, debug=log)
+print(res)
+print("END RES")
 
-    print("Operand stack")
-    operand_stack.print_stack()
-    print("Type stack")
-    type_stack.print_stack()
-    print("Quadruples list")
-    quadruples_list.print_quads()
+print("Operand stack")
+operand_stack.print_stack()
+print("Type stack")
+type_stack.print_stack()
+print("Quadruples list")
+quadruples_list.print_quads()
 
-    print("Jump Stack")
-    jump_stack.print_stack()
+print("Jump Stack")
+jump_stack.print_stack()
 
-    vm = VM(semantic_tool.functions, semantic_tool.memory_manager.memories['constant'].maps, semantic_tool.memory_manager.get_memory_size('global'), quadruples_list, [5000, 10000, 15000, 20000], 1000, semantic_tool.global_vars)
-    vm.process_quad(0)
-except:
-    print("Something went wrong :(")
+vm = VM(semantic_tool.functions, semantic_tool.memory_manager.memories['constant'].maps, semantic_tool.memory_manager.get_memory_size('global'), quadruples_list, [5000, 10000, 15000, 20000], 1000, semantic_tool.global_vars)
+vm.process_quad(0)
