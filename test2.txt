@@ -1,15 +1,22 @@
 program aPlusB;
 
 
-map<int,int> Mapa;
+map<int,int> M;
 set<int> A,B;
 main {
   int x;
-  Mapa.domain();
-  Mapa.size();
-  Mapa.range();
-  Mapa.clear();
-  Mapa[1] := 101 + 3;
-  x := Mapa[1] + 2;
-  A := B;
+  x := 1;
+  while(x < 50){
+    M[x] := x * x;
+    x := x + 1;
+  }
+  x := 1;
+  while(x < 50){
+    print(M[x]);
+    x := x + 1;
+  }
+  M[2] := 100;
+  print(M[2]);
+  A := M.domain();
+  print(A);
 }

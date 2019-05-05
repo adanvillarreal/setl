@@ -553,7 +553,10 @@ def quad_process_container_without_arg(operator_list, datatype):
             temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, size_needed)
             gen_quad(operator, right_operand, None, temp_addr)
             operand_stack.push(temp_addr)
-            type_stack.push(result_type)
+            if size_needed > 1:
+                type_stack.push("SET<"+result_type+">")
+            else:
+                type_stack.push(result_type)
         else: # aqui cae Clear
             gen_quad(operator, right_operand, None, None)
 
@@ -850,7 +853,7 @@ def p_map_access(p):
         val = operand_stack.pop()
         result = quadruples_list.next_temp()
         temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(datatype_val, result, 1)
-        gen_quad("ACCESS", var.address, val, str(temp_addr))
+        gen_quad("ACCESS", var.address, val, temp_addr)
         operand_stack.push("(" + str(temp_addr) + ")")
         type_stack.push(datatype_val)
 
@@ -887,7 +890,7 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("test.txt", "r")
+f = open("test2.txt", "r")
 s = ""
 
 for x in f:
@@ -908,5 +911,5 @@ quadruples_list.print_quads()
 print("Jump Stack")
 jump_stack.print_stack()
 
-#vm = VM(semantic_tool.functions, semantic_tool.memory_manager.memories['constant'].maps, semantic_tool.memory_manager.get_memory_size('global'), quadruples_list, [5000, 10000, 15000, 20000], 1000, semantic_tool.global_vars)
-#vm.process_quad(0)
+vm = VM(semantic_tool.functions, semantic_tool.memory_manager.memories['constant'].maps, semantic_tool.memory_manager.get_memory_size('global'), quadruples_list, [5000, 10000, 15000, 20000], 1000, semantic_tool.global_vars)
+vm.process_quad(0)

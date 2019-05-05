@@ -177,7 +177,7 @@ class VMMemory:
                 if (memory[idx+counter] == value):
                     return [translation[0], translation[1], idx+counter, abs_count]
                 counter = counter + 1
-            abs_count + 1
+            abs_count = abs_count + 1
         return None
 
     def remove_list(self, address):
@@ -271,7 +271,7 @@ class VMMemory:
         else:
             return True
 
-    def reverse_translate(translation):
+    def reverse_translate(self,translation):
         mem_base_addr = {'local':0, 'global':5000, 'temporary': 10000, 'constant': 15000}
         data_type_base_addr = {'BOOL': 0, 'FLOAT': 1000, 'INT': 2000, 'CHAR': 3000, 'STRING': 4000}
         return mem_base_addr[translation[0]] + data_type_base_addr[translation[1]] + translation[2]
@@ -288,7 +288,7 @@ class VMMemory:
         counter = 0
         abs_counter = 0
         while(idx + counter < len(memory)):
-            print idx, counter
+            print "MAP VALUE ACCESS", idx, counter, offset
             if abs_counter == offset:
                 return self.reverse_translate([translation[0], translation[1], idx + counter])
             if counter != 0 and counter % 9 == 0:
@@ -345,8 +345,13 @@ class VM:
         self.global_vars = global_vars
 
     def process_addr(self, address):
+        print "PROCESS ADDR", address
+        if address is None:
+            return None
         if str(address).startswith('('):
-            return self.memory.retrieve(int(address[1:-1]))
+            address = address[1:-1]
+            print "PROCESS RES", address, self.memory.retrieve(int(address))
+            return self.memory.retrieve(int(address))
         else:
             return address
 
@@ -355,12 +360,11 @@ class VM:
             action = self.quadruples.get(pointer).action
             left = self.process_addr(self.quadruples.get(pointer).first)
             right = self.process_addr(self.quadruples.get(pointer).second)
-
-            quad_result = self.quadruples.get(pointer).result
+            quad_result = self.process_addr(self.quadruples.get(pointer).result)
             print self.memory.memories['global']
             print "TEEEEEMP"
             print self.memory.memories['temporary'].top()
-            print "QUUUUUUUUAD", action, left, right
+            print "QUUUUUUUUAD", action, left, right, quad_result
             if action == '+':
                 result = self.memory.retrieve(left) + self.memory.retrieve(right)
                 self.memory.assign(quad_result, result)
@@ -536,23 +540,29 @@ class VM:
                 key_start = left[0]
                 val_start = left[1]
                 key_addr = self.memory.find_value_in_addr(self.memory.retrieve(right), key_start)
+                print "KEY_ADDR",key_addr
                 if key_addr is None: # tenemos que agregar la llave
                     new_key_addr = self.memory.first_available_addr(key_start)
+                    self.memory.assign_explicit(new_key_addr, self.memory.retrieve(right))
                     new_val_addr = self.memory.map_value_address(val_start, new_key_addr[3])
-                    self.memory.assign(new_val_addr, quad_result)
+                    self.memory.assign(new_val_addr, 0)
+                    print "ACCESSSSSSSSS", quad_result, new_val_addr
+                    self.memory.assign(quad_result, new_val_addr)
                 else: # la llave ya existe
+                    print "OFFFSET ", key_addr
                     val_addr = self.memory.map_value_address(val_start, key_addr[3])
-                    self.memory.assign(val_addr, quad_result)
+                    self.memory.assign(quad_result, val_addr)
                 pointer = pointer + 1
             elif action == 'DOMAIN':
                 key_start = left[0]
                 val_start = left[1]
                 result = self.memory.to_vector(key_start)
-                self.memory.assing_list_to_addr(result, quad_result)
+                print "DOMAIN",result, quad_result
+                self.memory.assign_list_to_addr(result, quad_result)
                 pointer = pointer + 1
             elif action == 'RANGE':
                 key_start = left[0]
                 val_start = left[1]
                 result = self.memory.to_vector(val_start)
-                self.memory.assing_list_to_addr(list(set(result)), quad_result)
+                self.memory.assign_list_to_addr(list(set(result)), quad_result)
                 pointer = pointer + 1
