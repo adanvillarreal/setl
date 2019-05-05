@@ -1,13 +1,15 @@
 program aPlusB;
 
-int i;
 
+map<int,int> Mapa;
+set<int> A,B;
 main {
-  int j;
-  print(8);
-  print(1*2);
-  i := 2 * 3;
-  j := i * 2 - 1;
-  print(j);
-  print(i + j);
+  int x;
+  Mapa.domain();
+  Mapa.size();
+  Mapa.range();
+  Mapa.clear();
+  Mapa[1] := 101 + 3;
+  x := Mapa[1] + 2;
+  A := B;
 }

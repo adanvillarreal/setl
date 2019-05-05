@@ -433,10 +433,11 @@ def p_container_operation(p):
 
     var = semantic_tool.find_var(p[1])
     print var.data_type
+    print "address ", var.address
     if var == None: #checks variable is declared
       print "Undeclared variable " + p[1]
       raise ValueError
-    elif '<' not in var.data_type:
+    elif '<' not in var.data_type and len(var.data_type) != 2:
       print "Var is not of type map or set"
       raise ValueError
     else:
@@ -529,14 +530,27 @@ def quad_process_container_without_arg(operator_list, datatype):
 
     print "eeeeeentraaa a without argument", result_type
     print "db ", result_type, right_operand, right_type
+    print datatype , "@@@@@@@@@@@"
     if result_type == False:
         print("Incompatible type " + right_type + " " + operator)
         raise ValueError
     else:
+        size_needed = 1
+        if operator == "DOMAIN":
+            result_type = datatype[4: -1].split(",")[0]
+            print result_type + "domain type"
+            size_needed = 10
+
+        if operator == "RANGE":
+            result_type = datatype[4: -1].split(",")[1]
+            print result_type + "domain type"
+            size_needed = 10
+
         if result_type != "NONE": # aqui cae Size, Domain, Range
             print result_type + "***"
             result = quadruples_list.next_temp()
-            temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, 1)
+            print result + "******"
+            temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, size_needed)
             gen_quad(operator, right_operand, None, temp_addr)
             operand_stack.push(temp_addr)
             type_stack.push(result_type)
@@ -820,8 +834,30 @@ def p_map_definition(p):
 def p_map_access(p):
   '''map_access : ID '[' exp ']' '''
 
+  var = semantic_tool.find_var(p[1])
+  if var == None: #checks variable is declared
+    print "Undeclared variable " + p[1]
+    raise ValueError
+  else:
+    datatype = var.data_type
+    datatype_key = datatype[4:-1].split(",")[0]
+    datatype_val = datatype[4:-1].split(",")[1]
+    if type_stack.top() != datatype_key:
+        print "Key type mismatch"
+        raise ValueError
+    else:
+        type_stack.pop()
+        val = operand_stack.pop()
+        result = quadruples_list.next_temp()
+        temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(datatype_val, result, 1)
+        gen_quad("ACCESS", var.address, val, str(temp_addr))
+        operand_stack.push("(" + str(temp_addr) + ")")
+        type_stack.push(datatype_val)
+
+
 def p_map_assignment(p):
-  '''map_assignment : map_access ASSIGNATOR exp'''
+  '''map_assignment : map_access ASSIGNATOR n_quad_assign exp'''
+  quad_process_assign(["="])
 
 def p_empty(p):
     '''empty :'''
@@ -872,5 +908,5 @@ quadruples_list.print_quads()
 print("Jump Stack")
 jump_stack.print_stack()
 
-vm = VM(semantic_tool.functions, semantic_tool.memory_manager.memories['constant'].maps, semantic_tool.memory_manager.get_memory_size('global'), quadruples_list, [5000, 10000, 15000, 20000], 1000, semantic_tool.global_vars)
-vm.process_quad(0)
+#vm = VM(semantic_tool.functions, semantic_tool.memory_manager.memories['constant'].maps, semantic_tool.memory_manager.get_memory_size('global'), quadruples_list, [5000, 10000, 15000, 20000], 1000, semantic_tool.global_vars)
+#vm.process_quad(0)
