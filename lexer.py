@@ -828,7 +828,7 @@ def p_empty(p):
 
 def p_error( p ):
     stack_state_str = ' '.join([symbol.type for symbol in parser.symstack][1:])
-
+    print "Invalid syntax in ", p
     print('Syntax error in input! Parser State:{} {} . {}'
       .format(parser.state,
               stack_state_str,
