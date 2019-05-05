@@ -101,6 +101,7 @@ class VMMemory:
         translation = self.translate(address)
         idx = translation[2]
         memory = []
+        abs_count = 0;
         if (translation[0] == 'local' or translation[0] == 'temporary'):
             memory = self.memories[translation[0]].top()[translation[1]]
         else:
@@ -126,8 +127,9 @@ class VMMemory:
                 if memory[idx + counter] is None:
                     first_addr = idx + counter
                     print "FIND MEM IN", [translation[0], translation[1], first_addr]
-                    return[translation[0], translation[1], first_addr]
+                    return[translation[0], translation[1], first_addr, abs_count]
                 counter = counter + 1
+            abs_count = abs_count + 1
 
         return None
 
@@ -157,22 +159,25 @@ class VMMemory:
         translation = self.translate(address)
         idx = translation[2]
         memory = []
+        abs_count = 0
         if (translation[0] == 'local' or translation[0] == 'temporary'):
             memory = self.memories[translation[0]].top()[translation[1]]
         else:
             memory = self.memories[translation[0]][translation[1]]
         counter = 0
         while(idx + counter < len(memory)):
-            print idx, counter
+            print idx, counter, idx + counter
             if counter != 0 and counter % 9 == 0:
                 if memory[idx + counter] is None:
                     return None
                 else:
                     idx = memory[idx + counter]
                     counter = 0
-            elif (memory[idx+counter] == value):
-                return [translation[0], translation[1], idx+counter]
-            counter = counter + 1
+            else:
+                if (memory[idx+counter] == value):
+                    return [translation[0], translation[1], idx+counter, abs_count]
+                counter = counter + 1
+            abs_count + 1
         return None
 
     def remove_list(self, address):
@@ -215,9 +220,7 @@ class VMMemory:
                 if memory[idx + counter] is None:
                     return new_vector
                 else:
-                    old_idx = idx
                     idx = memory[idx + counter]
-                    memory[old_idx + counter] = None
                     counter = 0
             else:
                 if not memory[idx+counter] is None:
@@ -268,6 +271,45 @@ class VMMemory:
         else:
             return True
 
+    def reverse_translate(translation):
+        mem_base_addr = {'local':0, 'global':5000, 'temporary': 10000, 'constant': 15000}
+        data_type_base_addr = {'BOOL': 0, 'FLOAT': 1000, 'INT': 2000, 'CHAR': 3000, 'STRING': 4000}
+        return mem_base_addr[translation[0]] + data_type_base_addr[translation[1]] + translation[2]
+
+    def map_value_address(self, address, offset):
+        translation = self.translate(address)
+        idx = translation[2]
+        memory = []
+        new_vector = []
+        if (translation[0] == 'local' or translation[0] == 'temporary'):
+            memory = self.memories[translation[0]].top()[translation[1]]
+        else:
+            memory = self.memories[translation[0]][translation[1]]
+        counter = 0
+        abs_counter = 0
+        while(idx + counter < len(memory)):
+            print idx, counter
+            if abs_counter == offset:
+                return self.reverse_translate([translation[0], translation[1], idx + counter])
+            if counter != 0 and counter % 9 == 0:
+                if memory[idx + counter] is None:
+                    memory[idx + counter] = len(memory)
+                    idx = len(memory)
+                    counter = 0
+                    self.add_memory_chunk(translation)
+                    if (translation[0] == 'local' or translation[0] == 'temporary'):
+                        memory = self.memories[translation[0]].top()[translation[1]]
+                    else:
+                        memory = self.memories[translation[0]][translation[1]]
+                else:
+                    print "AQUI"
+                    idx = memory[idx + counter]
+                    counter = 0
+            else:
+                counter = counter + 1
+            abs_counter = abs_counter + 1
+        return None
+
     def retrieve(self, address):
         translation = self.translate(address)
         #print 'retrieving', translation, address
@@ -302,11 +344,18 @@ class VM:
         self.return_addr_stack = Stack()
         self.global_vars = global_vars
 
+    def process_addr(self, address):
+        if str(address).startswith('('):
+            return self.memory.retrieve(int(address[1:-1]))
+        else:
+            return address
+
     def process_quad(self, pointer):
         while(True):
             action = self.quadruples.get(pointer).action
-            left = self.quadruples.get(pointer).first
-            right = self.quadruples.get(pointer).second
+            left = self.process_addr(self.quadruples.get(pointer).first)
+            right = self.process_addr(self.quadruples.get(pointer).second)
+
             quad_result = self.quadruples.get(pointer).result
             print self.memory.memories['global']
             print "TEEEEEMP"
@@ -446,12 +495,21 @@ class VM:
                     self.memory.assign(quad_result,'true')
                 pointer = pointer + 1
             elif action == 'CLEAR':
-                self.memory.remove_list(left)
+                if isinstance(left, list): #es un mapa
+                    self.memory.remove_list(left[0])
+                    self.memory.remove_list(left[1])
+                else:
+                    self.memory.remove_list(left)
                 pointer = pointer + 1
             elif action == 'SIZE':
-                result = self.memory.size_in_addr(left)
-                print "RESULT ", result
-                self.memory.assign(quad_result, result)
+                if isinstance(left, list):
+                    result = self.memory.size_in_addr(left[0])
+                    print "RESULT ", result
+                    self.memory.assign(quad_result, result)
+                else:
+                    result = self.memory.size_in_addr(left)
+                    print "RESULT ", result
+                    self.memory.assign(quad_result, result)
                 pointer = pointer + 1
             elif action == '.+':
                 set_a = self.memory.to_vector(left)
@@ -473,4 +531,28 @@ class VM:
                 new_set = list(set(set_a) & set(set_b))
                 print "lklklk", new_set
                 self.memory.assign_list_to_addr(new_set, quad_result)
+                pointer = pointer + 1
+            elif action == 'ACCESS':
+                key_start = left[0]
+                val_start = left[1]
+                key_addr = self.memory.find_value_in_addr(self.memory.retrieve(right), key_start)
+                if key_addr is None: # tenemos que agregar la llave
+                    new_key_addr = self.memory.first_available_addr(key_start)
+                    new_val_addr = self.memory.map_value_address(val_start, new_key_addr[3])
+                    self.memory.assign(new_val_addr, quad_result)
+                else: # la llave ya existe
+                    val_addr = self.memory.map_value_address(val_start, key_addr[3])
+                    self.memory.assign(val_addr, quad_result)
+                pointer = pointer + 1
+            elif action == 'DOMAIN':
+                key_start = left[0]
+                val_start = left[1]
+                result = self.memory.to_vector(key_start)
+                self.memory.assing_list_to_addr(result, quad_result)
+                pointer = pointer + 1
+            elif action == 'RANGE':
+                key_start = left[0]
+                val_start = left[1]
+                result = self.memory.to_vector(val_start)
+                self.memory.assing_list_to_addr(list(set(result)), quad_result)
                 pointer = pointer + 1

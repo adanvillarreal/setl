@@ -570,7 +570,7 @@ def quad_process_container_with_arg(operator_list, datatype):
             print result_type + "***"
             result = quadruples_list.next_temp()
             temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, 1)
-            gen_quad(operator, right_operand, left_operand, temp_addr)
+            gen_quad(operator, left_operand, right_operand, temp_addr)
             operand_stack.push(temp_addr)
             type_stack.push(result_type)
         else: #aqui cae Insert y Remove
@@ -851,7 +851,7 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("sets_as_params.txt", "r")
+f = open("test.txt", "r")
 s = ""
 
 for x in f:

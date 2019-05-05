@@ -6,23 +6,22 @@ main {
   int x;
 
   x := 0;
-  while(x < 5) {
-   B.insert(x + 90);
+  while(x < 11) {
+   B.insert(x);
    x := x + 1;
   }
-  x := 0;
-  while(x < 5) {
-    S.insert(x + 10);
+  while(x < 22) {
+    S.insert(x * 10);
     x  := x + 1;
   }
-  x := 0;
-  while(x < 5) {
-    A.insert(x);
+  while(x < 33) {
+    A.insert(x * 100);
     x  := x + 1;
   }
-  print(B, "a", S, "a", A);
-  B := S .+ A;
-  B.insert(8888);
-  B := S .* A;
-  print(B, "a", S, "a", A .+ B .+ S);
+  A.insert(999);
+  print(A.find(3000));
+  print(A);
+  A.remove(999);
+  print(A);
+  print("ASDASDASDASDA");
 }
