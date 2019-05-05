@@ -1,0 +1,36 @@
+program aPlusB;
+
+int i, j;
+
+void uno(int a){
+  int i;
+  i := a * 2;
+  if (i < a + 4) {
+    i := 3;
+  }
+  print(i);
+}
+
+int dos(int b){
+  return b * 2;
+}
+
+int fibonacci(int a){
+  if (a <= 1){
+      return a;
+  }
+  return fibonacci(a - 1) + fibonacci(a - 2);
+}
+
+main {
+  int x;
+  x := 0;
+  i := 2;
+  j := i * 2 - 1;
+  uno(j);
+  print(dos(j+1 + dos(1)));
+  while(x < 10) {
+    print(fibonacci(x));
+    x := x + 1;
+  }
+}
