@@ -99,7 +99,7 @@ class SemanticCube:
 
         #Set versus everyone
         self.cube[key_set][key_set] = {".+": "SET", ".-": "SET", ".*": "SET",
-                                       "=": "SET", "==": "BOOL"}
+                                       "=": "SET"}
         self.cube[key_set][key_int] = {"INSERT": "NONE", "REMOVE": "NONE",
                                        "FIND": "BOOL"}
         self.cube[key_set][key_float] = {"INSERT": "NONE", "REMOVE": "NONE",
@@ -113,7 +113,8 @@ class SemanticCube:
         self.cube[key_set][key_none] = {"SIZE": "INT", "CLEAR": "NONE"}
 
         #Map PENDIENTE
-        self.cube[key_map][key_map] = {"=" : "MAP", "==": "MAP"}
+        self.cube[key_map][key_none] = {"DOMAIN": "SET", "RANGE": "SET",
+                                        "SIZE": "INT", "CLEAR": "NONE"}
 
 
     def __init__(self):
