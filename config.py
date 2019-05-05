@@ -138,7 +138,8 @@ class Semantics:
             is_set = True
             datatype = datatype[4: -1]
             size_needed = 10
-            print "Incoming Set of datatype", datatype
+            print "Incoming Set of datatype",
+            value = True
 
         if datatype.startswith('MAP'):
             og_datatype = datatype
@@ -148,7 +149,7 @@ class Semantics:
             print "Incoming Map"
             print datatype[0]
             print datatype[1]
-            return self.insert_map_handler(name, og_datatype, datatype[0], datatype[1], value)
+            return self.insert_map_handler(name, og_datatype, datatype[0], datatype[1], True)
 
         if self.global_scope:
             table = self.global_vars
@@ -176,6 +177,7 @@ class Semantics:
                 return False
 
     def insert_map_handler(self, name, og_datatype, datatype_key, datatype_value, value):
+        value = True
         size_needed = 10
         if self.global_scope:
             table = self.global_vars
@@ -247,10 +249,29 @@ class Semantics:
         self.functions.update(old_proc[0], old_proc._replace(memory_size = memory_size_map))
         print self.functions.find(old_proc[0])
 
+    def set_variable_assigned(self, var_name):
+        proc = self.functions.find(self.current_proc)
+        table = proc[2]
+        print "TABLE", table.find(var_name)
+        local_table_search = table.find(var_name)
+        if local_table_search == None:
+            global_table_search = self.global_vars.find(var_name)
+            if global_table_search == None:
+                return None
+            else:
+                return global_table_search
+        else: #local table
+            new_record = local_table_search._replace(value = True)
+            table.update(var_name, new_record)
+            print "NEW TABLE", table
+            self.functions.update(proc[0], proc._replace(vars_table = table))
+            print self.functions.find(proc[0])
+
+
     def new_proc(self, name, returntype):
         if not returntype is None:
             self.global_scope = True
-            self.insert_var(name, returntype, None)
+            self.insert_var(name, returntype, True)
 
         self.global_scope = False
 

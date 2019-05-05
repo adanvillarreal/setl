@@ -197,7 +197,7 @@ def p_proc2(p):
 
 def p_n_push_variable(p):
     '''n_push_variable :  datatype ID'''
-    if not semantic_tool.insert_var(p[2], p[1].upper(), None): #adds new variable to table
+    if not semantic_tool.insert_var(p[2], p[1].upper(), False): #adds new variable to table
         print "Variable " + p[2] + " already declared"
         raise ValueError
     else:
@@ -225,7 +225,7 @@ def p_var(p):
     '''var : datatype var1 '''
     p[0] = p[1] + " " + str(p[2])
     for i in p[2].split():
-        if not semantic_tool.insert_var(i, p[1].upper(), None): #adds new variable to table
+        if not semantic_tool.insert_var(i, p[1].upper(), False): #adds new variable to table
             print "Variable " + i + " already declared"
             raise ValueError
         else:
@@ -245,6 +245,8 @@ def p_var2(p):
 def p_assignment(p):
     '''assignment : assignment2 ASSIGNATOR n_quad_assign expression'''
     print("assignation for " + str(p[1]))
+    print p[1]
+    semantic_tool.set_variable_assigned(str(p[1]))
     quad_process_assign(["="])
 
 def p_assignment2(p):
@@ -257,7 +259,6 @@ def p_assignment2(p):
         operand_stack.push(search_result.address)
         type_stack.push(search_result.data_type)
         p[0] = p[1]
-        return p[0]
 
 def p_n_quad_assign(p):
     '''n_quad_assign : '''
@@ -362,8 +363,7 @@ def p_function_call(p):
 def p_n_era_size(p):
     '''n_era_size : ID '(' '''
     if semantic_tool.find_proc(p[1]) == None:
-        print "Undeclared function " + p[1]
-        raise ValueError
+        raise ValueError("Undeclared function " + p[1])
     gen_quad('ERA', p[1], None, None)
     semantic_tool.function_called = p[1]
     semantic_tool.param_counter = 0
@@ -376,8 +376,7 @@ def p_function_call2(p):
     '''function_call2 : n_verify_argument ',' n_add_one_to_counter function_call2
                       | n_verify_argument'''
     if not semantic_tool.verify_all_params_sent(semantic_tool.function_called, semantic_tool.param_counter):
-        print "Missing arguments for " + semantic_tool.function_called
-        raise ValueError
+        raise ValueError("Missing arguments for " + semantic_tool.function_called)
 
 def p_n_add_one_to_counter(p):
     '''n_add_one_to_counter : '''
@@ -760,9 +759,11 @@ def p_varcte(p):
   print("LEnGTH " + str(len(p)) + " " + str(p[1]))
   if len(p) == 3:
       var = semantic_tool.find_var(p[1])
-      if var == None: #checks variable is declared
-        print "Undeclared variable " + p[1]
-        raise ValueError
+      print "VAR", var
+      if var == None : #checks variable is declared
+        raise ValueError("Undeclared variable " + p[1])
+      elif var.value == False:
+        raise ValueError("Uninitialized variable " + p[1])
       else:
         print "puttingaskdnfasjdkfwiaeunf ", var
         operand_stack.push(var.address)
@@ -822,9 +823,12 @@ def p_n_main_quad2(p):
 
 def p_n_clear_scope(p):
   ''' n_clear_scope : '''
+  print "CLEARING SCOPE"
   if not semantic_tool.new_proc("MAIN", None):
       print "Function " + "MAIN" + " already declared"
       raise ValueError
+  else:
+      print "MAIN DECLARED"
 
 def p_vars_aux(p):
   '''vars_aux : vars

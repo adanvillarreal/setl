@@ -21,6 +21,11 @@ class SymbolTable:
             return self.table[name]
         else:
             return None
+    def update(self, name, entry):
+        print "UP SYMBOL TABLE", name, entry
+        self.table[name] = entry
+        print self.table[name]
+
     def print_table(self):
         print(self.table)
 

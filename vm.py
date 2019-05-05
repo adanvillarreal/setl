@@ -65,7 +65,7 @@ class VMMemory:
         translation = self.translate(address)
         print 'assigning ', translation, address, value
         if translation is None:
-            print "MEMORY ERROR, COULDNT FIND TRANSLATE MEMORY ADDRESS"
+            raise RuntimeError("OUT OF MEMORY")
         if (translation[0] == 'local' or translation[0] == 'temporary'):
             self.memories[translation[0]].top()[translation[1]].append(value)
         else:
@@ -75,7 +75,7 @@ class VMMemory:
         translation = self.translate(address)
         print 'assigning ', translation, address, value
         if translation is None:
-            print "MEMORY ERROR, COULDNT FIND TRANSLATE MEMORY ADDRESS"
+            raise RuntimeError("OUT OF MEMORY")
         if (translation[0] == 'local' or translation[0] == 'temporary'):
             self.memories[translation[0]].top()[translation[1]][translation[2]] = value
         else:
@@ -83,7 +83,8 @@ class VMMemory:
 
     def assign_explicit(self, translation, value):
         if translation is None:
-            print "MEMORY ERROR, COULDNT FIND TRANSLATE MEMORY ADDRESS"
+            print self.memories['global']['INT']
+            raise RuntimeError("OUT OF MEMORY")
         if (translation[0] == 'local' or translation[0] == 'temporary'):
             self.memories[translation[0]].top()[translation[1]][translation[2]] = value
         else:
@@ -314,7 +315,7 @@ class VMMemory:
         translation = self.translate(address)
         #print 'retrieving', translation, address
         if translation is None:
-            print "MEMORY ERROR, COULDNT FIND TRANSLATE MEMORY ADDRESS"
+            raise RuntimeError("OUT OF MEMORY")
         if (translation[0] == 'local' or translation[0] == 'temporary'):
             if translation[1] == 'INT':
                 #print self.memories
@@ -481,8 +482,7 @@ class VM:
                 if self.memory.find_value_in_addr(self.memory.retrieve(right), left) is None:
                     first_addr = self.memory.first_available_addr(left)
                     if first_addr is None:
-                        print "OUT OF MEMORY"
-                        raise ValueError
+                        raise RuntimeError("OUT OF MEMORY")
                     result = self.memory.assign_explicit(first_addr, self.memory.retrieve(right))
                 pointer = pointer + 1
             elif action == 'REMOVE':
