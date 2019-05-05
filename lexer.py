@@ -343,7 +343,9 @@ def p_n_output_quad(p):
     '''n_output_quad : expression'''
     operand = operand_stack.pop()
     operand_type = type_stack.pop()
-    gen_quad('PRINT', operand, None, None)
+    if operand_type.startswith('SET'):
+        operand_type = 'SET'
+    gen_quad('PRINT', operand, operand_type, None)
 
 def p_function_call(p):
     '''function_call : n_era_size function_call1 ')' '''
@@ -652,7 +654,7 @@ def quad_process_assign(operator_list):
         print("Incompatible type " + original_left_type + " " + operator + " " + original_right_type)
         raise ValueError
     else:
-        gen_quad(operator, right_operand, None, left_operand)
+        gen_quad(operator, right_operand, left_type, left_operand)
 
 def p_expression(p):
   '''expression : exp0 expression2'''

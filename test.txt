@@ -5,6 +5,8 @@ set<int> b, d;
 
 main {
 
-  a := b .* c .+ d;
+  a := b;
+
+  print(a);
 
 }
