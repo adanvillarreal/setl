@@ -30,8 +30,14 @@ class QuadrupleList:
         self.list.append(quadruple)
 
     def print_quads(self):
+        idx = 0
         for x in self.list:
-            x.print_quad()
+            print idx, x.print_quad()
+            idx = idx + 1
+
+    def get(self, index):
+        return self.list[index]
+
 
 # A simple class stack that only allows pop and push operations
 class Stack:
@@ -52,7 +58,7 @@ class Stack:
         return self.stack.pop()
 
     def push(self, item):
-        print("PUSHING " + str(item))
+    #    print("PUSHING " + str(item))
         self.stack.append(item)
         print(self.stack)
 
@@ -87,6 +93,9 @@ class Memory:
         self.maps[data_type][value] = next_address
         return next_address
 
+    def memory_length(self):
+        return self.size_occupied
+
 class MemoryManager:
     def __init__(self):
         self.memories = {'local':Memory(0, 1000), 'global': Memory(5000, 1000), 'temporary':Memory(10000, 1000), 'constant': Memory(15000, 1000)}
@@ -94,6 +103,9 @@ class MemoryManager:
     def reset_memory(self):
         self.memories['local'] = Memory(0, 1000)
         self.memories['temporary'] = Memory(10000, 1000)
+
+    def get_memory_size(self, memory_type):
+        return self.memories[memory_type].memory_length()
 
     def find_constant(self, value, datatype):
         return self.memories['constant'].maps[datatype][value]
@@ -137,7 +149,7 @@ class Semantics:
             current_address = self.memory_manager.memories['global'].assign(datatype, name, size_needed)
             if current_address is None:
                 print "ADDRESS NOT AVAILABLE"
-                return SyntaxError
+                raise SyntaxError
             print("^^^^^^^^^^^^^^^GLOBAL MEMORY")
             print "Semantics: ", name, datatype, value, current_address
 
@@ -148,7 +160,7 @@ class Semantics:
             current_address = self.memory_manager.memories['local'].assign(datatype, name, size_needed)
             if current_address is None:
                 print "ADDRESS NOT AVAILABLE"
-                return SyntaxError
+                raise SyntaxError
             print("^^^^^^^^^^^^^ASSIGNING MEMORY")
             print name, datatype, value, current_address
             if table.insert(name, original_datatype, value, current_address):
@@ -189,16 +201,25 @@ class Semantics:
         else:
             return False
 
+    def save_used_memory(self):
+        old_proc = self.functions.find(self.current_proc)
+        memory_size_map = {'local':self.memory_manager.get_memory_size('local'), 'temporary': self.memory_manager.get_memory_size('temporary')}
+        print "SAVE USED MEMORY", memory_size_map
+        self.functions.update(old_proc[0], old_proc._replace(memory_size = memory_size_map))
+        print self.functions.find(old_proc[0])
+
     def new_proc(self, name, returntype):
         if not returntype is None:
             self.global_scope = True
             self.insert_var(name, returntype, None)
+
         self.global_scope = False
+
         self.memory_manager.reset_memory()
         if self.functions.find(name) != None:
             return False
 
-        self.functions.insert(name, returntype, SymbolTable(), list(), None)
+        self.functions.insert(name, returntype, SymbolTable(), list(), None, 0)
         self.current_proc = name
         self.local_vars = SymbolTable()
         return True
