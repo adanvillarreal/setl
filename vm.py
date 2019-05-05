@@ -131,27 +131,6 @@ class VMMemory:
 
         return None
 
-    def check_repeated(self, address, value):
-        translation = self.translate(address)
-        idx = translation[2]
-        memory = []
-        if (translation[0] == 'local' or translation[0] == 'temporary'):
-            memory = self.memories[translation[0]].top()[translation[1]]
-        else:
-            memory = self.memories[translation[0]][translation[1]]
-        counter = 0
-        while(idx + counter < len(memory)):
-            if counter != 0 and counter % 9 == 0:
-                if memory[idx + counter] is None:
-                    return True
-                else:
-                    idx = memory[idx + counter]
-                    counter = 0
-            if memory[idx + counter] == value:
-                return False
-            counter = counter + 1
-        return True
-
     def size_in_addr(self, address):
         translation = self.translate(address)
         idx = translation[2]
@@ -220,6 +199,73 @@ class VMMemory:
                 counter = counter + 1
         return
 
+    def to_vector(self, address):
+        translation = self.translate(address)
+        idx = translation[2]
+        memory = []
+        new_vector = []
+        if (translation[0] == 'local' or translation[0] == 'temporary'):
+            memory = self.memories[translation[0]].top()[translation[1]]
+        else:
+            memory = self.memories[translation[0]][translation[1]]
+        counter = 0
+        while(idx + counter < len(memory)):
+            print idx, counter
+            if counter != 0 and counter % 9 == 0:
+                if memory[idx + counter] is None:
+                    return new_vector
+                else:
+                    old_idx = idx
+                    idx = memory[idx + counter]
+                    memory[old_idx + counter] = None
+                    counter = 0
+            else:
+                if not memory[idx+counter] is None:
+                    new_vector.append(memory[idx+counter])
+                counter = counter + 1
+        return new_vector
+
+    def assign_list_to_addr(l_set, address):
+        mem_base_addr = {'local':0, 'global':5000, 'temporary': 10000, 'constant': 15000}
+        data_type_base_addr = {'BOOL': 0, 'FLOAT': 1000, 'INT': 2000, 'CHAR': 3000, 'STRING': 4000}
+        chunk_size = 10
+        translation = self.translate(address)
+        idx = translation[2]
+        memory = []
+        if (translation[0] == 'local' or translation[0] == 'temporary'):
+            memory = self.memories[translation[0]].top()[translation[1]]
+        else:
+            memory = self.memories[translation[0]][translation[1]]
+        counter = 0
+        first_addr = idx
+        set_idx = 0
+        while(idx + counter < 1000 or set_idx < len(l_set)):
+            print idx, counter
+            if counter != 0 and counter % 9 == 0:
+                if memory[idx + counter] is None:
+                    memory[idx + counter] = len(memory)
+                    idx = len(memory)
+                    counter = 0
+                    self.add_memory_chunk(translation)
+                    if (translation[0] == 'local' or translation[0] == 'temporary'):
+                        memory = self.memories[translation[0]].top()[translation[1]]
+                    else:
+                        memory = self.memories[translation[0]][translation[1]]
+                else:
+                    idx = memory[idx + counter]
+                    counter = 0
+            else:
+                if memory[idx + counter] is None:
+                    first_addr = idx + counter
+                    self.assign_explicit([translation[0], translation[1], first_addr], l_set[set_idx])
+                    set_idx = set_idx + 1
+                counter = counter + 1
+
+        if idx + counter >= 1000:
+            return None
+        else:
+            return True
+
     def retrieve(self, address):
         translation = self.translate(address)
         #print 'retrieving', translation, address
@@ -261,6 +307,8 @@ class VM:
             right = self.quadruples.get(pointer).second
             quad_result = self.quadruples.get(pointer).result
             print self.memory.memories['global']
+            print "TEEEEEMP"
+            print self.memory.memories['temporary'].top()
             print "QUUUUUUUUAD", action, left, right
             if action == '+':
                 result = self.memory.retrieve(left) + self.memory.retrieve(right)
@@ -393,4 +441,10 @@ class VM:
                 result = self.memory.size_in_addr(left)
                 print "RESULT ", result
                 self.memory.assign(quad_result, result)
+                pointer = pointer + 1
+            elif action == '.+':
+                set_a = self.memory.to_vector(left)
+                set_b = self.memory.to_vector(right)
+                new_set = list(set((set_a + set_b)))
+                self.memory.assign_list_to_addr(new_set, quad_result)
                 pointer = pointer + 1

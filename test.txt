@@ -1,14 +1,21 @@
 program aPlusB;
 
-set<int> S;
+set<int> S, A, B;
 int a, b, c, f;
 main {
   int x;
 
   x := 0;
 
-  while(x < 30) {
+  while(x < 5) {
     S.insert(x);
     x  := x + 1;
   }
+  x := 0;
+  while(x < 5) {
+    A.insert(x + 10);
+    x  := x + 1;
+  }
+
+  B := S .+ A;
 }
