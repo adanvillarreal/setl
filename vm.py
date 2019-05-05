@@ -7,10 +7,10 @@ class VMMemory:
             global_sizes[k] = [None]*v
 
         for k, v in local_sizes.items():
-            local_sizes[k] = [0]*v
+            local_sizes[k] = [None]*v
 
         for k, v in temp_sizes.items():
-            temp_sizes[k] = [0]*v
+            temp_sizes[k] = [None]*v
 
         initial_stack_1 = Stack()
         initial_stack_2 = Stack()
@@ -225,7 +225,7 @@ class VMMemory:
                 counter = counter + 1
         return new_vector
 
-    def assign_list_to_addr(l_set, address):
+    def assign_list_to_addr(self, l_set, address):
         mem_base_addr = {'local':0, 'global':5000, 'temporary': 10000, 'constant': 15000}
         data_type_base_addr = {'BOOL': 0, 'FLOAT': 1000, 'INT': 2000, 'CHAR': 3000, 'STRING': 4000}
         chunk_size = 10
@@ -239,8 +239,8 @@ class VMMemory:
         counter = 0
         first_addr = idx
         set_idx = 0
-        while(idx + counter < 1000 or set_idx < len(l_set)):
-            print idx, counter
+        while(idx + counter < 1000 and set_idx < len(l_set)):
+            print idx, counter, memory
             if counter != 0 and counter % 9 == 0:
                 if memory[idx + counter] is None:
                     memory[idx + counter] = len(memory)
@@ -252,11 +252,13 @@ class VMMemory:
                     else:
                         memory = self.memories[translation[0]][translation[1]]
                 else:
+                    print "AQUI"
                     idx = memory[idx + counter]
                     counter = 0
             else:
                 if memory[idx + counter] is None:
                     first_addr = idx + counter
+                    print"ASDASDASDASDASDASDADSDASDASDASD", set_idx, len(l_set)
                     self.assign_explicit([translation[0], translation[1], first_addr], l_set[set_idx])
                     set_idx = set_idx + 1
                 counter = counter + 1
@@ -332,7 +334,12 @@ class VM:
                 pointer = pointer + 1
             elif action == '=':
             #    print 'ASSIGNATION', quad_result, left
-                self.memory.assign(quad_result, self.memory.retrieve(left))
+                if(right == "SET"):
+                    self.memory.remove_list(quad_result)
+                    new_vector = self.memory.to_vector(left)
+                    self.memory.assign_list_to_addr(new_vector, quad_result)
+                else:
+                    self.memory.assign(quad_result, self.memory.retrieve(left))
                 pointer = pointer + 1
             elif action == 'GOTO':
                 pointer = quad_result
@@ -409,7 +416,11 @@ class VM:
             elif action == 'END':
                 return
             elif action == 'PRINT':
-                print '>', self.memory.retrieve(left)
+                if right == "SET":
+                    new_vector = self.memory.to_vector(left)
+                    print '>', new_vector
+                else:
+                    print '>', self.memory.retrieve(left)
                 pointer = pointer + 1
             elif action == 'READ':
                 a = 1
@@ -446,5 +457,20 @@ class VM:
                 set_a = self.memory.to_vector(left)
                 set_b = self.memory.to_vector(right)
                 new_set = list(set((set_a + set_b)))
+                print "lklklk", new_set
+                self.memory.assign_list_to_addr(new_set, quad_result)
+                pointer = pointer + 1
+            elif action == '.-':
+                set_a = self.memory.to_vector(left)
+                set_b = self.memory.to_vector(right)
+                new_set = list(set(set_a) - set(set_b))
+                print "lklklk", new_set
+                self.memory.assign_list_to_addr(new_set, quad_result)
+                pointer = pointer + 1
+            elif action == '.*':
+                set_a = self.memory.to_vector(left)
+                set_b = self.memory.to_vector(right)
+                new_set = list(set(set_a) & set(set_b))
+                print "lklklk", new_set
                 self.memory.assign_list_to_addr(new_set, quad_result)
                 pointer = pointer + 1

@@ -2,6 +2,15 @@ program aPlusB;
 
 set<int> S, A, B;
 int a, b, c, f;
+
+int function_set(int a) {
+  print("AAAAAA", a);
+  S.insert(1000);
+  S.insert(1001);
+  S.insert(1002);
+  return S.size();
+}
+
 main {
   int x;
 
@@ -25,4 +34,7 @@ main {
   B.insert(8888);
   B := S .* A;
   print(B, "a", S, "a", A .+ B .+ S);
+  print(function_set(B.size()));
+  print("ASDASDASD");
+  print(S);
 }

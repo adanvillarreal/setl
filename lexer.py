@@ -603,9 +603,12 @@ def quad_process(operator_list):
     result_type = semantic_cube.accepts(right_type, left_type, operator)
 
     original_result_type = result_type
+    new_result_type = original_result_type
+    print "OG RESULT TYPE", original_result_type
 
     if result_type == 'SET':
         result_type = original_left_type[4:-1]
+        new_result_type = original_left_type
         print result_type, "AAA"
 
     if result_type == False:
@@ -622,7 +625,7 @@ def quad_process(operator_list):
         temp_addr = semantic_tool.memory_manager.memories['temporary'].assign(result_type, result, size_needed)
         gen_quad(operator, left_operand, right_operand, temp_addr)
         operand_stack.push(temp_addr)
-        type_stack.push(original_left_type)
+        type_stack.push(new_result_type)
 
 def quad_process_assign(operator_list):
     operator = operator_stack.top()
@@ -848,7 +851,7 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("test.txt", "r")
+f = open("sets_as_params.txt", "r")
 s = ""
 
 for x in f:
