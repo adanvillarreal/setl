@@ -93,88 +93,90 @@ Rule 87    exp02 -> empty
 Rule 88    exp -> term exp2
 Rule 89    addsub -> +
 Rule 90    addsub -> -
-Rule 91    muldiv -> *
-Rule 92    muldiv -> /
-Rule 93    exp2 -> addsub term n_quad_addsub exp2
-Rule 94    exp2 -> empty
-Rule 95    term -> term_not factor n_quad_muldiv term2
-Rule 96    n_quad_muldiv -> <empty>
-Rule 97    n_quad_addsub -> <empty>
-Rule 98    term2 -> muldiv factor n_quad_muldiv term2
-Rule 99    term2 -> n_quad_not
-Rule 100   n_quad_not -> <empty>
-Rule 101   term_not -> !
-Rule 102   term_not -> empty
-Rule 103   factor -> ( n_push_false_bottom expression ) n_pop_false_bottom
-Rule 104   factor -> varcte
-Rule 105   n_push_false_bottom -> <empty>
-Rule 106   n_pop_false_bottom -> <empty>
-Rule 107   varcte -> ID empty
-Rule 108   varcte -> varcte1
-Rule 109   varcte1 -> CTE_INT
-Rule 110   varcte1 -> CTE_FLOAT
-Rule 111   varcte1 -> CTE_BOOL
-Rule 112   varcte1 -> CTE_STRING
-Rule 113   varcte1 -> CTE_CHAR
-Rule 114   varcte1 -> function_call
-Rule 115   varcte1 -> map_access
-Rule 116   varcte1 -> container_operation
-Rule 117   functype -> datatype
-Rule 118   functype -> VOID
-Rule 119   datatype -> INT
-Rule 120   datatype -> FLOAT
-Rule 121   datatype -> BOOL
-Rule 122   datatype -> STRING
-Rule 123   datatype -> CHAR
-Rule 124   datatype -> set_definition
-Rule 125   datatype -> map_definition
-Rule 126   set_definition -> SET < datatype >
-Rule 127   block -> { statement_aux }
-Rule 128   statement_aux -> statement statement_aux
-Rule 129   statement_aux -> empty
-Rule 130   main -> MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux }
-Rule 131   n_main_quad2 -> <empty>
-Rule 132   n_clear_scope -> <empty>
-Rule 133   vars_aux -> vars
-Rule 134   vars_aux -> empty
-Rule 135   map_definition -> MAP < datatype , datatype >
-Rule 136   map_access -> ID [ exp ]
-Rule 137   map_assignment -> map_access ASSIGNATOR exp
-Rule 138   empty -> <empty>
+Rule 91    addsub -> SET_MATH_ADDSUB
+Rule 92    muldiv -> *
+Rule 93    muldiv -> /
+Rule 94    muldiv -> SET_MATH_MULDIV
+Rule 95    exp2 -> addsub term n_quad_addsub exp2
+Rule 96    exp2 -> empty
+Rule 97    term -> term_not factor n_quad_muldiv term2
+Rule 98    n_quad_muldiv -> <empty>
+Rule 99    n_quad_addsub -> <empty>
+Rule 100   term2 -> muldiv factor n_quad_muldiv term2
+Rule 101   term2 -> n_quad_not
+Rule 102   n_quad_not -> <empty>
+Rule 103   term_not -> !
+Rule 104   term_not -> empty
+Rule 105   factor -> ( n_push_false_bottom expression ) n_pop_false_bottom
+Rule 106   factor -> varcte
+Rule 107   n_push_false_bottom -> <empty>
+Rule 108   n_pop_false_bottom -> <empty>
+Rule 109   varcte -> ID empty
+Rule 110   varcte -> varcte1
+Rule 111   varcte1 -> CTE_INT
+Rule 112   varcte1 -> CTE_FLOAT
+Rule 113   varcte1 -> CTE_BOOL
+Rule 114   varcte1 -> CTE_STRING
+Rule 115   varcte1 -> CTE_CHAR
+Rule 116   varcte1 -> function_call
+Rule 117   varcte1 -> map_access
+Rule 118   varcte1 -> container_operation
+Rule 119   functype -> datatype
+Rule 120   functype -> VOID
+Rule 121   datatype -> INT
+Rule 122   datatype -> FLOAT
+Rule 123   datatype -> BOOL
+Rule 124   datatype -> STRING
+Rule 125   datatype -> CHAR
+Rule 126   datatype -> set_definition
+Rule 127   datatype -> map_definition
+Rule 128   set_definition -> SET < datatype >
+Rule 129   block -> { statement_aux }
+Rule 130   statement_aux -> statement statement_aux
+Rule 131   statement_aux -> empty
+Rule 132   main -> MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux }
+Rule 133   n_main_quad2 -> <empty>
+Rule 134   n_clear_scope -> <empty>
+Rule 135   vars_aux -> vars
+Rule 136   vars_aux -> empty
+Rule 137   map_definition -> MAP < datatype , datatype >
+Rule 138   map_access -> ID [ exp ]
+Rule 139   map_assignment -> map_access ASSIGNATOR exp
+Rule 140   empty -> <empty>
 
 Terminals, with rules where they appear
 
-!                    : 101
-(                    : 11 12 33 38 42 46 51 59 60 103
-)                    : 13 33 38 42 46 50 59 60 103
-*                    : 91
+!                    : 103
+(                    : 11 12 33 38 42 46 51 59 60 105
+)                    : 13 33 38 42 46 50 59 60 105
+*                    : 92
 +                    : 89
-,                    : 16 27 43 47 54 135
+,                    : 16 27 43 47 54 137
 -                    : 90
 .                    : 59 60
-/                    : 92
+/                    : 93
 ;                    : 1 29 61
-<                    : 73 126 135
->                    : 74 126 135
+<                    : 73 128 137
+>                    : 74 128 137
 AND                  : 80
-ASSIGNATOR           : 30 137
-BOOL                 : 121
-CHAR                 : 123
-CTE_BOOL             : 111
-CTE_CHAR             : 113
-CTE_FLOAT            : 110
-CTE_INT              : 109
-CTE_STRING           : 112
+ASSIGNATOR           : 30 139
+BOOL                 : 123
+CHAR                 : 125
+CTE_BOOL             : 113
+CTE_CHAR             : 115
+CTE_FLOAT            : 112
+CTE_INT              : 111
+CTE_STRING           : 114
 ELSE                 : 34
 EQ                   : 76
-FLOAT                : 120
+FLOAT                : 122
 GEQ                  : 78
-ID                   : 1 11 12 18 27 28 31 45 51 59 60 107 136
+ID                   : 1 11 12 18 27 28 31 45 51 59 60 109 138
 IF                   : 33
-INT                  : 119
+INT                  : 121
 LEQ                  : 77
-MAIN                 : 130
-MAP                  : 135
+MAIN                 : 132
+MAP                  : 137
 NOT_EQ               : 75
 OP                   : 60
 OP_ARGS              : 59
@@ -183,35 +185,37 @@ PRINT                : 46
 PROGRAM              : 1
 READ                 : 42
 RETURN               : 58
-SET                  : 126
-STRING               : 122
-VOID                 : 8 118
+SET                  : 128
+SET_MATH_ADDSUB      : 91
+SET_MATH_MULDIV      : 94
+STRING               : 124
+VOID                 : 8 120
 WHILE                : 38
-[                    : 136
-]                    : 136
+[                    : 138
+]                    : 138
 error                : 
-{                    : 13 127 130
-}                    : 13 127 130
+{                    : 13 129 132
+}                    : 13 129 132
 
 Nonterminals, with rules where they appear
 
-addsub               : 93
+addsub               : 95
 assignment           : 63
 assignment2          : 30
 block                : 33 34 38
 condition            : 71
 condition1           : 33
-container_operation  : 66 116
-datatype             : 12 18 26 117 126 135 135
-empty                : 9 15 17 23 44 48 52 83 87 94 102 107 129 134
-exp                  : 85 86 136 137
+container_operation  : 66 118
+datatype             : 12 18 26 119 128 137 137
+empty                : 9 15 17 23 44 48 52 83 87 96 104 109 131 136
+exp                  : 85 86 138 139
 exp0                 : 81 82
 exp02                : 85
-exp2                 : 88 93
-expression           : 30 33 38 49 57 58 59 103
+exp2                 : 88 95
+expression           : 30 33 38 49 57 58 59 105
 expression2          : 81 82
-factor               : 95 98
-function_call        : 70 114
+factor               : 97 100
+function_call        : 70 116
 function_call1       : 50
 function_call2       : 53 54
 functype             : 
@@ -219,29 +223,29 @@ input                : 64
 input1               : 42 43
 logop                : 82
 main                 : 6
-map_access           : 115 137
+map_access           : 117 139
 map_assignment       : 69
-map_definition       : 67 125
-muldiv               : 98
+map_definition       : 67 127
+muldiv               : 100
 n_add_one_to_counter : 54
 n_check_has_return   : 7
-n_clear_scope        : 130
+n_clear_scope        : 132
 n_era_size           : 50
 n_if_2               : 34
 n_if_3               : 34 35
 n_main_quad          : 1
-n_main_quad2         : 130
+n_main_quad2         : 132
 n_output_quad        : 46 47
-n_pop_false_bottom   : 103
+n_pop_false_bottom   : 105
 n_process_read       : 42 43
-n_push_false_bottom  : 103
+n_push_false_bottom  : 105
 n_push_variable      : 14 16
-n_quad_addsub        : 93
+n_quad_addsub        : 95
 n_quad_assign        : 30
 n_quad_counter       : 20
 n_quad_logop         : 82
-n_quad_muldiv        : 95 98
-n_quad_not           : 99
+n_quad_muldiv        : 97 100
+n_quad_not           : 101
 n_verify_argument    : 54 55
 n_while_1            : 38
 n_while_2            : 33 38
@@ -261,21 +265,21 @@ program1             : 1 3
 program2             : 4 5
 relop                : 86
 return               : 68
-set_definition       : 124
-statement            : 22 128
+set_definition       : 126
+statement            : 22 130
 statement1           : 61
 statement2           : 62
-statement_aux        : 127 128 130
-term                 : 88 93
-term2                : 95 98
-term_not             : 95
+statement_aux        : 129 130 132
+term                 : 88 95
+term2                : 97 100
+term_not             : 97
 var                  : 3 19 24 25
 var1                 : 26 27
 var2                 : 28
-varcte               : 104
-varcte1              : 108
-vars                 : 24 133
-vars_aux             : 130
+varcte               : 106
+varcte1              : 110
+vars                 : 24 135
+vars_aux             : 132
 while                : 72
 
 Parsing method: LALR
@@ -334,21 +338,21 @@ state 5
     (26) var -> . datatype var1
     (5) program2 -> . proc program2
     (6) program2 -> . main
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
     (7) proc -> . proca1 procA n_check_has_return
     (8) proc -> . VOID proca2 procA
     (9) proc -> . empty
-    (130) main -> . MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux }
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (132) main -> . MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux }
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
     (12) proca1 -> . datatype ID (
-    (138) empty -> .
+    (140) empty -> .
 
   ! shift/reduce conflict for VOID resolved as shift
   ! shift/reduce conflict for MAIN resolved as shift
@@ -369,15 +373,15 @@ state 5
     SET             shift and go to state 9
     MAP             shift and go to state 18
 
-  ! VOID            [ reduce using rule 138 (empty -> .) ]
-  ! MAIN            [ reduce using rule 138 (empty -> .) ]
-  ! INT             [ reduce using rule 138 (empty -> .) ]
-  ! FLOAT           [ reduce using rule 138 (empty -> .) ]
-  ! BOOL            [ reduce using rule 138 (empty -> .) ]
-  ! STRING          [ reduce using rule 138 (empty -> .) ]
-  ! CHAR            [ reduce using rule 138 (empty -> .) ]
-  ! SET             [ reduce using rule 138 (empty -> .) ]
-  ! MAP             [ reduce using rule 138 (empty -> .) ]
+  ! VOID            [ reduce using rule 140 (empty -> .) ]
+  ! MAIN            [ reduce using rule 140 (empty -> .) ]
+  ! INT             [ reduce using rule 140 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 140 (empty -> .) ]
+  ! BOOL            [ reduce using rule 140 (empty -> .) ]
+  ! STRING          [ reduce using rule 140 (empty -> .) ]
+  ! CHAR            [ reduce using rule 140 (empty -> .) ]
+  ! SET             [ reduce using rule 140 (empty -> .) ]
+  ! MAP             [ reduce using rule 140 (empty -> .) ]
 
     program1                       shift and go to state 10
     program2                       shift and go to state 11
@@ -401,25 +405,25 @@ state 6
 
 state 7
 
-    (125) datatype -> map_definition .
+    (127) datatype -> map_definition .
 
-    ID              reduce using rule 125 (datatype -> map_definition .)
-    >               reduce using rule 125 (datatype -> map_definition .)
-    ,               reduce using rule 125 (datatype -> map_definition .)
+    ID              reduce using rule 127 (datatype -> map_definition .)
+    >               reduce using rule 127 (datatype -> map_definition .)
+    ,               reduce using rule 127 (datatype -> map_definition .)
 
 
 state 8
 
-    (123) datatype -> CHAR .
+    (125) datatype -> CHAR .
 
-    ID              reduce using rule 123 (datatype -> CHAR .)
-    >               reduce using rule 123 (datatype -> CHAR .)
-    ,               reduce using rule 123 (datatype -> CHAR .)
+    ID              reduce using rule 125 (datatype -> CHAR .)
+    >               reduce using rule 125 (datatype -> CHAR .)
+    ,               reduce using rule 125 (datatype -> CHAR .)
 
 
 state 9
 
-    (126) set_definition -> SET . < datatype >
+    (128) set_definition -> SET . < datatype >
 
     <               shift and go to state 27
 
@@ -445,18 +449,18 @@ state 12
     (14) proc1 -> . n_push_variable proc2
     (15) proc1 -> . empty
     (18) n_push_variable -> . datatype ID
-    (138) empty -> .
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (140) empty -> .
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
 
-    )               reduce using rule 138 (empty -> .)
+    )               reduce using rule 140 (empty -> .)
     INT             shift and go to state 22
     FLOAT           shift and go to state 21
     BOOL            shift and go to state 23
@@ -481,21 +485,21 @@ state 13
     (26) var -> . datatype var1
     (5) program2 -> . proc program2
     (6) program2 -> . main
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
     (7) proc -> . proca1 procA n_check_has_return
     (8) proc -> . VOID proca2 procA
     (9) proc -> . empty
-    (130) main -> . MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux }
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (132) main -> . MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux }
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
     (12) proca1 -> . datatype ID (
-    (138) empty -> .
+    (140) empty -> .
 
   ! shift/reduce conflict for VOID resolved as shift
   ! shift/reduce conflict for MAIN resolved as shift
@@ -516,15 +520,15 @@ state 13
     SET             shift and go to state 9
     MAP             shift and go to state 18
 
-  ! VOID            [ reduce using rule 138 (empty -> .) ]
-  ! MAIN            [ reduce using rule 138 (empty -> .) ]
-  ! INT             [ reduce using rule 138 (empty -> .) ]
-  ! FLOAT           [ reduce using rule 138 (empty -> .) ]
-  ! BOOL            [ reduce using rule 138 (empty -> .) ]
-  ! STRING          [ reduce using rule 138 (empty -> .) ]
-  ! CHAR            [ reduce using rule 138 (empty -> .) ]
-  ! SET             [ reduce using rule 138 (empty -> .) ]
-  ! MAP             [ reduce using rule 138 (empty -> .) ]
+  ! VOID            [ reduce using rule 140 (empty -> .) ]
+  ! MAIN            [ reduce using rule 140 (empty -> .) ]
+  ! INT             [ reduce using rule 140 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 140 (empty -> .) ]
+  ! BOOL            [ reduce using rule 140 (empty -> .) ]
+  ! STRING          [ reduce using rule 140 (empty -> .) ]
+  ! CHAR            [ reduce using rule 140 (empty -> .) ]
+  ! SET             [ reduce using rule 140 (empty -> .) ]
+  ! MAP             [ reduce using rule 140 (empty -> .) ]
 
     program1                       shift and go to state 33
     program2                       shift and go to state 11
@@ -552,18 +556,18 @@ state 15
     (7) proc -> . proca1 procA n_check_has_return
     (8) proc -> . VOID proca2 procA
     (9) proc -> . empty
-    (130) main -> . MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux }
+    (132) main -> . MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux }
     (12) proca1 -> . datatype ID (
-    (138) empty -> .
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (140) empty -> .
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
 
   ! shift/reduce conflict for VOID resolved as shift
   ! shift/reduce conflict for MAIN resolved as shift
@@ -584,15 +588,15 @@ state 15
     SET             shift and go to state 9
     MAP             shift and go to state 18
 
-  ! VOID            [ reduce using rule 138 (empty -> .) ]
-  ! MAIN            [ reduce using rule 138 (empty -> .) ]
-  ! INT             [ reduce using rule 138 (empty -> .) ]
-  ! FLOAT           [ reduce using rule 138 (empty -> .) ]
-  ! BOOL            [ reduce using rule 138 (empty -> .) ]
-  ! STRING          [ reduce using rule 138 (empty -> .) ]
-  ! CHAR            [ reduce using rule 138 (empty -> .) ]
-  ! SET             [ reduce using rule 138 (empty -> .) ]
-  ! MAP             [ reduce using rule 138 (empty -> .) ]
+  ! VOID            [ reduce using rule 140 (empty -> .) ]
+  ! MAIN            [ reduce using rule 140 (empty -> .) ]
+  ! INT             [ reduce using rule 140 (empty -> .) ]
+  ! FLOAT           [ reduce using rule 140 (empty -> .) ]
+  ! BOOL            [ reduce using rule 140 (empty -> .) ]
+  ! STRING          [ reduce using rule 140 (empty -> .) ]
+  ! CHAR            [ reduce using rule 140 (empty -> .) ]
+  ! SET             [ reduce using rule 140 (empty -> .) ]
+  ! MAP             [ reduce using rule 140 (empty -> .) ]
 
     set_definition                 shift and go to state 19
     program2                       shift and go to state 34
@@ -620,27 +624,27 @@ state 16
 
 state 17
 
-    (122) datatype -> STRING .
+    (124) datatype -> STRING .
 
-    ID              reduce using rule 122 (datatype -> STRING .)
-    >               reduce using rule 122 (datatype -> STRING .)
-    ,               reduce using rule 122 (datatype -> STRING .)
+    ID              reduce using rule 124 (datatype -> STRING .)
+    >               reduce using rule 124 (datatype -> STRING .)
+    ,               reduce using rule 124 (datatype -> STRING .)
 
 
 state 18
 
-    (135) map_definition -> MAP . < datatype , datatype >
+    (137) map_definition -> MAP . < datatype , datatype >
 
     <               shift and go to state 36
 
 
 state 19
 
-    (124) datatype -> set_definition .
+    (126) datatype -> set_definition .
 
-    ID              reduce using rule 124 (datatype -> set_definition .)
-    >               reduce using rule 124 (datatype -> set_definition .)
-    ,               reduce using rule 124 (datatype -> set_definition .)
+    ID              reduce using rule 126 (datatype -> set_definition .)
+    >               reduce using rule 126 (datatype -> set_definition .)
+    ,               reduce using rule 126 (datatype -> set_definition .)
 
 
 state 20
@@ -656,37 +660,37 @@ state 20
 
 state 21
 
-    (120) datatype -> FLOAT .
+    (122) datatype -> FLOAT .
 
-    ID              reduce using rule 120 (datatype -> FLOAT .)
-    >               reduce using rule 120 (datatype -> FLOAT .)
-    ,               reduce using rule 120 (datatype -> FLOAT .)
+    ID              reduce using rule 122 (datatype -> FLOAT .)
+    >               reduce using rule 122 (datatype -> FLOAT .)
+    ,               reduce using rule 122 (datatype -> FLOAT .)
 
 
 state 22
 
-    (119) datatype -> INT .
+    (121) datatype -> INT .
 
-    ID              reduce using rule 119 (datatype -> INT .)
-    >               reduce using rule 119 (datatype -> INT .)
-    ,               reduce using rule 119 (datatype -> INT .)
+    ID              reduce using rule 121 (datatype -> INT .)
+    >               reduce using rule 121 (datatype -> INT .)
+    ,               reduce using rule 121 (datatype -> INT .)
 
 
 state 23
 
-    (121) datatype -> BOOL .
+    (123) datatype -> BOOL .
 
-    ID              reduce using rule 121 (datatype -> BOOL .)
-    >               reduce using rule 121 (datatype -> BOOL .)
-    ,               reduce using rule 121 (datatype -> BOOL .)
+    ID              reduce using rule 123 (datatype -> BOOL .)
+    >               reduce using rule 123 (datatype -> BOOL .)
+    ,               reduce using rule 123 (datatype -> BOOL .)
 
 
 state 24
 
-    (130) main -> MAIN . n_clear_scope n_main_quad2 { vars_aux statement_aux }
-    (132) n_clear_scope -> .
+    (132) main -> MAIN . n_clear_scope n_main_quad2 { vars_aux statement_aux }
+    (134) n_clear_scope -> .
 
-    {               reduce using rule 132 (n_clear_scope -> .)
+    {               reduce using rule 134 (n_clear_scope -> .)
 
     n_clear_scope                  shift and go to state 39
 
@@ -704,18 +708,18 @@ state 26
     (14) proc1 -> . n_push_variable proc2
     (15) proc1 -> . empty
     (18) n_push_variable -> . datatype ID
-    (138) empty -> .
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (140) empty -> .
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
 
-    )               reduce using rule 138 (empty -> .)
+    )               reduce using rule 140 (empty -> .)
     INT             shift and go to state 22
     FLOAT           shift and go to state 21
     BOOL            shift and go to state 23
@@ -734,16 +738,16 @@ state 26
 
 state 27
 
-    (126) set_definition -> SET < . datatype >
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (128) set_definition -> SET < . datatype >
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
 
     INT             shift and go to state 22
     FLOAT           shift and go to state 21
@@ -776,10 +780,10 @@ state 30
     (14) proc1 -> n_push_variable . proc2
     (16) proc2 -> . , n_push_variable proc2
     (17) proc2 -> . empty
-    (138) empty -> .
+    (140) empty -> .
 
     ,               shift and go to state 44
-    )               reduce using rule 138 (empty -> .)
+    )               reduce using rule 140 (empty -> .)
 
     empty                          shift and go to state 45
     proc2                          shift and go to state 46
@@ -831,16 +835,16 @@ state 35
 
 state 36
 
-    (135) map_definition -> MAP < . datatype , datatype >
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (137) map_definition -> MAP < . datatype , datatype >
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
 
     INT             shift and go to state 22
     FLOAT           shift and go to state 21
@@ -891,10 +895,10 @@ state 38
 
 state 39
 
-    (130) main -> MAIN n_clear_scope . n_main_quad2 { vars_aux statement_aux }
-    (131) n_main_quad2 -> .
+    (132) main -> MAIN n_clear_scope . n_main_quad2 { vars_aux statement_aux }
+    (133) n_main_quad2 -> .
 
-    {               reduce using rule 131 (n_main_quad2 -> .)
+    {               reduce using rule 133 (n_main_quad2 -> .)
 
     n_main_quad2                   shift and go to state 55
 
@@ -929,7 +933,7 @@ state 41
 
 state 42
 
-    (126) set_definition -> SET < datatype . >
+    (128) set_definition -> SET < datatype . >
 
     >               shift and go to state 56
 
@@ -945,15 +949,15 @@ state 44
 
     (16) proc2 -> , . n_push_variable proc2
     (18) n_push_variable -> . datatype ID
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
 
     INT             shift and go to state 22
     FLOAT           shift and go to state 21
@@ -1014,7 +1018,7 @@ state 49
 
 state 50
 
-    (135) map_definition -> MAP < datatype . , datatype >
+    (137) map_definition -> MAP < datatype . , datatype >
 
     ,               shift and go to state 59
 
@@ -1089,18 +1093,18 @@ state 54
 
 state 55
 
-    (130) main -> MAIN n_clear_scope n_main_quad2 . { vars_aux statement_aux }
+    (132) main -> MAIN n_clear_scope n_main_quad2 . { vars_aux statement_aux }
 
     {               shift and go to state 62
 
 
 state 56
 
-    (126) set_definition -> SET < datatype > .
+    (128) set_definition -> SET < datatype > .
 
-    ID              reduce using rule 126 (set_definition -> SET < datatype > .)
-    ,               reduce using rule 126 (set_definition -> SET < datatype > .)
-    >               reduce using rule 126 (set_definition -> SET < datatype > .)
+    ID              reduce using rule 128 (set_definition -> SET < datatype > .)
+    ,               reduce using rule 128 (set_definition -> SET < datatype > .)
+    >               reduce using rule 128 (set_definition -> SET < datatype > .)
 
 
 state 57
@@ -1110,15 +1114,15 @@ state 57
     (20) proc3 -> . n_quad_counter proc4
     (26) var -> . datatype var1
     (21) n_quad_counter -> .
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
 
   ! shift/reduce conflict for MAP resolved as shift
     READ            reduce using rule 21 (n_quad_counter -> .)
@@ -1150,26 +1154,26 @@ state 58
     (16) proc2 -> , n_push_variable . proc2
     (16) proc2 -> . , n_push_variable proc2
     (17) proc2 -> . empty
-    (138) empty -> .
+    (140) empty -> .
 
     ,               shift and go to state 44
-    )               reduce using rule 138 (empty -> .)
+    )               reduce using rule 140 (empty -> .)
 
     empty                          shift and go to state 45
     proc2                          shift and go to state 67
 
 state 59
 
-    (135) map_definition -> MAP < datatype , . datatype >
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (137) map_definition -> MAP < datatype , . datatype >
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
 
     INT             shift and go to state 22
     FLOAT           shift and go to state 21
@@ -1218,31 +1222,31 @@ state 61
 
 state 62
 
-    (130) main -> MAIN n_clear_scope n_main_quad2 { . vars_aux statement_aux }
-    (133) vars_aux -> . vars
-    (134) vars_aux -> . empty
+    (132) main -> MAIN n_clear_scope n_main_quad2 { . vars_aux statement_aux }
+    (135) vars_aux -> . vars
+    (136) vars_aux -> . empty
     (24) vars -> . var vars
     (25) vars -> . var
-    (138) empty -> .
+    (140) empty -> .
     (26) var -> . datatype var1
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
 
   ! shift/reduce conflict for MAP resolved as shift
-    READ            reduce using rule 138 (empty -> .)
-    PRINT           reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    RETURN          reduce using rule 138 (empty -> .)
-    IF              reduce using rule 138 (empty -> .)
-    WHILE           reduce using rule 138 (empty -> .)
-    }               reduce using rule 138 (empty -> .)
+    READ            reduce using rule 140 (empty -> .)
+    PRINT           reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    RETURN          reduce using rule 140 (empty -> .)
+    IF              reduce using rule 140 (empty -> .)
+    WHILE           reduce using rule 140 (empty -> .)
+    }               reduce using rule 140 (empty -> .)
     INT             shift and go to state 22
     FLOAT           shift and go to state 21
     BOOL            shift and go to state 23
@@ -1251,7 +1255,7 @@ state 62
     SET             shift and go to state 9
     MAP             shift and go to state 18
 
-  ! MAP             [ reduce using rule 138 (empty -> .) ]
+  ! MAP             [ reduce using rule 140 (empty -> .) ]
 
     set_definition                 shift and go to state 19
     vars                           shift and go to state 69
@@ -1275,7 +1279,7 @@ state 64
     (23) proc4 -> . empty
     (61) statement -> . statement1 ;
     (62) statement -> . statement2
-    (138) empty -> .
+    (140) empty -> .
     (63) statement1 -> . assignment
     (64) statement1 -> . input
     (65) statement1 -> . output
@@ -1291,17 +1295,17 @@ state 64
     (46) output -> . PRINT ( n_output_quad output1 )
     (59) container_operation -> . ID . OP_ARGS ( expression )
     (60) container_operation -> . ID . OP ( )
-    (135) map_definition -> . MAP < datatype , datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
     (58) return -> . RETURN expression
-    (137) map_assignment -> . map_access ASSIGNATOR exp
+    (139) map_assignment -> . map_access ASSIGNATOR exp
     (50) function_call -> . n_era_size function_call1 )
     (33) condition -> . IF ( expression n_while_2 ) block condition1
     (38) while -> . WHILE n_while_1 ( expression ) n_while_2 block n_while_3
     (31) assignment2 -> . ID
-    (136) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ exp ]
     (51) n_era_size -> . ID (
 
-    }               reduce using rule 138 (empty -> .)
+    }               reduce using rule 140 (empty -> .)
     READ            shift and go to state 75
     PRINT           shift and go to state 79
     ID              shift and go to state 92
@@ -1336,15 +1340,15 @@ state 65
     (20) proc3 -> . n_quad_counter proc4
     (26) var -> . datatype var1
     (21) n_quad_counter -> .
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
 
   ! shift/reduce conflict for MAP resolved as shift
     READ            reduce using rule 21 (n_quad_counter -> .)
@@ -1390,33 +1394,33 @@ state 67
 
 state 68
 
-    (135) map_definition -> MAP < datatype , datatype . >
+    (137) map_definition -> MAP < datatype , datatype . >
 
     >               shift and go to state 99
 
 
 state 69
 
-    (133) vars_aux -> vars .
+    (135) vars_aux -> vars .
 
-    READ            reduce using rule 133 (vars_aux -> vars .)
-    PRINT           reduce using rule 133 (vars_aux -> vars .)
-    ID              reduce using rule 133 (vars_aux -> vars .)
-    MAP             reduce using rule 133 (vars_aux -> vars .)
-    RETURN          reduce using rule 133 (vars_aux -> vars .)
-    IF              reduce using rule 133 (vars_aux -> vars .)
-    WHILE           reduce using rule 133 (vars_aux -> vars .)
-    }               reduce using rule 133 (vars_aux -> vars .)
+    READ            reduce using rule 135 (vars_aux -> vars .)
+    PRINT           reduce using rule 135 (vars_aux -> vars .)
+    ID              reduce using rule 135 (vars_aux -> vars .)
+    MAP             reduce using rule 135 (vars_aux -> vars .)
+    RETURN          reduce using rule 135 (vars_aux -> vars .)
+    IF              reduce using rule 135 (vars_aux -> vars .)
+    WHILE           reduce using rule 135 (vars_aux -> vars .)
+    }               reduce using rule 135 (vars_aux -> vars .)
 
 
 state 70
 
-    (130) main -> MAIN n_clear_scope n_main_quad2 { vars_aux . statement_aux }
-    (128) statement_aux -> . statement statement_aux
-    (129) statement_aux -> . empty
+    (132) main -> MAIN n_clear_scope n_main_quad2 { vars_aux . statement_aux }
+    (130) statement_aux -> . statement statement_aux
+    (131) statement_aux -> . empty
     (61) statement -> . statement1 ;
     (62) statement -> . statement2
-    (138) empty -> .
+    (140) empty -> .
     (63) statement1 -> . assignment
     (64) statement1 -> . input
     (65) statement1 -> . output
@@ -1432,17 +1436,17 @@ state 70
     (46) output -> . PRINT ( n_output_quad output1 )
     (59) container_operation -> . ID . OP_ARGS ( expression )
     (60) container_operation -> . ID . OP ( )
-    (135) map_definition -> . MAP < datatype , datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
     (58) return -> . RETURN expression
-    (137) map_assignment -> . map_access ASSIGNATOR exp
+    (139) map_assignment -> . map_access ASSIGNATOR exp
     (50) function_call -> . n_era_size function_call1 )
     (33) condition -> . IF ( expression n_while_2 ) block condition1
     (38) while -> . WHILE n_while_1 ( expression ) n_while_2 block n_while_3
     (31) assignment2 -> . ID
-    (136) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ exp ]
     (51) n_era_size -> . ID (
 
-    }               reduce using rule 138 (empty -> .)
+    }               reduce using rule 140 (empty -> .)
     READ            shift and go to state 75
     PRINT           shift and go to state 79
     ID              shift and go to state 92
@@ -1477,15 +1481,15 @@ state 71
     (24) vars -> . var vars
     (25) vars -> . var
     (26) var -> . datatype var1
-    (119) datatype -> . INT
-    (120) datatype -> . FLOAT
-    (121) datatype -> . BOOL
-    (122) datatype -> . STRING
-    (123) datatype -> . CHAR
-    (124) datatype -> . set_definition
-    (125) datatype -> . map_definition
-    (126) set_definition -> . SET < datatype >
-    (135) map_definition -> . MAP < datatype , datatype >
+    (121) datatype -> . INT
+    (122) datatype -> . FLOAT
+    (123) datatype -> . BOOL
+    (124) datatype -> . STRING
+    (125) datatype -> . CHAR
+    (126) datatype -> . set_definition
+    (127) datatype -> . map_definition
+    (128) set_definition -> . SET < datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
 
   ! shift/reduce conflict for MAP resolved as shift
     READ            reduce using rule 25 (vars -> var .)
@@ -1513,16 +1517,16 @@ state 71
 
 state 72
 
-    (134) vars_aux -> empty .
+    (136) vars_aux -> empty .
 
-    READ            reduce using rule 134 (vars_aux -> empty .)
-    PRINT           reduce using rule 134 (vars_aux -> empty .)
-    ID              reduce using rule 134 (vars_aux -> empty .)
-    MAP             reduce using rule 134 (vars_aux -> empty .)
-    RETURN          reduce using rule 134 (vars_aux -> empty .)
-    IF              reduce using rule 134 (vars_aux -> empty .)
-    WHILE           reduce using rule 134 (vars_aux -> empty .)
-    }               reduce using rule 134 (vars_aux -> empty .)
+    READ            reduce using rule 136 (vars_aux -> empty .)
+    PRINT           reduce using rule 136 (vars_aux -> empty .)
+    ID              reduce using rule 136 (vars_aux -> empty .)
+    MAP             reduce using rule 136 (vars_aux -> empty .)
+    RETURN          reduce using rule 136 (vars_aux -> empty .)
+    IF              reduce using rule 136 (vars_aux -> empty .)
+    WHILE           reduce using rule 136 (vars_aux -> empty .)
+    }               reduce using rule 136 (vars_aux -> empty .)
 
 
 state 73
@@ -1546,19 +1550,19 @@ state 74
     (81) expression -> . exp0 expression2
     (85) exp0 -> . exp exp02
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
@@ -1613,7 +1617,7 @@ state 80
 
 state 81
 
-    (137) map_assignment -> map_access . ASSIGNATOR exp
+    (139) map_assignment -> map_access . ASSIGNATOR exp
 
     ASSIGNATOR      shift and go to state 114
 
@@ -1632,7 +1636,7 @@ state 83
     (23) proc4 -> . empty
     (61) statement -> . statement1 ;
     (62) statement -> . statement2
-    (138) empty -> .
+    (140) empty -> .
     (63) statement1 -> . assignment
     (64) statement1 -> . input
     (65) statement1 -> . output
@@ -1648,17 +1652,17 @@ state 83
     (46) output -> . PRINT ( n_output_quad output1 )
     (59) container_operation -> . ID . OP_ARGS ( expression )
     (60) container_operation -> . ID . OP ( )
-    (135) map_definition -> . MAP < datatype , datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
     (58) return -> . RETURN expression
-    (137) map_assignment -> . map_access ASSIGNATOR exp
+    (139) map_assignment -> . map_access ASSIGNATOR exp
     (50) function_call -> . n_era_size function_call1 )
     (33) condition -> . IF ( expression n_while_2 ) block condition1
     (38) while -> . WHILE n_while_1 ( expression ) n_while_2 block n_while_3
     (31) assignment2 -> . ID
-    (136) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ exp ]
     (51) n_era_size -> . ID (
 
-    }               reduce using rule 138 (empty -> .)
+    }               reduce using rule 140 (empty -> .)
     READ            shift and go to state 75
     PRINT           shift and go to state 79
     ID              shift and go to state 92
@@ -1733,25 +1737,25 @@ state 89
     (50) function_call -> n_era_size . function_call1 )
     (52) function_call1 -> . empty
     (53) function_call1 -> . function_call2
-    (138) empty -> .
+    (140) empty -> .
     (54) function_call2 -> . n_verify_argument , n_add_one_to_counter function_call2
     (55) function_call2 -> . n_verify_argument
     (57) n_verify_argument -> . expression
     (81) expression -> . exp0 expression2
     (85) exp0 -> . exp exp02
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
 
-    )               reduce using rule 138 (empty -> .)
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    )               reduce using rule 140 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
     !               shift and go to state 107
 
     term_not                       shift and go to state 104
@@ -1783,7 +1787,7 @@ state 92
     (59) container_operation -> ID . . OP_ARGS ( expression )
     (60) container_operation -> ID . . OP ( )
     (31) assignment2 -> ID .
-    (136) map_access -> ID . [ exp ]
+    (138) map_access -> ID . [ exp ]
     (51) n_era_size -> ID . (
 
     .               shift and go to state 124
@@ -1850,29 +1854,29 @@ state 98
 
 state 99
 
-    (135) map_definition -> MAP < datatype , datatype > .
+    (137) map_definition -> MAP < datatype , datatype > .
 
-    ;               reduce using rule 135 (map_definition -> MAP < datatype , datatype > .)
-    ID              reduce using rule 135 (map_definition -> MAP < datatype , datatype > .)
-    >               reduce using rule 135 (map_definition -> MAP < datatype , datatype > .)
-    ,               reduce using rule 135 (map_definition -> MAP < datatype , datatype > .)
+    ;               reduce using rule 137 (map_definition -> MAP < datatype , datatype > .)
+    ID              reduce using rule 137 (map_definition -> MAP < datatype , datatype > .)
+    >               reduce using rule 137 (map_definition -> MAP < datatype , datatype > .)
+    ,               reduce using rule 137 (map_definition -> MAP < datatype , datatype > .)
 
 
 state 100
 
-    (130) main -> MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux . }
+    (132) main -> MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux . }
 
     }               shift and go to state 127
 
 
 state 101
 
-    (128) statement_aux -> statement . statement_aux
-    (128) statement_aux -> . statement statement_aux
-    (129) statement_aux -> . empty
+    (130) statement_aux -> statement . statement_aux
+    (130) statement_aux -> . statement statement_aux
+    (131) statement_aux -> . empty
     (61) statement -> . statement1 ;
     (62) statement -> . statement2
-    (138) empty -> .
+    (140) empty -> .
     (63) statement1 -> . assignment
     (64) statement1 -> . input
     (65) statement1 -> . output
@@ -1888,17 +1892,17 @@ state 101
     (46) output -> . PRINT ( n_output_quad output1 )
     (59) container_operation -> . ID . OP_ARGS ( expression )
     (60) container_operation -> . ID . OP ( )
-    (135) map_definition -> . MAP < datatype , datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
     (58) return -> . RETURN expression
-    (137) map_assignment -> . map_access ASSIGNATOR exp
+    (139) map_assignment -> . map_access ASSIGNATOR exp
     (50) function_call -> . n_era_size function_call1 )
     (33) condition -> . IF ( expression n_while_2 ) block condition1
     (38) while -> . WHILE n_while_1 ( expression ) n_while_2 block n_while_3
     (31) assignment2 -> . ID
-    (136) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ exp ]
     (51) n_era_size -> . ID (
 
-    }               reduce using rule 138 (empty -> .)
+    }               reduce using rule 140 (empty -> .)
     READ            shift and go to state 75
     PRINT           shift and go to state 79
     ID              shift and go to state 92
@@ -1928,9 +1932,9 @@ state 101
 
 state 102
 
-    (129) statement_aux -> empty .
+    (131) statement_aux -> empty .
 
-    }               reduce using rule 129 (statement_aux -> empty .)
+    }               reduce using rule 131 (statement_aux -> empty .)
 
 
 state 103
@@ -1949,21 +1953,21 @@ state 103
 
 state 104
 
-    (95) term -> term_not . factor n_quad_muldiv term2
-    (103) factor -> . ( n_push_false_bottom expression ) n_pop_false_bottom
-    (104) factor -> . varcte
-    (107) varcte -> . ID empty
-    (108) varcte -> . varcte1
-    (109) varcte1 -> . CTE_INT
-    (110) varcte1 -> . CTE_FLOAT
-    (111) varcte1 -> . CTE_BOOL
-    (112) varcte1 -> . CTE_STRING
-    (113) varcte1 -> . CTE_CHAR
-    (114) varcte1 -> . function_call
-    (115) varcte1 -> . map_access
-    (116) varcte1 -> . container_operation
+    (97) term -> term_not . factor n_quad_muldiv term2
+    (105) factor -> . ( n_push_false_bottom expression ) n_pop_false_bottom
+    (106) factor -> . varcte
+    (109) varcte -> . ID empty
+    (110) varcte -> . varcte1
+    (111) varcte1 -> . CTE_INT
+    (112) varcte1 -> . CTE_FLOAT
+    (113) varcte1 -> . CTE_BOOL
+    (114) varcte1 -> . CTE_STRING
+    (115) varcte1 -> . CTE_CHAR
+    (116) varcte1 -> . function_call
+    (117) varcte1 -> . map_access
+    (118) varcte1 -> . container_operation
     (50) function_call -> . n_era_size function_call1 )
-    (136) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ exp ]
     (59) container_operation -> . ID . OP_ARGS ( expression )
     (60) container_operation -> . ID . OP ( )
     (51) n_era_size -> . ID (
@@ -1987,30 +1991,32 @@ state 104
 state 105
 
     (88) exp -> term . exp2
-    (93) exp2 -> . addsub term n_quad_addsub exp2
-    (94) exp2 -> . empty
+    (95) exp2 -> . addsub term n_quad_addsub exp2
+    (96) exp2 -> . empty
     (89) addsub -> . +
     (90) addsub -> . -
-    (138) empty -> .
+    (91) addsub -> . SET_MATH_ADDSUB
+    (140) empty -> .
 
     +               shift and go to state 143
     -               shift and go to state 144
-    <               reduce using rule 138 (empty -> .)
-    >               reduce using rule 138 (empty -> .)
-    NOT_EQ          reduce using rule 138 (empty -> .)
-    EQ              reduce using rule 138 (empty -> .)
-    LEQ             reduce using rule 138 (empty -> .)
-    GEQ             reduce using rule 138 (empty -> .)
-    OR              reduce using rule 138 (empty -> .)
-    AND             reduce using rule 138 (empty -> .)
-    ;               reduce using rule 138 (empty -> .)
-    ,               reduce using rule 138 (empty -> .)
-    )               reduce using rule 138 (empty -> .)
-    ]               reduce using rule 138 (empty -> .)
+    SET_MATH_ADDSUB shift and go to state 146
+    <               reduce using rule 140 (empty -> .)
+    >               reduce using rule 140 (empty -> .)
+    NOT_EQ          reduce using rule 140 (empty -> .)
+    EQ              reduce using rule 140 (empty -> .)
+    LEQ             reduce using rule 140 (empty -> .)
+    GEQ             reduce using rule 140 (empty -> .)
+    OR              reduce using rule 140 (empty -> .)
+    AND             reduce using rule 140 (empty -> .)
+    ;               reduce using rule 140 (empty -> .)
+    ,               reduce using rule 140 (empty -> .)
+    )               reduce using rule 140 (empty -> .)
+    ]               reduce using rule 140 (empty -> .)
 
     exp2                           shift and go to state 142
     addsub                         shift and go to state 145
-    empty                          shift and go to state 146
+    empty                          shift and go to state 147
 
 state 106
 
@@ -2019,29 +2025,29 @@ state 106
     (83) expression2 -> . empty
     (79) logop -> . OR
     (80) logop -> . AND
-    (138) empty -> .
+    (140) empty -> .
 
-    OR              shift and go to state 150
-    AND             shift and go to state 147
-    ;               reduce using rule 138 (empty -> .)
-    ,               reduce using rule 138 (empty -> .)
-    )               reduce using rule 138 (empty -> .)
+    OR              shift and go to state 151
+    AND             shift and go to state 148
+    ;               reduce using rule 140 (empty -> .)
+    ,               reduce using rule 140 (empty -> .)
+    )               reduce using rule 140 (empty -> .)
 
-    empty                          shift and go to state 151
-    expression2                    shift and go to state 149
-    logop                          shift and go to state 148
+    empty                          shift and go to state 152
+    expression2                    shift and go to state 150
+    logop                          shift and go to state 149
 
 state 107
 
-    (101) term_not -> ! .
+    (103) term_not -> ! .
 
-    (               reduce using rule 101 (term_not -> ! .)
-    ID              reduce using rule 101 (term_not -> ! .)
-    CTE_INT         reduce using rule 101 (term_not -> ! .)
-    CTE_FLOAT       reduce using rule 101 (term_not -> ! .)
-    CTE_BOOL        reduce using rule 101 (term_not -> ! .)
-    CTE_STRING      reduce using rule 101 (term_not -> ! .)
-    CTE_CHAR        reduce using rule 101 (term_not -> ! .)
+    (               reduce using rule 103 (term_not -> ! .)
+    ID              reduce using rule 103 (term_not -> ! .)
+    CTE_INT         reduce using rule 103 (term_not -> ! .)
+    CTE_FLOAT       reduce using rule 103 (term_not -> ! .)
+    CTE_BOOL        reduce using rule 103 (term_not -> ! .)
+    CTE_STRING      reduce using rule 103 (term_not -> ! .)
+    CTE_CHAR        reduce using rule 103 (term_not -> ! .)
 
 
 state 108
@@ -2055,23 +2061,23 @@ state 108
     (76) relop -> . EQ
     (77) relop -> . LEQ
     (78) relop -> . GEQ
-    (138) empty -> .
+    (140) empty -> .
 
-    <               shift and go to state 158
-    >               shift and go to state 160
-    NOT_EQ          shift and go to state 154
-    EQ              shift and go to state 157
-    LEQ             shift and go to state 155
-    GEQ             shift and go to state 152
-    OR              reduce using rule 138 (empty -> .)
-    AND             reduce using rule 138 (empty -> .)
-    ;               reduce using rule 138 (empty -> .)
-    ,               reduce using rule 138 (empty -> .)
-    )               reduce using rule 138 (empty -> .)
+    <               shift and go to state 159
+    >               shift and go to state 161
+    NOT_EQ          shift and go to state 155
+    EQ              shift and go to state 158
+    LEQ             shift and go to state 156
+    GEQ             shift and go to state 153
+    OR              reduce using rule 140 (empty -> .)
+    AND             reduce using rule 140 (empty -> .)
+    ;               reduce using rule 140 (empty -> .)
+    ,               reduce using rule 140 (empty -> .)
+    )               reduce using rule 140 (empty -> .)
 
-    exp02                          shift and go to state 156
-    empty                          shift and go to state 159
-    relop                          shift and go to state 153
+    exp02                          shift and go to state 157
+    empty                          shift and go to state 160
+    relop                          shift and go to state 154
 
 state 109
 
@@ -2082,15 +2088,15 @@ state 109
 
 state 110
 
-    (102) term_not -> empty .
+    (104) term_not -> empty .
 
-    (               reduce using rule 102 (term_not -> empty .)
-    ID              reduce using rule 102 (term_not -> empty .)
-    CTE_INT         reduce using rule 102 (term_not -> empty .)
-    CTE_FLOAT       reduce using rule 102 (term_not -> empty .)
-    CTE_BOOL        reduce using rule 102 (term_not -> empty .)
-    CTE_STRING      reduce using rule 102 (term_not -> empty .)
-    CTE_CHAR        reduce using rule 102 (term_not -> empty .)
+    (               reduce using rule 104 (term_not -> empty .)
+    ID              reduce using rule 104 (term_not -> empty .)
+    CTE_INT         reduce using rule 104 (term_not -> empty .)
+    CTE_FLOAT       reduce using rule 104 (term_not -> empty .)
+    CTE_BOOL        reduce using rule 104 (term_not -> empty .)
+    CTE_STRING      reduce using rule 104 (term_not -> empty .)
+    CTE_CHAR        reduce using rule 104 (term_not -> empty .)
 
 
 state 111
@@ -2098,15 +2104,15 @@ state 111
     (42) input -> READ ( . n_process_read input1 )
     (45) n_process_read -> . ID
 
-    ID              shift and go to state 162
+    ID              shift and go to state 163
 
-    n_process_read                 shift and go to state 161
+    n_process_read                 shift and go to state 162
 
 state 112
 
     (38) while -> WHILE n_while_1 . ( expression ) n_while_2 block n_while_3
 
-    (               shift and go to state 163
+    (               shift and go to state 164
 
 
 state 113
@@ -2116,49 +2122,49 @@ state 113
     (81) expression -> . exp0 expression2
     (85) exp0 -> . exp exp02
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
     exp0                           shift and go to state 106
-    n_output_quad                  shift and go to state 164
+    n_output_quad                  shift and go to state 165
     exp                            shift and go to state 108
-    expression                     shift and go to state 165
+    expression                     shift and go to state 166
     empty                          shift and go to state 110
 
 state 114
 
-    (137) map_assignment -> map_access ASSIGNATOR . exp
+    (139) map_assignment -> map_access ASSIGNATOR . exp
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
-    exp                            shift and go to state 166
+    exp                            shift and go to state 167
     empty                          shift and go to state 110
 
 state 115
@@ -2175,7 +2181,7 @@ state 115
     CTE_STRING      reduce using rule 32 (n_quad_assign -> .)
     CTE_CHAR        reduce using rule 32 (n_quad_assign -> .)
 
-    n_quad_assign                  shift and go to state 167
+    n_quad_assign                  shift and go to state 168
 
 state 116
 
@@ -2209,7 +2215,7 @@ state 119
 
     (50) function_call -> n_era_size function_call1 . )
 
-    )               shift and go to state 168
+    )               shift and go to state 169
 
 
 state 120
@@ -2225,23 +2231,23 @@ state 121
     (54) function_call2 -> n_verify_argument . , n_add_one_to_counter function_call2
     (55) function_call2 -> n_verify_argument .
 
-    ,               shift and go to state 169
+    ,               shift and go to state 170
     )               reduce using rule 55 (function_call2 -> n_verify_argument .)
 
 
 state 122
 
     (52) function_call1 -> empty .
-    (102) term_not -> empty .
+    (104) term_not -> empty .
 
     )               reduce using rule 52 (function_call1 -> empty .)
-    (               reduce using rule 102 (term_not -> empty .)
-    ID              reduce using rule 102 (term_not -> empty .)
-    CTE_INT         reduce using rule 102 (term_not -> empty .)
-    CTE_FLOAT       reduce using rule 102 (term_not -> empty .)
-    CTE_BOOL        reduce using rule 102 (term_not -> empty .)
-    CTE_STRING      reduce using rule 102 (term_not -> empty .)
-    CTE_CHAR        reduce using rule 102 (term_not -> empty .)
+    (               reduce using rule 104 (term_not -> empty .)
+    ID              reduce using rule 104 (term_not -> empty .)
+    CTE_INT         reduce using rule 104 (term_not -> empty .)
+    CTE_FLOAT       reduce using rule 104 (term_not -> empty .)
+    CTE_BOOL        reduce using rule 104 (term_not -> empty .)
+    CTE_STRING      reduce using rule 104 (term_not -> empty .)
+    CTE_CHAR        reduce using rule 104 (term_not -> empty .)
 
 
 state 123
@@ -2264,31 +2270,31 @@ state 124
     (59) container_operation -> ID . . OP_ARGS ( expression )
     (60) container_operation -> ID . . OP ( )
 
-    OP_ARGS         shift and go to state 170
-    OP              shift and go to state 171
+    OP_ARGS         shift and go to state 171
+    OP              shift and go to state 172
 
 
 state 125
 
-    (136) map_access -> ID [ . exp ]
+    (138) map_access -> ID [ . exp ]
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
-    exp                            shift and go to state 172
+    exp                            shift and go to state 173
     empty                          shift and go to state 110
 
 state 126
@@ -2297,330 +2303,354 @@ state 126
     (81) expression -> . exp0 expression2
     (85) exp0 -> . exp exp02
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
     exp                            shift and go to state 108
     exp0                           shift and go to state 106
     empty                          shift and go to state 110
-    expression                     shift and go to state 173
+    expression                     shift and go to state 174
 
 state 127
 
-    (130) main -> MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux } .
+    (132) main -> MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux } .
 
-    $end            reduce using rule 130 (main -> MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux } .)
+    $end            reduce using rule 132 (main -> MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux } .)
 
 
 state 128
 
-    (128) statement_aux -> statement statement_aux .
+    (130) statement_aux -> statement statement_aux .
 
-    }               reduce using rule 128 (statement_aux -> statement statement_aux .)
+    }               reduce using rule 130 (statement_aux -> statement statement_aux .)
 
 
 state 129
 
-    (114) varcte1 -> function_call .
+    (116) varcte1 -> function_call .
 
-    *               reduce using rule 114 (varcte1 -> function_call .)
-    /               reduce using rule 114 (varcte1 -> function_call .)
-    +               reduce using rule 114 (varcte1 -> function_call .)
-    -               reduce using rule 114 (varcte1 -> function_call .)
-    <               reduce using rule 114 (varcte1 -> function_call .)
-    >               reduce using rule 114 (varcte1 -> function_call .)
-    NOT_EQ          reduce using rule 114 (varcte1 -> function_call .)
-    EQ              reduce using rule 114 (varcte1 -> function_call .)
-    LEQ             reduce using rule 114 (varcte1 -> function_call .)
-    GEQ             reduce using rule 114 (varcte1 -> function_call .)
-    OR              reduce using rule 114 (varcte1 -> function_call .)
-    AND             reduce using rule 114 (varcte1 -> function_call .)
-    ;               reduce using rule 114 (varcte1 -> function_call .)
-    ,               reduce using rule 114 (varcte1 -> function_call .)
-    )               reduce using rule 114 (varcte1 -> function_call .)
-    ]               reduce using rule 114 (varcte1 -> function_call .)
+    *               reduce using rule 116 (varcte1 -> function_call .)
+    /               reduce using rule 116 (varcte1 -> function_call .)
+    SET_MATH_MULDIV reduce using rule 116 (varcte1 -> function_call .)
+    +               reduce using rule 116 (varcte1 -> function_call .)
+    -               reduce using rule 116 (varcte1 -> function_call .)
+    SET_MATH_ADDSUB reduce using rule 116 (varcte1 -> function_call .)
+    <               reduce using rule 116 (varcte1 -> function_call .)
+    >               reduce using rule 116 (varcte1 -> function_call .)
+    NOT_EQ          reduce using rule 116 (varcte1 -> function_call .)
+    EQ              reduce using rule 116 (varcte1 -> function_call .)
+    LEQ             reduce using rule 116 (varcte1 -> function_call .)
+    GEQ             reduce using rule 116 (varcte1 -> function_call .)
+    OR              reduce using rule 116 (varcte1 -> function_call .)
+    AND             reduce using rule 116 (varcte1 -> function_call .)
+    ;               reduce using rule 116 (varcte1 -> function_call .)
+    ,               reduce using rule 116 (varcte1 -> function_call .)
+    )               reduce using rule 116 (varcte1 -> function_call .)
+    ]               reduce using rule 116 (varcte1 -> function_call .)
 
 
 state 130
 
-    (108) varcte -> varcte1 .
+    (110) varcte -> varcte1 .
 
-    *               reduce using rule 108 (varcte -> varcte1 .)
-    /               reduce using rule 108 (varcte -> varcte1 .)
-    +               reduce using rule 108 (varcte -> varcte1 .)
-    -               reduce using rule 108 (varcte -> varcte1 .)
-    <               reduce using rule 108 (varcte -> varcte1 .)
-    >               reduce using rule 108 (varcte -> varcte1 .)
-    NOT_EQ          reduce using rule 108 (varcte -> varcte1 .)
-    EQ              reduce using rule 108 (varcte -> varcte1 .)
-    LEQ             reduce using rule 108 (varcte -> varcte1 .)
-    GEQ             reduce using rule 108 (varcte -> varcte1 .)
-    OR              reduce using rule 108 (varcte -> varcte1 .)
-    AND             reduce using rule 108 (varcte -> varcte1 .)
-    ;               reduce using rule 108 (varcte -> varcte1 .)
-    ,               reduce using rule 108 (varcte -> varcte1 .)
-    )               reduce using rule 108 (varcte -> varcte1 .)
-    ]               reduce using rule 108 (varcte -> varcte1 .)
+    *               reduce using rule 110 (varcte -> varcte1 .)
+    /               reduce using rule 110 (varcte -> varcte1 .)
+    SET_MATH_MULDIV reduce using rule 110 (varcte -> varcte1 .)
+    +               reduce using rule 110 (varcte -> varcte1 .)
+    -               reduce using rule 110 (varcte -> varcte1 .)
+    SET_MATH_ADDSUB reduce using rule 110 (varcte -> varcte1 .)
+    <               reduce using rule 110 (varcte -> varcte1 .)
+    >               reduce using rule 110 (varcte -> varcte1 .)
+    NOT_EQ          reduce using rule 110 (varcte -> varcte1 .)
+    EQ              reduce using rule 110 (varcte -> varcte1 .)
+    LEQ             reduce using rule 110 (varcte -> varcte1 .)
+    GEQ             reduce using rule 110 (varcte -> varcte1 .)
+    OR              reduce using rule 110 (varcte -> varcte1 .)
+    AND             reduce using rule 110 (varcte -> varcte1 .)
+    ;               reduce using rule 110 (varcte -> varcte1 .)
+    ,               reduce using rule 110 (varcte -> varcte1 .)
+    )               reduce using rule 110 (varcte -> varcte1 .)
+    ]               reduce using rule 110 (varcte -> varcte1 .)
 
 
 state 131
 
-    (104) factor -> varcte .
+    (106) factor -> varcte .
 
-    *               reduce using rule 104 (factor -> varcte .)
-    /               reduce using rule 104 (factor -> varcte .)
-    +               reduce using rule 104 (factor -> varcte .)
-    -               reduce using rule 104 (factor -> varcte .)
-    <               reduce using rule 104 (factor -> varcte .)
-    >               reduce using rule 104 (factor -> varcte .)
-    NOT_EQ          reduce using rule 104 (factor -> varcte .)
-    EQ              reduce using rule 104 (factor -> varcte .)
-    LEQ             reduce using rule 104 (factor -> varcte .)
-    GEQ             reduce using rule 104 (factor -> varcte .)
-    OR              reduce using rule 104 (factor -> varcte .)
-    AND             reduce using rule 104 (factor -> varcte .)
-    ;               reduce using rule 104 (factor -> varcte .)
-    ,               reduce using rule 104 (factor -> varcte .)
-    )               reduce using rule 104 (factor -> varcte .)
-    ]               reduce using rule 104 (factor -> varcte .)
+    *               reduce using rule 106 (factor -> varcte .)
+    /               reduce using rule 106 (factor -> varcte .)
+    SET_MATH_MULDIV reduce using rule 106 (factor -> varcte .)
+    +               reduce using rule 106 (factor -> varcte .)
+    -               reduce using rule 106 (factor -> varcte .)
+    SET_MATH_ADDSUB reduce using rule 106 (factor -> varcte .)
+    <               reduce using rule 106 (factor -> varcte .)
+    >               reduce using rule 106 (factor -> varcte .)
+    NOT_EQ          reduce using rule 106 (factor -> varcte .)
+    EQ              reduce using rule 106 (factor -> varcte .)
+    LEQ             reduce using rule 106 (factor -> varcte .)
+    GEQ             reduce using rule 106 (factor -> varcte .)
+    OR              reduce using rule 106 (factor -> varcte .)
+    AND             reduce using rule 106 (factor -> varcte .)
+    ;               reduce using rule 106 (factor -> varcte .)
+    ,               reduce using rule 106 (factor -> varcte .)
+    )               reduce using rule 106 (factor -> varcte .)
+    ]               reduce using rule 106 (factor -> varcte .)
 
 
 state 132
 
-    (115) varcte1 -> map_access .
+    (117) varcte1 -> map_access .
 
-    *               reduce using rule 115 (varcte1 -> map_access .)
-    /               reduce using rule 115 (varcte1 -> map_access .)
-    +               reduce using rule 115 (varcte1 -> map_access .)
-    -               reduce using rule 115 (varcte1 -> map_access .)
-    <               reduce using rule 115 (varcte1 -> map_access .)
-    >               reduce using rule 115 (varcte1 -> map_access .)
-    NOT_EQ          reduce using rule 115 (varcte1 -> map_access .)
-    EQ              reduce using rule 115 (varcte1 -> map_access .)
-    LEQ             reduce using rule 115 (varcte1 -> map_access .)
-    GEQ             reduce using rule 115 (varcte1 -> map_access .)
-    OR              reduce using rule 115 (varcte1 -> map_access .)
-    AND             reduce using rule 115 (varcte1 -> map_access .)
-    ;               reduce using rule 115 (varcte1 -> map_access .)
-    ,               reduce using rule 115 (varcte1 -> map_access .)
-    )               reduce using rule 115 (varcte1 -> map_access .)
-    ]               reduce using rule 115 (varcte1 -> map_access .)
+    *               reduce using rule 117 (varcte1 -> map_access .)
+    /               reduce using rule 117 (varcte1 -> map_access .)
+    SET_MATH_MULDIV reduce using rule 117 (varcte1 -> map_access .)
+    +               reduce using rule 117 (varcte1 -> map_access .)
+    -               reduce using rule 117 (varcte1 -> map_access .)
+    SET_MATH_ADDSUB reduce using rule 117 (varcte1 -> map_access .)
+    <               reduce using rule 117 (varcte1 -> map_access .)
+    >               reduce using rule 117 (varcte1 -> map_access .)
+    NOT_EQ          reduce using rule 117 (varcte1 -> map_access .)
+    EQ              reduce using rule 117 (varcte1 -> map_access .)
+    LEQ             reduce using rule 117 (varcte1 -> map_access .)
+    GEQ             reduce using rule 117 (varcte1 -> map_access .)
+    OR              reduce using rule 117 (varcte1 -> map_access .)
+    AND             reduce using rule 117 (varcte1 -> map_access .)
+    ;               reduce using rule 117 (varcte1 -> map_access .)
+    ,               reduce using rule 117 (varcte1 -> map_access .)
+    )               reduce using rule 117 (varcte1 -> map_access .)
+    ]               reduce using rule 117 (varcte1 -> map_access .)
 
 
 state 133
 
-    (103) factor -> ( . n_push_false_bottom expression ) n_pop_false_bottom
-    (105) n_push_false_bottom -> .
+    (105) factor -> ( . n_push_false_bottom expression ) n_pop_false_bottom
+    (107) n_push_false_bottom -> .
 
-    !               reduce using rule 105 (n_push_false_bottom -> .)
-    (               reduce using rule 105 (n_push_false_bottom -> .)
-    ID              reduce using rule 105 (n_push_false_bottom -> .)
-    CTE_INT         reduce using rule 105 (n_push_false_bottom -> .)
-    CTE_FLOAT       reduce using rule 105 (n_push_false_bottom -> .)
-    CTE_BOOL        reduce using rule 105 (n_push_false_bottom -> .)
-    CTE_STRING      reduce using rule 105 (n_push_false_bottom -> .)
-    CTE_CHAR        reduce using rule 105 (n_push_false_bottom -> .)
+    !               reduce using rule 107 (n_push_false_bottom -> .)
+    (               reduce using rule 107 (n_push_false_bottom -> .)
+    ID              reduce using rule 107 (n_push_false_bottom -> .)
+    CTE_INT         reduce using rule 107 (n_push_false_bottom -> .)
+    CTE_FLOAT       reduce using rule 107 (n_push_false_bottom -> .)
+    CTE_BOOL        reduce using rule 107 (n_push_false_bottom -> .)
+    CTE_STRING      reduce using rule 107 (n_push_false_bottom -> .)
+    CTE_CHAR        reduce using rule 107 (n_push_false_bottom -> .)
 
-    n_push_false_bottom            shift and go to state 174
+    n_push_false_bottom            shift and go to state 175
 
 state 134
 
-    (95) term -> term_not factor . n_quad_muldiv term2
-    (96) n_quad_muldiv -> .
+    (97) term -> term_not factor . n_quad_muldiv term2
+    (98) n_quad_muldiv -> .
 
-    *               reduce using rule 96 (n_quad_muldiv -> .)
-    /               reduce using rule 96 (n_quad_muldiv -> .)
-    +               reduce using rule 96 (n_quad_muldiv -> .)
-    -               reduce using rule 96 (n_quad_muldiv -> .)
-    <               reduce using rule 96 (n_quad_muldiv -> .)
-    >               reduce using rule 96 (n_quad_muldiv -> .)
-    NOT_EQ          reduce using rule 96 (n_quad_muldiv -> .)
-    EQ              reduce using rule 96 (n_quad_muldiv -> .)
-    LEQ             reduce using rule 96 (n_quad_muldiv -> .)
-    GEQ             reduce using rule 96 (n_quad_muldiv -> .)
-    OR              reduce using rule 96 (n_quad_muldiv -> .)
-    AND             reduce using rule 96 (n_quad_muldiv -> .)
-    ;               reduce using rule 96 (n_quad_muldiv -> .)
-    ,               reduce using rule 96 (n_quad_muldiv -> .)
-    )               reduce using rule 96 (n_quad_muldiv -> .)
-    ]               reduce using rule 96 (n_quad_muldiv -> .)
+    *               reduce using rule 98 (n_quad_muldiv -> .)
+    /               reduce using rule 98 (n_quad_muldiv -> .)
+    SET_MATH_MULDIV reduce using rule 98 (n_quad_muldiv -> .)
+    +               reduce using rule 98 (n_quad_muldiv -> .)
+    -               reduce using rule 98 (n_quad_muldiv -> .)
+    SET_MATH_ADDSUB reduce using rule 98 (n_quad_muldiv -> .)
+    <               reduce using rule 98 (n_quad_muldiv -> .)
+    >               reduce using rule 98 (n_quad_muldiv -> .)
+    NOT_EQ          reduce using rule 98 (n_quad_muldiv -> .)
+    EQ              reduce using rule 98 (n_quad_muldiv -> .)
+    LEQ             reduce using rule 98 (n_quad_muldiv -> .)
+    GEQ             reduce using rule 98 (n_quad_muldiv -> .)
+    OR              reduce using rule 98 (n_quad_muldiv -> .)
+    AND             reduce using rule 98 (n_quad_muldiv -> .)
+    ;               reduce using rule 98 (n_quad_muldiv -> .)
+    ,               reduce using rule 98 (n_quad_muldiv -> .)
+    )               reduce using rule 98 (n_quad_muldiv -> .)
+    ]               reduce using rule 98 (n_quad_muldiv -> .)
 
-    n_quad_muldiv                  shift and go to state 175
+    n_quad_muldiv                  shift and go to state 176
 
 state 135
 
-    (113) varcte1 -> CTE_CHAR .
+    (115) varcte1 -> CTE_CHAR .
 
-    *               reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    /               reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    +               reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    -               reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    <               reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    >               reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    NOT_EQ          reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    EQ              reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    LEQ             reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    GEQ             reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    OR              reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    AND             reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    ;               reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    ,               reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    )               reduce using rule 113 (varcte1 -> CTE_CHAR .)
-    ]               reduce using rule 113 (varcte1 -> CTE_CHAR .)
+    *               reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    /               reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    SET_MATH_MULDIV reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    +               reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    -               reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    SET_MATH_ADDSUB reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    <               reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    >               reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    NOT_EQ          reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    EQ              reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    LEQ             reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    GEQ             reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    OR              reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    AND             reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    ;               reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    ,               reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    )               reduce using rule 115 (varcte1 -> CTE_CHAR .)
+    ]               reduce using rule 115 (varcte1 -> CTE_CHAR .)
 
 
 state 136
 
-    (116) varcte1 -> container_operation .
+    (118) varcte1 -> container_operation .
 
-    *               reduce using rule 116 (varcte1 -> container_operation .)
-    /               reduce using rule 116 (varcte1 -> container_operation .)
-    +               reduce using rule 116 (varcte1 -> container_operation .)
-    -               reduce using rule 116 (varcte1 -> container_operation .)
-    <               reduce using rule 116 (varcte1 -> container_operation .)
-    >               reduce using rule 116 (varcte1 -> container_operation .)
-    NOT_EQ          reduce using rule 116 (varcte1 -> container_operation .)
-    EQ              reduce using rule 116 (varcte1 -> container_operation .)
-    LEQ             reduce using rule 116 (varcte1 -> container_operation .)
-    GEQ             reduce using rule 116 (varcte1 -> container_operation .)
-    OR              reduce using rule 116 (varcte1 -> container_operation .)
-    AND             reduce using rule 116 (varcte1 -> container_operation .)
-    ;               reduce using rule 116 (varcte1 -> container_operation .)
-    ,               reduce using rule 116 (varcte1 -> container_operation .)
-    )               reduce using rule 116 (varcte1 -> container_operation .)
-    ]               reduce using rule 116 (varcte1 -> container_operation .)
+    *               reduce using rule 118 (varcte1 -> container_operation .)
+    /               reduce using rule 118 (varcte1 -> container_operation .)
+    SET_MATH_MULDIV reduce using rule 118 (varcte1 -> container_operation .)
+    +               reduce using rule 118 (varcte1 -> container_operation .)
+    -               reduce using rule 118 (varcte1 -> container_operation .)
+    SET_MATH_ADDSUB reduce using rule 118 (varcte1 -> container_operation .)
+    <               reduce using rule 118 (varcte1 -> container_operation .)
+    >               reduce using rule 118 (varcte1 -> container_operation .)
+    NOT_EQ          reduce using rule 118 (varcte1 -> container_operation .)
+    EQ              reduce using rule 118 (varcte1 -> container_operation .)
+    LEQ             reduce using rule 118 (varcte1 -> container_operation .)
+    GEQ             reduce using rule 118 (varcte1 -> container_operation .)
+    OR              reduce using rule 118 (varcte1 -> container_operation .)
+    AND             reduce using rule 118 (varcte1 -> container_operation .)
+    ;               reduce using rule 118 (varcte1 -> container_operation .)
+    ,               reduce using rule 118 (varcte1 -> container_operation .)
+    )               reduce using rule 118 (varcte1 -> container_operation .)
+    ]               reduce using rule 118 (varcte1 -> container_operation .)
 
 
 state 137
 
-    (109) varcte1 -> CTE_INT .
+    (111) varcte1 -> CTE_INT .
 
-    *               reduce using rule 109 (varcte1 -> CTE_INT .)
-    /               reduce using rule 109 (varcte1 -> CTE_INT .)
-    +               reduce using rule 109 (varcte1 -> CTE_INT .)
-    -               reduce using rule 109 (varcte1 -> CTE_INT .)
-    <               reduce using rule 109 (varcte1 -> CTE_INT .)
-    >               reduce using rule 109 (varcte1 -> CTE_INT .)
-    NOT_EQ          reduce using rule 109 (varcte1 -> CTE_INT .)
-    EQ              reduce using rule 109 (varcte1 -> CTE_INT .)
-    LEQ             reduce using rule 109 (varcte1 -> CTE_INT .)
-    GEQ             reduce using rule 109 (varcte1 -> CTE_INT .)
-    OR              reduce using rule 109 (varcte1 -> CTE_INT .)
-    AND             reduce using rule 109 (varcte1 -> CTE_INT .)
-    ;               reduce using rule 109 (varcte1 -> CTE_INT .)
-    ,               reduce using rule 109 (varcte1 -> CTE_INT .)
-    )               reduce using rule 109 (varcte1 -> CTE_INT .)
-    ]               reduce using rule 109 (varcte1 -> CTE_INT .)
+    *               reduce using rule 111 (varcte1 -> CTE_INT .)
+    /               reduce using rule 111 (varcte1 -> CTE_INT .)
+    SET_MATH_MULDIV reduce using rule 111 (varcte1 -> CTE_INT .)
+    +               reduce using rule 111 (varcte1 -> CTE_INT .)
+    -               reduce using rule 111 (varcte1 -> CTE_INT .)
+    SET_MATH_ADDSUB reduce using rule 111 (varcte1 -> CTE_INT .)
+    <               reduce using rule 111 (varcte1 -> CTE_INT .)
+    >               reduce using rule 111 (varcte1 -> CTE_INT .)
+    NOT_EQ          reduce using rule 111 (varcte1 -> CTE_INT .)
+    EQ              reduce using rule 111 (varcte1 -> CTE_INT .)
+    LEQ             reduce using rule 111 (varcte1 -> CTE_INT .)
+    GEQ             reduce using rule 111 (varcte1 -> CTE_INT .)
+    OR              reduce using rule 111 (varcte1 -> CTE_INT .)
+    AND             reduce using rule 111 (varcte1 -> CTE_INT .)
+    ;               reduce using rule 111 (varcte1 -> CTE_INT .)
+    ,               reduce using rule 111 (varcte1 -> CTE_INT .)
+    )               reduce using rule 111 (varcte1 -> CTE_INT .)
+    ]               reduce using rule 111 (varcte1 -> CTE_INT .)
 
 
 state 138
 
-    (107) varcte -> ID . empty
-    (136) map_access -> ID . [ exp ]
+    (109) varcte -> ID . empty
+    (138) map_access -> ID . [ exp ]
     (59) container_operation -> ID . . OP_ARGS ( expression )
     (60) container_operation -> ID . . OP ( )
     (51) n_era_size -> ID . (
-    (138) empty -> .
+    (140) empty -> .
 
     [               shift and go to state 125
     .               shift and go to state 124
     (               shift and go to state 123
-    *               reduce using rule 138 (empty -> .)
-    /               reduce using rule 138 (empty -> .)
-    +               reduce using rule 138 (empty -> .)
-    -               reduce using rule 138 (empty -> .)
-    <               reduce using rule 138 (empty -> .)
-    >               reduce using rule 138 (empty -> .)
-    NOT_EQ          reduce using rule 138 (empty -> .)
-    EQ              reduce using rule 138 (empty -> .)
-    LEQ             reduce using rule 138 (empty -> .)
-    GEQ             reduce using rule 138 (empty -> .)
-    OR              reduce using rule 138 (empty -> .)
-    AND             reduce using rule 138 (empty -> .)
-    ;               reduce using rule 138 (empty -> .)
-    ,               reduce using rule 138 (empty -> .)
-    )               reduce using rule 138 (empty -> .)
-    ]               reduce using rule 138 (empty -> .)
+    *               reduce using rule 140 (empty -> .)
+    /               reduce using rule 140 (empty -> .)
+    SET_MATH_MULDIV reduce using rule 140 (empty -> .)
+    +               reduce using rule 140 (empty -> .)
+    -               reduce using rule 140 (empty -> .)
+    SET_MATH_ADDSUB reduce using rule 140 (empty -> .)
+    <               reduce using rule 140 (empty -> .)
+    >               reduce using rule 140 (empty -> .)
+    NOT_EQ          reduce using rule 140 (empty -> .)
+    EQ              reduce using rule 140 (empty -> .)
+    LEQ             reduce using rule 140 (empty -> .)
+    GEQ             reduce using rule 140 (empty -> .)
+    OR              reduce using rule 140 (empty -> .)
+    AND             reduce using rule 140 (empty -> .)
+    ;               reduce using rule 140 (empty -> .)
+    ,               reduce using rule 140 (empty -> .)
+    )               reduce using rule 140 (empty -> .)
+    ]               reduce using rule 140 (empty -> .)
 
-    empty                          shift and go to state 176
+    empty                          shift and go to state 177
 
 state 139
 
-    (110) varcte1 -> CTE_FLOAT .
+    (112) varcte1 -> CTE_FLOAT .
 
-    *               reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    /               reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    +               reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    -               reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    <               reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    >               reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    NOT_EQ          reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    EQ              reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    LEQ             reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    GEQ             reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    OR              reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    AND             reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    ;               reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    ,               reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    )               reduce using rule 110 (varcte1 -> CTE_FLOAT .)
-    ]               reduce using rule 110 (varcte1 -> CTE_FLOAT .)
+    *               reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    /               reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    SET_MATH_MULDIV reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    +               reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    -               reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    SET_MATH_ADDSUB reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    <               reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    >               reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    NOT_EQ          reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    EQ              reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    LEQ             reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    GEQ             reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    OR              reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    AND             reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    ;               reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    ,               reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    )               reduce using rule 112 (varcte1 -> CTE_FLOAT .)
+    ]               reduce using rule 112 (varcte1 -> CTE_FLOAT .)
 
 
 state 140
 
-    (111) varcte1 -> CTE_BOOL .
+    (113) varcte1 -> CTE_BOOL .
 
-    *               reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    /               reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    +               reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    -               reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    <               reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    >               reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    NOT_EQ          reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    EQ              reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    LEQ             reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    GEQ             reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    OR              reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    AND             reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    ;               reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    ,               reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    )               reduce using rule 111 (varcte1 -> CTE_BOOL .)
-    ]               reduce using rule 111 (varcte1 -> CTE_BOOL .)
+    *               reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    /               reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    SET_MATH_MULDIV reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    +               reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    -               reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    SET_MATH_ADDSUB reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    <               reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    >               reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    NOT_EQ          reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    EQ              reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    LEQ             reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    GEQ             reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    OR              reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    AND             reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    ;               reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    ,               reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    )               reduce using rule 113 (varcte1 -> CTE_BOOL .)
+    ]               reduce using rule 113 (varcte1 -> CTE_BOOL .)
 
 
 state 141
 
-    (112) varcte1 -> CTE_STRING .
+    (114) varcte1 -> CTE_STRING .
 
-    *               reduce using rule 112 (varcte1 -> CTE_STRING .)
-    /               reduce using rule 112 (varcte1 -> CTE_STRING .)
-    +               reduce using rule 112 (varcte1 -> CTE_STRING .)
-    -               reduce using rule 112 (varcte1 -> CTE_STRING .)
-    <               reduce using rule 112 (varcte1 -> CTE_STRING .)
-    >               reduce using rule 112 (varcte1 -> CTE_STRING .)
-    NOT_EQ          reduce using rule 112 (varcte1 -> CTE_STRING .)
-    EQ              reduce using rule 112 (varcte1 -> CTE_STRING .)
-    LEQ             reduce using rule 112 (varcte1 -> CTE_STRING .)
-    GEQ             reduce using rule 112 (varcte1 -> CTE_STRING .)
-    OR              reduce using rule 112 (varcte1 -> CTE_STRING .)
-    AND             reduce using rule 112 (varcte1 -> CTE_STRING .)
-    ;               reduce using rule 112 (varcte1 -> CTE_STRING .)
-    ,               reduce using rule 112 (varcte1 -> CTE_STRING .)
-    )               reduce using rule 112 (varcte1 -> CTE_STRING .)
-    ]               reduce using rule 112 (varcte1 -> CTE_STRING .)
+    *               reduce using rule 114 (varcte1 -> CTE_STRING .)
+    /               reduce using rule 114 (varcte1 -> CTE_STRING .)
+    SET_MATH_MULDIV reduce using rule 114 (varcte1 -> CTE_STRING .)
+    +               reduce using rule 114 (varcte1 -> CTE_STRING .)
+    -               reduce using rule 114 (varcte1 -> CTE_STRING .)
+    SET_MATH_ADDSUB reduce using rule 114 (varcte1 -> CTE_STRING .)
+    <               reduce using rule 114 (varcte1 -> CTE_STRING .)
+    >               reduce using rule 114 (varcte1 -> CTE_STRING .)
+    NOT_EQ          reduce using rule 114 (varcte1 -> CTE_STRING .)
+    EQ              reduce using rule 114 (varcte1 -> CTE_STRING .)
+    LEQ             reduce using rule 114 (varcte1 -> CTE_STRING .)
+    GEQ             reduce using rule 114 (varcte1 -> CTE_STRING .)
+    OR              reduce using rule 114 (varcte1 -> CTE_STRING .)
+    AND             reduce using rule 114 (varcte1 -> CTE_STRING .)
+    ;               reduce using rule 114 (varcte1 -> CTE_STRING .)
+    ,               reduce using rule 114 (varcte1 -> CTE_STRING .)
+    )               reduce using rule 114 (varcte1 -> CTE_STRING .)
+    ]               reduce using rule 114 (varcte1 -> CTE_STRING .)
 
 
 state 142
@@ -2671,44 +2701,58 @@ state 144
 
 state 145
 
-    (93) exp2 -> addsub . term n_quad_addsub exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (95) exp2 -> addsub . term n_quad_addsub exp2
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
-    term                           shift and go to state 177
+    term                           shift and go to state 178
     empty                          shift and go to state 110
 
 state 146
 
-    (94) exp2 -> empty .
+    (91) addsub -> SET_MATH_ADDSUB .
 
-    <               reduce using rule 94 (exp2 -> empty .)
-    >               reduce using rule 94 (exp2 -> empty .)
-    NOT_EQ          reduce using rule 94 (exp2 -> empty .)
-    EQ              reduce using rule 94 (exp2 -> empty .)
-    LEQ             reduce using rule 94 (exp2 -> empty .)
-    GEQ             reduce using rule 94 (exp2 -> empty .)
-    OR              reduce using rule 94 (exp2 -> empty .)
-    AND             reduce using rule 94 (exp2 -> empty .)
-    ;               reduce using rule 94 (exp2 -> empty .)
-    ,               reduce using rule 94 (exp2 -> empty .)
-    )               reduce using rule 94 (exp2 -> empty .)
-    ]               reduce using rule 94 (exp2 -> empty .)
+    !               reduce using rule 91 (addsub -> SET_MATH_ADDSUB .)
+    (               reduce using rule 91 (addsub -> SET_MATH_ADDSUB .)
+    ID              reduce using rule 91 (addsub -> SET_MATH_ADDSUB .)
+    CTE_INT         reduce using rule 91 (addsub -> SET_MATH_ADDSUB .)
+    CTE_FLOAT       reduce using rule 91 (addsub -> SET_MATH_ADDSUB .)
+    CTE_BOOL        reduce using rule 91 (addsub -> SET_MATH_ADDSUB .)
+    CTE_STRING      reduce using rule 91 (addsub -> SET_MATH_ADDSUB .)
+    CTE_CHAR        reduce using rule 91 (addsub -> SET_MATH_ADDSUB .)
 
 
 state 147
+
+    (96) exp2 -> empty .
+
+    <               reduce using rule 96 (exp2 -> empty .)
+    >               reduce using rule 96 (exp2 -> empty .)
+    NOT_EQ          reduce using rule 96 (exp2 -> empty .)
+    EQ              reduce using rule 96 (exp2 -> empty .)
+    LEQ             reduce using rule 96 (exp2 -> empty .)
+    GEQ             reduce using rule 96 (exp2 -> empty .)
+    OR              reduce using rule 96 (exp2 -> empty .)
+    AND             reduce using rule 96 (exp2 -> empty .)
+    ;               reduce using rule 96 (exp2 -> empty .)
+    ,               reduce using rule 96 (exp2 -> empty .)
+    )               reduce using rule 96 (exp2 -> empty .)
+    ]               reduce using rule 96 (exp2 -> empty .)
+
+
+state 148
 
     (80) logop -> AND .
 
@@ -2722,32 +2766,32 @@ state 147
     CTE_CHAR        reduce using rule 80 (logop -> AND .)
 
 
-state 148
+state 149
 
     (82) expression2 -> logop . exp0 n_quad_logop expression2
     (85) exp0 -> . exp exp02
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
-    exp0                           shift and go to state 178
+    exp0                           shift and go to state 179
     term                           shift and go to state 105
     exp                            shift and go to state 108
     empty                          shift and go to state 110
 
-state 149
+state 150
 
     (81) expression -> exp0 expression2 .
 
@@ -2756,7 +2800,7 @@ state 149
     ,               reduce using rule 81 (expression -> exp0 expression2 .)
 
 
-state 150
+state 151
 
     (79) logop -> OR .
 
@@ -2770,7 +2814,7 @@ state 150
     CTE_CHAR        reduce using rule 79 (logop -> OR .)
 
 
-state 151
+state 152
 
     (83) expression2 -> empty .
 
@@ -2779,7 +2823,7 @@ state 151
     )               reduce using rule 83 (expression2 -> empty .)
 
 
-state 152
+state 153
 
     (78) relop -> GEQ .
 
@@ -2793,30 +2837,30 @@ state 152
     CTE_CHAR        reduce using rule 78 (relop -> GEQ .)
 
 
-state 153
+state 154
 
     (86) exp02 -> relop . exp
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
-    exp                            shift and go to state 179
+    exp                            shift and go to state 180
     empty                          shift and go to state 110
 
-state 154
+state 155
 
     (75) relop -> NOT_EQ .
 
@@ -2830,7 +2874,7 @@ state 154
     CTE_CHAR        reduce using rule 75 (relop -> NOT_EQ .)
 
 
-state 155
+state 156
 
     (77) relop -> LEQ .
 
@@ -2844,18 +2888,18 @@ state 155
     CTE_CHAR        reduce using rule 77 (relop -> LEQ .)
 
 
-state 156
+state 157
 
     (85) exp0 -> exp exp02 .
 
     OR              reduce using rule 85 (exp0 -> exp exp02 .)
     AND             reduce using rule 85 (exp0 -> exp exp02 .)
     )               reduce using rule 85 (exp0 -> exp exp02 .)
-    ,               reduce using rule 85 (exp0 -> exp exp02 .)
     ;               reduce using rule 85 (exp0 -> exp exp02 .)
+    ,               reduce using rule 85 (exp0 -> exp exp02 .)
 
 
-state 157
+state 158
 
     (76) relop -> EQ .
 
@@ -2869,7 +2913,7 @@ state 157
     CTE_CHAR        reduce using rule 76 (relop -> EQ .)
 
 
-state 158
+state 159
 
     (73) relop -> < .
 
@@ -2883,7 +2927,7 @@ state 158
     CTE_CHAR        reduce using rule 73 (relop -> < .)
 
 
-state 159
+state 160
 
     (87) exp02 -> empty .
 
@@ -2894,7 +2938,7 @@ state 159
     )               reduce using rule 87 (exp02 -> empty .)
 
 
-state 160
+state 161
 
     (74) relop -> > .
 
@@ -2908,20 +2952,20 @@ state 160
     CTE_CHAR        reduce using rule 74 (relop -> > .)
 
 
-state 161
+state 162
 
     (42) input -> READ ( n_process_read . input1 )
     (43) input1 -> . , n_process_read input1
     (44) input1 -> . empty
-    (138) empty -> .
+    (140) empty -> .
 
-    ,               shift and go to state 181
-    )               reduce using rule 138 (empty -> .)
+    ,               shift and go to state 182
+    )               reduce using rule 140 (empty -> .)
 
-    input1                         shift and go to state 180
-    empty                          shift and go to state 182
+    input1                         shift and go to state 181
+    empty                          shift and go to state 183
 
-state 162
+state 163
 
     (45) n_process_read -> ID .
 
@@ -2929,47 +2973,47 @@ state 162
     )               reduce using rule 45 (n_process_read -> ID .)
 
 
-state 163
+state 164
 
     (38) while -> WHILE n_while_1 ( . expression ) n_while_2 block n_while_3
     (81) expression -> . exp0 expression2
     (85) exp0 -> . exp exp02
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
     exp                            shift and go to state 108
     exp0                           shift and go to state 106
     empty                          shift and go to state 110
-    expression                     shift and go to state 183
+    expression                     shift and go to state 184
 
-state 164
+state 165
 
     (46) output -> PRINT ( n_output_quad . output1 )
     (47) output1 -> . , n_output_quad output1
     (48) output1 -> . empty
-    (138) empty -> .
+    (140) empty -> .
 
-    ,               shift and go to state 185
-    )               reduce using rule 138 (empty -> .)
+    ,               shift and go to state 186
+    )               reduce using rule 140 (empty -> .)
 
-    output1                        shift and go to state 184
-    empty                          shift and go to state 186
+    output1                        shift and go to state 185
+    empty                          shift and go to state 187
 
-state 165
+state 166
 
     (49) n_output_quad -> expression .
 
@@ -2977,49 +3021,51 @@ state 165
     )               reduce using rule 49 (n_output_quad -> expression .)
 
 
-state 166
-
-    (137) map_assignment -> map_access ASSIGNATOR exp .
-
-    ;               reduce using rule 137 (map_assignment -> map_access ASSIGNATOR exp .)
-
-
 state 167
+
+    (139) map_assignment -> map_access ASSIGNATOR exp .
+
+    ;               reduce using rule 139 (map_assignment -> map_access ASSIGNATOR exp .)
+
+
+state 168
 
     (30) assignment -> assignment2 ASSIGNATOR n_quad_assign . expression
     (81) expression -> . exp0 expression2
     (85) exp0 -> . exp exp02
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
     exp0                           shift and go to state 106
     exp                            shift and go to state 108
-    expression                     shift and go to state 187
+    expression                     shift and go to state 188
     empty                          shift and go to state 110
 
-state 168
+state 169
 
     (50) function_call -> n_era_size function_call1 ) .
 
     ;               reduce using rule 50 (function_call -> n_era_size function_call1 ) .)
     *               reduce using rule 50 (function_call -> n_era_size function_call1 ) .)
     /               reduce using rule 50 (function_call -> n_era_size function_call1 ) .)
+    SET_MATH_MULDIV reduce using rule 50 (function_call -> n_era_size function_call1 ) .)
     +               reduce using rule 50 (function_call -> n_era_size function_call1 ) .)
     -               reduce using rule 50 (function_call -> n_era_size function_call1 ) .)
+    SET_MATH_ADDSUB reduce using rule 50 (function_call -> n_era_size function_call1 ) .)
     <               reduce using rule 50 (function_call -> n_era_size function_call1 ) .)
     >               reduce using rule 50 (function_call -> n_era_size function_call1 ) .)
     NOT_EQ          reduce using rule 50 (function_call -> n_era_size function_call1 ) .)
@@ -3033,7 +3079,7 @@ state 168
     ]               reduce using rule 50 (function_call -> n_era_size function_call1 ) .)
 
 
-state 169
+state 170
 
     (54) function_call2 -> n_verify_argument , . n_add_one_to_counter function_call2
     (56) n_add_one_to_counter -> .
@@ -3047,140 +3093,146 @@ state 169
     CTE_STRING      reduce using rule 56 (n_add_one_to_counter -> .)
     CTE_CHAR        reduce using rule 56 (n_add_one_to_counter -> .)
 
-    n_add_one_to_counter           shift and go to state 188
-
-state 170
-
-    (59) container_operation -> ID . OP_ARGS . ( expression )
-
-    (               shift and go to state 189
-
+    n_add_one_to_counter           shift and go to state 189
 
 state 171
 
-    (60) container_operation -> ID . OP . ( )
+    (59) container_operation -> ID . OP_ARGS . ( expression )
 
     (               shift and go to state 190
 
 
 state 172
 
-    (136) map_access -> ID [ exp . ]
+    (60) container_operation -> ID . OP . ( )
 
-    ]               shift and go to state 191
+    (               shift and go to state 191
 
 
 state 173
+
+    (138) map_access -> ID [ exp . ]
+
+    ]               shift and go to state 192
+
+
+state 174
 
     (33) condition -> IF ( expression . n_while_2 ) block condition1
     (40) n_while_2 -> .
 
     )               reduce using rule 40 (n_while_2 -> .)
 
-    n_while_2                      shift and go to state 192
+    n_while_2                      shift and go to state 193
 
-state 174
+state 175
 
-    (103) factor -> ( n_push_false_bottom . expression ) n_pop_false_bottom
+    (105) factor -> ( n_push_false_bottom . expression ) n_pop_false_bottom
     (81) expression -> . exp0 expression2
     (85) exp0 -> . exp exp02
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
     exp0                           shift and go to state 106
     exp                            shift and go to state 108
-    expression                     shift and go to state 193
+    expression                     shift and go to state 194
     empty                          shift and go to state 110
-
-state 175
-
-    (95) term -> term_not factor n_quad_muldiv . term2
-    (98) term2 -> . muldiv factor n_quad_muldiv term2
-    (99) term2 -> . n_quad_not
-    (91) muldiv -> . *
-    (92) muldiv -> . /
-    (100) n_quad_not -> .
-
-    *               shift and go to state 195
-    /               shift and go to state 197
-    +               reduce using rule 100 (n_quad_not -> .)
-    -               reduce using rule 100 (n_quad_not -> .)
-    <               reduce using rule 100 (n_quad_not -> .)
-    >               reduce using rule 100 (n_quad_not -> .)
-    NOT_EQ          reduce using rule 100 (n_quad_not -> .)
-    EQ              reduce using rule 100 (n_quad_not -> .)
-    LEQ             reduce using rule 100 (n_quad_not -> .)
-    GEQ             reduce using rule 100 (n_quad_not -> .)
-    OR              reduce using rule 100 (n_quad_not -> .)
-    AND             reduce using rule 100 (n_quad_not -> .)
-    ;               reduce using rule 100 (n_quad_not -> .)
-    ,               reduce using rule 100 (n_quad_not -> .)
-    )               reduce using rule 100 (n_quad_not -> .)
-    ]               reduce using rule 100 (n_quad_not -> .)
-
-    term2                          shift and go to state 194
-    n_quad_not                     shift and go to state 196
-    muldiv                         shift and go to state 198
 
 state 176
 
-    (107) varcte -> ID empty .
+    (97) term -> term_not factor n_quad_muldiv . term2
+    (100) term2 -> . muldiv factor n_quad_muldiv term2
+    (101) term2 -> . n_quad_not
+    (92) muldiv -> . *
+    (93) muldiv -> . /
+    (94) muldiv -> . SET_MATH_MULDIV
+    (102) n_quad_not -> .
 
-    *               reduce using rule 107 (varcte -> ID empty .)
-    /               reduce using rule 107 (varcte -> ID empty .)
-    +               reduce using rule 107 (varcte -> ID empty .)
-    -               reduce using rule 107 (varcte -> ID empty .)
-    <               reduce using rule 107 (varcte -> ID empty .)
-    >               reduce using rule 107 (varcte -> ID empty .)
-    NOT_EQ          reduce using rule 107 (varcte -> ID empty .)
-    EQ              reduce using rule 107 (varcte -> ID empty .)
-    LEQ             reduce using rule 107 (varcte -> ID empty .)
-    GEQ             reduce using rule 107 (varcte -> ID empty .)
-    OR              reduce using rule 107 (varcte -> ID empty .)
-    AND             reduce using rule 107 (varcte -> ID empty .)
-    ;               reduce using rule 107 (varcte -> ID empty .)
-    ,               reduce using rule 107 (varcte -> ID empty .)
-    )               reduce using rule 107 (varcte -> ID empty .)
-    ]               reduce using rule 107 (varcte -> ID empty .)
+    *               shift and go to state 197
+    /               shift and go to state 199
+    SET_MATH_MULDIV shift and go to state 195
+    +               reduce using rule 102 (n_quad_not -> .)
+    -               reduce using rule 102 (n_quad_not -> .)
+    SET_MATH_ADDSUB reduce using rule 102 (n_quad_not -> .)
+    <               reduce using rule 102 (n_quad_not -> .)
+    >               reduce using rule 102 (n_quad_not -> .)
+    NOT_EQ          reduce using rule 102 (n_quad_not -> .)
+    EQ              reduce using rule 102 (n_quad_not -> .)
+    LEQ             reduce using rule 102 (n_quad_not -> .)
+    GEQ             reduce using rule 102 (n_quad_not -> .)
+    OR              reduce using rule 102 (n_quad_not -> .)
+    AND             reduce using rule 102 (n_quad_not -> .)
+    ;               reduce using rule 102 (n_quad_not -> .)
+    ,               reduce using rule 102 (n_quad_not -> .)
+    )               reduce using rule 102 (n_quad_not -> .)
+    ]               reduce using rule 102 (n_quad_not -> .)
 
+    term2                          shift and go to state 196
+    n_quad_not                     shift and go to state 198
+    muldiv                         shift and go to state 200
 
 state 177
 
-    (93) exp2 -> addsub term . n_quad_addsub exp2
-    (97) n_quad_addsub -> .
+    (109) varcte -> ID empty .
 
-    +               reduce using rule 97 (n_quad_addsub -> .)
-    -               reduce using rule 97 (n_quad_addsub -> .)
-    <               reduce using rule 97 (n_quad_addsub -> .)
-    >               reduce using rule 97 (n_quad_addsub -> .)
-    NOT_EQ          reduce using rule 97 (n_quad_addsub -> .)
-    EQ              reduce using rule 97 (n_quad_addsub -> .)
-    LEQ             reduce using rule 97 (n_quad_addsub -> .)
-    GEQ             reduce using rule 97 (n_quad_addsub -> .)
-    OR              reduce using rule 97 (n_quad_addsub -> .)
-    AND             reduce using rule 97 (n_quad_addsub -> .)
-    ;               reduce using rule 97 (n_quad_addsub -> .)
-    ,               reduce using rule 97 (n_quad_addsub -> .)
-    )               reduce using rule 97 (n_quad_addsub -> .)
-    ]               reduce using rule 97 (n_quad_addsub -> .)
+    *               reduce using rule 109 (varcte -> ID empty .)
+    /               reduce using rule 109 (varcte -> ID empty .)
+    SET_MATH_MULDIV reduce using rule 109 (varcte -> ID empty .)
+    +               reduce using rule 109 (varcte -> ID empty .)
+    -               reduce using rule 109 (varcte -> ID empty .)
+    SET_MATH_ADDSUB reduce using rule 109 (varcte -> ID empty .)
+    <               reduce using rule 109 (varcte -> ID empty .)
+    >               reduce using rule 109 (varcte -> ID empty .)
+    NOT_EQ          reduce using rule 109 (varcte -> ID empty .)
+    EQ              reduce using rule 109 (varcte -> ID empty .)
+    LEQ             reduce using rule 109 (varcte -> ID empty .)
+    GEQ             reduce using rule 109 (varcte -> ID empty .)
+    OR              reduce using rule 109 (varcte -> ID empty .)
+    AND             reduce using rule 109 (varcte -> ID empty .)
+    ;               reduce using rule 109 (varcte -> ID empty .)
+    ,               reduce using rule 109 (varcte -> ID empty .)
+    )               reduce using rule 109 (varcte -> ID empty .)
+    ]               reduce using rule 109 (varcte -> ID empty .)
 
-    n_quad_addsub                  shift and go to state 199
 
 state 178
+
+    (95) exp2 -> addsub term . n_quad_addsub exp2
+    (99) n_quad_addsub -> .
+
+    +               reduce using rule 99 (n_quad_addsub -> .)
+    -               reduce using rule 99 (n_quad_addsub -> .)
+    SET_MATH_ADDSUB reduce using rule 99 (n_quad_addsub -> .)
+    <               reduce using rule 99 (n_quad_addsub -> .)
+    >               reduce using rule 99 (n_quad_addsub -> .)
+    NOT_EQ          reduce using rule 99 (n_quad_addsub -> .)
+    EQ              reduce using rule 99 (n_quad_addsub -> .)
+    LEQ             reduce using rule 99 (n_quad_addsub -> .)
+    GEQ             reduce using rule 99 (n_quad_addsub -> .)
+    OR              reduce using rule 99 (n_quad_addsub -> .)
+    AND             reduce using rule 99 (n_quad_addsub -> .)
+    ;               reduce using rule 99 (n_quad_addsub -> .)
+    ,               reduce using rule 99 (n_quad_addsub -> .)
+    )               reduce using rule 99 (n_quad_addsub -> .)
+    ]               reduce using rule 99 (n_quad_addsub -> .)
+
+    n_quad_addsub                  shift and go to state 201
+
+state 179
 
     (82) expression2 -> logop exp0 . n_quad_logop expression2
     (84) n_quad_logop -> .
@@ -3191,9 +3243,9 @@ state 178
     ,               reduce using rule 84 (n_quad_logop -> .)
     )               reduce using rule 84 (n_quad_logop -> .)
 
-    n_quad_logop                   shift and go to state 200
+    n_quad_logop                   shift and go to state 202
 
-state 179
+state 180
 
     (86) exp02 -> relop exp .
 
@@ -3204,87 +3256,87 @@ state 179
     )               reduce using rule 86 (exp02 -> relop exp .)
 
 
-state 180
+state 181
 
     (42) input -> READ ( n_process_read input1 . )
 
-    )               shift and go to state 201
+    )               shift and go to state 203
 
 
-state 181
+state 182
 
     (43) input1 -> , . n_process_read input1
     (45) n_process_read -> . ID
 
-    ID              shift and go to state 162
+    ID              shift and go to state 163
 
-    n_process_read                 shift and go to state 202
+    n_process_read                 shift and go to state 204
 
-state 182
+state 183
 
     (44) input1 -> empty .
 
     )               reduce using rule 44 (input1 -> empty .)
 
 
-state 183
+state 184
 
     (38) while -> WHILE n_while_1 ( expression . ) n_while_2 block n_while_3
 
-    )               shift and go to state 203
-
-
-state 184
-
-    (46) output -> PRINT ( n_output_quad output1 . )
-
-    )               shift and go to state 204
+    )               shift and go to state 205
 
 
 state 185
+
+    (46) output -> PRINT ( n_output_quad output1 . )
+
+    )               shift and go to state 206
+
+
+state 186
 
     (47) output1 -> , . n_output_quad output1
     (49) n_output_quad -> . expression
     (81) expression -> . exp0 expression2
     (85) exp0 -> . exp exp02
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
     exp0                           shift and go to state 106
-    n_output_quad                  shift and go to state 205
+    n_output_quad                  shift and go to state 207
     exp                            shift and go to state 108
-    expression                     shift and go to state 165
+    expression                     shift and go to state 166
     empty                          shift and go to state 110
 
-state 186
+state 187
 
     (48) output1 -> empty .
 
     )               reduce using rule 48 (output1 -> empty .)
 
 
-state 187
+state 188
 
     (30) assignment -> assignment2 ASSIGNATOR n_quad_assign expression .
 
     ;               reduce using rule 30 (assignment -> assignment2 ASSIGNATOR n_quad_assign expression .)
 
 
-state 188
+state 189
 
     (54) function_call2 -> n_verify_argument , n_add_one_to_counter . function_call2
     (54) function_call2 -> . n_verify_argument , n_add_one_to_counter function_call2
@@ -3293,183 +3345,200 @@ state 188
     (81) expression -> . exp0 expression2
     (85) exp0 -> . exp exp02
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
     exp0                           shift and go to state 106
-    function_call2                 shift and go to state 206
+    function_call2                 shift and go to state 208
     exp                            shift and go to state 108
     expression                     shift and go to state 120
     n_verify_argument              shift and go to state 121
     empty                          shift and go to state 110
 
-state 189
+state 190
 
     (59) container_operation -> ID . OP_ARGS ( . expression )
     (81) expression -> . exp0 expression2
     (85) exp0 -> . exp exp02
     (88) exp -> . term exp2
-    (95) term -> . term_not factor n_quad_muldiv term2
-    (101) term_not -> . !
-    (102) term_not -> . empty
-    (138) empty -> .
+    (97) term -> . term_not factor n_quad_muldiv term2
+    (103) term_not -> . !
+    (104) term_not -> . empty
+    (140) empty -> .
 
     !               shift and go to state 107
-    (               reduce using rule 138 (empty -> .)
-    ID              reduce using rule 138 (empty -> .)
-    CTE_INT         reduce using rule 138 (empty -> .)
-    CTE_FLOAT       reduce using rule 138 (empty -> .)
-    CTE_BOOL        reduce using rule 138 (empty -> .)
-    CTE_STRING      reduce using rule 138 (empty -> .)
-    CTE_CHAR        reduce using rule 138 (empty -> .)
+    (               reduce using rule 140 (empty -> .)
+    ID              reduce using rule 140 (empty -> .)
+    CTE_INT         reduce using rule 140 (empty -> .)
+    CTE_FLOAT       reduce using rule 140 (empty -> .)
+    CTE_BOOL        reduce using rule 140 (empty -> .)
+    CTE_STRING      reduce using rule 140 (empty -> .)
+    CTE_CHAR        reduce using rule 140 (empty -> .)
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
     exp0                           shift and go to state 106
     exp                            shift and go to state 108
-    expression                     shift and go to state 207
+    expression                     shift and go to state 209
     empty                          shift and go to state 110
-
-state 190
-
-    (60) container_operation -> ID . OP ( . )
-
-    )               shift and go to state 208
-
 
 state 191
 
-    (136) map_access -> ID [ exp ] .
-
-    *               reduce using rule 136 (map_access -> ID [ exp ] .)
-    /               reduce using rule 136 (map_access -> ID [ exp ] .)
-    +               reduce using rule 136 (map_access -> ID [ exp ] .)
-    -               reduce using rule 136 (map_access -> ID [ exp ] .)
-    <               reduce using rule 136 (map_access -> ID [ exp ] .)
-    >               reduce using rule 136 (map_access -> ID [ exp ] .)
-    NOT_EQ          reduce using rule 136 (map_access -> ID [ exp ] .)
-    EQ              reduce using rule 136 (map_access -> ID [ exp ] .)
-    LEQ             reduce using rule 136 (map_access -> ID [ exp ] .)
-    GEQ             reduce using rule 136 (map_access -> ID [ exp ] .)
-    OR              reduce using rule 136 (map_access -> ID [ exp ] .)
-    AND             reduce using rule 136 (map_access -> ID [ exp ] .)
-    ;               reduce using rule 136 (map_access -> ID [ exp ] .)
-    ,               reduce using rule 136 (map_access -> ID [ exp ] .)
-    )               reduce using rule 136 (map_access -> ID [ exp ] .)
-    ]               reduce using rule 136 (map_access -> ID [ exp ] .)
-    ASSIGNATOR      reduce using rule 136 (map_access -> ID [ exp ] .)
-
-
-state 192
-
-    (33) condition -> IF ( expression n_while_2 . ) block condition1
-
-    )               shift and go to state 209
-
-
-state 193
-
-    (103) factor -> ( n_push_false_bottom expression . ) n_pop_false_bottom
+    (60) container_operation -> ID . OP ( . )
 
     )               shift and go to state 210
 
 
+state 192
+
+    (138) map_access -> ID [ exp ] .
+
+    *               reduce using rule 138 (map_access -> ID [ exp ] .)
+    /               reduce using rule 138 (map_access -> ID [ exp ] .)
+    SET_MATH_MULDIV reduce using rule 138 (map_access -> ID [ exp ] .)
+    +               reduce using rule 138 (map_access -> ID [ exp ] .)
+    -               reduce using rule 138 (map_access -> ID [ exp ] .)
+    SET_MATH_ADDSUB reduce using rule 138 (map_access -> ID [ exp ] .)
+    <               reduce using rule 138 (map_access -> ID [ exp ] .)
+    >               reduce using rule 138 (map_access -> ID [ exp ] .)
+    NOT_EQ          reduce using rule 138 (map_access -> ID [ exp ] .)
+    EQ              reduce using rule 138 (map_access -> ID [ exp ] .)
+    LEQ             reduce using rule 138 (map_access -> ID [ exp ] .)
+    GEQ             reduce using rule 138 (map_access -> ID [ exp ] .)
+    OR              reduce using rule 138 (map_access -> ID [ exp ] .)
+    AND             reduce using rule 138 (map_access -> ID [ exp ] .)
+    ;               reduce using rule 138 (map_access -> ID [ exp ] .)
+    ,               reduce using rule 138 (map_access -> ID [ exp ] .)
+    )               reduce using rule 138 (map_access -> ID [ exp ] .)
+    ]               reduce using rule 138 (map_access -> ID [ exp ] .)
+    ASSIGNATOR      reduce using rule 138 (map_access -> ID [ exp ] .)
+
+
+state 193
+
+    (33) condition -> IF ( expression n_while_2 . ) block condition1
+
+    )               shift and go to state 211
+
+
 state 194
 
-    (95) term -> term_not factor n_quad_muldiv term2 .
+    (105) factor -> ( n_push_false_bottom expression . ) n_pop_false_bottom
 
-    +               reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    -               reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    <               reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    >               reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    NOT_EQ          reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    EQ              reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    LEQ             reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    GEQ             reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    OR              reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    AND             reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    ;               reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    ,               reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    )               reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
-    ]               reduce using rule 95 (term -> term_not factor n_quad_muldiv term2 .)
+    )               shift and go to state 212
 
 
 state 195
 
-    (91) muldiv -> * .
+    (94) muldiv -> SET_MATH_MULDIV .
 
-    (               reduce using rule 91 (muldiv -> * .)
-    ID              reduce using rule 91 (muldiv -> * .)
-    CTE_INT         reduce using rule 91 (muldiv -> * .)
-    CTE_FLOAT       reduce using rule 91 (muldiv -> * .)
-    CTE_BOOL        reduce using rule 91 (muldiv -> * .)
-    CTE_STRING      reduce using rule 91 (muldiv -> * .)
-    CTE_CHAR        reduce using rule 91 (muldiv -> * .)
+    (               reduce using rule 94 (muldiv -> SET_MATH_MULDIV .)
+    ID              reduce using rule 94 (muldiv -> SET_MATH_MULDIV .)
+    CTE_INT         reduce using rule 94 (muldiv -> SET_MATH_MULDIV .)
+    CTE_FLOAT       reduce using rule 94 (muldiv -> SET_MATH_MULDIV .)
+    CTE_BOOL        reduce using rule 94 (muldiv -> SET_MATH_MULDIV .)
+    CTE_STRING      reduce using rule 94 (muldiv -> SET_MATH_MULDIV .)
+    CTE_CHAR        reduce using rule 94 (muldiv -> SET_MATH_MULDIV .)
 
 
 state 196
 
-    (99) term2 -> n_quad_not .
+    (97) term -> term_not factor n_quad_muldiv term2 .
 
-    +               reduce using rule 99 (term2 -> n_quad_not .)
-    -               reduce using rule 99 (term2 -> n_quad_not .)
-    <               reduce using rule 99 (term2 -> n_quad_not .)
-    >               reduce using rule 99 (term2 -> n_quad_not .)
-    NOT_EQ          reduce using rule 99 (term2 -> n_quad_not .)
-    EQ              reduce using rule 99 (term2 -> n_quad_not .)
-    LEQ             reduce using rule 99 (term2 -> n_quad_not .)
-    GEQ             reduce using rule 99 (term2 -> n_quad_not .)
-    OR              reduce using rule 99 (term2 -> n_quad_not .)
-    AND             reduce using rule 99 (term2 -> n_quad_not .)
-    ;               reduce using rule 99 (term2 -> n_quad_not .)
-    ,               reduce using rule 99 (term2 -> n_quad_not .)
-    )               reduce using rule 99 (term2 -> n_quad_not .)
-    ]               reduce using rule 99 (term2 -> n_quad_not .)
+    +               reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    -               reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    SET_MATH_ADDSUB reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    <               reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    >               reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    NOT_EQ          reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    EQ              reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    LEQ             reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    GEQ             reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    OR              reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    AND             reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    ;               reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    ,               reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    )               reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
+    ]               reduce using rule 97 (term -> term_not factor n_quad_muldiv term2 .)
 
 
 state 197
 
-    (92) muldiv -> / .
+    (92) muldiv -> * .
 
-    (               reduce using rule 92 (muldiv -> / .)
-    ID              reduce using rule 92 (muldiv -> / .)
-    CTE_INT         reduce using rule 92 (muldiv -> / .)
-    CTE_FLOAT       reduce using rule 92 (muldiv -> / .)
-    CTE_BOOL        reduce using rule 92 (muldiv -> / .)
-    CTE_STRING      reduce using rule 92 (muldiv -> / .)
-    CTE_CHAR        reduce using rule 92 (muldiv -> / .)
+    (               reduce using rule 92 (muldiv -> * .)
+    ID              reduce using rule 92 (muldiv -> * .)
+    CTE_INT         reduce using rule 92 (muldiv -> * .)
+    CTE_FLOAT       reduce using rule 92 (muldiv -> * .)
+    CTE_BOOL        reduce using rule 92 (muldiv -> * .)
+    CTE_STRING      reduce using rule 92 (muldiv -> * .)
+    CTE_CHAR        reduce using rule 92 (muldiv -> * .)
 
 
 state 198
 
-    (98) term2 -> muldiv . factor n_quad_muldiv term2
-    (103) factor -> . ( n_push_false_bottom expression ) n_pop_false_bottom
-    (104) factor -> . varcte
-    (107) varcte -> . ID empty
-    (108) varcte -> . varcte1
-    (109) varcte1 -> . CTE_INT
-    (110) varcte1 -> . CTE_FLOAT
-    (111) varcte1 -> . CTE_BOOL
-    (112) varcte1 -> . CTE_STRING
-    (113) varcte1 -> . CTE_CHAR
-    (114) varcte1 -> . function_call
-    (115) varcte1 -> . map_access
-    (116) varcte1 -> . container_operation
+    (101) term2 -> n_quad_not .
+
+    +               reduce using rule 101 (term2 -> n_quad_not .)
+    -               reduce using rule 101 (term2 -> n_quad_not .)
+    SET_MATH_ADDSUB reduce using rule 101 (term2 -> n_quad_not .)
+    <               reduce using rule 101 (term2 -> n_quad_not .)
+    >               reduce using rule 101 (term2 -> n_quad_not .)
+    NOT_EQ          reduce using rule 101 (term2 -> n_quad_not .)
+    EQ              reduce using rule 101 (term2 -> n_quad_not .)
+    LEQ             reduce using rule 101 (term2 -> n_quad_not .)
+    GEQ             reduce using rule 101 (term2 -> n_quad_not .)
+    OR              reduce using rule 101 (term2 -> n_quad_not .)
+    AND             reduce using rule 101 (term2 -> n_quad_not .)
+    ;               reduce using rule 101 (term2 -> n_quad_not .)
+    ,               reduce using rule 101 (term2 -> n_quad_not .)
+    )               reduce using rule 101 (term2 -> n_quad_not .)
+    ]               reduce using rule 101 (term2 -> n_quad_not .)
+
+
+state 199
+
+    (93) muldiv -> / .
+
+    (               reduce using rule 93 (muldiv -> / .)
+    ID              reduce using rule 93 (muldiv -> / .)
+    CTE_INT         reduce using rule 93 (muldiv -> / .)
+    CTE_FLOAT       reduce using rule 93 (muldiv -> / .)
+    CTE_BOOL        reduce using rule 93 (muldiv -> / .)
+    CTE_STRING      reduce using rule 93 (muldiv -> / .)
+    CTE_CHAR        reduce using rule 93 (muldiv -> / .)
+
+
+state 200
+
+    (100) term2 -> muldiv . factor n_quad_muldiv term2
+    (105) factor -> . ( n_push_false_bottom expression ) n_pop_false_bottom
+    (106) factor -> . varcte
+    (109) varcte -> . ID empty
+    (110) varcte -> . varcte1
+    (111) varcte1 -> . CTE_INT
+    (112) varcte1 -> . CTE_FLOAT
+    (113) varcte1 -> . CTE_BOOL
+    (114) varcte1 -> . CTE_STRING
+    (115) varcte1 -> . CTE_CHAR
+    (116) varcte1 -> . function_call
+    (117) varcte1 -> . map_access
+    (118) varcte1 -> . container_operation
     (50) function_call -> . n_era_size function_call1 )
-    (136) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ exp ]
     (59) container_operation -> . ID . OP_ARGS ( expression )
     (60) container_operation -> . ID . OP ( )
     (51) n_era_size -> . ID (
@@ -3486,129 +3555,132 @@ state 198
     container_operation            shift and go to state 136
     map_access                     shift and go to state 132
     function_call                  shift and go to state 129
-    factor                         shift and go to state 211
+    factor                         shift and go to state 213
     varcte1                        shift and go to state 130
     varcte                         shift and go to state 131
 
-state 199
+state 201
 
-    (93) exp2 -> addsub term n_quad_addsub . exp2
-    (93) exp2 -> . addsub term n_quad_addsub exp2
-    (94) exp2 -> . empty
+    (95) exp2 -> addsub term n_quad_addsub . exp2
+    (95) exp2 -> . addsub term n_quad_addsub exp2
+    (96) exp2 -> . empty
     (89) addsub -> . +
     (90) addsub -> . -
-    (138) empty -> .
+    (91) addsub -> . SET_MATH_ADDSUB
+    (140) empty -> .
 
     +               shift and go to state 143
     -               shift and go to state 144
-    <               reduce using rule 138 (empty -> .)
-    >               reduce using rule 138 (empty -> .)
-    NOT_EQ          reduce using rule 138 (empty -> .)
-    EQ              reduce using rule 138 (empty -> .)
-    LEQ             reduce using rule 138 (empty -> .)
-    GEQ             reduce using rule 138 (empty -> .)
-    OR              reduce using rule 138 (empty -> .)
-    AND             reduce using rule 138 (empty -> .)
-    ;               reduce using rule 138 (empty -> .)
-    ,               reduce using rule 138 (empty -> .)
-    )               reduce using rule 138 (empty -> .)
-    ]               reduce using rule 138 (empty -> .)
+    SET_MATH_ADDSUB shift and go to state 146
+    <               reduce using rule 140 (empty -> .)
+    >               reduce using rule 140 (empty -> .)
+    NOT_EQ          reduce using rule 140 (empty -> .)
+    EQ              reduce using rule 140 (empty -> .)
+    LEQ             reduce using rule 140 (empty -> .)
+    GEQ             reduce using rule 140 (empty -> .)
+    OR              reduce using rule 140 (empty -> .)
+    AND             reduce using rule 140 (empty -> .)
+    ;               reduce using rule 140 (empty -> .)
+    ,               reduce using rule 140 (empty -> .)
+    )               reduce using rule 140 (empty -> .)
+    ]               reduce using rule 140 (empty -> .)
 
-    exp2                           shift and go to state 212
+    exp2                           shift and go to state 214
     addsub                         shift and go to state 145
-    empty                          shift and go to state 146
+    empty                          shift and go to state 147
 
-state 200
+state 202
 
     (82) expression2 -> logop exp0 n_quad_logop . expression2
     (82) expression2 -> . logop exp0 n_quad_logop expression2
     (83) expression2 -> . empty
     (79) logop -> . OR
     (80) logop -> . AND
-    (138) empty -> .
+    (140) empty -> .
 
-    OR              shift and go to state 150
-    AND             shift and go to state 147
-    ;               reduce using rule 138 (empty -> .)
-    ,               reduce using rule 138 (empty -> .)
-    )               reduce using rule 138 (empty -> .)
+    OR              shift and go to state 151
+    AND             shift and go to state 148
+    ;               reduce using rule 140 (empty -> .)
+    ,               reduce using rule 140 (empty -> .)
+    )               reduce using rule 140 (empty -> .)
 
-    logop                          shift and go to state 148
-    empty                          shift and go to state 151
-    expression2                    shift and go to state 213
+    logop                          shift and go to state 149
+    empty                          shift and go to state 152
+    expression2                    shift and go to state 215
 
-state 201
+state 203
 
     (42) input -> READ ( n_process_read input1 ) .
 
     ;               reduce using rule 42 (input -> READ ( n_process_read input1 ) .)
 
 
-state 202
+state 204
 
     (43) input1 -> , n_process_read . input1
     (43) input1 -> . , n_process_read input1
     (44) input1 -> . empty
-    (138) empty -> .
+    (140) empty -> .
 
-    ,               shift and go to state 181
-    )               reduce using rule 138 (empty -> .)
+    ,               shift and go to state 182
+    )               reduce using rule 140 (empty -> .)
 
-    input1                         shift and go to state 214
-    empty                          shift and go to state 182
+    input1                         shift and go to state 216
+    empty                          shift and go to state 183
 
-state 203
+state 205
 
     (38) while -> WHILE n_while_1 ( expression ) . n_while_2 block n_while_3
     (40) n_while_2 -> .
 
     {               reduce using rule 40 (n_while_2 -> .)
 
-    n_while_2                      shift and go to state 215
+    n_while_2                      shift and go to state 217
 
-state 204
+state 206
 
     (46) output -> PRINT ( n_output_quad output1 ) .
 
     ;               reduce using rule 46 (output -> PRINT ( n_output_quad output1 ) .)
 
 
-state 205
+state 207
 
     (47) output1 -> , n_output_quad . output1
     (47) output1 -> . , n_output_quad output1
     (48) output1 -> . empty
-    (138) empty -> .
+    (140) empty -> .
 
-    ,               shift and go to state 185
-    )               reduce using rule 138 (empty -> .)
+    ,               shift and go to state 186
+    )               reduce using rule 140 (empty -> .)
 
-    output1                        shift and go to state 216
-    empty                          shift and go to state 186
+    output1                        shift and go to state 218
+    empty                          shift and go to state 187
 
-state 206
+state 208
 
     (54) function_call2 -> n_verify_argument , n_add_one_to_counter function_call2 .
 
     )               reduce using rule 54 (function_call2 -> n_verify_argument , n_add_one_to_counter function_call2 .)
 
 
-state 207
+state 209
 
     (59) container_operation -> ID . OP_ARGS ( expression . )
 
-    )               shift and go to state 217
+    )               shift and go to state 219
 
 
-state 208
+state 210
 
     (60) container_operation -> ID . OP ( ) .
 
-    ;               reduce using rule 60 (container_operation -> ID . OP ( ) .)
     *               reduce using rule 60 (container_operation -> ID . OP ( ) .)
     /               reduce using rule 60 (container_operation -> ID . OP ( ) .)
+    SET_MATH_MULDIV reduce using rule 60 (container_operation -> ID . OP ( ) .)
     +               reduce using rule 60 (container_operation -> ID . OP ( ) .)
     -               reduce using rule 60 (container_operation -> ID . OP ( ) .)
+    SET_MATH_ADDSUB reduce using rule 60 (container_operation -> ID . OP ( ) .)
     <               reduce using rule 60 (container_operation -> ID . OP ( ) .)
     >               reduce using rule 60 (container_operation -> ID . OP ( ) .)
     NOT_EQ          reduce using rule 60 (container_operation -> ID . OP ( ) .)
@@ -3617,87 +3689,92 @@ state 208
     GEQ             reduce using rule 60 (container_operation -> ID . OP ( ) .)
     OR              reduce using rule 60 (container_operation -> ID . OP ( ) .)
     AND             reduce using rule 60 (container_operation -> ID . OP ( ) .)
+    ;               reduce using rule 60 (container_operation -> ID . OP ( ) .)
     ,               reduce using rule 60 (container_operation -> ID . OP ( ) .)
     )               reduce using rule 60 (container_operation -> ID . OP ( ) .)
     ]               reduce using rule 60 (container_operation -> ID . OP ( ) .)
 
 
-state 209
-
-    (33) condition -> IF ( expression n_while_2 ) . block condition1
-    (127) block -> . { statement_aux }
-
-    {               shift and go to state 218
-
-    block                          shift and go to state 219
-
-state 210
-
-    (103) factor -> ( n_push_false_bottom expression ) . n_pop_false_bottom
-    (106) n_pop_false_bottom -> .
-
-    *               reduce using rule 106 (n_pop_false_bottom -> .)
-    /               reduce using rule 106 (n_pop_false_bottom -> .)
-    +               reduce using rule 106 (n_pop_false_bottom -> .)
-    -               reduce using rule 106 (n_pop_false_bottom -> .)
-    <               reduce using rule 106 (n_pop_false_bottom -> .)
-    >               reduce using rule 106 (n_pop_false_bottom -> .)
-    NOT_EQ          reduce using rule 106 (n_pop_false_bottom -> .)
-    EQ              reduce using rule 106 (n_pop_false_bottom -> .)
-    LEQ             reduce using rule 106 (n_pop_false_bottom -> .)
-    GEQ             reduce using rule 106 (n_pop_false_bottom -> .)
-    OR              reduce using rule 106 (n_pop_false_bottom -> .)
-    AND             reduce using rule 106 (n_pop_false_bottom -> .)
-    ;               reduce using rule 106 (n_pop_false_bottom -> .)
-    ,               reduce using rule 106 (n_pop_false_bottom -> .)
-    )               reduce using rule 106 (n_pop_false_bottom -> .)
-    ]               reduce using rule 106 (n_pop_false_bottom -> .)
-
-    n_pop_false_bottom             shift and go to state 220
-
 state 211
 
-    (98) term2 -> muldiv factor . n_quad_muldiv term2
-    (96) n_quad_muldiv -> .
+    (33) condition -> IF ( expression n_while_2 ) . block condition1
+    (129) block -> . { statement_aux }
 
-    *               reduce using rule 96 (n_quad_muldiv -> .)
-    /               reduce using rule 96 (n_quad_muldiv -> .)
-    +               reduce using rule 96 (n_quad_muldiv -> .)
-    -               reduce using rule 96 (n_quad_muldiv -> .)
-    <               reduce using rule 96 (n_quad_muldiv -> .)
-    >               reduce using rule 96 (n_quad_muldiv -> .)
-    NOT_EQ          reduce using rule 96 (n_quad_muldiv -> .)
-    EQ              reduce using rule 96 (n_quad_muldiv -> .)
-    LEQ             reduce using rule 96 (n_quad_muldiv -> .)
-    GEQ             reduce using rule 96 (n_quad_muldiv -> .)
-    OR              reduce using rule 96 (n_quad_muldiv -> .)
-    AND             reduce using rule 96 (n_quad_muldiv -> .)
-    ;               reduce using rule 96 (n_quad_muldiv -> .)
-    ,               reduce using rule 96 (n_quad_muldiv -> .)
-    )               reduce using rule 96 (n_quad_muldiv -> .)
-    ]               reduce using rule 96 (n_quad_muldiv -> .)
+    {               shift and go to state 220
 
-    n_quad_muldiv                  shift and go to state 221
+    block                          shift and go to state 221
 
 state 212
 
-    (93) exp2 -> addsub term n_quad_addsub exp2 .
+    (105) factor -> ( n_push_false_bottom expression ) . n_pop_false_bottom
+    (108) n_pop_false_bottom -> .
 
-    <               reduce using rule 93 (exp2 -> addsub term n_quad_addsub exp2 .)
-    >               reduce using rule 93 (exp2 -> addsub term n_quad_addsub exp2 .)
-    NOT_EQ          reduce using rule 93 (exp2 -> addsub term n_quad_addsub exp2 .)
-    EQ              reduce using rule 93 (exp2 -> addsub term n_quad_addsub exp2 .)
-    LEQ             reduce using rule 93 (exp2 -> addsub term n_quad_addsub exp2 .)
-    GEQ             reduce using rule 93 (exp2 -> addsub term n_quad_addsub exp2 .)
-    OR              reduce using rule 93 (exp2 -> addsub term n_quad_addsub exp2 .)
-    AND             reduce using rule 93 (exp2 -> addsub term n_quad_addsub exp2 .)
-    ;               reduce using rule 93 (exp2 -> addsub term n_quad_addsub exp2 .)
-    ,               reduce using rule 93 (exp2 -> addsub term n_quad_addsub exp2 .)
-    )               reduce using rule 93 (exp2 -> addsub term n_quad_addsub exp2 .)
-    ]               reduce using rule 93 (exp2 -> addsub term n_quad_addsub exp2 .)
+    *               reduce using rule 108 (n_pop_false_bottom -> .)
+    /               reduce using rule 108 (n_pop_false_bottom -> .)
+    SET_MATH_MULDIV reduce using rule 108 (n_pop_false_bottom -> .)
+    +               reduce using rule 108 (n_pop_false_bottom -> .)
+    -               reduce using rule 108 (n_pop_false_bottom -> .)
+    SET_MATH_ADDSUB reduce using rule 108 (n_pop_false_bottom -> .)
+    <               reduce using rule 108 (n_pop_false_bottom -> .)
+    >               reduce using rule 108 (n_pop_false_bottom -> .)
+    NOT_EQ          reduce using rule 108 (n_pop_false_bottom -> .)
+    EQ              reduce using rule 108 (n_pop_false_bottom -> .)
+    LEQ             reduce using rule 108 (n_pop_false_bottom -> .)
+    GEQ             reduce using rule 108 (n_pop_false_bottom -> .)
+    OR              reduce using rule 108 (n_pop_false_bottom -> .)
+    AND             reduce using rule 108 (n_pop_false_bottom -> .)
+    ;               reduce using rule 108 (n_pop_false_bottom -> .)
+    ,               reduce using rule 108 (n_pop_false_bottom -> .)
+    )               reduce using rule 108 (n_pop_false_bottom -> .)
+    ]               reduce using rule 108 (n_pop_false_bottom -> .)
 
+    n_pop_false_bottom             shift and go to state 222
 
 state 213
+
+    (100) term2 -> muldiv factor . n_quad_muldiv term2
+    (98) n_quad_muldiv -> .
+
+    *               reduce using rule 98 (n_quad_muldiv -> .)
+    /               reduce using rule 98 (n_quad_muldiv -> .)
+    SET_MATH_MULDIV reduce using rule 98 (n_quad_muldiv -> .)
+    +               reduce using rule 98 (n_quad_muldiv -> .)
+    -               reduce using rule 98 (n_quad_muldiv -> .)
+    SET_MATH_ADDSUB reduce using rule 98 (n_quad_muldiv -> .)
+    <               reduce using rule 98 (n_quad_muldiv -> .)
+    >               reduce using rule 98 (n_quad_muldiv -> .)
+    NOT_EQ          reduce using rule 98 (n_quad_muldiv -> .)
+    EQ              reduce using rule 98 (n_quad_muldiv -> .)
+    LEQ             reduce using rule 98 (n_quad_muldiv -> .)
+    GEQ             reduce using rule 98 (n_quad_muldiv -> .)
+    OR              reduce using rule 98 (n_quad_muldiv -> .)
+    AND             reduce using rule 98 (n_quad_muldiv -> .)
+    ;               reduce using rule 98 (n_quad_muldiv -> .)
+    ,               reduce using rule 98 (n_quad_muldiv -> .)
+    )               reduce using rule 98 (n_quad_muldiv -> .)
+    ]               reduce using rule 98 (n_quad_muldiv -> .)
+
+    n_quad_muldiv                  shift and go to state 223
+
+state 214
+
+    (95) exp2 -> addsub term n_quad_addsub exp2 .
+
+    <               reduce using rule 95 (exp2 -> addsub term n_quad_addsub exp2 .)
+    >               reduce using rule 95 (exp2 -> addsub term n_quad_addsub exp2 .)
+    NOT_EQ          reduce using rule 95 (exp2 -> addsub term n_quad_addsub exp2 .)
+    EQ              reduce using rule 95 (exp2 -> addsub term n_quad_addsub exp2 .)
+    LEQ             reduce using rule 95 (exp2 -> addsub term n_quad_addsub exp2 .)
+    GEQ             reduce using rule 95 (exp2 -> addsub term n_quad_addsub exp2 .)
+    OR              reduce using rule 95 (exp2 -> addsub term n_quad_addsub exp2 .)
+    AND             reduce using rule 95 (exp2 -> addsub term n_quad_addsub exp2 .)
+    ;               reduce using rule 95 (exp2 -> addsub term n_quad_addsub exp2 .)
+    ,               reduce using rule 95 (exp2 -> addsub term n_quad_addsub exp2 .)
+    )               reduce using rule 95 (exp2 -> addsub term n_quad_addsub exp2 .)
+    ]               reduce using rule 95 (exp2 -> addsub term n_quad_addsub exp2 .)
+
+
+state 215
 
     (82) expression2 -> logop exp0 n_quad_logop expression2 .
 
@@ -3706,38 +3783,39 @@ state 213
     )               reduce using rule 82 (expression2 -> logop exp0 n_quad_logop expression2 .)
 
 
-state 214
+state 216
 
     (43) input1 -> , n_process_read input1 .
 
     )               reduce using rule 43 (input1 -> , n_process_read input1 .)
 
 
-state 215
+state 217
 
     (38) while -> WHILE n_while_1 ( expression ) n_while_2 . block n_while_3
-    (127) block -> . { statement_aux }
+    (129) block -> . { statement_aux }
 
-    {               shift and go to state 218
+    {               shift and go to state 220
 
-    block                          shift and go to state 222
+    block                          shift and go to state 224
 
-state 216
+state 218
 
     (47) output1 -> , n_output_quad output1 .
 
     )               reduce using rule 47 (output1 -> , n_output_quad output1 .)
 
 
-state 217
+state 219
 
     (59) container_operation -> ID . OP_ARGS ( expression ) .
 
-    ;               reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
     *               reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
     /               reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
+    SET_MATH_MULDIV reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
     +               reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
     -               reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
+    SET_MATH_ADDSUB reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
     <               reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
     >               reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
     NOT_EQ          reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
@@ -3746,19 +3824,20 @@ state 217
     GEQ             reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
     OR              reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
     AND             reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
+    ;               reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
     ,               reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
     )               reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
     ]               reduce using rule 59 (container_operation -> ID . OP_ARGS ( expression ) .)
 
 
-state 218
+state 220
 
-    (127) block -> { . statement_aux }
-    (128) statement_aux -> . statement statement_aux
-    (129) statement_aux -> . empty
+    (129) block -> { . statement_aux }
+    (130) statement_aux -> . statement statement_aux
+    (131) statement_aux -> . empty
     (61) statement -> . statement1 ;
     (62) statement -> . statement2
-    (138) empty -> .
+    (140) empty -> .
     (63) statement1 -> . assignment
     (64) statement1 -> . input
     (65) statement1 -> . output
@@ -3774,17 +3853,17 @@ state 218
     (46) output -> . PRINT ( n_output_quad output1 )
     (59) container_operation -> . ID . OP_ARGS ( expression )
     (60) container_operation -> . ID . OP ( )
-    (135) map_definition -> . MAP < datatype , datatype >
+    (137) map_definition -> . MAP < datatype , datatype >
     (58) return -> . RETURN expression
-    (137) map_assignment -> . map_access ASSIGNATOR exp
+    (139) map_assignment -> . map_access ASSIGNATOR exp
     (50) function_call -> . n_era_size function_call1 )
     (33) condition -> . IF ( expression n_while_2 ) block condition1
     (38) while -> . WHILE n_while_1 ( expression ) n_while_2 block n_while_3
     (31) assignment2 -> . ID
-    (136) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ exp ]
     (51) n_era_size -> . ID (
 
-    }               reduce using rule 138 (empty -> .)
+    }               reduce using rule 140 (empty -> .)
     READ            shift and go to state 75
     PRINT           shift and go to state 79
     ID              shift and go to state 92
@@ -3795,7 +3874,7 @@ state 218
 
     map_definition                 shift and go to state 76
     function_call                  shift and go to state 77
-    statement_aux                  shift and go to state 223
+    statement_aux                  shift and go to state 225
     map_access                     shift and go to state 81
     assignment2                    shift and go to state 82
     statement                      shift and go to state 101
@@ -3812,14 +3891,14 @@ state 218
     while                          shift and go to state 96
     output                         shift and go to state 97
 
-state 219
+state 221
 
     (33) condition -> IF ( expression n_while_2 ) block . condition1
     (34) condition1 -> . ELSE n_if_2 block n_if_3
     (35) condition1 -> . n_if_3
     (37) n_if_3 -> .
 
-    ELSE            shift and go to state 225
+    ELSE            shift and go to state 227
     READ            reduce using rule 37 (n_if_3 -> .)
     PRINT           reduce using rule 37 (n_if_3 -> .)
     ID              reduce using rule 37 (n_if_3 -> .)
@@ -3829,62 +3908,67 @@ state 219
     WHILE           reduce using rule 37 (n_if_3 -> .)
     }               reduce using rule 37 (n_if_3 -> .)
 
-    n_if_3                         shift and go to state 224
-    condition1                     shift and go to state 226
-
-state 220
-
-    (103) factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .
-
-    *               reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    /               reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    +               reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    -               reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    <               reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    >               reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    NOT_EQ          reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    EQ              reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    LEQ             reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    GEQ             reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    OR              reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    AND             reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    ;               reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    ,               reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    )               reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-    ]               reduce using rule 103 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
-
-
-state 221
-
-    (98) term2 -> muldiv factor n_quad_muldiv . term2
-    (98) term2 -> . muldiv factor n_quad_muldiv term2
-    (99) term2 -> . n_quad_not
-    (91) muldiv -> . *
-    (92) muldiv -> . /
-    (100) n_quad_not -> .
-
-    *               shift and go to state 195
-    /               shift and go to state 197
-    +               reduce using rule 100 (n_quad_not -> .)
-    -               reduce using rule 100 (n_quad_not -> .)
-    <               reduce using rule 100 (n_quad_not -> .)
-    >               reduce using rule 100 (n_quad_not -> .)
-    NOT_EQ          reduce using rule 100 (n_quad_not -> .)
-    EQ              reduce using rule 100 (n_quad_not -> .)
-    LEQ             reduce using rule 100 (n_quad_not -> .)
-    GEQ             reduce using rule 100 (n_quad_not -> .)
-    OR              reduce using rule 100 (n_quad_not -> .)
-    AND             reduce using rule 100 (n_quad_not -> .)
-    ;               reduce using rule 100 (n_quad_not -> .)
-    ,               reduce using rule 100 (n_quad_not -> .)
-    )               reduce using rule 100 (n_quad_not -> .)
-    ]               reduce using rule 100 (n_quad_not -> .)
-
-    term2                          shift and go to state 227
-    n_quad_not                     shift and go to state 196
-    muldiv                         shift and go to state 198
+    n_if_3                         shift and go to state 226
+    condition1                     shift and go to state 228
 
 state 222
+
+    (105) factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .
+
+    *               reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    /               reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    SET_MATH_MULDIV reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    +               reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    -               reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    SET_MATH_ADDSUB reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    <               reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    >               reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    NOT_EQ          reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    EQ              reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    LEQ             reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    GEQ             reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    OR              reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    AND             reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    ;               reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    ,               reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    )               reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+    ]               reduce using rule 105 (factor -> ( n_push_false_bottom expression ) n_pop_false_bottom .)
+
+
+state 223
+
+    (100) term2 -> muldiv factor n_quad_muldiv . term2
+    (100) term2 -> . muldiv factor n_quad_muldiv term2
+    (101) term2 -> . n_quad_not
+    (92) muldiv -> . *
+    (93) muldiv -> . /
+    (94) muldiv -> . SET_MATH_MULDIV
+    (102) n_quad_not -> .
+
+    *               shift and go to state 197
+    /               shift and go to state 199
+    SET_MATH_MULDIV shift and go to state 195
+    +               reduce using rule 102 (n_quad_not -> .)
+    -               reduce using rule 102 (n_quad_not -> .)
+    SET_MATH_ADDSUB reduce using rule 102 (n_quad_not -> .)
+    <               reduce using rule 102 (n_quad_not -> .)
+    >               reduce using rule 102 (n_quad_not -> .)
+    NOT_EQ          reduce using rule 102 (n_quad_not -> .)
+    EQ              reduce using rule 102 (n_quad_not -> .)
+    LEQ             reduce using rule 102 (n_quad_not -> .)
+    GEQ             reduce using rule 102 (n_quad_not -> .)
+    OR              reduce using rule 102 (n_quad_not -> .)
+    AND             reduce using rule 102 (n_quad_not -> .)
+    ;               reduce using rule 102 (n_quad_not -> .)
+    ,               reduce using rule 102 (n_quad_not -> .)
+    )               reduce using rule 102 (n_quad_not -> .)
+    ]               reduce using rule 102 (n_quad_not -> .)
+
+    term2                          shift and go to state 229
+    n_quad_not                     shift and go to state 198
+    muldiv                         shift and go to state 200
+
+state 224
 
     (38) while -> WHILE n_while_1 ( expression ) n_while_2 block . n_while_3
     (41) n_while_3 -> .
@@ -3898,16 +3982,16 @@ state 222
     WHILE           reduce using rule 41 (n_while_3 -> .)
     }               reduce using rule 41 (n_while_3 -> .)
 
-    n_while_3                      shift and go to state 228
+    n_while_3                      shift and go to state 230
 
-state 223
+state 225
 
-    (127) block -> { statement_aux . }
+    (129) block -> { statement_aux . }
 
-    }               shift and go to state 229
+    }               shift and go to state 231
 
 
-state 224
+state 226
 
     (35) condition1 -> n_if_3 .
 
@@ -3921,16 +4005,16 @@ state 224
     }               reduce using rule 35 (condition1 -> n_if_3 .)
 
 
-state 225
+state 227
 
     (34) condition1 -> ELSE . n_if_2 block n_if_3
     (36) n_if_2 -> .
 
     {               reduce using rule 36 (n_if_2 -> .)
 
-    n_if_2                         shift and go to state 230
+    n_if_2                         shift and go to state 232
 
-state 226
+state 228
 
     (33) condition -> IF ( expression n_while_2 ) block condition1 .
 
@@ -3944,27 +4028,28 @@ state 226
     }               reduce using rule 33 (condition -> IF ( expression n_while_2 ) block condition1 .)
 
 
-state 227
+state 229
 
-    (98) term2 -> muldiv factor n_quad_muldiv term2 .
+    (100) term2 -> muldiv factor n_quad_muldiv term2 .
 
-    +               reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    -               reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    <               reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    >               reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    NOT_EQ          reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    EQ              reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    LEQ             reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    GEQ             reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    OR              reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    AND             reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    ;               reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    ,               reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    )               reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
-    ]               reduce using rule 98 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    +               reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    -               reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    SET_MATH_ADDSUB reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    <               reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    >               reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    NOT_EQ          reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    EQ              reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    LEQ             reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    GEQ             reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    OR              reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    AND             reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    ;               reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    ,               reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    )               reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
+    ]               reduce using rule 100 (term2 -> muldiv factor n_quad_muldiv term2 .)
 
 
-state 228
+state 230
 
     (38) while -> WHILE n_while_1 ( expression ) n_while_2 block n_while_3 .
 
@@ -3978,31 +4063,31 @@ state 228
     }               reduce using rule 38 (while -> WHILE n_while_1 ( expression ) n_while_2 block n_while_3 .)
 
 
-state 229
+state 231
 
-    (127) block -> { statement_aux } .
+    (129) block -> { statement_aux } .
 
-    READ            reduce using rule 127 (block -> { statement_aux } .)
-    PRINT           reduce using rule 127 (block -> { statement_aux } .)
-    ID              reduce using rule 127 (block -> { statement_aux } .)
-    MAP             reduce using rule 127 (block -> { statement_aux } .)
-    RETURN          reduce using rule 127 (block -> { statement_aux } .)
-    IF              reduce using rule 127 (block -> { statement_aux } .)
-    WHILE           reduce using rule 127 (block -> { statement_aux } .)
-    }               reduce using rule 127 (block -> { statement_aux } .)
-    ELSE            reduce using rule 127 (block -> { statement_aux } .)
+    READ            reduce using rule 129 (block -> { statement_aux } .)
+    PRINT           reduce using rule 129 (block -> { statement_aux } .)
+    ID              reduce using rule 129 (block -> { statement_aux } .)
+    MAP             reduce using rule 129 (block -> { statement_aux } .)
+    RETURN          reduce using rule 129 (block -> { statement_aux } .)
+    IF              reduce using rule 129 (block -> { statement_aux } .)
+    WHILE           reduce using rule 129 (block -> { statement_aux } .)
+    }               reduce using rule 129 (block -> { statement_aux } .)
+    ELSE            reduce using rule 129 (block -> { statement_aux } .)
 
 
-state 230
+state 232
 
     (34) condition1 -> ELSE n_if_2 . block n_if_3
-    (127) block -> . { statement_aux }
+    (129) block -> . { statement_aux }
 
-    {               shift and go to state 218
+    {               shift and go to state 220
 
-    block                          shift and go to state 231
+    block                          shift and go to state 233
 
-state 231
+state 233
 
     (34) condition1 -> ELSE n_if_2 block . n_if_3
     (37) n_if_3 -> .
@@ -4016,9 +4101,9 @@ state 231
     WHILE           reduce using rule 37 (n_if_3 -> .)
     }               reduce using rule 37 (n_if_3 -> .)
 
-    n_if_3                         shift and go to state 232
+    n_if_3                         shift and go to state 234
 
-state 232
+state 234
 
     (34) condition1 -> ELSE n_if_2 block n_if_3 .
 
