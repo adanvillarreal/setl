@@ -1,4 +1,12 @@
 program aPlusB;
+
+set<int> A,B;
+
 main {
-  print(2.0 + 1);
+  A.insert(1);
+  B.insert(2);
+  A := B;
+
+  print(A);
+
 }
