@@ -383,6 +383,8 @@ class VM:
                 self.memory.assign(quad_result, result)
                 pointer = pointer + 1
             elif action == '/':
+                if self.memory.retrieve(right) == 0:
+                    raise RuntimeError("DIVISION BY ZERO")
                 result = self.memory.retrieve(left) / self.memory.retrieve(right)
                 self.memory.assign(quad_result, result)
                 pointer = pointer + 1
@@ -477,7 +479,32 @@ class VM:
                     print '>', self.memory.retrieve(left)
                 pointer = pointer + 1
             elif action == 'READ':
-                a = 1
+                translation = self.memory.translate(quad_result)
+                user_input = raw_input(">")
+                data_type = translation[1]
+                try:
+                    if (data_type == "INT"):
+                        user_input = int(user_input)
+                    elif (data_type == "STRING"):
+                        user_input = str(user_input)
+                    elif (data_type == "CHAR"):
+                        if(len(user_input) == 1):
+                            user_input = str(user_input)
+                        else:
+                            raise RuntimeError
+                    elif (data_type == "BOOL"):
+                        if user_input == "true":
+                            user_input = True
+                        elif user_input == "false":
+                            user_input = False
+                        else:
+                            raise RuntimeError
+                    self.memory.assign(quad_result, user_input)
+                except:
+                    raise RuntimeError("Data type mismatch in read")
+                pointer = pointer + 1
+
+
             elif action == 'INSERT':
                 if self.memory.find_value_in_addr(self.memory.retrieve(right), left) is None:
                     first_addr = self.memory.first_available_addr(left)
