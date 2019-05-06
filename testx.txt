@@ -1,0 +1,4 @@
+program aPlusB;
+main {
+  print(2.0 + 1);
+}

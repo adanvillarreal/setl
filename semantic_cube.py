@@ -141,4 +141,5 @@ x = SemanticCube()
 #query = {TRUE,FALSE}
 #query = x.accepts("BOOL","BOOL","==") # este da NO
 #print(query)
-#query = x.accepts("BOOL","BOOL","!=") # este da SI
+query = x.accepts("INT","FLOAT","+") # este da SI
+print(query)

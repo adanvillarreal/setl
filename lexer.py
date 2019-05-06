@@ -620,7 +620,7 @@ def quad_process(operator_list):
     if result_type == False:
         print("Incompatible type " + right_type + " " + operator + " " + left_type)
         raise ValueError("Incompatible type " + right_type + " " + operator + " " + left_type)
-    elif original_left_type != original_right_type:
+    elif result_type == 'SET' and original_left_type != original_right_type:
         print("Incompatible type " + original_left_type + " " + operator + " " + original_right_type)
         raise ValueError("Incompatible type " + original_left_type + " " + operator + " " + original_right_type)
     else:
@@ -881,7 +881,7 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("hello_world.txt", "r")
+f = open("testx.txt", "r")
 s = ""
 
 for x in f:
