@@ -67,16 +67,8 @@ class SemanticCube:
                                     "/": "INT", ">": "BOOL", ">=": "BOOL",
                                     "<": "BOOL", "<=": "BOOL", "==": "BOOL",
                                     "!=": "BOOL", "=": "INT"}
-        self.cube[key_int][key_float] = {"+": "FLOAT" , "-": "FLOAT", "*": "FLOAT",
-                                        "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
-                                        "<": "BOOL", "<=": "BOOL", "==": "BOOL",
-                                        "!=": "BOOL"}
 
         #Float versus everyone
-        self.cube[key_float][key_int] = {"+": "FLOAT" , "-": "FLOAT", "*": "FLOAT",
-                                        "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
-                                        "<": "BOOL", "<=": "BOOL", "==": "BOOL",
-                                        "!=": "BOOL"}
         self.cube[key_float][key_float] = {"+": "FLOAT" , "-": "FLOAT", "*": "FLOAT",
                                         "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
                                         "<": "BOOL", "<=": "BOOL", "==": "BOOL",
@@ -141,4 +133,3 @@ x = SemanticCube()
 #query = {TRUE,FALSE}
 #query = x.accepts("BOOL","BOOL","==") # este da NO
 #print(query)
-#query = x.accepts("BOOL","BOOL","!=") # este da SI
