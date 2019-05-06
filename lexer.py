@@ -109,15 +109,15 @@ def t_CTE_INT(t):
 
 def t_CTE_STRING(t):
     r'\"[a-zA-Z0-9^\s]*\"'
-    semantic_tool.insert_to_constants(t.value, 'STRING')
-    operand_stack.push(semantic_tool.memory_manager.find_constant(t.value, 'STRING'))
+    semantic_tool.insert_to_constants(t.value[1:-1], 'STRING')
+    operand_stack.push(semantic_tool.memory_manager.find_constant(t.value[1:-1], 'STRING'))
     type_stack.push("STRING")
     return t
 
 def t_CTE_CHAR(t):
     r'\'[a-zA-Z0-9^\s]\''
-    semantic_tool.insert_to_constants(t.value, 'CHAR')
-    operand_stack.push(semantic_tool.memory_manager.find_constant(t.value, 'CHAR'))
+    semantic_tool.insert_to_constants(t.value[1:-1], 'CHAR')
+    operand_stack.push(semantic_tool.memory_manager.find_constant(t.value[1:-1], 'CHAR'))
     type_stack.push("CHAR")
     return t
 
@@ -881,7 +881,7 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("testx.txt", "r")
+f = open("hello_world.txt", "r")
 s = ""
 
 for x in f:

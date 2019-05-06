@@ -352,7 +352,7 @@ class VM:
         if str(address).startswith('('):
             address = address[1:-1]
             print "PROCESS RES", address, self.memory.retrieve(int(address))
-            return self.memory.retrieve(int(address))
+            return int(self.memory.retrieve(int(address)))
         else:
             return address
 
@@ -461,6 +461,10 @@ class VM:
                 result = self.memory.retrieve(left) == self.memory.retrieve(right)
                 self.memory.assign(quad_result,  str(result).lower())
                 pointer = pointer + 1
+            elif action == '!=':
+                result = self.memory.retrieve(left) != self.memory.retrieve(right)
+                self.memory.assign(quad_result,  str(result).lower())
+                pointer = pointer + 1
             elif action == '&&':
                 result = self.memory.retrieve(left) == 'true' and self.memory.retrieve(right) == 'true'
                 self.memory.assign(quad_result,  str(result).lower())
@@ -468,6 +472,10 @@ class VM:
             elif action == '||':
                 result = self.memory.retrieve(left) == 'true' or self.memory.retrieve(right) == 'true'
                 self.memory.assign(quad_result,  str(result).lower())
+                pointer = pointer + 1
+            elif action == '!':
+                result = self.memory.retrieve(left) == 'false'
+                self.memory.assign(quad_result, str(result).lower)
                 pointer = pointer + 1
             elif action == 'END':
                 return
@@ -572,7 +580,12 @@ class VM:
                     new_key_addr = self.memory.first_available_addr(key_start)
                     self.memory.assign_explicit(new_key_addr, self.memory.retrieve(right))
                     new_val_addr = self.memory.map_value_address(val_start, new_key_addr[3])
-                    self.memory.assign(new_val_addr, 0)
+
+                    default_values = {'BOOL': 'false', 'INT': 0, 'FLOAT': 0.0, 'CHAR': ' ', 'STRING': " "}
+                    translated_val = self.memory.translate(new_val_addr)
+
+
+                    self.memory.assign(new_val_addr, default_values[translated_val[1]])
                     print "ACCESSSSSSSSS", quad_result, new_val_addr
                     self.memory.assign(quad_result, new_val_addr)
                 else: # la llave ya existe
