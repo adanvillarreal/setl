@@ -23,7 +23,7 @@ quadruples_list = QuadrupleList()
 #non-linear-quads
 jump_stack = Stack()
 
-
+#list of tokens
 tokens = [
     'CTE_FLOAT',
     'CTE_INT',
@@ -44,6 +44,7 @@ tokens = [
     'SET_MATH_MULDIV'
 ]
 
+#regex for tokens
 t_ASSIGNATOR =  r':='
 t_LEQ = r'<='
 t_GEQ = r'>='
@@ -56,9 +57,10 @@ t_OP = r'(size|clear|domain|range)'
 t_SET_MATH_ADDSUB = r'(\.\+|\.\-)'
 t_SET_MATH_MULDIV = r'(\.\*)'
 
-
+# literals that work as tokens
 literals = ['+', '-', '*', '/', '(', ')', '[', ']', '{', '}','.', ',', ':', ';', '=', '>', '<', '!']
 
+#reserved words (also tokens)
 reserved = {
   'bool': 'BOOL',
   'char': 'CHAR',
@@ -87,12 +89,16 @@ reserved = {
   'false' : 'CTE_BOOL'
 }
 
+#ID starts with lowercase and then supports numbers and lowercase. Checks that
+#the ID is not part of the reserved set.
 def t_ID(t):
     r'([a-zA-Z][a-zA-Z0-9-_]*)'
     if t.value in reserved:
         t.type = reserved[t.value]
     return t
 
+# The following tokens represent constants. They are pushed into the operand
+# and type stack, and saved in memory as constants.
 def t_CTE_FLOAT(t):
     r'\d+\.\d+'
     semantic_tool.insert_to_constants(t.value, 'FLOAT')
@@ -121,25 +127,31 @@ def t_CTE_CHAR(t):
     type_stack.push("CHAR")
     return t
 
+#Token for error
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
+#ignore whitespace and newlines
 t_ignore = ' \t\n'
 
+#add the reserved set to the tokens
 tokens = tokens + list(reserved.values())
 
-# parser
-
+# parser starts with rule: program
+# neuralgic points are represented by rules with prefix n_
 start = "program"
 
+# program header
 def p_program(p):
     '''program : PROGRAM ID ';' n_main_quad program1'''
 
+# generate quad to go to main section
 def p_n_main_quad(p):
     '''n_main_quad : '''
     gen_quad('GOTO', None, None, None)
 
+# program structure is: vars, procs, main.
 def p_program1(p):
     '''program1 : var program1
                 | program2'''
@@ -148,43 +160,49 @@ def p_program2(p):
     '''program2 : proc program2
                 | main'''
 
+# funciton definition
 def p_proc(p):
     '''proc : proca1 procA n_check_has_return
             | VOID proca2 procA
             | empty'''
-    print ":function" + p[1]
+    #print ":function" + p[1]
 
+#n_point that validates that a function has a return statement that matches the
+#function's return type.
 def p_n_check_has_return(p):
     '''n_check_has_return : '''
-    print "CHECK HAS RETURN RULE *********************************************"
+    #print "CHECK HAS RETURN RULE *********************************************"
     if not semantic_tool.get_has_return():
         raise ValueError("No return statement in non-void function")
-    operand = operand_stack.top()
-    result_type = type_stack.top()
-    result = quadruples_list.next_temp()
-    glob_addr = semantic_tool.memory_manager.find_global(semantic_tool.current_proc, result_type)
-    #gen_quad('===', operand, None, glob_addr) esta es la parte donde se guarda el valor de retorno en la var global,
-    # no se si se genera un cuadruplo para esto o se hace en la maquina virtual cuando ve el return.
+    # operand = operand_stack.top()
+    # result_type = type_stack.top()
+    # result = quadruples_list.next_temp()
+    # glob_addr = semantic_tool.memory_manager.find_global(semantic_tool.current_proc, result_type)
+    # #gen_quad('===', operand, None, glob_addr) esta es la parte donde se guarda el valor de retorno en la var global,
+    # # no se si se genera un cuadruplo para esto o se hace en la maquina virtual cuando ve el return.
 
-def p_proca2(p): #void function
+# void function.
+def p_proca2(p):
     '''proca2 : ID '(' '''
     if not semantic_tool.new_proc(p[1], None):
         raise ValueError("Function " + p[1] + " already declared")
 
-def p_proca1(p): #non void function
+# non void function
+def p_proca1(p):
     '''proca1 :  datatype ID '(' '''
     if not semantic_tool.new_proc(p[2], str(p[1]).upper()):
         raise ValueError("Function " + p[2] + " already declared")
 
     p[0] = p[1] + p[2]
 
+# parameters and body of a function
 def p_procA(p):
     '''procA : proc1 ')' '{' proc3 '}' '''
     gen_quad('ENDPROC', None, None, None)
     semantic_tool.save_used_memory()
 
-
-def p_proc1(p): # cleans previous local vars table
+# handles parameters
+def p_proc1(p):
     '''proc1 : n_push_variable proc2
              | empty'''
 
@@ -192,23 +210,27 @@ def p_proc2(p):
     '''proc2 : ',' n_push_variable proc2
              | empty'''
 
+# push a parameter to the vartable and to the proc definition in proc dir.
 def p_n_push_variable(p):
     '''n_push_variable :  datatype ID'''
-    if not semantic_tool.insert_var(p[2], p[1].upper(), False): #adds new variable to table
+    if not semantic_tool.insert_var(p[2], p[1].upper(), True): #adds new variable to table
         raise ValueError("Variable " + p[2] + " already declared")
     else:
         if not semantic_tool.add_proc_param(p[1].upper()):
             raise ValueError("Unable to save variable")
-        print "Added " + str(p[2]) + str(p[1])
+        #print "Added " + str(p[2]) + str(p[1])
 
+# proc has the following structure: vars statements.
 def p_proc3(p):
     '''proc3 : var proc3
              | n_quad_counter proc4'''
 
+# sets the quad number to jump to when calling the function
 def p_n_quad_counter(p):
     '''n_quad_counter : '''
     semantic_tool.add_quad_counter(quadruples_list.current_quad_number())
 
+# statements in function's body
 def p_proc4(p):
     '''proc4 : statement proc4
              | empty'''
@@ -217,26 +239,27 @@ def p_vars(p):
     '''vars : var vars
             | var'''
 
+# var declaration as datatype followed by one or more comma separated IDs.
+# neuralgic point inserts to var table.
 def p_var(p):
     '''var : datatype var1 '''
     p[0] = p[1] + " " + str(p[2])
     for i in p[2].split():
-        if not semantic_tool.insert_var(i, p[1].upper(), False): #adds new variable to table
+        if not semantic_tool.insert_var(i, p[1].upper(), False):
             raise ValueError("Variable " + i + " already declared")
-        else:
-            print "Lexer: Added " + str(i) + " " + p[1]
+        #else:
+            #print "Lexer: Added " + str(i) + " " + p[1]
 
+# handles list of IDs
 def p_var1(p):
     '''var1 : ID ',' var1
-             | ID var2'''
+             | ID ';' '''
     if p[2] == ',':
         p[0] = p[1] + " " + p[3]
     else:
         p[0] = p[1]
 
-def p_var2(p):
-    '''var2 : ';' '''
-
+# assignment follow the structure: ID := expression
 def p_assignment(p):
     '''assignment : assignment2 ASSIGNATOR n_quad_assign expression'''
     print("assignation for " + str(p[1]))
@@ -244,6 +267,8 @@ def p_assignment(p):
     semantic_tool.set_variable_assigned(str(p[1]))
     quad_process_assign(["="])
 
+# neuralgic point that validates if ID is a declared var. If so, pushes to
+# the operand and type stack.
 def p_assignment2(p):
     '''assignment2 : ID'''
     search_result = semantic_tool.find_var(p[1])
@@ -254,11 +279,13 @@ def p_assignment2(p):
         type_stack.push(search_result.data_type)
         p[0] = p[1]
 
+# neuralgic point pushes an assign operator into the operator stack
 def p_n_quad_assign(p):
     '''n_quad_assign : '''
     operator_stack.push('=')
 
-#paso 1 del if-else, 2 del while
+# first step for if and second step for while. Validates that the exp is BOOL
+# and generates a GOTOF, pushing to the jumpstack for a pending value.
 def exp_eval():
     exp_type = type_stack.pop()
     if(exp_type != 'BOOL'):
@@ -266,9 +293,9 @@ def exp_eval():
     else:
         result = operand_stack.pop()
 
-        #tener cuidado con cambiar el orden
         gen_quad('GOTOF', result, None, 'TO BE DEFINED')
         jump_stack.push( len(quadruples_list.list) - 1 )
+
 
 def p_condition(p):
     '''condition : IF '(' expression n_while_2 ')' block condition1'''
