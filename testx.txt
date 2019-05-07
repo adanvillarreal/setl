@@ -1,12 +1,10 @@
 program aPlusB;
 
-set<int> A,B;
+map<bool,int> A;
 
 main {
-  A.insert(1);
-  B.insert(2);
-  A := B;
 
-  print(A);
+  A[true && true] := 6;
+  print(A[true]);
 
 }

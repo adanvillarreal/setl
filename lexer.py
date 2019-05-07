@@ -828,7 +828,7 @@ def p_map_definition(p):
   p[0] = p[1] + p[2] + p[3] + p[4] + p[5] + p[6]
 
 def p_map_access(p):
-  '''map_access : ID '[' exp ']' '''
+  '''map_access : ID '[' expression ']' '''
 
   var = semantic_tool.find_var(p[1])
   if var == None: #checks variable is declared
@@ -881,7 +881,7 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("hello_world.txt", "r")
+f = open("testx.txt", "r")
 s = ""
 
 for x in f:
