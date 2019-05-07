@@ -835,6 +835,8 @@ def p_map_access(p):
     raise ValueError("Undeclared variable " + p[1])
   else:
     datatype = var.data_type
+    if not datatype.startswith('MAP'):
+        raise ValueError("Variable " + var.name + " is not of type Map")
     datatype_key = datatype[4:-1].split(",")[0]
     datatype_val = datatype[4:-1].split(",")[1]
     if type_stack.top() != datatype_key:
@@ -881,7 +883,7 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("testx.txt", "r")
+f = open("hello_world.txt", "r")
 s = ""
 
 for x in f:
