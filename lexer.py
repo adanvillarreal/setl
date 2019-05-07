@@ -403,6 +403,9 @@ def p_function_call(p):
         gen_quad('=', semantic_tool.memory_manager.find_global(function_called.name, function_called.return_type), None, temp_addr)
         operand_stack.push(temp_addr)
         type_stack.push(function_called.return_type)
+        p[0] = "&RETURNS"
+    else:
+        p[0] = "&VOID"
 
 # Validates that function exists and generates ERA quad.
 def p_n_era_size(p):
@@ -449,7 +452,11 @@ def p_n_verify_argument(p):
 # signature.
 def p_return(p):
     '''return : RETURN expression'''
-    if(not semantic_tool.check_return_type(type_stack.top())):
+    check = semantic_tool.check_return_type(type_stack.top())
+    if(check is None):
+        semantic_tool.set_has_return(True)
+        gen_quad("ENDPROC", None, None, None)
+    elif(not check):
         raise ValueError("Wrong return type")
     else:
         semantic_tool.set_has_return(True)
@@ -860,7 +867,8 @@ def p_varcte1(p):
                | function_call
                | map_access
                | container_operation'''
-
+    if p[1].startswith("&VOID"):
+        raise ValueError("Can't use a void function in an expression")
     if p[1] in ["true", "false"]:
         semantic_tool.insert_to_constants(p[1], 'BOOL')
         operand_stack.push(semantic_tool.memory_manager.find_constant(p[1], 'BOOL'))
@@ -965,7 +973,7 @@ def p_error(p):
      # .format(parser.state,
     #          stack_state_str,
     #          p))
-    raise ValueError("Invalid syntax in " + str(p.value) + " " + str(p.type))
+    raise ValueError("Invalid syntax in " + str(stack_state_str))
 
 
 #Build the lexer
@@ -982,7 +990,7 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("hello_world.txt", "r")
+f = open("fibonacci.txt", "r")
 s = ""
 
 for x in f:
