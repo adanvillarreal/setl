@@ -259,7 +259,8 @@ class Semantics:
             if global_table_search == None:
                 return None
             else:
-                return global_table_search
+                new_record = global_table_search._replace(value = True)
+                self.global_vars.update(var_name, new_record)
         else: #local table
             new_record = local_table_search._replace(value = True)
             table.update(var_name, new_record)
@@ -310,11 +311,12 @@ class Semantics:
             return local_table_search
 
     def check_return_type(self, return_type):
-        print "CHECK RETURN TYPE"
-        print return_type
         og_return_type =  self.functions.find(self.current_proc).return_type
         print og_return_type
-        return og_return_type == None or return_type == og_return_type
+        if og_return_type == None:
+            return None
+        else:
+            return return_type == og_return_type
 
     def set_has_return(self, has_return):
         print has_return
