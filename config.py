@@ -51,13 +51,15 @@ class Stack:
 
 
     def pop(self):
+        print "POP", self.stack
         if len(self.stack) < 1:
             print("EMPTY STACK")
             return None
-        print("POPING " + str(self.stack[-1]))
+        #print("POPING " + str(self.stack[-1]))
         return self.stack.pop()
 
     def push(self, item):
+        print "PUSHING", self.stack
     #    print("PUSHING " + str(item))
         self.stack.append(item)
         print(self.stack)
@@ -82,13 +84,13 @@ class Memory:
         return self.init_address[data_type] + self.size_occupied[data_type]
 
     def assign(self, data_type, value, size_needed):
-        print data_type
         if value in self.maps[data_type]:
             return self.maps[data_type][value]
         if len(self.maps[data_type]) + size_needed > self.delta:
             return None
         next_address = self.next_address(data_type)
         self.size_occupied[data_type] += size_needed
+
         print "Size occupied ", self.size_occupied[data_type]
         self.maps[data_type][value] = next_address
         return next_address
@@ -136,13 +138,18 @@ class Semantics:
             is_set = True
             datatype = datatype[4: -1]
             size_needed = 10
-            print "Incoming Set of datatype", datatype
+            print "Incoming Set of datatype",
+            value = True
 
         if datatype.startswith('MAP'):
-            is_set = True
-            datatype = datatype[4: -1]
+            og_datatype = datatype
+            datatype = datatype[4: -1] # map <int,int> M;
+            datatype = datatype.split(",")
             size_needed = 10
             print "Incoming Map"
+            print datatype[0]
+            print datatype[1]
+            return self.insert_map_handler(name, og_datatype, datatype[0], datatype[1], True)
 
         if self.global_scope:
             table = self.global_vars
@@ -164,6 +171,40 @@ class Semantics:
             print("^^^^^^^^^^^^^ASSIGNING MEMORY")
             print name, datatype, value, current_address
             if table.insert(name, original_datatype, value, current_address):
+                proc = proc._replace(vars_table=table)
+                return True
+            else:
+                return False
+
+    def insert_map_handler(self, name, og_datatype, datatype_key, datatype_value, value):
+        value = True
+        size_needed = 10
+        if self.global_scope:
+            table = self.global_vars
+            current_address_key = self.memory_manager.memories['global'].assign(datatype_key, name + '.k', size_needed)
+            current_address_val = self.memory_manager.memories['global'].assign(datatype_value, name + '.v', size_needed)
+
+            current_address = [current_address_key, current_address_val]
+
+            if None in current_address:
+                print "ADDRESS NOT AVAILABLE"
+                raise SyntaxError
+            print("^^^^^^^^^^^^^^^GLOBAL MEMORY")
+            print "Semantics: ", name, datatype_key, datatype_value, value, current_address
+            print og_datatype
+
+            return table.insert(name, og_datatype, value, current_address)
+        else:
+            proc = self.functions.find(self.current_proc)
+            table = proc[2]
+            current_address = [self.memory_manager.memories['global'].assign(datatype_key, name + '.k', size_needed),
+                               self.memory_manager.memories['global'].assign(datatype_value, name + '.v', size_needed)]
+            if None in current_address:
+                print "ADDRESS NOT AVAILABLE"
+                raise SyntaxError
+            print("^^^^^^^^^^^^^ASSIGNING MEMORY")
+            print "Semantics: ", name, datatype_key, datatype_value, value, current_address
+            if table.insert(name, og_datatype, value, current_address):
                 proc = proc._replace(vars_table=table)
                 return True
             else:
@@ -208,10 +249,29 @@ class Semantics:
         self.functions.update(old_proc[0], old_proc._replace(memory_size = memory_size_map))
         print self.functions.find(old_proc[0])
 
+    def set_variable_assigned(self, var_name):
+        proc = self.functions.find(self.current_proc)
+        table = proc[2]
+        print "TABLE", table.find(var_name)
+        local_table_search = table.find(var_name)
+        if local_table_search == None:
+            global_table_search = self.global_vars.find(var_name)
+            if global_table_search == None:
+                return None
+            else:
+                return global_table_search
+        else: #local table
+            new_record = local_table_search._replace(value = True)
+            table.update(var_name, new_record)
+            print "NEW TABLE", table
+            self.functions.update(proc[0], proc._replace(vars_table = table))
+            print self.functions.find(proc[0])
+
+
     def new_proc(self, name, returntype):
         if not returntype is None:
             self.global_scope = True
-            self.insert_var(name, returntype, None)
+            self.insert_var(name, returntype, True)
 
         self.global_scope = False
 

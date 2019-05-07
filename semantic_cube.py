@@ -67,16 +67,8 @@ class SemanticCube:
                                     "/": "INT", ">": "BOOL", ">=": "BOOL",
                                     "<": "BOOL", "<=": "BOOL", "==": "BOOL",
                                     "!=": "BOOL", "=": "INT"}
-        self.cube[key_int][key_float] = {"+": "FLOAT" , "-": "FLOAT", "*": "FLOAT",
-                                        "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
-                                        "<": "BOOL", "<=": "BOOL", "==": "BOOL",
-                                        "!=": "BOOL"}
 
         #Float versus everyone
-        self.cube[key_float][key_int] = {"+": "FLOAT" , "-": "FLOAT", "*": "FLOAT",
-                                        "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
-                                        "<": "BOOL", "<=": "BOOL", "==": "BOOL",
-                                        "!=": "BOOL"}
         self.cube[key_float][key_float] = {"+": "FLOAT" , "-": "FLOAT", "*": "FLOAT",
                                         "/": "FLOAT", ">": "BOOL", ">=": "BOOL",
                                         "<": "BOOL", "<=": "BOOL", "==": "BOOL",
@@ -99,7 +91,7 @@ class SemanticCube:
 
         #Set versus everyone
         self.cube[key_set][key_set] = {".+": "SET", ".-": "SET", ".*": "SET",
-                                       "=": "SET", "==": "BOOL"}
+                                       "=": "SET"}
         self.cube[key_set][key_int] = {"INSERT": "NONE", "REMOVE": "NONE",
                                        "FIND": "BOOL"}
         self.cube[key_set][key_float] = {"INSERT": "NONE", "REMOVE": "NONE",
@@ -113,7 +105,8 @@ class SemanticCube:
         self.cube[key_set][key_none] = {"SIZE": "INT", "CLEAR": "NONE"}
 
         #Map PENDIENTE
-        self.cube[key_map][key_map] = {"=" : "MAP", "==": "MAP"}
+        self.cube[key_map][key_none] = {"DOMAIN": "SET", "RANGE": "SET",
+                                        "SIZE": "INT", "CLEAR": "NONE"}
 
 
     def __init__(self):
@@ -140,4 +133,3 @@ x = SemanticCube()
 #query = {TRUE,FALSE}
 #query = x.accepts("BOOL","BOOL","==") # este da NO
 #print(query)
-#query = x.accepts("BOOL","BOOL","!=") # este da SI

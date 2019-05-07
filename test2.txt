@@ -1,13 +1,22 @@
 program aPlusB;
 
-int i;
 
+map<int,int> M;
+set<int> A,B;
 main {
-  int j;
-  print(8);
-  print(1*2);
-  i := 2 * 3;
-  j := i * 2 - 1;
-  print(j);
-  print(i + j);
+  int x;
+  x := 1;
+  while(x < 50){
+    M[x] := x * x;
+    x := x + 1;
+  }
+  x := 1;
+  while(x < 50){
+    print(M[x]);
+    x := x + 1;
+  }
+  M[2] := 100;
+  print(M[2]);
+  A := M.domain();
+  print(A);
 }
