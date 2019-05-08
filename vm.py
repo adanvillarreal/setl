@@ -413,9 +413,12 @@ class VMMemory:
         #print 'retrieving', translation, address
         if translation is None:
             raise RuntimeError("OUT OF MEMORY")
+        # If the value in the given address is None, the variable hasn't been
+        # assigned and needs to raise an error.
         try:
             if (translation[0] == 'local' or translation[0] == 'temporary'):
-                # check if it's required to cast value
+                # check if it's required to cast value, raise error if memory hasn't
+                # been assigned (is None)
                 if translation[1] == 'INT':
                     #print self.memories
                     return int(self.memories[translation[0]].top()[translation[1]][translation[2]])
@@ -427,7 +430,8 @@ class VMMemory:
                         raise RuntimeError("Uninitialized variable" + str(translation))
                     return ret
             else:
-                # check if it's required to cast value
+                # check if it's required to cast value, raise error if memory hasn't
+                # been assigned (is None)
                 if translation[1] == 'INT':
                     return int(self.memories[translation[0]][translation[1]][translation[2]])
                 elif translation[1] =='FLOAT':
