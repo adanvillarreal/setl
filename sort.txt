@@ -21,15 +21,13 @@ void sort(int n){
     }
     i := i + 1;
   }
-  
+
 }
 
 main {
   int i, x;
 
   int n;
-  n := 10;
-  print(n);
 
   read(n);
   i := 0;

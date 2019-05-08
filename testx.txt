@@ -7,6 +7,8 @@ int f(){
 }
 
 main {
+  int n;
+  set<int> S;
   n := 1;
   print(f());
 }

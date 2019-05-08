@@ -24,8 +24,6 @@ void sieve(int n){
   int i, j;
   i := 0;
 
-  print(M[1]);
-
   while(i < n){
     M[i] := true;
     i := i + 1;
