@@ -387,6 +387,8 @@ def p_n_output_quad(p):
     operand_type = type_stack.pop()
     if operand_type.startswith('SET'):
         operand_type = 'SET'
+    elif operand_type.startswith('MAP'):
+        operand_type = 'MAP'
     gen_quad('PRINT', operand, operand_type, None)
 
 # structure for function call. Validates that the function exists and generates
