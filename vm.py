@@ -413,23 +413,36 @@ class VMMemory:
         #print 'retrieving', translation, address
         if translation is None:
             raise RuntimeError("OUT OF MEMORY")
-        if (translation[0] == 'local' or translation[0] == 'temporary'):
-            # check if it's required to cast value
-            if translation[1] == 'INT':
-                #print self.memories
-                return int(self.memories[translation[0]].top()[translation[1]][translation[2]])
-            elif translation[1] =='FLOAT':
-                return float(self.memories[translation[0]].top()[translation[1]][translation[2]])
+        # If the value in the given address is None, the variable hasn't been
+        # assigned and needs to raise an error.
+        try:
+            if (translation[0] == 'local' or translation[0] == 'temporary'):
+                # check if it's required to cast value, raise error if memory hasn't
+                # been assigned (is None)
+                if translation[1] == 'INT':
+                    #print self.memories
+                    return int(self.memories[translation[0]].top()[translation[1]][translation[2]])
+                elif translation[1] =='FLOAT':
+                    return float(self.memories[translation[0]].top()[translation[1]][translation[2]])
+                else:
+                    ret = self.memories[translation[0]].top()[translation[1]][translation[2]]
+                    if ret is None:
+                        raise RuntimeError("Uninitialized variable" + str(translation))
+                    return ret
             else:
-                return self.memories[translation[0]].top()[translation[1]][translation[2]]
-        else:
-            # check if it's required to cast value
-            if translation[1] == 'INT':
-                return int(self.memories[translation[0]][translation[1]][translation[2]])
-            elif translation[1] =='FLOAT':
-                return float(self.memories[translation[0]][translation[1]][translation[2]])
-            else:
-                return self.memories[translation[0]][translation[1]][translation[2]]
+                # check if it's required to cast value, raise error if memory hasn't
+                # been assigned (is None)
+                if translation[1] == 'INT':
+                    return int(self.memories[translation[0]][translation[1]][translation[2]])
+                elif translation[1] =='FLOAT':
+                    return float(self.memories[translation[0]][translation[1]][translation[2]])
+                else:
+                    ret = self.memories[translation[0]][translation[1]][translation[2]]
+                    if ret is None:
+                        raise RuntimeError("Uninitialized variable" + str(translation))
+                    return ret
+        except:
+            raise RuntimeError("Uninitialized variable" + str(translation))
 
 # Class that handles operations with the virtual machine.
 # Receives the functions_table, constants map, memory for global vars, quadruples, ranges for memory, delta for datatypes in memory, and global vars

@@ -118,7 +118,7 @@ class SemanticCube:
         datatype1 = str(datatype1).upper()
         datatype2 = str(datatype2).upper()
 
-        print(str(datatype1) + " " + str(datatype2) + "***" + str(operator))
+        #Fprint(str(datatype1) + " " + str(datatype2) + "***" + str(operator))
 
         key_param1 = self.datatypes[datatype1]
         key_param2 = self.datatypes[datatype2]
