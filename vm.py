@@ -631,6 +631,13 @@ class VM:
                 if right == "SET":
                     new_vector = self.memory.to_vector(left)
                     print '>', new_vector
+                elif right == 'MAP':
+                    vector_keys = self.memory.to_vector(left[0])
+                    vector_values = self.memory.to_vector(left[1])
+                    n_map = {}
+                    for i in range(len(vector_keys)):
+                        n_map[vector_keys[i]] = vector_values[i]
+                    print n_map
                 else:
                     print '>', self.memory.retrieve(left)
                 pointer = pointer + 1
