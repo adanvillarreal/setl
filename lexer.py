@@ -7,6 +7,7 @@ from symbol_table import SymbolTable
 from semantic_cube import SemanticCube
 from config import *
 from vm import *
+from tabulate import tabulate
 
 semantic_cube = SemanticCube()
 
@@ -262,8 +263,8 @@ def p_var1(p):
 # assignment follow the structure: ID := expression
 def p_assignment(p):
     '''assignment : assignment2 ASSIGNATOR n_quad_assign expression'''
-    print("assignation for " + str(p[1]))
-    print p[1]
+    #print("assignation for " + str(p[1]))
+    #print p[1]
     quad_process_assign(["="])
 
 # neuralgic point that validates if ID is a declared var. If so, pushes to
@@ -467,7 +468,7 @@ def p_return(p):
 # pushes to operand, operator and type stack.
 def p_container_operation_arg(p):
     '''container_operation : ID '.' OP_ARGS '(' expression ')' '''
-    print("CONTAINER OPERATION WITH ARGUMENT ", p[3])
+    #print("CONTAINER OPERATION WITH ARGUMENT ", p[3])
 
     var = semantic_tool.find_var(p[1])
     if var == None: #checks variable is declared
@@ -558,7 +559,7 @@ def fill_quad(position, value):
     #print(position)
     #print(value)
     quadruples_list.list[position].result = value
-    quadruples_list.list[position].print_quad()
+    #quadruples_list.list[position].print_quad()
 
 # Given an operator, generates a quad after validating with the semantic cube.
 def quad_process_unary(operator_list):
@@ -977,17 +978,17 @@ def p_error(p):
 
 
 #Build the lexer
-lexer = lex.lex()
+lexer = lex.lex(debug=0)
 
 #Build the parser
-logging.basicConfig(
-    level = logging.DEBUG,
-    filename = "parselog.txt",
-    filemode = "w",
-    format = "%(filename)10s:%(lineno)4d:%(message)s"
-)
+# logging.basicConfig(
+#     level = logging.DEBUG,
+#     filename = "parselog.txt",
+#     filemode = "w",
+#     format = "%(filename)10s:%(lineno)4d:%(message)s"
+# )
 
-log = logging.getLogger()
+#log = logging.getLogger()
 parser = yacc.yacc()
 
 args = str(sys.argv[1])
@@ -999,7 +1000,7 @@ for x in f:
   s = s + x
 
 #print(s)
-res = parser.parse(s, debug=log)
+res = parser.parse(s, debug=0)
 #print(res)
 #print("END RES")
 
@@ -1007,8 +1008,14 @@ res = parser.parse(s, debug=log)
 #operand_stack.print_stack()
 #print("Type stack")
 #type_stack.print_stack()
-print("QUADRUPLES")
-quadruples_list.print_quads()
+if len(sys.argv) > 2 and str(sys.argv[2]) == "quads":
+    print("QUADRUPLES")
+    quads = []
+    count = 0
+    for q in quadruples_list.list:
+        quads.append([count, q.action, q.first, q.second, q.result])
+        count = count + 1
+    print tabulate(quads, headers=['ID', 'ACTION', 'FIRST', 'SECOND', 'RESULT'])
 
 #print("Jump Stack")
 #jump_stack.print_stack()

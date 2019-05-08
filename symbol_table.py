@@ -12,7 +12,7 @@ class SymbolTable:
         if self.exists(name):
             return False
         else:
-            print "Symbol Table: Insert ", data_type , " in symbol table in address ", address
+            #print "Symbol Table: Insert ", data_type , " in symbol table in address ", address
             self.table[name] = self.table_entry(name, data_type, value, address)
             return True
 
@@ -22,9 +22,9 @@ class SymbolTable:
         else:
             return None
     def update(self, name, entry):
-        print "UP SYMBOL TABLE", name, entry
+        #print "UP SYMBOL TABLE", name, entry
         self.table[name] = entry
-        print self.table[name]
+        #print self.table[name]
 
     def print_table(self):
         print(self.table)
@@ -39,8 +39,8 @@ class ProcTable:
 
     def update(self, name, entry):
         self.table[name] = entry
-    #    print "UPDATETETETETETETETETE"
-        print self.table[name]
+        #print "UPDATETETETETETETETETE"
+        #print self.table[name]
 
     def insert(self, name, returntype, varstable, params, quad, memory_size):
         if self.exists(name):

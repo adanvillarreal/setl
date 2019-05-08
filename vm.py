@@ -102,7 +102,7 @@ class VMMemory:
     # Receives an address and a value
     def assign(self, address, value):
         translation = self.translate(address)
-        print 'assigning ', translation, address, value
+        #print 'assigning ', translation, address, value
         if translation is None:
             raise RuntimeError("OUT OF MEMORY")
         if (translation[0] == 'local' or translation[0] == 'temporary'):
@@ -114,7 +114,7 @@ class VMMemory:
     # Receives translation [memory_type, data_type, index] and value
     def assign_explicit(self, translation, value):
         if translation is None:
-            print self.memories['global']['INT']
+            #print self.memories['global']['INT']
             raise RuntimeError("OUT OF MEMORY")
         if (translation[0] == 'local' or translation[0] == 'temporary'):
             self.memories[translation[0]].top()[translation[1]][translation[2]] = value
@@ -150,7 +150,7 @@ class VMMemory:
 
         # while address is not bigger than delta 1000
         while(idx + counter < 1000):
-            print idx, counter
+            #print idx, counter
             # 10th cell has a pointer. Follow or add append a new chunk.
             if counter != 0 and counter % 9 == 0:
                 # if more memory is needed
@@ -339,7 +339,7 @@ class VMMemory:
                 # if space is available, assign the vector's value
                 if memory[idx + counter] is None:
                     first_addr = idx + counter
-                    print"ASDASDASDASDASDASDADSDASDASDASD", set_idx, len(l_set)
+                    #print"ASSIGNING VECTOR VALUE", set_idx, len(l_set)
                     self.assign_explicit([translation[0], translation[1], first_addr], l_set[set_idx])
                     set_idx = set_idx + 1
                 # This else would be used for future optimizations.
