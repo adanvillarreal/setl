@@ -442,6 +442,8 @@ def p_n_verify_argument(p):
     '''n_verify_argument : expression'''
     operand = operand_stack.pop()
     operand_type = type_stack.pop()
+    if operand_type.startswith('SET') or operand_type.startswith('MAP'):
+        raise ValueError("Sets and maps as parameters are not supported")
     result = semantic_tool.verify_param(semantic_tool.function_called, semantic_tool.param_counter, operand_type)
     if result == None:
         #print "*************&&&" + str(semantic_tool.param_counter)
