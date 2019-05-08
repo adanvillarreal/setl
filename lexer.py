@@ -992,8 +992,8 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-
-f = open("test.txt", "r")
+args = str(sys.argv[1])
+f = open(args, "r")
 
 s = ""
 
