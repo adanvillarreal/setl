@@ -1,0 +1,51 @@
+program sort;
+
+map<int, int> M;
+
+set<int> S;
+
+void sort(int n){
+  int i, j, aux;
+
+  i := 0;
+
+  while(i < n){
+    j := i + 1;
+    while(j < n){
+      if(M[j] < M[i]){
+        aux := M[j];
+        M[j] := M[i];
+        M[i] := aux;
+      }
+      j := j + 1;
+    }
+    i := i + 1;
+  }
+  
+}
+
+main {
+  int i, x;
+
+  int n;
+  n := 10;
+  print(n);
+
+  read(n);
+  i := 0;
+
+  while(i < n){
+    read(x);
+    M[i] := x;
+    i := i + 1;
+  }
+
+  sort(n);
+
+  i := 0;
+  while(i < n){
+    print(M[i]);
+    i := i + 1;
+  }
+
+}

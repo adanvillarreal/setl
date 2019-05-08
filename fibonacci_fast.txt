@@ -1,0 +1,27 @@
+program aPlusB;
+
+set<int> fib;
+
+void fibonacci(int n){
+  int first, second, aux;
+  first := 0;
+  second := 1;
+
+  while(first < n){
+    fib.insert(first);
+    aux := second + first;
+    first := second;
+    second := aux;
+  }
+
+}
+
+main {
+  int n;
+
+  read(n);
+
+  fibonacci(n);
+
+  print(fib);
+}

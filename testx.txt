@@ -1,10 +1,12 @@
 program aPlusB;
 
-map<bool,int> A;
+int n;
+
+int f(){
+  return n;
+}
 
 main {
-
-  A[true && true] := 6;
-  print(A[true]);
-
+  n := 1;
+  print(f());
 }

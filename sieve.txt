@@ -1,0 +1,36 @@
+program sieve;
+
+set<int> primes;
+map<int, bool> M;
+
+void sieve(int n){
+  int i, j;
+  i := 0;
+
+  while(i < n){
+    M[i] := true;
+    i := i + 1;
+  }
+
+  i := 2;
+
+  while(i < n){
+    j := 2;
+    if(M[i] == true){
+      primes.insert(i);
+    }
+    while(i * j < n){
+      M[i * j] := false;
+      j := j + 1;
+    }
+    i := i + 1;
+  }
+}
+
+main {
+  int limit;
+  read(limit);
+  sieve(limit);
+  print(primes);
+
+}

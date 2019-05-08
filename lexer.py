@@ -368,6 +368,7 @@ def p_n_process_read(p):
         raise ValueError("Undeclared variable " + var.name)
     if var.data_type.startswith("SET") or var.data_type.startswith("MAP"):
         raise ValueError("Unsopported read for SET or MAP")
+    semantic_tool.set_variable_assigned(str(p[1]))
     gen_quad('READ', None, None, var.address)
 
 # output structure

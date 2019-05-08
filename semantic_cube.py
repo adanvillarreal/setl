@@ -1,4 +1,8 @@
-
+# Semantic Cube Class
+# defines valid operations between data types
+# accepts or rejects a given operation between 2 operands
+# Works as a 2D list of dictionaries, where first 2 dimensions are the data types
+# the key, value in dictionaries represent Operation and data type returned
 class SemanticCube:
 
     num_operators = 26
@@ -14,6 +18,7 @@ class SemanticCube:
         "RANGE" : 17, "SIZE" : 18, "CLEAR" : 19, "INSERT" : 20, "REMOVE" : 21,
         "FIND" : 22, ".+" : 23, ".*" : 24, ".-" : 25 }
 
+    # Initialize cube to an empty 2D list of dictionaries
     def init_cube(self):
         self.cube = []
         for i in range(0,self.num_datatypes):
@@ -104,7 +109,7 @@ class SemanticCube:
                                         "FIND": "BOOL"}
         self.cube[key_set][key_none] = {"SIZE": "INT", "CLEAR": "NONE"}
 
-        #Map PENDIENTE
+        #Map
         self.cube[key_map][key_none] = {"DOMAIN": "SET", "RANGE": "SET",
                                         "SIZE": "INT", "CLEAR": "NONE"}
 
@@ -114,6 +119,8 @@ class SemanticCube:
         self.init_cube()
         self.fill_cube()
 
+    # Returns the type returned by two operands and an operation
+    # Or returns false if operation is not valid 
     def accepts(self, datatype1, datatype2, operator):
         datatype1 = str(datatype1).upper()
         datatype2 = str(datatype2).upper()
@@ -127,9 +134,3 @@ class SemanticCube:
             return self.cube[key_param1][key_param2][operator]
         else:
             return False
-
-x = SemanticCube()
-#print (x.cube)
-#query = {TRUE,FALSE}
-#query = x.accepts("BOOL","BOOL","==") # este da NO
-#print(query)
