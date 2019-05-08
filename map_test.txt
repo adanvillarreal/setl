@@ -1,0 +1,41 @@
+program mapTest;
+
+map<int,int> M;
+
+main {
+  set<int> A;
+  set<int> B;
+
+  int limit, i;
+
+  limit := 10;
+  i := 0;
+
+  while(i < limit){
+    M[i] := i + 500;
+    i := i + 1;
+  }
+
+  print("Domain of M");
+  print( M.domain() );
+  print("Range of M");
+  print(M.range());
+  A := M.domain();
+  B := M.range();
+
+  print("Union");
+  print(A .+ B);
+
+  A.insert(500);
+  print("Interseccion");
+  print(A .* B);
+
+  print("Difference");
+  print(B .- A  );
+
+  print(A.size());
+  print(A);
+
+
+
+}

@@ -1,19 +1,6 @@
 program aPlusB;
 
-int i, j;
-
-void uno(int a){
-  int i;
-  i := a * 2;
-  if (i < a + 4) {
-    i := 3;
-  }
-  print(i);
-}
-
-int dos(int b){
-  return b * 2;
-}
+set<int> fib;
 
 int fibonacci(int a){
   if (a <= 1){
@@ -25,12 +12,11 @@ int fibonacci(int a){
 main {
   int x;
   x := 0;
-  i := 2;
-  j := i * 2 - 1;
-  uno(j);
-  print(dos(j+1 + dos(1)));
+
   while(x < 10) {
-    print(fibonacci(x));
+    fib.insert( fibonacci(x) );
     x := x + 1;
   }
+
+  print(fib);
 }
