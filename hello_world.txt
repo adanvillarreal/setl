@@ -1,25 +1,5 @@
 program helloWorld;
-map<int, string> A;
-map<int, int> B;
-map<int, bool> C;
-map<int, float> D;
-main {
-  string s;
-  float x;
-  x := 1.3;
-  s := "helloworld";
-  if(s == "hola"){
-    print("Not spanish");
-  } else {
-    if (s == "hello" + "world"){
-    print(s);
-    }
-  }
-  A[1] := "1";
-  A[2] := "2";
-  B[1] := 3;
-  C[1] := true;
-  D[1] := 3.2;
 
-  print(A[3], A[2], B[1], B[2], C[1], C[2], D[1], D[2]);
+main {
+    print("hello world");
 }
