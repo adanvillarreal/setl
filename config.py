@@ -36,7 +36,7 @@ class QuadrupleList:
     # Adds a quadruple to Quadruple List
     def add(self, quadruple):
         #print("ASDASDASD")
-        quadruple.print_quad()
+        #quadruple.print_quad()
         self.list.append(quadruple)
 
     # Prints all quadruples in list, calls print functin in Quadruple object
@@ -62,18 +62,18 @@ class Stack:
         return self.stack[-1]
 
     def pop(self):
-        print "POP", self.stack
+        #print "POP", self.stack
         if len(self.stack) < 1:
-            print("EMPTY STACK")
+            #print("EMPTY STACK")
             return None
         #print("POPING " + str(self.stack[-1]))
         return self.stack.pop()
 
     def push(self, item):
-        print "PUSHING", self.stack
-    #    print("PUSHING " + str(item))
+        #print "PUSHING", self.stack
+        #print("PUSHING " + str(item))
         self.stack.append(item)
-        print(self.stack)
+        #print(self.stack)
 
     def size(self):
         return len(self.stack)
@@ -96,7 +96,7 @@ class Memory:
 
     # Returns the next available address in memory for a given data type
     def next_address(self, data_type):
-        print "NEXT ADDRESS LENGTH OF MAP",  data_type, self.maps[data_type]
+        #print "NEXT ADDRESS LENGTH OF MAP",  data_type, self.maps[data_type]
         #return self.init_address[data_type] + len(self.maps[data_type])
         return self.init_address[data_type] + self.size_occupied[data_type]
 
@@ -110,7 +110,7 @@ class Memory:
         next_address = self.next_address(data_type)
         self.size_occupied[data_type] += size_needed
 
-        print "Size occupied ", self.size_occupied[data_type]
+        #print "Size occupied ", self.size_occupied[data_type]
         self.maps[data_type][value] = next_address
         return next_address
 
@@ -174,7 +174,7 @@ class Semantics:
             is_set = True
             datatype = datatype[4: -1]
             size_needed = 10
-            print "Incoming Set of datatype",
+            #print "Incoming Set of datatype",
             value = True
 
         # Maps need at least 10 cells of memory
@@ -183,9 +183,9 @@ class Semantics:
             datatype = datatype[4: -1] # map <int,int> M;
             datatype = datatype.split(",")
             size_needed = 10
-            print "Incoming Map"
-            print datatype[0]
-            print datatype[1]
+            #print "Incoming Map"
+            #print datatype[0]
+            #print datatype[1]
             return self.insert_map_handler(name, og_datatype, datatype[0], datatype[1], True)
 
         # Insert var in global memory
@@ -193,10 +193,10 @@ class Semantics:
             table = self.global_vars
             current_address = self.memory_manager.memories['global'].assign(datatype, name, size_needed)
             if current_address is None:
-                print "ADDRESS NOT AVAILABLE"
+                #print "ADDRESS NOT AVAILABLE"
                 raise SyntaxError
-            print("^^^^^^^^^^^^^^^GLOBAL MEMORY")
-            print "Semantics: ", name, datatype, value, current_address
+            #print("^^^^^^^^^^^^^^^GLOBAL MEMORY")
+            #print "Semantics: ", name, datatype, value, current_address
 
             return table.insert(name, original_datatype, value, current_address)
         else: # Insert var in local memory
@@ -204,10 +204,10 @@ class Semantics:
             table = proc[2]
             current_address = self.memory_manager.memories['local'].assign(datatype, name, size_needed)
             if current_address is None:
-                print "ADDRESS NOT AVAILABLE"
+                #print "ADDRESS NOT AVAILABLE"
                 raise SyntaxError
-            print("^^^^^^^^^^^^^ASSIGNING MEMORY")
-            print name, datatype, value, current_address
+            #print("^^^^^^^^^^^^^ASSIGNING MEMORY")
+            #print name, datatype, value, current_address
             if table.insert(name, original_datatype, value, current_address):
                 proc = proc._replace(vars_table=table)
                 return True
@@ -226,11 +226,11 @@ class Semantics:
             current_address = [current_address_key, current_address_val]
 
             if None in current_address:
-                print "ADDRESS NOT AVAILABLE"
+                #print "ADDRESS NOT AVAILABLE"
                 raise SyntaxError
-            print("^^^^^^^^^^^^^^^GLOBAL MEMORY")
-            print "Semantics: ", name, datatype_key, datatype_value, value, current_address
-            print og_datatype
+            #print("^^^^^^^^^^^^^^^GLOBAL MEMORY")
+            #print "Semantics: ", name, datatype_key, datatype_value, value, current_address
+            #print og_datatype
 
             return table.insert(name, og_datatype, value, current_address)
         else:
@@ -239,10 +239,10 @@ class Semantics:
             current_address = [self.memory_manager.memories['global'].assign(datatype_key, name + '.k', size_needed),
                                self.memory_manager.memories['global'].assign(datatype_value, name + '.v', size_needed)]
             if None in current_address:
-                print "ADDRESS NOT AVAILABLE"
+                #print "ADDRESS NOT AVAILABLE"
                 raise SyntaxError
-            print("^^^^^^^^^^^^^ASSIGNING MEMORY")
-            print "Semantics: ", name, datatype_key, datatype_value, value, current_address
+            #print("^^^^^^^^^^^^^ASSIGNING MEMORY")
+            #print "Semantics: ", name, datatype_key, datatype_value, value, current_address
             if table.insert(name, og_datatype, value, current_address):
                 proc = proc._replace(vars_table=table)
                 return True
@@ -288,15 +288,15 @@ class Semantics:
     def save_used_memory(self):
         old_proc = self.functions.find(self.current_proc)
         memory_size_map = {'local':self.memory_manager.get_memory_size('local'), 'temporary': self.memory_manager.get_memory_size('temporary')}
-        print "SAVE USED MEMORY", memory_size_map
+        #print "SAVE USED MEMORY", memory_size_map
         self.functions.update(old_proc[0], old_proc._replace(memory_size = memory_size_map))
-        print self.functions.find(old_proc[0])
+        #print self.functions.find(old_proc[0])
 
     # Sets variable as an assigned one
     def set_variable_assigned(self, var_name):
         proc = self.functions.find(self.current_proc)
         table = proc[2] # current_proc vars table
-        print "TABLE", table.find(var_name)
+        #print "TABLE", table.find(var_name)
         local_table_search = table.find(var_name)
         if local_table_search == None:
             global_table_search = self.global_vars.find(var_name)
@@ -308,9 +308,9 @@ class Semantics:
         else: #local table
             new_record = local_table_search._replace(value = True)
             table.update(var_name, new_record)
-            print "NEW TABLE", table
+            #print "NEW TABLE", table
             self.functions.update(proc[0], proc._replace(vars_table = table))
-            print self.functions.find(proc[0])
+            #print self.functions.find(proc[0])
 
     # Inserts new procedure in local or global symbol table
     def new_proc(self, name, returntype):
@@ -334,7 +334,7 @@ class Semantics:
     def verify_param(self, func_name, param_number, current_type):
         proc = self.functions.find(func_name)
         if (len(proc.params) > param_number):
-            print str(proc.params) + " " + current_type
+            #print str(proc.params) + " " + current_type
             return proc.params[param_number] == current_type
         else:
             return None
@@ -363,7 +363,7 @@ class Semantics:
     # of current procedure
     def check_return_type(self, return_type):
         og_return_type =  self.functions.find(self.current_proc).return_type
-        print og_return_type
+        #print og_return_type
         if og_return_type == None:
             return None
         else:
@@ -371,7 +371,7 @@ class Semantics:
 
     # has_return setter
     def set_has_return(self, has_return):
-        print has_return
+        #print has_return
         self.has_return = has_return
 
     # has_return getter
