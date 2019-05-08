@@ -191,6 +191,8 @@ def p_proca2(p):
 # non void function
 def p_proca1(p):
     '''proca1 :  datatype ID '(' '''
+    if str(p[1]).startswith('map') or str(p[1]).startswith('set'):
+        raise ValueError("Map or set not supported as return value")
     if not semantic_tool.new_proc(p[2], str(p[1]).upper()):
         raise ValueError("Function " + p[2] + " already declared")
 
