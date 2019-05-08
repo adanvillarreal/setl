@@ -867,7 +867,7 @@ def p_varcte1(p):
                | function_call
                | map_access
                | container_operation'''
-    if p[1].startswith("&VOID"):
+    if not p[1] is None and p[1].startswith("&VOID"):
         raise ValueError("Can't use a void function in an expression")
     if p[1] in ["true", "false"]:
         semantic_tool.insert_to_constants(p[1], 'BOOL')
