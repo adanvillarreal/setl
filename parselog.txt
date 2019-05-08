@@ -13,721 +13,718 @@
    yacc.py: 445:Action : Shift and goto state 4
    yacc.py: 410:
    yacc.py: 411:State  : 4
-   yacc.py: 435:Stack  : PROGRAM ID ; . LexToken(SET,'set',1,17)
+   yacc.py: 435:Stack  : PROGRAM ID ; . LexToken(MAP,'map',1,17)
    yacc.py: 474:Action : Reduce rule [n_main_quad -> <empty>] with [] and goto state 5
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 5
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad . LexToken(SET,'set',1,17)
-   yacc.py: 445:Action : Shift and goto state 9
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad . LexToken(MAP,'map',1,17)
+   yacc.py: 445:Action : Shift and goto state 18
    yacc.py: 410:
-   yacc.py: 411:State  : 9
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad SET . LexToken(<,'<',1,20)
-   yacc.py: 445:Action : Shift and goto state 27
+   yacc.py: 411:State  : 18
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad MAP . LexToken(<,'<',1,20)
+   yacc.py: 445:Action : Shift and goto state 36
    yacc.py: 410:
-   yacc.py: 411:State  : 27
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad SET < . LexToken(INT,'int',1,21)
+   yacc.py: 411:State  : 36
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad MAP < . LexToken(BOOL,'bool',1,21)
+   yacc.py: 445:Action : Shift and goto state 23
+   yacc.py: 410:
+   yacc.py: 411:State  : 23
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad MAP < BOOL . LexToken(,,',',1,25)
+   yacc.py: 471:Action : Reduce rule [datatype -> BOOL] with ['bool'] and goto state 50
+   yacc.py: 506:Result : <str @ 0x7f0d42cce960> ('bool')
+   yacc.py: 410:
+   yacc.py: 411:State  : 50
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad MAP < datatype . LexToken(,,',',1,25)
+   yacc.py: 445:Action : Shift and goto state 59
+   yacc.py: 410:
+   yacc.py: 411:State  : 59
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad MAP < datatype , . LexToken(INT,'int',1,26)
    yacc.py: 445:Action : Shift and goto state 22
    yacc.py: 410:
    yacc.py: 411:State  : 22
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad SET < INT . LexToken(>,'>',1,24)
-   yacc.py: 471:Action : Reduce rule [datatype -> INT] with ['int'] and goto state 42
-   yacc.py: 506:Result : <str @ 0x7f347a96e5a8> ('int')
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad MAP < datatype , INT . LexToken(>,'>',1,29)
+   yacc.py: 471:Action : Reduce rule [datatype -> INT] with ['int'] and goto state 68
+   yacc.py: 506:Result : <str @ 0x7f0d42e8b4e0> ('int')
    yacc.py: 410:
-   yacc.py: 411:State  : 42
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad SET < datatype . LexToken(>,'>',1,24)
-   yacc.py: 445:Action : Shift and goto state 56
+   yacc.py: 411:State  : 68
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad MAP < datatype , datatype . LexToken(>,'>',1,29)
+   yacc.py: 445:Action : Shift and goto state 99
    yacc.py: 410:
-   yacc.py: 411:State  : 56
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad SET < datatype > . LexToken(ID,'A',1,26)
-   yacc.py: 471:Action : Reduce rule [set_definition -> SET < datatype >] with ['set','<','int','>'] and goto state 19
-   yacc.py: 506:Result : <str @ 0x7f347a798120> ('set<int>')
+   yacc.py: 411:State  : 99
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad MAP < datatype , datatype > . LexToken(ID,'A',1,31)
+   yacc.py: 471:Action : Reduce rule [map_definition -> MAP < datatype , datatype >] with ['map','<','bool',',','int','>'] and goto state 7
+   yacc.py: 506:Result : <str @ 0x7f0d42c7a7d8> ('map<bool,int>')
    yacc.py: 410:
-   yacc.py: 411:State  : 19
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad set_definition . LexToken(ID,'A',1,26)
-   yacc.py: 471:Action : Reduce rule [datatype -> set_definition] with ['set<int>'] and goto state 20
-   yacc.py: 506:Result : <str @ 0x7f347a798120> ('set<int>')
+   yacc.py: 411:State  : 7
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad map_definition . LexToken(ID,'A',1,31)
+   yacc.py: 471:Action : Reduce rule [datatype -> map_definition] with ['map<bool,int>'] and goto state 20
+   yacc.py: 506:Result : <str @ 0x7f0d42c7a7d8> ('map<bool,int>')
    yacc.py: 410:
    yacc.py: 411:State  : 20
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype . LexToken(ID,'A',1,26)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype . LexToken(ID,'A',1,31)
    yacc.py: 445:Action : Shift and goto state 38
    yacc.py: 410:
    yacc.py: 411:State  : 38
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype ID . LexToken(,,',',1,27)
-   yacc.py: 445:Action : Shift and goto state 53
-   yacc.py: 410:
-   yacc.py: 411:State  : 53
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype ID , . LexToken(ID,'B',1,28)
-   yacc.py: 445:Action : Shift and goto state 61
-   yacc.py: 410:
-   yacc.py: 411:State  : 61
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype ID , ID . LexToken(;,';',1,29)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype ID . LexToken(;,';',1,32)
    yacc.py: 445:Action : Shift and goto state 54
    yacc.py: 410:
    yacc.py: 411:State  : 54
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype ID , ID ; . LexToken(MAIN,'main',1,32)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype ID ; . LexToken(MAIN,'main',1,35)
    yacc.py: 471:Action : Reduce rule [var2 -> ;] with [';'] and goto state 51
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 51
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype ID , ID var2 . LexToken(MAIN,'main',1,32)
-   yacc.py: 471:Action : Reduce rule [var1 -> ID var2] with ['B',None] and goto state 60
-   yacc.py: 506:Result : <str @ 0x7f347bf91fd0> ('B')
-   yacc.py: 410:
-   yacc.py: 411:State  : 60
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype ID , var1 . LexToken(MAIN,'main',1,32)
-   yacc.py: 471:Action : Reduce rule [var1 -> ID , var1] with ['A',',','B'] and goto state 37
-   yacc.py: 506:Result : <str @ 0x7f347a96e698> ('A B')
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype ID var2 . LexToken(MAIN,'main',1,35)
+   yacc.py: 471:Action : Reduce rule [var1 -> ID var2] with ['A',None] and goto state 37
+   yacc.py: 506:Result : <str @ 0x7f0d443fcda0> ('A')
    yacc.py: 410:
    yacc.py: 411:State  : 37
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype var1 . LexToken(MAIN,'main',1,32)
-   yacc.py: 471:Action : Reduce rule [var -> datatype var1] with ['set<int>','A B'] and goto state 13
-   yacc.py: 506:Result : <str @ 0x7f347a78f730> ('set<int> A B')
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad datatype var1 . LexToken(MAIN,'main',1,35)
+   yacc.py: 471:Action : Reduce rule [var -> datatype var1] with ['map<bool,int>','A'] and goto state 13
+   yacc.py: 506:Result : <str @ 0x7f0d42c7ae68> ('map<bool,int> A')
    yacc.py: 410:
    yacc.py: 411:State  : 13
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var . LexToken(MAIN,'main',1,32)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var . LexToken(MAIN,'main',1,35)
    yacc.py: 445:Action : Shift and goto state 24
    yacc.py: 410:
    yacc.py: 411:State  : 24
    yacc.py: 430:Defaulted state 24: Reduce using 134
    yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN . None
    yacc.py: 474:Action : Reduce rule [n_clear_scope -> <empty>] with [] and goto state 39
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 39
    yacc.py: 430:Defaulted state 39: Reduce using 133
    yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope . None
    yacc.py: 474:Action : Reduce rule [n_main_quad2 -> <empty>] with [] and goto state 55
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 55
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 . LexToken({,'{',1,37)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 . LexToken({,'{',1,40)
    yacc.py: 445:Action : Shift and goto state 62
    yacc.py: 410:
    yacc.py: 411:State  : 62
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { . LexToken(ID,'A',1,41)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { . LexToken(ID,'A',1,45)
    yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 72
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 72
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { empty . LexToken(ID,'A',1,41)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { empty . LexToken(ID,'A',1,45)
    yacc.py: 471:Action : Reduce rule [vars_aux -> empty] with [None] and goto state 70
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 70
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux . LexToken(ID,'A',1,41)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux . LexToken(ID,'A',1,45)
    yacc.py: 445:Action : Shift and goto state 92
    yacc.py: 410:
    yacc.py: 411:State  : 92
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . LexToken(.,'.',1,42)
-   yacc.py: 445:Action : Shift and goto state 124
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . LexToken([,'[',1,46)
+   yacc.py: 445:Action : Shift and goto state 125
    yacc.py: 410:
-   yacc.py: 411:State  : 124
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . . LexToken(OP_ARGS,'insert',1,43)
-   yacc.py: 445:Action : Shift and goto state 171
-   yacc.py: 410:
-   yacc.py: 411:State  : 171
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS . LexToken((,'(',1,49)
-   yacc.py: 445:Action : Shift and goto state 191
-   yacc.py: 410:
-   yacc.py: 411:State  : 191
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( . LexToken(CTE_INT,'1',1,50)
+   yacc.py: 411:State  : 125
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ . LexToken(CTE_BOOL,'true',1,47)
    yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 110
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 110
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( empty . LexToken(CTE_INT,'1',1,50)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ empty . LexToken(CTE_BOOL,'true',1,47)
    yacc.py: 471:Action : Reduce rule [term_not -> empty] with [None] and goto state 104
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 104
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( term_not . LexToken(CTE_INT,'1',1,50)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ term_not . LexToken(CTE_BOOL,'true',1,47)
+   yacc.py: 445:Action : Shift and goto state 140
+   yacc.py: 410:
+   yacc.py: 411:State  : 140
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ term_not CTE_BOOL . LexToken(AND,'&&',1,52)
+   yacc.py: 471:Action : Reduce rule [varcte1 -> CTE_BOOL] with ['true'] and goto state 130
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 130
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ term_not varcte1 . LexToken(AND,'&&',1,52)
+   yacc.py: 471:Action : Reduce rule [varcte -> varcte1] with [None] and goto state 131
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 131
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ term_not varcte . LexToken(AND,'&&',1,52)
+   yacc.py: 471:Action : Reduce rule [factor -> varcte] with [None] and goto state 134
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 134
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ term_not factor . LexToken(AND,'&&',1,52)
+   yacc.py: 474:Action : Reduce rule [n_quad_muldiv -> <empty>] with [] and goto state 176
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 176
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ term_not factor n_quad_muldiv . LexToken(AND,'&&',1,52)
+   yacc.py: 474:Action : Reduce rule [n_quad_not -> <empty>] with [] and goto state 199
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 199
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ term_not factor n_quad_muldiv n_quad_not . LexToken(AND,'&&',1,52)
+   yacc.py: 471:Action : Reduce rule [term2 -> n_quad_not] with [None] and goto state 197
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 197
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ term_not factor n_quad_muldiv term2 . LexToken(AND,'&&',1,52)
+   yacc.py: 471:Action : Reduce rule [term -> term_not factor n_quad_muldiv term2] with [None,None,None,None] and goto state 105
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 105
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ term . LexToken(AND,'&&',1,52)
+   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 147
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 147
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ term empty . LexToken(AND,'&&',1,52)
+   yacc.py: 471:Action : Reduce rule [exp2 -> empty] with [None] and goto state 142
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 142
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ term exp2 . LexToken(AND,'&&',1,52)
+   yacc.py: 471:Action : Reduce rule [exp -> term exp2] with [None,None] and goto state 108
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 108
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp . LexToken(AND,'&&',1,52)
+   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 160
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 160
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp empty . LexToken(AND,'&&',1,52)
+   yacc.py: 471:Action : Reduce rule [exp02 -> empty] with [None] and goto state 157
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 157
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp exp02 . LexToken(AND,'&&',1,52)
+   yacc.py: 471:Action : Reduce rule [exp0 -> exp exp02] with [None,None] and goto state 106
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 106
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 . LexToken(AND,'&&',1,52)
+   yacc.py: 445:Action : Shift and goto state 148
+   yacc.py: 410:
+   yacc.py: 411:State  : 148
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 AND . LexToken(CTE_BOOL,'true',1,55)
+   yacc.py: 471:Action : Reduce rule [logop -> AND] with ['&&'] and goto state 149
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 149
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop . LexToken(CTE_BOOL,'true',1,55)
+   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 110
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 110
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop empty . LexToken(CTE_BOOL,'true',1,55)
+   yacc.py: 471:Action : Reduce rule [term_not -> empty] with [None] and goto state 104
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 104
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop term_not . LexToken(CTE_BOOL,'true',1,55)
+   yacc.py: 445:Action : Shift and goto state 140
+   yacc.py: 410:
+   yacc.py: 411:State  : 140
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop term_not CTE_BOOL . LexToken(],']',1,59)
+   yacc.py: 471:Action : Reduce rule [varcte1 -> CTE_BOOL] with ['true'] and goto state 130
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 130
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop term_not varcte1 . LexToken(],']',1,59)
+   yacc.py: 471:Action : Reduce rule [varcte -> varcte1] with [None] and goto state 131
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 131
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop term_not varcte . LexToken(],']',1,59)
+   yacc.py: 471:Action : Reduce rule [factor -> varcte] with [None] and goto state 134
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 134
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop term_not factor . LexToken(],']',1,59)
+   yacc.py: 474:Action : Reduce rule [n_quad_muldiv -> <empty>] with [] and goto state 176
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 176
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop term_not factor n_quad_muldiv . LexToken(],']',1,59)
+   yacc.py: 474:Action : Reduce rule [n_quad_not -> <empty>] with [] and goto state 199
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 199
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop term_not factor n_quad_muldiv n_quad_not . LexToken(],']',1,59)
+   yacc.py: 471:Action : Reduce rule [term2 -> n_quad_not] with [None] and goto state 197
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 197
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop term_not factor n_quad_muldiv term2 . LexToken(],']',1,59)
+   yacc.py: 471:Action : Reduce rule [term -> term_not factor n_quad_muldiv term2] with [None,None,None,None] and goto state 105
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 105
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop term . LexToken(],']',1,59)
+   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 147
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 147
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop term empty . LexToken(],']',1,59)
+   yacc.py: 471:Action : Reduce rule [exp2 -> empty] with [None] and goto state 142
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 142
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop term exp2 . LexToken(],']',1,59)
+   yacc.py: 471:Action : Reduce rule [exp -> term exp2] with [None,None] and goto state 108
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 108
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop exp . LexToken(],']',1,59)
+   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 160
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 160
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop exp empty . LexToken(],']',1,59)
+   yacc.py: 471:Action : Reduce rule [exp02 -> empty] with [None] and goto state 157
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 157
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop exp exp02 . LexToken(],']',1,59)
+   yacc.py: 471:Action : Reduce rule [exp0 -> exp exp02] with [None,None] and goto state 179
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 179
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop exp0 . LexToken(],']',1,59)
+   yacc.py: 474:Action : Reduce rule [n_quad_logop -> <empty>] with [] and goto state 203
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 203
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop exp0 n_quad_logop . LexToken(],']',1,59)
+   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 152
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 152
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop exp0 n_quad_logop empty . LexToken(],']',1,59)
+   yacc.py: 471:Action : Reduce rule [expression2 -> empty] with [None] and goto state 216
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 216
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 logop exp0 n_quad_logop expression2 . LexToken(],']',1,59)
+   yacc.py: 471:Action : Reduce rule [expression2 -> logop exp0 n_quad_logop expression2] with [None,None,None,None] and goto state 150
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 150
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ exp0 expression2 . LexToken(],']',1,59)
+   yacc.py: 471:Action : Reduce rule [expression -> exp0 expression2] with [None,None] and goto state 173
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 173
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ expression . LexToken(],']',1,59)
+   yacc.py: 445:Action : Shift and goto state 193
+   yacc.py: 410:
+   yacc.py: 411:State  : 193
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID [ expression ] . LexToken(ASSIGNATOR,':=',1,61)
+   yacc.py: 471:Action : Reduce rule [map_access -> ID [ expression ]] with ['A','[',None,']'] and goto state 81
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 81
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access . LexToken(ASSIGNATOR,':=',1,61)
+   yacc.py: 445:Action : Shift and goto state 114
+   yacc.py: 410:
+   yacc.py: 411:State  : 114
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR . LexToken(CTE_INT,'6',1,64)
+   yacc.py: 474:Action : Reduce rule [n_quad_assign -> <empty>] with [] and goto state 167
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 167
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign . LexToken(CTE_INT,'6',1,64)
+   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 110
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 110
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign empty . LexToken(CTE_INT,'6',1,64)
+   yacc.py: 471:Action : Reduce rule [term_not -> empty] with [None] and goto state 104
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 104
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign term_not . LexToken(CTE_INT,'6',1,64)
    yacc.py: 445:Action : Shift and goto state 137
    yacc.py: 410:
    yacc.py: 411:State  : 137
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( term_not CTE_INT . LexToken(),')',1,51)
-   yacc.py: 471:Action : Reduce rule [varcte1 -> CTE_INT] with ['1'] and goto state 130
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign term_not CTE_INT . LexToken(;,';',1,65)
+   yacc.py: 471:Action : Reduce rule [varcte1 -> CTE_INT] with ['6'] and goto state 130
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 130
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( term_not varcte1 . LexToken(),')',1,51)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign term_not varcte1 . LexToken(;,';',1,65)
    yacc.py: 471:Action : Reduce rule [varcte -> varcte1] with [None] and goto state 131
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 131
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( term_not varcte . LexToken(),')',1,51)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign term_not varcte . LexToken(;,';',1,65)
    yacc.py: 471:Action : Reduce rule [factor -> varcte] with [None] and goto state 134
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 134
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( term_not factor . LexToken(),')',1,51)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign term_not factor . LexToken(;,';',1,65)
    yacc.py: 474:Action : Reduce rule [n_quad_muldiv -> <empty>] with [] and goto state 176
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 176
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( term_not factor n_quad_muldiv . LexToken(),')',1,51)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign term_not factor n_quad_muldiv . LexToken(;,';',1,65)
    yacc.py: 474:Action : Reduce rule [n_quad_not -> <empty>] with [] and goto state 199
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 199
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( term_not factor n_quad_muldiv n_quad_not . LexToken(),')',1,51)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign term_not factor n_quad_muldiv n_quad_not . LexToken(;,';',1,65)
    yacc.py: 471:Action : Reduce rule [term2 -> n_quad_not] with [None] and goto state 197
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 197
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( term_not factor n_quad_muldiv term2 . LexToken(),')',1,51)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign term_not factor n_quad_muldiv term2 . LexToken(;,';',1,65)
    yacc.py: 471:Action : Reduce rule [term -> term_not factor n_quad_muldiv term2] with [None,None,None,None] and goto state 105
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 105
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( term . LexToken(),')',1,51)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign term . LexToken(;,';',1,65)
    yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 147
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 147
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( term empty . LexToken(),')',1,51)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign term empty . LexToken(;,';',1,65)
    yacc.py: 471:Action : Reduce rule [exp2 -> empty] with [None] and goto state 142
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 142
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( term exp2 . LexToken(),')',1,51)
-   yacc.py: 471:Action : Reduce rule [exp -> term exp2] with [None,None] and goto state 108
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign term exp2 . LexToken(;,';',1,65)
+   yacc.py: 471:Action : Reduce rule [exp -> term exp2] with [None,None] and goto state 188
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
-   yacc.py: 411:State  : 108
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( exp . LexToken(),')',1,51)
-   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 160
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 411:State  : 188
+   yacc.py: 430:Defaulted state 188: Reduce using 139
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_access ASSIGNATOR n_quad_assign exp . LexToken(;,';',1,65)
+   yacc.py: 471:Action : Reduce rule [map_assignment -> map_access ASSIGNATOR n_quad_assign exp] with [None,':=',None,None] and goto state 95
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
-   yacc.py: 411:State  : 160
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( exp empty . LexToken(),')',1,51)
-   yacc.py: 471:Action : Reduce rule [exp02 -> empty] with [None] and goto state 157
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 157
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( exp exp02 . LexToken(),')',1,51)
-   yacc.py: 471:Action : Reduce rule [exp0 -> exp exp02] with [None,None] and goto state 106
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 106
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( exp0 . LexToken(),')',1,51)
-   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 152
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 152
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( exp0 empty . LexToken(),')',1,51)
-   yacc.py: 471:Action : Reduce rule [expression2 -> empty] with [None] and goto state 150
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 150
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( exp0 expression2 . LexToken(),')',1,51)
-   yacc.py: 471:Action : Reduce rule [expression -> exp0 expression2] with [None,None] and goto state 210
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 210
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( expression . LexToken(),')',1,51)
-   yacc.py: 445:Action : Shift and goto state 220
-   yacc.py: 410:
-   yacc.py: 411:State  : 220
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux ID . OP_ARGS ( expression ) . LexToken(;,';',1,52)
-   yacc.py: 471:Action : Reduce rule [container_operation -> ID . OP_ARGS ( expression )] with ['A','.','insert','(',None,')'] and goto state 90
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 90
-   yacc.py: 430:Defaulted state 90: Reduce using 66
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux container_operation . LexToken(;,';',1,52)
-   yacc.py: 471:Action : Reduce rule [statement1 -> container_operation] with [None] and goto state 88
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 411:State  : 95
+   yacc.py: 430:Defaulted state 95: Reduce using 69
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux map_assignment . LexToken(;,';',1,65)
+   yacc.py: 471:Action : Reduce rule [statement1 -> map_assignment] with [None] and goto state 88
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 88
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement1 . LexToken(;,';',1,52)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement1 . LexToken(;,';',1,65)
    yacc.py: 445:Action : Shift and goto state 117
    yacc.py: 410:
    yacc.py: 411:State  : 117
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement1 ; . LexToken(ID,'B',1,56)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement1 ; . LexToken(PRINT,'print',1,69)
    yacc.py: 471:Action : Reduce rule [statement -> statement1 ;] with [None,';'] and goto state 101
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 101
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement . LexToken(ID,'B',1,56)
-   yacc.py: 445:Action : Shift and goto state 92
-   yacc.py: 410:
-   yacc.py: 411:State  : 92
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . LexToken(.,'.',1,57)
-   yacc.py: 445:Action : Shift and goto state 124
-   yacc.py: 410:
-   yacc.py: 411:State  : 124
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . . LexToken(OP_ARGS,'insert',1,58)
-   yacc.py: 445:Action : Shift and goto state 171
-   yacc.py: 410:
-   yacc.py: 411:State  : 171
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS . LexToken((,'(',1,64)
-   yacc.py: 445:Action : Shift and goto state 191
-   yacc.py: 410:
-   yacc.py: 411:State  : 191
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( . LexToken(CTE_INT,'2',1,65)
-   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 110
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 110
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( empty . LexToken(CTE_INT,'2',1,65)
-   yacc.py: 471:Action : Reduce rule [term_not -> empty] with [None] and goto state 104
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 104
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( term_not . LexToken(CTE_INT,'2',1,65)
-   yacc.py: 445:Action : Shift and goto state 137
-   yacc.py: 410:
-   yacc.py: 411:State  : 137
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( term_not CTE_INT . LexToken(),')',1,66)
-   yacc.py: 471:Action : Reduce rule [varcte1 -> CTE_INT] with ['2'] and goto state 130
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 130
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( term_not varcte1 . LexToken(),')',1,66)
-   yacc.py: 471:Action : Reduce rule [varcte -> varcte1] with [None] and goto state 131
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 131
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( term_not varcte . LexToken(),')',1,66)
-   yacc.py: 471:Action : Reduce rule [factor -> varcte] with [None] and goto state 134
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 134
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( term_not factor . LexToken(),')',1,66)
-   yacc.py: 474:Action : Reduce rule [n_quad_muldiv -> <empty>] with [] and goto state 176
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 176
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( term_not factor n_quad_muldiv . LexToken(),')',1,66)
-   yacc.py: 474:Action : Reduce rule [n_quad_not -> <empty>] with [] and goto state 199
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 199
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( term_not factor n_quad_muldiv n_quad_not . LexToken(),')',1,66)
-   yacc.py: 471:Action : Reduce rule [term2 -> n_quad_not] with [None] and goto state 197
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 197
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( term_not factor n_quad_muldiv term2 . LexToken(),')',1,66)
-   yacc.py: 471:Action : Reduce rule [term -> term_not factor n_quad_muldiv term2] with [None,None,None,None] and goto state 105
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 105
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( term . LexToken(),')',1,66)
-   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 147
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 147
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( term empty . LexToken(),')',1,66)
-   yacc.py: 471:Action : Reduce rule [exp2 -> empty] with [None] and goto state 142
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 142
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( term exp2 . LexToken(),')',1,66)
-   yacc.py: 471:Action : Reduce rule [exp -> term exp2] with [None,None] and goto state 108
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 108
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( exp . LexToken(),')',1,66)
-   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 160
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 160
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( exp empty . LexToken(),')',1,66)
-   yacc.py: 471:Action : Reduce rule [exp02 -> empty] with [None] and goto state 157
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 157
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( exp exp02 . LexToken(),')',1,66)
-   yacc.py: 471:Action : Reduce rule [exp0 -> exp exp02] with [None,None] and goto state 106
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 106
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( exp0 . LexToken(),')',1,66)
-   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 152
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 152
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( exp0 empty . LexToken(),')',1,66)
-   yacc.py: 471:Action : Reduce rule [expression2 -> empty] with [None] and goto state 150
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 150
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( exp0 expression2 . LexToken(),')',1,66)
-   yacc.py: 471:Action : Reduce rule [expression -> exp0 expression2] with [None,None] and goto state 210
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 210
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( expression . LexToken(),')',1,66)
-   yacc.py: 445:Action : Shift and goto state 220
-   yacc.py: 410:
-   yacc.py: 411:State  : 220
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement ID . OP_ARGS ( expression ) . LexToken(;,';',1,67)
-   yacc.py: 471:Action : Reduce rule [container_operation -> ID . OP_ARGS ( expression )] with ['B','.','insert','(',None,')'] and goto state 90
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 90
-   yacc.py: 430:Defaulted state 90: Reduce using 66
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement container_operation . LexToken(;,';',1,67)
-   yacc.py: 471:Action : Reduce rule [statement1 -> container_operation] with [None] and goto state 88
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 88
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement1 . LexToken(;,';',1,67)
-   yacc.py: 445:Action : Shift and goto state 117
-   yacc.py: 410:
-   yacc.py: 411:State  : 117
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement1 ; . LexToken(ID,'A',1,71)
-   yacc.py: 471:Action : Reduce rule [statement -> statement1 ;] with [None,';'] and goto state 101
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 101
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement . LexToken(ID,'A',1,71)
-   yacc.py: 445:Action : Shift and goto state 92
-   yacc.py: 410:
-   yacc.py: 411:State  : 92
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement ID . LexToken(ASSIGNATOR,':=',1,73)
-   yacc.py: 471:Action : Reduce rule [assignment2 -> ID] with ['A'] and goto state 82
-   yacc.py: 506:Result : <str @ 0x7f347becdda0> ('A')
-   yacc.py: 410:
-   yacc.py: 411:State  : 82
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 . LexToken(ASSIGNATOR,':=',1,73)
-   yacc.py: 445:Action : Shift and goto state 115
-   yacc.py: 410:
-   yacc.py: 411:State  : 115
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR . LexToken(ID,'B',1,76)
-   yacc.py: 474:Action : Reduce rule [n_quad_assign -> <empty>] with [] and goto state 168
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 168
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign . LexToken(ID,'B',1,76)
-   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 110
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 110
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign empty . LexToken(ID,'B',1,76)
-   yacc.py: 471:Action : Reduce rule [term_not -> empty] with [None] and goto state 104
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 104
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign term_not . LexToken(ID,'B',1,76)
-   yacc.py: 445:Action : Shift and goto state 138
-   yacc.py: 410:
-   yacc.py: 411:State  : 138
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign term_not ID . LexToken(;,';',1,77)
-   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 177
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 177
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign term_not ID empty . LexToken(;,';',1,77)
-   yacc.py: 471:Action : Reduce rule [varcte -> ID empty] with ['B',None] and goto state 131
-   yacc.py: 506:Result : <str @ 0x7f347bf91fd0> ('B')
-   yacc.py: 410:
-   yacc.py: 411:State  : 131
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign term_not varcte . LexToken(;,';',1,77)
-   yacc.py: 471:Action : Reduce rule [factor -> varcte] with ['B'] and goto state 134
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 134
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign term_not factor . LexToken(;,';',1,77)
-   yacc.py: 474:Action : Reduce rule [n_quad_muldiv -> <empty>] with [] and goto state 176
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 176
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign term_not factor n_quad_muldiv . LexToken(;,';',1,77)
-   yacc.py: 474:Action : Reduce rule [n_quad_not -> <empty>] with [] and goto state 199
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 199
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign term_not factor n_quad_muldiv n_quad_not . LexToken(;,';',1,77)
-   yacc.py: 471:Action : Reduce rule [term2 -> n_quad_not] with [None] and goto state 197
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 197
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign term_not factor n_quad_muldiv term2 . LexToken(;,';',1,77)
-   yacc.py: 471:Action : Reduce rule [term -> term_not factor n_quad_muldiv term2] with [None,None,None,None] and goto state 105
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 105
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign term . LexToken(;,';',1,77)
-   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 147
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 147
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign term empty . LexToken(;,';',1,77)
-   yacc.py: 471:Action : Reduce rule [exp2 -> empty] with [None] and goto state 142
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 142
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign term exp2 . LexToken(;,';',1,77)
-   yacc.py: 471:Action : Reduce rule [exp -> term exp2] with [None,None] and goto state 108
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 108
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign exp . LexToken(;,';',1,77)
-   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 160
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 160
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign exp empty . LexToken(;,';',1,77)
-   yacc.py: 471:Action : Reduce rule [exp02 -> empty] with [None] and goto state 157
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 157
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign exp exp02 . LexToken(;,';',1,77)
-   yacc.py: 471:Action : Reduce rule [exp0 -> exp exp02] with [None,None] and goto state 106
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 106
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign exp0 . LexToken(;,';',1,77)
-   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 152
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 152
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign exp0 empty . LexToken(;,';',1,77)
-   yacc.py: 471:Action : Reduce rule [expression2 -> empty] with [None] and goto state 150
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 150
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign exp0 expression2 . LexToken(;,';',1,77)
-   yacc.py: 471:Action : Reduce rule [expression -> exp0 expression2] with [None,None] and goto state 189
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 189
-   yacc.py: 430:Defaulted state 189: Reduce using 30
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment2 ASSIGNATOR n_quad_assign expression . LexToken(;,';',1,77)
-   yacc.py: 471:Action : Reduce rule [assignment -> assignment2 ASSIGNATOR n_quad_assign expression] with ['A',':=',None,None] and goto state 91
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 91
-   yacc.py: 430:Defaulted state 91: Reduce using 63
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement assignment . LexToken(;,';',1,77)
-   yacc.py: 471:Action : Reduce rule [statement1 -> assignment] with [None] and goto state 88
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 88
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement1 . LexToken(;,';',1,77)
-   yacc.py: 445:Action : Shift and goto state 117
-   yacc.py: 410:
-   yacc.py: 411:State  : 117
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement1 ; . LexToken(PRINT,'print',1,82)
-   yacc.py: 471:Action : Reduce rule [statement -> statement1 ;] with [None,';'] and goto state 101
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 101
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement . LexToken(PRINT,'print',1,82)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement . LexToken(PRINT,'print',1,69)
    yacc.py: 445:Action : Shift and goto state 79
    yacc.py: 410:
    yacc.py: 411:State  : 79
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT . LexToken((,'(',1,87)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT . LexToken((,'(',1,74)
    yacc.py: 445:Action : Shift and goto state 113
    yacc.py: 410:
    yacc.py: 411:State  : 113
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( . LexToken(ID,'A',1,88)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( . LexToken(ID,'A',1,75)
    yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 110
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 110
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( empty . LexToken(ID,'A',1,88)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( empty . LexToken(ID,'A',1,75)
    yacc.py: 471:Action : Reduce rule [term_not -> empty] with [None] and goto state 104
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 104
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( term_not . LexToken(ID,'A',1,88)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not . LexToken(ID,'A',1,75)
    yacc.py: 445:Action : Shift and goto state 138
    yacc.py: 410:
    yacc.py: 411:State  : 138
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( term_not ID . LexToken(),')',1,89)
-   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 177
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID . LexToken([,'[',1,76)
+   yacc.py: 445:Action : Shift and goto state 125
    yacc.py: 410:
-   yacc.py: 411:State  : 177
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( term_not ID empty . LexToken(),')',1,89)
-   yacc.py: 471:Action : Reduce rule [varcte -> ID empty] with ['A',None] and goto state 131
-   yacc.py: 506:Result : <str @ 0x7f347becdda0> ('A')
+   yacc.py: 411:State  : 125
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ . LexToken(CTE_BOOL,'true',1,77)
+   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 110
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 110
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ empty . LexToken(CTE_BOOL,'true',1,77)
+   yacc.py: 471:Action : Reduce rule [term_not -> empty] with [None] and goto state 104
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 104
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ term_not . LexToken(CTE_BOOL,'true',1,77)
+   yacc.py: 445:Action : Shift and goto state 140
+   yacc.py: 410:
+   yacc.py: 411:State  : 140
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ term_not CTE_BOOL . LexToken(],']',1,81)
+   yacc.py: 471:Action : Reduce rule [varcte1 -> CTE_BOOL] with ['true'] and goto state 130
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 130
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ term_not varcte1 . LexToken(],']',1,81)
+   yacc.py: 471:Action : Reduce rule [varcte -> varcte1] with [None] and goto state 131
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 131
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( term_not varcte . LexToken(),')',1,89)
-   yacc.py: 471:Action : Reduce rule [factor -> varcte] with ['A'] and goto state 134
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ term_not varcte . LexToken(],']',1,81)
+   yacc.py: 471:Action : Reduce rule [factor -> varcte] with [None] and goto state 134
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 134
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( term_not factor . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ term_not factor . LexToken(],']',1,81)
    yacc.py: 474:Action : Reduce rule [n_quad_muldiv -> <empty>] with [] and goto state 176
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 176
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( term_not factor n_quad_muldiv . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ term_not factor n_quad_muldiv . LexToken(],']',1,81)
    yacc.py: 474:Action : Reduce rule [n_quad_not -> <empty>] with [] and goto state 199
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 199
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( term_not factor n_quad_muldiv n_quad_not . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ term_not factor n_quad_muldiv n_quad_not . LexToken(],']',1,81)
    yacc.py: 471:Action : Reduce rule [term2 -> n_quad_not] with [None] and goto state 197
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 197
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( term_not factor n_quad_muldiv term2 . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ term_not factor n_quad_muldiv term2 . LexToken(],']',1,81)
    yacc.py: 471:Action : Reduce rule [term -> term_not factor n_quad_muldiv term2] with [None,None,None,None] and goto state 105
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 105
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( term . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ term . LexToken(],']',1,81)
    yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 147
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 147
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( term empty . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ term empty . LexToken(],']',1,81)
    yacc.py: 471:Action : Reduce rule [exp2 -> empty] with [None] and goto state 142
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 142
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( term exp2 . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ term exp2 . LexToken(],']',1,81)
    yacc.py: 471:Action : Reduce rule [exp -> term exp2] with [None,None] and goto state 108
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 108
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( exp . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ exp . LexToken(],']',1,81)
    yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 160
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 160
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( exp empty . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ exp empty . LexToken(],']',1,81)
    yacc.py: 471:Action : Reduce rule [exp02 -> empty] with [None] and goto state 157
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 157
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( exp exp02 . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ exp exp02 . LexToken(],']',1,81)
    yacc.py: 471:Action : Reduce rule [exp0 -> exp exp02] with [None,None] and goto state 106
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 106
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( exp0 . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ exp0 . LexToken(],']',1,81)
    yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 152
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 152
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( exp0 empty . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ exp0 empty . LexToken(],']',1,81)
    yacc.py: 471:Action : Reduce rule [expression2 -> empty] with [None] and goto state 150
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 150
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( exp0 expression2 . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ exp0 expression2 . LexToken(],']',1,81)
+   yacc.py: 471:Action : Reduce rule [expression -> exp0 expression2] with [None,None] and goto state 173
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 173
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ expression . LexToken(],']',1,81)
+   yacc.py: 445:Action : Shift and goto state 193
+   yacc.py: 410:
+   yacc.py: 411:State  : 193
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not ID [ expression ] . LexToken(),')',1,82)
+   yacc.py: 471:Action : Reduce rule [map_access -> ID [ expression ]] with ['A','[',None,']'] and goto state 132
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 132
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not map_access . LexToken(),')',1,82)
+   yacc.py: 471:Action : Reduce rule [varcte1 -> map_access] with [None] and goto state 130
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 130
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not varcte1 . LexToken(),')',1,82)
+   yacc.py: 471:Action : Reduce rule [varcte -> varcte1] with [None] and goto state 131
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 131
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not varcte . LexToken(),')',1,82)
+   yacc.py: 471:Action : Reduce rule [factor -> varcte] with [None] and goto state 134
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 134
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not factor . LexToken(),')',1,82)
+   yacc.py: 474:Action : Reduce rule [n_quad_muldiv -> <empty>] with [] and goto state 176
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 176
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not factor n_quad_muldiv . LexToken(),')',1,82)
+   yacc.py: 474:Action : Reduce rule [n_quad_not -> <empty>] with [] and goto state 199
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 199
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not factor n_quad_muldiv n_quad_not . LexToken(),')',1,82)
+   yacc.py: 471:Action : Reduce rule [term2 -> n_quad_not] with [None] and goto state 197
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 197
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term_not factor n_quad_muldiv term2 . LexToken(),')',1,82)
+   yacc.py: 471:Action : Reduce rule [term -> term_not factor n_quad_muldiv term2] with [None,None,None,None] and goto state 105
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 105
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term . LexToken(),')',1,82)
+   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 147
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 147
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term empty . LexToken(),')',1,82)
+   yacc.py: 471:Action : Reduce rule [exp2 -> empty] with [None] and goto state 142
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 142
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( term exp2 . LexToken(),')',1,82)
+   yacc.py: 471:Action : Reduce rule [exp -> term exp2] with [None,None] and goto state 108
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 108
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( exp . LexToken(),')',1,82)
+   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 160
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 160
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( exp empty . LexToken(),')',1,82)
+   yacc.py: 471:Action : Reduce rule [exp02 -> empty] with [None] and goto state 157
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 157
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( exp exp02 . LexToken(),')',1,82)
+   yacc.py: 471:Action : Reduce rule [exp0 -> exp exp02] with [None,None] and goto state 106
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 106
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( exp0 . LexToken(),')',1,82)
+   yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 152
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 152
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( exp0 empty . LexToken(),')',1,82)
+   yacc.py: 471:Action : Reduce rule [expression2 -> empty] with [None] and goto state 150
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
+   yacc.py: 410:
+   yacc.py: 411:State  : 150
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( exp0 expression2 . LexToken(),')',1,82)
    yacc.py: 471:Action : Reduce rule [expression -> exp0 expression2] with [None,None] and goto state 166
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 166
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( expression . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( expression . LexToken(),')',1,82)
    yacc.py: 471:Action : Reduce rule [n_output_quad -> expression] with [None] and goto state 165
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 165
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( n_output_quad . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( n_output_quad . LexToken(),')',1,82)
    yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 187
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 187
    yacc.py: 430:Defaulted state 187: Reduce using 48
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( n_output_quad empty . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( n_output_quad empty . LexToken(),')',1,82)
    yacc.py: 471:Action : Reduce rule [output1 -> empty] with [None] and goto state 185
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 185
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( n_output_quad output1 . LexToken(),')',1,89)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( n_output_quad output1 . LexToken(),')',1,82)
    yacc.py: 445:Action : Shift and goto state 207
    yacc.py: 410:
    yacc.py: 411:State  : 207
    yacc.py: 430:Defaulted state 207: Reduce using 46
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement PRINT ( n_output_quad output1 ) . None
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement PRINT ( n_output_quad output1 ) . None
    yacc.py: 471:Action : Reduce rule [output -> PRINT ( n_output_quad output1 )] with ['print','(',None,None,')'] and goto state 97
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 97
    yacc.py: 430:Defaulted state 97: Reduce using 65
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement output . None
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement output . None
    yacc.py: 471:Action : Reduce rule [statement1 -> output] with [None] and goto state 88
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 88
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement statement1 . LexToken(;,';',1,90)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement1 . LexToken(;,';',1,83)
    yacc.py: 445:Action : Shift and goto state 117
    yacc.py: 410:
    yacc.py: 411:State  : 117
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement statement1 ; . LexToken(},'}',1,93)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement1 ; . LexToken(},'}',1,86)
    yacc.py: 471:Action : Reduce rule [statement -> statement1 ;] with [None,';'] and goto state 101
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 101
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement statement . LexToken(},'}',1,93)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement . LexToken(},'}',1,86)
    yacc.py: 474:Action : Reduce rule [empty -> <empty>] with [] and goto state 102
-   yacc.py: 548:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 548:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 102
    yacc.py: 430:Defaulted state 102: Reduce using 131
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement statement empty . LexToken(},'}',1,93)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement empty . LexToken(},'}',1,86)
    yacc.py: 471:Action : Reduce rule [statement_aux -> empty] with [None] and goto state 128
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 128
    yacc.py: 430:Defaulted state 128: Reduce using 130
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement statement statement_aux . LexToken(},'}',1,93)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement_aux . LexToken(},'}',1,86)
    yacc.py: 471:Action : Reduce rule [statement_aux -> statement statement_aux] with [None,None] and goto state 128
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 128
    yacc.py: 430:Defaulted state 128: Reduce using 130
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement statement_aux . LexToken(},'}',1,93)
-   yacc.py: 471:Action : Reduce rule [statement_aux -> statement statement_aux] with [None,None] and goto state 128
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 128
-   yacc.py: 430:Defaulted state 128: Reduce using 130
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement statement_aux . LexToken(},'}',1,93)
-   yacc.py: 471:Action : Reduce rule [statement_aux -> statement statement_aux] with [None,None] and goto state 128
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
-   yacc.py: 410:
-   yacc.py: 411:State  : 128
-   yacc.py: 430:Defaulted state 128: Reduce using 130
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement_aux . LexToken(},'}',1,93)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement statement_aux . LexToken(},'}',1,86)
    yacc.py: 471:Action : Reduce rule [statement_aux -> statement statement_aux] with [None,None] and goto state 100
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 100
-   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux . LexToken(},'}',1,93)
+   yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux . LexToken(},'}',1,86)
    yacc.py: 445:Action : Shift and goto state 127
    yacc.py: 410:
    yacc.py: 411:State  : 127
    yacc.py: 430:Defaulted state 127: Reduce using 132
    yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux } . None
    yacc.py: 471:Action : Reduce rule [main -> MAIN n_clear_scope n_main_quad2 { vars_aux statement_aux }] with ['main',None,None,'{',None,None,'}'] and goto state 14
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 14
    yacc.py: 430:Defaulted state 14: Reduce using 6
    yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var main . None
    yacc.py: 471:Action : Reduce rule [program2 -> main] with [None] and goto state 11
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 11
    yacc.py: 430:Defaulted state 11: Reduce using 4
    yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var program2 . None
    yacc.py: 471:Action : Reduce rule [program1 -> program2] with [None] and goto state 33
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 33
    yacc.py: 430:Defaulted state 33: Reduce using 3
    yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad var program1 . None
-   yacc.py: 471:Action : Reduce rule [program1 -> var program1] with ['set<int> A B',None] and goto state 10
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 471:Action : Reduce rule [program1 -> var program1] with [<str @ 0x7f0d42c7ae68>,None] and goto state 10
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 10
    yacc.py: 430:Defaulted state 10: Reduce using 1
    yacc.py: 435:Stack  : PROGRAM ID ; n_main_quad program1 . None
    yacc.py: 471:Action : Reduce rule [program -> PROGRAM ID ; n_main_quad program1] with ['program','aPlusB',';',None,None] and goto state 1
-   yacc.py: 506:Result : <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 506:Result : <NoneType @ 0x561190f43560> (None)
    yacc.py: 410:
    yacc.py: 411:State  : 1
    yacc.py: 435:Stack  : program . $end
-   yacc.py: 571:Done   : Returning <NoneType @ 0x55997dcda560> (None)
+   yacc.py: 571:Done   : Returning <NoneType @ 0x561190f43560> (None)
    yacc.py: 572:PLY: PARSE DEBUG END

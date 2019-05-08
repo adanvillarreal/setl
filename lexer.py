@@ -937,7 +937,7 @@ def p_map_definition(p):
 # structure for map access. Validates the map exists and generates an ACCESS
 # quad, which returns an address which points to an address.
 def p_map_access(p):
-  '''map_access : ID '[' exp ']' '''
+  '''map_access : ID '[' expression ']' '''
 
   var = semantic_tool.find_var(p[1])
   if var == None: #checks variable is declared
@@ -990,7 +990,7 @@ logging.basicConfig(
 log = logging.getLogger()
 parser = yacc.yacc()
 
-f = open("fibonacci.txt", "r")
+f = open("test.txt", "r")
 s = ""
 
 for x in f:

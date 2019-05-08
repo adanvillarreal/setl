@@ -140,7 +140,7 @@ Rule 134   n_clear_scope -> <empty>
 Rule 135   vars_aux -> vars
 Rule 136   vars_aux -> empty
 Rule 137   map_definition -> MAP < datatype , datatype >
-Rule 138   map_access -> ID [ exp ]
+Rule 138   map_access -> ID [ expression ]
 Rule 139   map_assignment -> map_access ASSIGNATOR n_quad_assign exp
 Rule 140   empty -> <empty>
 
@@ -208,11 +208,11 @@ condition1           : 33
 container_operation  : 66 118
 datatype             : 12 18 26 119 128 137 137
 empty                : 9 15 17 23 44 48 52 83 87 96 104 109 131 136
-exp                  : 85 86 138 139
+exp                  : 85 86 139
 exp0                 : 81 82
 exp02                : 85
 exp2                 : 88 95
-expression           : 30 33 38 49 57 58 59 105
+expression           : 30 33 38 49 57 58 59 105 138
 expression2          : 81 82
 factor               : 97 100
 function_call        : 70 116
@@ -1302,7 +1302,7 @@ state 64
     (33) condition -> . IF ( expression n_while_2 ) block condition1
     (38) while -> . WHILE n_while_1 ( expression ) n_while_2 block n_while_3
     (31) assignment2 -> . ID
-    (138) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ expression ]
     (51) n_era_size -> . ID (
 
     }               reduce using rule 140 (empty -> .)
@@ -1443,7 +1443,7 @@ state 70
     (33) condition -> . IF ( expression n_while_2 ) block condition1
     (38) while -> . WHILE n_while_1 ( expression ) n_while_2 block n_while_3
     (31) assignment2 -> . ID
-    (138) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ expression ]
     (51) n_era_size -> . ID (
 
     }               reduce using rule 140 (empty -> .)
@@ -1659,7 +1659,7 @@ state 83
     (33) condition -> . IF ( expression n_while_2 ) block condition1
     (38) while -> . WHILE n_while_1 ( expression ) n_while_2 block n_while_3
     (31) assignment2 -> . ID
-    (138) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ expression ]
     (51) n_era_size -> . ID (
 
     }               reduce using rule 140 (empty -> .)
@@ -1787,7 +1787,7 @@ state 92
     (59) container_operation -> ID . . OP_ARGS ( expression )
     (60) container_operation -> ID . . OP ( )
     (31) assignment2 -> ID .
-    (138) map_access -> ID . [ exp ]
+    (138) map_access -> ID . [ expression ]
     (51) n_era_size -> ID . (
 
     .               shift and go to state 124
@@ -1899,7 +1899,7 @@ state 101
     (33) condition -> . IF ( expression n_while_2 ) block condition1
     (38) while -> . WHILE n_while_1 ( expression ) n_while_2 block n_while_3
     (31) assignment2 -> . ID
-    (138) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ expression ]
     (51) n_era_size -> . ID (
 
     }               reduce using rule 140 (empty -> .)
@@ -1967,7 +1967,7 @@ state 104
     (117) varcte1 -> . map_access
     (118) varcte1 -> . container_operation
     (50) function_call -> . n_era_size function_call1 )
-    (138) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ expression ]
     (59) container_operation -> . ID . OP_ARGS ( expression )
     (60) container_operation -> . ID . OP ( )
     (51) n_era_size -> . ID (
@@ -2032,6 +2032,7 @@ state 106
     ;               reduce using rule 140 (empty -> .)
     ,               reduce using rule 140 (empty -> .)
     )               reduce using rule 140 (empty -> .)
+    ]               reduce using rule 140 (empty -> .)
 
     empty                          shift and go to state 152
     expression2                    shift and go to state 150
@@ -2074,6 +2075,7 @@ state 108
     ;               reduce using rule 140 (empty -> .)
     ,               reduce using rule 140 (empty -> .)
     )               reduce using rule 140 (empty -> .)
+    ]               reduce using rule 140 (empty -> .)
 
     exp02                          shift and go to state 157
     empty                          shift and go to state 160
@@ -2269,7 +2271,9 @@ state 124
 
 state 125
 
-    (138) map_access -> ID [ . exp ]
+    (138) map_access -> ID [ . expression ]
+    (81) expression -> . exp0 expression2
+    (85) exp0 -> . exp exp02
     (88) exp -> . term exp2
     (97) term -> . term_not factor n_quad_muldiv term2
     (103) term_not -> . !
@@ -2287,7 +2291,9 @@ state 125
 
     term_not                       shift and go to state 104
     term                           shift and go to state 105
-    exp                            shift and go to state 173
+    exp0                           shift and go to state 106
+    exp                            shift and go to state 108
+    expression                     shift and go to state 173
     empty                          shift and go to state 110
 
 state 126
@@ -2544,7 +2550,7 @@ state 137
 state 138
 
     (109) varcte -> ID . empty
-    (138) map_access -> ID . [ exp ]
+    (138) map_access -> ID . [ expression ]
     (59) container_operation -> ID . . OP_ARGS ( expression )
     (60) container_operation -> ID . . OP ( )
     (51) n_era_size -> ID . (
@@ -2791,6 +2797,7 @@ state 150
     ;               reduce using rule 81 (expression -> exp0 expression2 .)
     ,               reduce using rule 81 (expression -> exp0 expression2 .)
     )               reduce using rule 81 (expression -> exp0 expression2 .)
+    ]               reduce using rule 81 (expression -> exp0 expression2 .)
 
 
 state 151
@@ -2814,6 +2821,7 @@ state 152
     ;               reduce using rule 83 (expression2 -> empty .)
     ,               reduce using rule 83 (expression2 -> empty .)
     )               reduce using rule 83 (expression2 -> empty .)
+    ]               reduce using rule 83 (expression2 -> empty .)
 
 
 state 153
@@ -2890,6 +2898,7 @@ state 157
     )               reduce using rule 85 (exp0 -> exp exp02 .)
     ;               reduce using rule 85 (exp0 -> exp exp02 .)
     ,               reduce using rule 85 (exp0 -> exp exp02 .)
+    ]               reduce using rule 85 (exp0 -> exp exp02 .)
 
 
 state 158
@@ -2929,6 +2938,7 @@ state 160
     ;               reduce using rule 87 (exp02 -> empty .)
     ,               reduce using rule 87 (exp02 -> empty .)
     )               reduce using rule 87 (exp02 -> empty .)
+    ]               reduce using rule 87 (exp02 -> empty .)
 
 
 state 161
@@ -3120,7 +3130,7 @@ state 172
 
 state 173
 
-    (138) map_access -> ID [ exp . ]
+    (138) map_access -> ID [ expression . ]
 
     ]               shift and go to state 193
 
@@ -3251,6 +3261,7 @@ state 179
     ;               reduce using rule 84 (n_quad_logop -> .)
     ,               reduce using rule 84 (n_quad_logop -> .)
     )               reduce using rule 84 (n_quad_logop -> .)
+    ]               reduce using rule 84 (n_quad_logop -> .)
 
     n_quad_logop                   shift and go to state 203
 
@@ -3263,6 +3274,7 @@ state 180
     ;               reduce using rule 86 (exp02 -> relop exp .)
     ,               reduce using rule 86 (exp02 -> relop exp .)
     )               reduce using rule 86 (exp02 -> relop exp .)
+    ]               reduce using rule 86 (exp02 -> relop exp .)
 
 
 state 181
@@ -3420,27 +3432,27 @@ state 192
 
 state 193
 
-    (138) map_access -> ID [ exp ] .
+    (138) map_access -> ID [ expression ] .
 
-    *               reduce using rule 138 (map_access -> ID [ exp ] .)
-    /               reduce using rule 138 (map_access -> ID [ exp ] .)
-    SET_MATH_MULDIV reduce using rule 138 (map_access -> ID [ exp ] .)
-    +               reduce using rule 138 (map_access -> ID [ exp ] .)
-    -               reduce using rule 138 (map_access -> ID [ exp ] .)
-    SET_MATH_ADDSUB reduce using rule 138 (map_access -> ID [ exp ] .)
-    <               reduce using rule 138 (map_access -> ID [ exp ] .)
-    >               reduce using rule 138 (map_access -> ID [ exp ] .)
-    NOT_EQ          reduce using rule 138 (map_access -> ID [ exp ] .)
-    EQ              reduce using rule 138 (map_access -> ID [ exp ] .)
-    LEQ             reduce using rule 138 (map_access -> ID [ exp ] .)
-    GEQ             reduce using rule 138 (map_access -> ID [ exp ] .)
-    OR              reduce using rule 138 (map_access -> ID [ exp ] .)
-    AND             reduce using rule 138 (map_access -> ID [ exp ] .)
-    ;               reduce using rule 138 (map_access -> ID [ exp ] .)
-    ,               reduce using rule 138 (map_access -> ID [ exp ] .)
-    )               reduce using rule 138 (map_access -> ID [ exp ] .)
-    ]               reduce using rule 138 (map_access -> ID [ exp ] .)
-    ASSIGNATOR      reduce using rule 138 (map_access -> ID [ exp ] .)
+    *               reduce using rule 138 (map_access -> ID [ expression ] .)
+    /               reduce using rule 138 (map_access -> ID [ expression ] .)
+    SET_MATH_MULDIV reduce using rule 138 (map_access -> ID [ expression ] .)
+    +               reduce using rule 138 (map_access -> ID [ expression ] .)
+    -               reduce using rule 138 (map_access -> ID [ expression ] .)
+    SET_MATH_ADDSUB reduce using rule 138 (map_access -> ID [ expression ] .)
+    <               reduce using rule 138 (map_access -> ID [ expression ] .)
+    >               reduce using rule 138 (map_access -> ID [ expression ] .)
+    NOT_EQ          reduce using rule 138 (map_access -> ID [ expression ] .)
+    EQ              reduce using rule 138 (map_access -> ID [ expression ] .)
+    LEQ             reduce using rule 138 (map_access -> ID [ expression ] .)
+    GEQ             reduce using rule 138 (map_access -> ID [ expression ] .)
+    OR              reduce using rule 138 (map_access -> ID [ expression ] .)
+    AND             reduce using rule 138 (map_access -> ID [ expression ] .)
+    ;               reduce using rule 138 (map_access -> ID [ expression ] .)
+    ,               reduce using rule 138 (map_access -> ID [ expression ] .)
+    )               reduce using rule 138 (map_access -> ID [ expression ] .)
+    ]               reduce using rule 138 (map_access -> ID [ expression ] .)
+    ASSIGNATOR      reduce using rule 138 (map_access -> ID [ expression ] .)
 
 
 state 194
@@ -3554,7 +3566,7 @@ state 201
     (117) varcte1 -> . map_access
     (118) varcte1 -> . container_operation
     (50) function_call -> . n_era_size function_call1 )
-    (138) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ expression ]
     (59) container_operation -> . ID . OP_ARGS ( expression )
     (60) container_operation -> . ID . OP ( )
     (51) n_era_size -> . ID (
@@ -3619,6 +3631,7 @@ state 203
     ;               reduce using rule 140 (empty -> .)
     ,               reduce using rule 140 (empty -> .)
     )               reduce using rule 140 (empty -> .)
+    ]               reduce using rule 140 (empty -> .)
 
     logop                          shift and go to state 149
     empty                          shift and go to state 152
@@ -3797,6 +3810,7 @@ state 216
     ;               reduce using rule 82 (expression2 -> logop exp0 n_quad_logop expression2 .)
     ,               reduce using rule 82 (expression2 -> logop exp0 n_quad_logop expression2 .)
     )               reduce using rule 82 (expression2 -> logop exp0 n_quad_logop expression2 .)
+    ]               reduce using rule 82 (expression2 -> logop exp0 n_quad_logop expression2 .)
 
 
 state 217
@@ -3876,7 +3890,7 @@ state 221
     (33) condition -> . IF ( expression n_while_2 ) block condition1
     (38) while -> . WHILE n_while_1 ( expression ) n_while_2 block n_while_3
     (31) assignment2 -> . ID
-    (138) map_access -> . ID [ exp ]
+    (138) map_access -> . ID [ expression ]
     (51) n_era_size -> . ID (
 
     }               reduce using rule 140 (empty -> .)
