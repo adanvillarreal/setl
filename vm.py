@@ -619,8 +619,10 @@ class VM:
                 self.memory.assign(quad_result,  str(result).lower())
                 pointer = pointer + 1
             elif action == '!':
+                #print "NOOOOOOT"
+                #print left, right, quad_result
                 result = self.memory.retrieve(left) == 'false'
-                self.memory.assign(quad_result, str(result).lower)
+                self.memory.assign(quad_result, str(result).lower())
                 pointer = pointer + 1
             elif action == 'END':
                 # this ends the while loop and the execution.
