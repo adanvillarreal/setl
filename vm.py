@@ -422,7 +422,10 @@ class VMMemory:
                 elif translation[1] =='FLOAT':
                     return float(self.memories[translation[0]].top()[translation[1]][translation[2]])
                 else:
-                    return self.memories[translation[0]].top()[translation[1]][translation[2]]
+                    ret = self.memories[translation[0]].top()[translation[1]][translation[2]]
+                    if ret is None:
+                        raise RuntimeError("Uninitialized variable" + str(translation))
+                    return ret
             else:
                 # check if it's required to cast value
                 if translation[1] == 'INT':
@@ -430,7 +433,10 @@ class VMMemory:
                 elif translation[1] =='FLOAT':
                     return float(self.memories[translation[0]][translation[1]][translation[2]])
                 else:
-                    return self.memories[translation[0]][translation[1]][translation[2]]
+                    ret = self.memories[translation[0]][translation[1]][translation[2]]
+                    if ret is None:
+                        raise RuntimeError("Uninitialized variable" + str(translation))
+                    return ret
         except:
             raise RuntimeError("Uninitialized variable" + str(translation))
 
