@@ -71,7 +71,7 @@ Sets of the same datatype support the following operations:
  Input from console can be read with `read(varID, varID2, ...);`, where `varID` must be already declared. Only atomic datatypes can be read from console.
  
  ### Output
- Printing to console can be achieved with `print(expression, varID2,...);`, all data types except maps can be printed.
+ Printing to console can be achieved with `print(expression, varID2,...);`, all data types can be printed.
 
 ## Examples
 ### Fibonacci-primes
