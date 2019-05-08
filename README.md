@@ -68,3 +68,72 @@ Sets of the same datatype support the following operations:
  
  ### Output
  Printing to console can be achieved with `print(expression, varID2,...);`, all data types except maps can be printed.
+
+## Examples
+### Fibonacci-primes
+The following code calculates the intersection between the fibonacci set and the primes set.
+``` 
+program aPlusB;
+
+set<int> primes;
+map<int, bool> M;
+set<int> union, intersection, dif;
+
+set<int> fib;
+
+void fibonacci(int n){
+  int first, second, aux;
+  first := 0;
+  second := 1;
+
+  while(first < n){
+    fib.insert(first);
+    aux := second + first;
+    first := second;
+    second := aux;
+  }
+
+}
+
+void sieve(int n){
+  int i, j;
+  i := 0;
+
+  print(M[1]);
+
+  while(i < n){
+    M[i] := true;
+    i := i + 1;
+  }
+
+  i := 2;
+
+  while(i < n){
+    j := 2;
+    if(M[i] == true){
+      primes.insert(i);
+    }
+    while(i * j < n){
+      M[i * j] := false;
+      j := j + 1;
+    }
+    i := i + 1;
+  }
+}
+
+main {
+  int limit;
+  int i;
+  limit := 100;
+
+  sieve(limit);
+  print(primes);
+
+  fibonacci(limit);
+  print(fib);
+
+  intersection := primes .* fib;
+  print(intersection);
+
+} 
+```
