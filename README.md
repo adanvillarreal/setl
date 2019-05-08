@@ -1,5 +1,5 @@
 # Marmoset
-Marmoset is a programming language based on SETL (more information here: http://hopl.info/showlanguage.prx?exp=1268). Marmoset is a typed, procedural language that supports functions. 
+Marmoset is a programming language based on SETL (more information here: http://hopl.info/showlanguage.prx?exp=1268). Marmoset is a typed, procedural language that supports functions. It's main characteristic is that it implements sets as the main non-atomic data structure, and supports set operations.
 ## Code layout
 Marmoset requires the programmer to adhere to the following code order:
 1. Signature `program name;`
